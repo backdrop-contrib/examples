@@ -13,7 +13,7 @@
  *
  * @ingroup nodeapi_example
  */
-class NodeApiExampleTestCase extends DrupalWebTestCase {
+class NodeApiExampleTestCase extends BackdropWebTestCase {
   /**
    * User object to perform site browsing
    * @var object
@@ -45,7 +45,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
 
     // Create admin user. This module has no access control, so we can use a
     // trusted user. Revision access and revert permissions are required too.
-    $this->webUser = $this->drupalCreateUser(array(
+    $this->webUser = $this->backdropCreateUser(array(
       // Required to set revision checkbox.
       'administer nodes',
       'administer content types',
@@ -54,7 +54,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
       'revert revisions',
     ));
     // Login the admin user.
-    $this->drupalLogin($this->webUser);
+    $this->backdropLogin($this->webUser);
   }
 
   /**
@@ -63,14 +63,14 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
   public function testNodeExampleBasic() {
 
     // Login the user.
-    $this->drupalLogin($this->webUser);
+    $this->backdropLogin($this->webUser);
 
     // Create custom content type.
-    $content_type = $this->drupalCreateContentType();
+    $content_type = $this->backdropCreateContentType();
     $type = $content_type->type;
 
     // Go to edit the settings of this content type.
-    $this->drupalGet('admin/structure/types/manage/' . $type);
+    $this->backdropGet('admin/structure/types/manage/' . $type);
     $this->assertResponse(200);
 
     // Check if the new Rating options appear in the settings page.
@@ -81,7 +81,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $content_settings = array(
       'nodeapi_example_node_type' => 0,
     );
-    $this->drupalPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
+    $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
     $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
 
@@ -90,7 +90,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $edit = array(
       "title" => $this->randomName(),
     );
-    $this->drupalPost('node/add/' . $type, $edit, t('Save'));
+    $this->backdropPost('node/add/' . $type, $edit, t('Save'));
     $this->assertResponse(200);
 
     // Check that the rating is not shown, as we have not yet enabled it.
@@ -103,12 +103,12 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $content_settings = array(
       'nodeapi_example_node_type' => TRUE,
     );
-    $this->drupalPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
+    $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
     $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
 
     // Check previously create node. It should be not rated.
-    $this->drupalGet($node_url);
+    $this->backdropGet($node_url);
     $this->assertResponse(200);
     $this->assertRaw(t('Rating: %rating', array('%rating' => t('Unrated'))), 'Content is not rated.');
 
@@ -116,7 +116,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $rate = array(
       'nodeapi_example_rating' => 4,
     );
-    $this->drupalPost($node_url . '/edit', $rate, t('Save'));
+    $this->backdropPost($node_url . '/edit', $rate, t('Save'));
     $this->assertResponse(200);
 
     // Check that content has been rated.
@@ -133,14 +133,14 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
   public function testNodeExampleRevision() {
 
     // Login the user.
-    $this->drupalLogin($this->webUser);
+    $this->backdropLogin($this->webUser);
 
     // Create custom content type.
-    $content_type = $this->drupalCreateContentType();
+    $content_type = $this->backdropCreateContentType();
     $type = $content_type->type;
 
     // Go to edit the settings of this content type.
-    $this->drupalGet('admin/structure/types/manage/' . $type);
+    $this->backdropGet('admin/structure/types/manage/' . $type);
     $this->assertResponse(200);
 
     // Check if the new Rating options appear in the settings page.
@@ -151,7 +151,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $content_settings = array(
       'nodeapi_example_node_type' => 0,
     );
-    $this->drupalPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
+    $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
     $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
 
@@ -160,7 +160,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $edit = array(
       "title" => $this->randomName(),
     );
-    $this->drupalPost('node/add/' . $type, $edit, t('Save'));
+    $this->backdropPost('node/add/' . $type, $edit, t('Save'));
     $this->assertResponse(200);
 
     // Check that the rating is not shown, as we have not yet enabled it.
@@ -173,12 +173,12 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $content_settings = array(
       'nodeapi_example_node_type' => TRUE,
     );
-    $this->drupalPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
+    $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
     $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
 
     // Check previously create node. It should be not rated.
-    $this->drupalGet($node_url);
+    $this->backdropGet($node_url);
     $this->assertResponse(200);
     $this->assertRaw(t('Rating: %rating', array('%rating' => t('Unrated'))), 'Content is not rated.');
 
@@ -186,7 +186,7 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
     $rate = array(
       'nodeapi_example_rating' => 4,
     );
-    $this->drupalPost($node_url . '/edit', $rate, t('Save'));
+    $this->backdropPost($node_url . '/edit', $rate, t('Save'));
     $this->assertResponse(200);
 
     // Check that content has been rated.
@@ -197,21 +197,21 @@ class NodeApiExampleTestCase extends DrupalWebTestCase {
       'nodeapi_example_rating' => 1,
       'revision'               => 1,
     );
-    $this->drupalPost($node_url . '/edit', $rate, t('Save'));
+    $this->backdropPost($node_url . '/edit', $rate, t('Save'));
     $this->assertResponse(200);
 
     // Check that content has been rated.
     $this->assertRaw(t('Rating: %rating', array('%rating' => t('Poor'))), 'Content is successfully rated.');
 
     // Now switch back to previous revision of the node.
-    $this->drupalGet($node_url . '/revisions');
+    $this->backdropGet($node_url . '/revisions');
     // There is only a revision, so it must work just clicking the first link..
     $this->clickLink('revert');
     $revert_form = $this->getUrl();
-    $this->drupalPost($revert_form, array(), t('Revert'));
+    $this->backdropPost($revert_form, array(), t('Revert'));
 
     // Go back to the node page.
-    $this->drupalGet($node_url);
+    $this->backdropGet($node_url);
     $this->assertResponse(200);
 
     // Check that content has been rated.

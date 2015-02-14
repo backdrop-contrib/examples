@@ -7,8 +7,8 @@
  * to scroll through multiple screens of output.
  *
  * See:
- * @link http://drupal.org/developing/api/database Database API @endlink
- * @link http://drupal.org/node/508796 Extenders @endlink
+ * @link http://DOCUMENTATION_PENDING/developing/api/database Database API @endlink
+ * @link http://DOCUMENTATION_PENDING Extenders @endlink
  */
 
 /**
@@ -17,16 +17,6 @@
  * @{
  * Example of a results pager.
  */
-
-/**
- * Implements hook_help().
- */
-function pager_example_help($path, $arg) {
-  switch ($path) {
-    case 'examples/pager_example':
-      return '<p>' . t('The layout here is a themed as a table with a default limit of 10 rows per page. The limit can be changed in the code by changing the limit to some other value.  This can be extended to add a filter form as well so the user can choose how many they would like to see on each screen.') . '</p>';
-  }
-}
 
 /**
  * Implements hook_menu().

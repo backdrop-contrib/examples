@@ -12,7 +12,7 @@
  * Demonstrates node access.
  *
  * This is an example demonstrating how to grant or deny access to nodes
- * using the Drupal core API node access system.
+ * using the Backdrop core API node access system.
  *
  * This module will add a 'private' flag for each node, which the node's
  * author can manage. Nodes marked private can only be viewed, edited,
@@ -53,32 +53,25 @@
  * - node_access_example_node_access_records()
  * - node_access_example_node_grants()
  *
- * Drupal's node access system has three layers.
+ * Backdrop's node access system has three layers.
  * - Overall override permissions. User 1 and any user with 'bypass node
  *   access' permission are automatically granted access.
  * - hook_node_access() gives each module the opportunity to approve or deny
  *   access. Any module that returns NODE_ACCESS_DENY from hook_node_access()
  *   will result in denial of access. If no module denies access and one or
- *   more modules allow access, then access is granted. hook_node_access() was
- *   introduced in Drupal 7.
+ *   more modules allow access, then access is granted.
  * - If no resolution has yet been reached, then the node_access table is used
- *   along with hook_node_grants(). (Drupal updates the node_access table when
+ *   along with hook_node_grants(). (Backdrop updates the node_access table when
  *   nodes are saved, by calling hook_node_access_records().)
  *
  * Note that the hook_node_grants()/hook_node_access_records() layer is a
  * first-grant-wins system, which means a module using it can't deny access to
  * a node. Contributed modules have been developed to overcome this
  * shortcoming, with their own APIs, such as
- * @link http://drupal.org/project/acl ACL. @endlink ACL, in fact, has emerged
+ * @link http://DOCUMENTATION_PENDING/project/acl ACL. @endlink ACL, in fact, has emerged
  * as the more-or-less standard solution for fine-grained access control, and
  * you really should be reading up on it. Many modules use it, and if your
  * module implements another node access system, there could be chaos.
- *
- * A list of the many node access modules (and differing APIs) is here:
- * @link http://drupal.org/node/270000 Overview of Node Access Modules. @endlink
- * Note that this is Drupal 6 documentation, linked here so the reader can
- * understand the historical reasons for using contributed node access modules
- * such as ACL.
  *
  * @see node_access()
  * @see hook_node_access()
@@ -119,7 +112,7 @@ function node_access_example_menu() {
  * @see page_example
  */
 function node_access_example_private_node_listing() {
-  $content = '<div>' . t('This example shows how a module can use the Drupal node access system to allow access to specific nodes. You will need to look at the code and then experiment with it by creating nodes, marking them private, and accessing them as various users.') . '</div>';
+  $content = '<div>' . t('This example shows how a module can use the Backdrop node access system to allow access to specific nodes. You will need to look at the code and then experiment with it by creating nodes, marking them private, and accessing them as various users.') . '</div>';
 
   // Find out how many nodes are marked private.
   $query = db_select('node', 'n');
@@ -212,8 +205,8 @@ function node_access_example_permission() {
  * Allows view and edit access to private nodes, when the account requesting
  * access has the username 'foobar'.
  *
- * hook_node_access() was introduced in Drupal 7. We use it here to demonstrate
- * allowing certain privileges to an arbitrary user.
+ * hook_node_access() is used here to demonstrate allowing certain privileges 
+ * to an arbitrary user.
  *
  * @see hook_node_access()
  */
@@ -224,7 +217,7 @@ function node_access_example_node_access($node, $op, $account) {
     return NODE_ACCESS_IGNORE;
   }
   if (($op == 'view' || $op == 'update') && (!empty($account->name) && $account->name == 'foobar') && !empty($node->private)) {
-    drupal_set_message(t('Access to node @nid allowed because requester name (@name) is specifically allowed', array('@name' => $node->name, '@uid' => $account->uid)));
+    backdrop_set_message(t('Access to node @nid allowed because requester name (@name) is specifically allowed', array('@name' => $node->name, '@uid' => $account->uid)));
     return NODE_ACCESS_ALLOW;
   }
   return NODE_ACCESS_IGNORE;
@@ -244,8 +237,8 @@ define('NODE_ACCESS_EXAMPLE_GRANT_ALL', 23);
  * Tell the node access system what grant IDs the user belongs to for each
  * realm, based on the operation being performed.
  *
- * When the user tries to perform an operation on the node, Drupal calls
- * hook_node_grants() to determine grant ID and realm for the user. Drupal
+ * When the user tries to perform an operation on the node, Backdrop calls
+ * hook_node_grants() to determine grant ID and realm for the user. Backdrop
  * looks up the grant ID and realm for the node, and compares them to the
  * grant ID and realm provided here. If grant ID and realm match for both
  * user and node, then the operation is allowed.
@@ -314,7 +307,7 @@ function node_access_example_node_grants($account, $op) {
  * GID == UID. This has the effect of giving each user their own grant ID
  * for nodes they authored, within this realm.
  *
- * Drupal calls this hook when a node is saved, or when access permissions
+ * Backdrop calls this hook when a node is saved, or when access permissions
  * change in order to rebuild the node access database table(s).
  *
  * The array you return will define the realm and the grant ID for the
@@ -322,7 +315,7 @@ function node_access_example_node_grants($account, $op) {
  * comparison against the user's realm and grant IDs, which you'll
  * supply in hook_node_grants().
  *
- * Realm names and grant IDs are arbitrary. Official drupal naming
+ * Realm names and grant IDs are arbitrary. Official backdrop naming
  * conventions do not cover access realms, but since all realms are
  * stored in the same database table, it's probably a good idea to
  * use descriptive names which follow the module name, such as
@@ -400,7 +393,7 @@ function node_access_example_form_alter(&$form, $form_state) {
 /**
  * Implements hook_node_load().
  *
- * Gather and add the private setting for the nodes Drupal is loading.
+ * Gather and add the private setting for the nodes Backdrop is loading.
  * @see nodeapi_example.module
  */
 function node_access_example_node_load($nodes, $types) {
@@ -435,7 +428,7 @@ function node_access_example_node_insert($node) {
       )
     )->execute();
   }
-  drupal_set_message(t('New node @nid was created and private=@private', array('@nid' => $node->nid, '@private' => !empty($node->private) ? 1 : 0)));
+  backdrop_set_message(t('New node @nid was created and private=@private', array('@nid' => $node->nid, '@private' => !empty($node->private) ? 1 : 0)));
 }
 
 /**
@@ -459,7 +452,7 @@ function node_access_example_node_update($node) {
     ))
     ->condition('nid', $node->nid)
     ->execute();
-    drupal_set_message(
+    backdrop_set_message(
       t("Updated node @nid to set private=@private (@num nodes actually updated)",
         array(
           '@private' => $node->private,
@@ -472,7 +465,7 @@ function node_access_example_node_update($node) {
   // Otherwise, create a new record.
   else {
     node_access_example_node_insert($node);
-    drupal_set_message(t('Inserted new node_access nid=@nid, private=@private', array('@nid' => $node->nid, '@private' => $node->private)));
+    backdrop_set_message(t('Inserted new node_access nid=@nid, private=@private', array('@nid' => $node->nid, '@private' => $node->private)));
   }
 
 }

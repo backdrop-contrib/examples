@@ -12,7 +12,7 @@
  * a style from the list of defined image styles to use when displaying the
  * the image. This serves as an example of integrating image styles with your
  * module and as a way to demonstrate that the styles and effects defined by
- * this module are available via Drupal's image handling system.
+ * this module are available via Backdrop's image handling system.
  *
  * @see theme_image_style()
  *
@@ -96,7 +96,7 @@ function image_example_style_form_submit($form, &$form_state) {
 
     // Save the fid of the file so that the module can reference it later.
     variable_set('image_example_image_fid', $file->fid);
-    drupal_set_message(t('The image @image_name was uploaded and saved with an ID of @fid and will be displayed using the style @style.',
+    backdrop_set_message(t('The image @image_name was uploaded and saved with an ID of @fid and will be displayed using the style @style.',
       array(
         '@image_name' => $file->filename,
         '@fid' => $file->fid,
@@ -125,7 +125,7 @@ function image_example_style_form_submit($form, &$form_state) {
     // file is in use by another module and not deleted we no longer want to
     // use it.
     variable_set('image_example_image_fid', FALSE);
-    drupal_set_message(t('The image @image_name was removed.', array('@image_name' => $file->filename)));
+    backdrop_set_message(t('The image @image_name was removed.', array('@image_name' => $file->filename)));
   }
 
   // Save the name of the image style choosen by the user.

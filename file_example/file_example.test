@@ -9,7 +9,7 @@
  *
  * @ingroup file_example
  */
-class FileExampleTest extends DrupalWebTestCase {
+class FileExampleTest extends BackdropWebTestCase {
 
   protected $priviledgedUser;
 
@@ -29,8 +29,8 @@ class FileExampleTest extends DrupalWebTestCase {
    */
   public function setUp() {
     parent::setUp(array('file_example'));
-    $this->priviledgedUser = $this->drupalCreateUser(array('use file example'));
-    $this->drupalLogin($this->priviledgedUser);
+    $this->priviledgedUser = $this->backdropCreateUser(array('use file example'));
+    $this->backdropLogin($this->priviledgedUser);
   }
 
   /**
@@ -53,7 +53,7 @@ class FileExampleTest extends DrupalWebTestCase {
       t('Unmanaged using PHP'),
     );
     foreach ($buttons as $button) {
-      // For each scheme supported by Drupal + the session:// wrapper.
+      // For each scheme supported by Backdrop + the session:// wrapper.
       $schemes = array('public', 'private', 'temporary', 'session');
       foreach ($schemes as $scheme) {
         // Create a directory for use.
@@ -63,13 +63,13 @@ class FileExampleTest extends DrupalWebTestCase {
         $edit = array(
           'directory_name' => $dirname,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Check to see if directory exists'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Check to see if directory exists'));
         $this->assertRaw(t('Directory %dirname does not exist', array('%dirname' => $dirname)), 'Verify that directory does not exist.');
 
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Create directory'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Create directory'));
         $this->assertRaw(t('Directory %dirname is ready for use', array('%dirname' => $dirname)));
 
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Check to see if directory exists'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Check to see if directory exists'));
         $this->assertRaw(t('Directory %dirname exists', array('%dirname' => $dirname)), 'Verify that directory now does exist.');
 
         // Create a file in the directory we created.
@@ -80,7 +80,7 @@ class FileExampleTest extends DrupalWebTestCase {
         $edit = array(
           'fileops_file' => $filename,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Check to see if file exists'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Check to see if file exists'));
         $this->assertRaw(t('The file %filename does not exist', array('%filename' => $filename)), 'Verify that file does not yet exist.');
 
         debug(
@@ -97,7 +97,7 @@ class FileExampleTest extends DrupalWebTestCase {
           'write_contents' => $content,
           'destination' => $filename,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, $button);
+        $this->backdropPost('examples/file_example/fileapi', $edit, $button);
         $this->assertText($expected_text[$button]);
 
         // Capture the name of the output file, as it might have changed due
@@ -117,7 +117,7 @@ class FileExampleTest extends DrupalWebTestCase {
         $edit = array(
           'fileops_file' => $filename,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Check to see if file exists'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Check to see if file exists'));
         $this->assertRaw(t('The file %filename exists', array('%filename' => $filename)), 'Verify that file now exists.');
 
         // Now read the file that got written above and verify that we can use
@@ -125,23 +125,23 @@ class FileExampleTest extends DrupalWebTestCase {
         $edit = array(
           'fileops_file' => $output_filename,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Read the file and store it locally'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Read the file and store it locally'));
 
         $this->assertText(t('The file was read and copied'));
 
         $edit = array(
           'fileops_file' => $filename,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Delete file'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Delete file'));
         $this->assertText(t('Successfully deleted'));
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Check to see if file exists'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Check to see if file exists'));
         $this->assertRaw(t('The file %filename does not exist', array('%filename' => $filename)), 'Verify file has been deleted.');
 
         $edit = array(
           'directory_name' => $dirname,
         );
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Delete directory'));
-        $this->drupalPost('examples/file_example/fileapi', $edit, t('Check to see if directory exists'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Delete directory'));
+        $this->backdropPost('examples/file_example/fileapi', $edit, t('Check to see if directory exists'));
         $this->assertRaw(t('Directory %dirname does not exist', array('%dirname' => $dirname)), 'Verify that directory does not exist after deletion.');
       }
     }

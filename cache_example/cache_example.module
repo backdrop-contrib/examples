@@ -14,10 +14,10 @@
  * Outlines how a module can use the Cache API.
  *
  * Cache API allows us to cache data that is heavy to calculate. As this can
- * significantly speed up the Drupal site, it is recommended to use cache
+ * significantly speed up the Backdrop site, it is recommended to use cache
  * mechanism when it is appropriate.
  *
- * Cache in Drupal is very easy to use. This example will search entire Drupal
+ * Cache in Backdrop is very easy to use. This example will search entire Backdrop
  * folder and display all files. Since this operation includes filesystem it can
  * take a while. This list will not change much on production
  * websites, so we decide to cache it.
@@ -34,8 +34,8 @@ function cache_example_menu() {
   $items = array();
   $items['examples/cache_example'] = array(
     'title' => 'Cache example',
-    'description' => 'Example of Drupal Cache API',
-    'page callback' => 'drupal_get_form',
+    'description' => 'Example of Backdrop Cache API',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('cache_example_page_form'),
     'access callback' => TRUE,
   );
@@ -46,7 +46,7 @@ function cache_example_menu() {
 /**
  * Main page for cache_example.
  *
- * Displays a page/form which outlines how Drupal's cache works.
+ * Displays a page/form which outlines how Backdrop's cache works.
  */
 function cache_example_page_form($form, &$form_state) {
   // Log execution time.
@@ -59,7 +59,7 @@ function cache_example_page_form($form, &$form_state) {
   //   the object is to be saved.
   //
   // cache_get() returns the cached object or FALSE if object does not exist.
-  if ($cache = cache_get('cache_example_files_count')) {
+  if ($cache = cache_get('cache_example_files_count', 'cache')) {
     /*
      * Get cached data. Complex data types will be unserialized automatically.
      */
@@ -67,7 +67,7 @@ function cache_example_page_form($form, &$form_state) {
   }
   else {
     // If there was no cached data available we have to search filesystem.
-    // Recursively get all files from Drupal's folder.
+    // Recursively get all files from Backdrop's folder.
     $files_count = count(file_scan_directory('.', '/.*/'));
 
     // Since we have recalculated, we now need to store the new data into cache.
@@ -82,7 +82,7 @@ function cache_example_page_form($form, &$form_state) {
   $duration = $end_time - $start_time;
 
   // Format intro message.
-  $intro_message = '<p>' . t('This example will search the entire drupal folder and display a count of the files in it.') . ' ';
+  $intro_message = '<p>' . t('This example will search the entire Backdrop folder and display a count of the files in it.') . ' ';
   $intro_message .= t('This can take a while, since there are a lot of files to be searched.') . ' ';
   $intro_message .= t('We will search filesystem just once and save output to the cache. We will use cached data for later requests.') . '</p>';
   $intro_message .= '<p>' . t('<a href="@url">Reload this page</a> to see cache in action.', array('@url' => request_uri())) . ' ';
@@ -101,7 +101,7 @@ function cache_example_page_form($form, &$form_state) {
 
   $form['file_search']['statistics'] = array(
     '#type' => 'item',
-    '#markup' => t('%count files exist in this Drupal installation; @retrieval in @time ms. <br/>(Source: <span style="color:@color;">@source</span>)',
+    '#markup' => t('%count files exist in this Backdrop installation; @retrieval in @time ms. <br/>(Source: <span style="color:@color;">@source</span>)',
       array(
         '%count' => $files_count,
         '@retrieval' => $retrieval,
@@ -124,7 +124,7 @@ function cache_example_page_form($form, &$form_state) {
   $form['expiration_demo']['explanation'] = array(
     '#markup' => t('A cache item can be set as CACHE_PERMANENT, meaning that it will only be removed when explicitly cleared, or it can have an expiration time (a Unix timestamp).'),
   );
-  $expiring_item = cache_get('cache_example_expiring_item');
+  $expiring_item = cache_get('cache_example_expiring_item', 'cache');
   $item_status = $expiring_item ?
       t('Cache item exists and is set to expire at %time', array('%time' => $expiring_item->data)) :
       t('Cache item does not exist');
@@ -191,7 +191,7 @@ function cache_example_form_expire_files($form, &$form_state) {
   cache_clear_all('cache_example_files_count', 'cache');
 
   // Display message to the user.
-  drupal_set_message(t('Cached data key "cache_example_files_count" was cleared.'), 'status');
+  backdrop_set_message(t('Cached data key "cache_example_files_count" was cleared.'), 'status');
 }
 
 /**
@@ -210,7 +210,7 @@ function cache_example_form_create_expiring_item($form, &$form_state) {
   // Set the expiration to the actual Unix timestamp of the end of the required
   // interval.
   cache_set('cache_example_expiring_item', $expiration_friendly, 'cache', $expiration);
-  drupal_set_message(t('cache_example_expiring_item was set to expire at %time', array('%time' => $expiration_friendly)));
+  backdrop_set_message(t('cache_example_expiring_item was set to expire at %time', array('%time' => $expiration_friendly)));
 }
 
 /**
@@ -220,15 +220,15 @@ function cache_example_form_cache_clearing($form, &$form_state) {
   switch ($form_state['values']['cache_clear_type']) {
     case 'expire':
       // Here we'll remove all cache keys in the 'cache' bin that have expired.
-      cache_clear_all(NULL, 'cache');
-      drupal_set_message(t('cache_clear_all(NULL, "cache") was called, removing any expired cache items.'));
+      cache_clear_all(NULL, 'cache', NULL);
+      backdrop_set_message(t('cache_clear_all(NULL, "cache") was called, removing any expired cache items.'));
       break;
 
     case 'remove_all':
       // This removes all keys in a bin using a super-wildcard. This
       // has nothing to do with expiration. It's just brute-force removal.
-      cache_clear_all('*', 'cache', TRUE);
-      drupal_set_message(t('ALL entries in the "cache" bin were removed with cache_clear_all("*", "cache", TRUE).'));
+      cache_flush('cache');
+      backdrop_set_message(t('ALL entries in the "cache" bin were removed with cache_clear_all("*", "cache", TRUE).'));
       break;
 
     case 'remove_wildcard':
@@ -236,7 +236,7 @@ function cache_example_form_cache_clearing($form, &$form_state) {
       // 'cache_example' by using a wildcard. This again is brute-force
       // removal, not expiration.
       cache_clear_all('cache_example', 'cache', TRUE);
-      drupal_set_message(t('Cache entries whose cid began with "cache_example" in the "cache" bin were removed with cache_clear_all("cache_example", "cache", TRUE).'));
+      backdrop_set_message(t('Cache entries whose cid began with "cache_example" in the "cache" bin were removed with cache_clear_all("cache_example", "cache", TRUE).'));
       break;
   }
 }

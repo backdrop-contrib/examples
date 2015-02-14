@@ -50,7 +50,7 @@ function tabledrag_example_simple_form($form_state) {
 
       // The 'weight' field will be manipulated as we move the items around in
       // the table using the tabledrag activity.  We use the 'weight' element
-      // defined in Drupal's Form API.
+      // defined in Backdrop's Form API.
       'weight' => array(
         '#type' => 'weight',
         '#title' => t('Weight'),
@@ -74,7 +74,7 @@ function tabledrag_example_simple_form($form_state) {
  * Theme callback for the tabledrag_example_simple_form form.
  *
  * The theme callback will format the $form data structure into a table and
- * add our tabledrag functionality.  (Note that drupal_add_tabledrag should be
+ * add our tabledrag functionality.  (Note that backdrop_add_tabledrag should be
  * called from the theme layer, and not from a form declaration.  This helps
  * keep template files clean and readable, and prevents tabledrag.js from
  * being added twice accidently.
@@ -95,7 +95,7 @@ function theme_tabledrag_example_simple_form($variables) {
 
     // Before we add our 'weight' column to the row, we need to give the
     // element a custom class so that it can be identified in the
-    // drupal_add_tabledrag call.
+    // backdrop_add_tabledrag call.
     //
     // This could also have been done during the form declaration by adding
     // '#attributes' => array('class' => 'example-item-weight'),
@@ -104,16 +104,16 @@ function theme_tabledrag_example_simple_form($variables) {
 
     // We are now ready to add each element of our $form data to the $rows
     // array, so that they end up as individual table cells when rendered
-    // in the final table.  We run each element through the drupal_render()
+    // in the final table.  We run each element through the backdrop_render()
     // function to generate the final html markup for that element.
     $rows[] = array(
       'data' => array(
         // Add our 'name' column.
-        drupal_render($form['example_items'][$id]['name']),
+        backdrop_render($form['example_items'][$id]['name']),
         // Add our 'description' column.
-        drupal_render($form['example_items'][$id]['description']),
+        backdrop_render($form['example_items'][$id]['description']),
         // Add our 'weight' column.
-        drupal_render($form['example_items'][$id]['weight']),
+        backdrop_render($form['example_items'][$id]['weight']),
       ),
       // To support the tabledrag behaviour, we need to assign each row of the
       // table a class attribute of 'draggable'. This will add the 'draggable'
@@ -127,7 +127,7 @@ function theme_tabledrag_example_simple_form($variables) {
   // matches the final column count for your table.
   $header = array(t('Name'), t('Description'), t('Weight'));
 
-  // We also need to pass the drupal_add_tabledrag() function an id which will
+  // We also need to pass the backdrop_add_tabledrag() function an id which will
   // be used to identify the <table> element containing our tabledrag form.
   // Because an element's 'id' should be unique on a page, make sure the value
   // you select is NOT the same as the form ID used in your form declaration.
@@ -141,9 +141,9 @@ function theme_tabledrag_example_simple_form($variables) {
   ));
 
   // And then render any remaining form elements (such as our submit button).
-  $output .= drupal_render_children($form);
+  $output .= backdrop_render_children($form);
 
-  // We now call the drupal_add_tabledrag() function in order to add the
+  // We now call the backdrop_add_tabledrag() function in order to add the
   // tabledrag.js goodness onto our page.
   //
   // For a basic sortable table, we need to pass it:
@@ -151,7 +151,7 @@ function theme_tabledrag_example_simple_form($variables) {
   // - the $action to be performed on our form items ('order'),
   // - a string describing where $action should be applied ('siblings'),
   // - and the class of the element containing our 'weight' element.
-  drupal_add_tabledrag($table_id, 'order', 'sibling', 'example-item-weight');
+  backdrop_add_tabledrag($table_id, 'order', 'sibling', 'example-item-weight');
 
   return $output;
 }

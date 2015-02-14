@@ -19,14 +19,14 @@
  * Tokens are small bits of text that can be placed into larger documents
  * via simple placeholders, like %site-name or [user].
  *
- * Drupal 7 documentation on Token can be found here:
- * http://drupal.org/documentation/modules/token
+ * Backdrop documentation on Token can be found here:
+ * http://DOCUMENTATION_PENDING/documentation/modules/token
  *
  * A list of existing tokens can be found here:
- * http://drupal.org/node/390482#drupal7tokenslist
+ * http://DOCUMENTATION_PENDING/node/390482#backdrop7tokenslist
  *
  * This example is part of the Examples for Developers Project which you can
- * download and experiment with here: http://drupal.org/project/examples
+ * download and experiment with here: http://DOCUMENTATION_PENDING/project/examples
  */
 
 /**
@@ -36,7 +36,7 @@ function token_example_menu() {
   $items['examples/token'] = array(
     'title' => 'Token example',
     'description' => 'Test replacement tokens in real time.',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('token_example_example_form'),
     'access callback' => TRUE,
   );
@@ -125,7 +125,7 @@ function token_example_example_form($form, &$form_state) {
   }
   else {
     $form['token_tree'] = array(
-      '#markup' => '<p>' . t('Enable the <a href="@drupal-token">Token module</a> to view the available token browser.', array('@drupal-token' => 'http://drupal.org/project/token')) . '</p>',
+      '#markup' => '<p>' . t('Enable the <a href="@backdrop-token">Token module</a> to view the available token browser.', array('@backdrop-token' => 'http://DOCUMENTATION_PENDING/project/token')) . '</p>',
     );
   }
 

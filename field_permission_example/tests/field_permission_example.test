@@ -19,11 +19,11 @@
  * generic tests.
  *
  * 'code_' and 'form_' prefixes denote the type of test:
- * using code only, or through Drupal page forms.
+ * using code only, or through Backdrop page forms.
  *
  * @ingroup field_permission_example
  */
-class GenericFieldTest extends DrupalWebTestCase {
+class GenericFieldTest extends BackdropWebTestCase {
 
   // Our tests will generate some random field instance
   // names. We store them here so many functions can act on them.
@@ -140,10 +140,10 @@ class GenericFieldTest extends DrupalWebTestCase {
   public function codeTestGenericAddAllFields($node_type = NULL) {
     $this->instanceNames = array();
     if (!$node_type) {
-      $node_type = $this->drupalCreateContentType();
+      $node_type = $this->backdropCreateContentType();
     }
     foreach ($this->getFieldTypes() as $field_type) {
-      $instance_name = drupal_strtolower($this->randomName(32));
+      $instance_name = backdrop_strtolower($this->randomName(32));
       $field = array(
         'field_name' => $instance_name,
         'type' => $field_type,
@@ -153,7 +153,7 @@ class GenericFieldTest extends DrupalWebTestCase {
         'field_name' => $instance_name,
         'entity_type' => 'node',
         'bundle' => $node_type->name,
-        'label' => drupal_strtolower($this->randomName(20)),
+        'label' => backdrop_strtolower($this->randomName(20)),
       );
       // Finally create the instance.
       $instance = field_create_instance($instance);
@@ -203,13 +203,13 @@ class GenericFieldTest extends DrupalWebTestCase {
    */
   public function formTestGenericFieldNodeAddDeleteForm() {
     // Create and login user.
-    $account = $this->drupalCreateUser(array(
+    $account = $this->backdropCreateUser(array(
       'administer content types',
       ));
-    $this->drupalLogin($account);
+    $this->backdropLogin($account);
 
     // Add a content type.
-    $node_type = $this->drupalCreateContentType();
+    $node_type = $this->backdropCreateContentType();
 
     // Add all our testable fields.
     $field_names = $this->formAddAllFields($node_type);
@@ -217,10 +217,10 @@ class GenericFieldTest extends DrupalWebTestCase {
     // Now let's delete all the fields.
     foreach ($field_names as $field_name) {
       // This is the path for the 'delete' link on field admin page.
-      $this->drupalGet('admin/structure/types/manage/' .
+      $this->backdropGet('admin/structure/types/manage/' .
         $node_type->name . '/fields/field_' . $field_name . '/delete');
       // Click the 'delete' button.
-      $this->drupalPost(NULL, array(), t('Delete'));
+      $this->backdropPost(NULL, array(), t('Delete'));
       $this->assertText(t('The field @field has been deleted from the @type content type.',
         array('@field' => $field_name, '@type' => $node_type->name)));
     }
@@ -254,7 +254,7 @@ class GenericFieldTest extends DrupalWebTestCase {
       else {
         // Generate a name for our field.
         // 26 is max length for field name.
-        $field_name = drupal_strtolower($this->randomName(26));
+        $field_name = backdrop_strtolower($this->randomName(26));
         $field_names[$field_type] = $field_name;
         // Create the field through Form API.
         $this->formCreateField($manage_path, $field_type, $field_name,
@@ -293,21 +293,21 @@ class GenericFieldTest extends DrupalWebTestCase {
    */
   protected function formCreateField($manage_path, $field_type, $field_name, $widget_type, $cardinality) {
     // $manage_path is the field edit form for our content type.
-    $this->drupalGet($manage_path);
+    $this->backdropGet($manage_path);
     $edit = array(
       'fields[_add_new_field][label]' => $field_name,
       'fields[_add_new_field][field_name]' => $field_name,
       'fields[_add_new_field][type]' => $field_type,
       'fields[_add_new_field][widget_type]' => $widget_type,
     );
-    $this->drupalPost(NULL, $edit, t('Save'));
+    $this->backdropPost(NULL, $edit, t('Save'));
 
     // Assume there are no settings for this,
     // so just press the button.
-    $this->drupalPost(NULL, array(), t('Save field settings'));
+    $this->backdropPost(NULL, array(), t('Save field settings'));
 
     $edit = array('field[cardinality]' => (string) $cardinality);
-    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->backdropPost(NULL, $edit, t('Save settings'));
 
     debug(
       t('Saved settings for field !field_name with widget !widget_type and cardinality !cardinality',
@@ -340,12 +340,12 @@ class GenericFieldTest extends DrupalWebTestCase {
       return NULL;
     }
     if (!$account) {
-      $account = $this->drupalCreateUser(array(
+      $account = $this->backdropCreateUser(array(
         'bypass node access',
         'administer content types',
         ));
     }
-    $this->drupalLogin($account);
+    $this->backdropLogin($account);
 
     if (!$node_type) {
       $node_type = $this->codeTestGenericAddAllFields();
@@ -361,7 +361,7 @@ class GenericFieldTest extends DrupalWebTestCase {
       'type' => $node_type->name,
       $instance_name => $field,
     );
-    $node = $this->drupalCreateNode($settings);
+    $node = $this->backdropCreateNode($settings);
 
     $this->assertTrue($node, 'Node of type ' . $node->type . ' allegedly created.');
 
@@ -465,7 +465,7 @@ class FieldTestPermissionsExample extends GenericFieldTest {
 
     // There should be a node now, with some lovely content, but it's the wrong
     // user for the view-own test.
-    $view_own_account = $this->drupalCreateUser(array(
+    $view_own_account = $this->backdropCreateUser(array(
       'view own fieldnote',
     ));
     debug("Created user with 'view own fieldnote' permission.");
@@ -479,9 +479,9 @@ class FieldTestPermissionsExample extends GenericFieldTest {
 
     // Now we want to look at the page with the field and
     // check that we can see it.
-    $this->drupalLogin($view_own_account);
+    $this->backdropLogin($view_own_account);
 
-    $this->drupalGet('node/' . $view_own_node->nid);
+    $this->backdropGet('node/' . $view_own_node->nid);
     // Check that the field content is present.
     $output_strings = $this->xpath("//div[contains(@class,'stickynote')]/text()");
     $this->assertEqual((string) reset($output_strings), $view_own_content);
@@ -489,7 +489,7 @@ class FieldTestPermissionsExample extends GenericFieldTest {
 
     // This account shouldn't be able to see the field on the
     // 'view any' node.
-    $this->drupalGet('node/' . $view_any_node->nid);
+    $this->backdropGet('node/' . $view_any_node->nid);
     // Check that the field content is not present.
     $output_strings = $this->xpath("//div[contains(@class,'stickynote')]/text()");
     $this->assertNotEqual((string) reset($output_strings), $view_any_content);
@@ -497,14 +497,14 @@ class FieldTestPermissionsExample extends GenericFieldTest {
 
     // Now, to test for 'view any fieldnote' we create another user
     // with that permission, and try to look at the same node.
-    $view_any_account = $this->drupalCreateUser(array(
+    $view_any_account = $this->backdropCreateUser(array(
       'view any fieldnote',
     ));
     debug("Created user with 'view any fieldnote' permission.");
-    $this->drupalLogin($view_any_account);
+    $this->backdropLogin($view_any_account);
     // This account should be able to see the field on the
     // 'view any' node.
-    $this->drupalGet('node/' . $view_any_node->nid);
+    $this->backdropGet('node/' . $view_any_node->nid);
     // Check that the field content is present.
     $output_strings = $this->xpath("//div[contains(@class,'stickynote')]/text()");
     $this->assertEqual((string) reset($output_strings), $view_any_content);
@@ -527,7 +527,7 @@ class FieldTestPermissionsExample extends GenericFieldTest {
     $node_type = node_type_load($edit_own_node->type);
     $edit_any_node = $this->createFieldContentForUser(NULL, $edit_any_content, $node_type);
 
-    $edit_own_account = $this->drupalCreateUser(array(
+    $edit_own_account = $this->backdropCreateUser(array(
       'edit own ' . $node_type->name . ' content',
       'edit own fieldnote',
     ));
@@ -542,29 +542,29 @@ class FieldTestPermissionsExample extends GenericFieldTest {
 
     // Now we want to look at the page with the field and
     // check that we can see it.
-    $this->drupalLogin($edit_own_account);
+    $this->backdropLogin($edit_own_account);
 
-    $this->drupalGet('node/' . $edit_own_node->nid . '/edit');
+    $this->backdropGet('node/' . $edit_own_node->nid . '/edit');
     $this->assertText($edit_own_content, "'edit own fieldnote' can edit own fieldnote.");
 
     // This account shouldn't be able to edit the field on the
     // 'edit any' node.
-    $this->drupalGet('node/' . $edit_any_node->nid . '/edit');
+    $this->backdropGet('node/' . $edit_any_node->nid . '/edit');
     $this->assertNoText($edit_any_content, "'edit own fieldnote' can not edit any fieldnote.");
 
     // Now, to test for 'edit any fieldnote' we create another user
     // with that permission, and try to edit at the same node.
     // We have to add the ability to edit any node content, as well
-    // or Drupal will deny us access to the page.
-    $edit_any_account = $this->drupalCreateUser(array(
+    // or Backdrop will deny us access to the page.
+    $edit_any_account = $this->backdropCreateUser(array(
       'edit any ' . $node_type->name . ' content',
       'edit any fieldnote',
     ));
     debug("Created user with 'edit any fieldnote' permission.");
-    $this->drupalLogin($edit_any_account);
+    $this->backdropLogin($edit_any_account);
     // This account should be able to see the field on the
     // 'edit any' node.
-    $this->drupalGet('node/' . $edit_any_node->nid . '/edit');
+    $this->backdropGet('node/' . $edit_any_node->nid . '/edit');
     $this->assertText($edit_any_content, "'edit any fieldnote' can edit any fieldnote.");
   }
 

@@ -14,10 +14,6 @@
  * This is an example demonstrating how a module can be used to extend existing
  * node types.
  *
- * hook_nodeapi() has been replaced in Drupal 7 with a set of different hooks
- * providing the same or improved functionality. See the NodeAPI hooks list
- * at api.drupal.org (linked below).
- *
  * We will add the ability for each node to have a "rating," which will be a
  * number from one to five. The rating will be tracked using the revision
  * system also, so every node revision may have different rating values.
@@ -243,7 +239,7 @@ function nodeapi_example_node_view($node, $build_mode = 'full') {
 /**
  * Implements hook_theme().
  *
- * This lets us tell Drupal about our theme functions and their arguments.
+ * This lets us tell Backdrop about our theme functions and their arguments.
  */
 function nodeapi_example_theme() {
   return array(

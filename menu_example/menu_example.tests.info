@@ -1,0 +1,5 @@
+[MenuExampleTestCase]
+name = Menu example functionality
+description = Tests menu functionality.
+group = Example modules
+file = menu_example.test

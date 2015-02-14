@@ -1,5 +1,7 @@
 name = Queue example
-description = Examples of using the Drupal Queue API.
+description = Examples of using the Backdrop Queue API.
 package = Example modules
+version = BACKDROP_VERSION
+backdrop = x.x
 core = 7.x
-files[] = queue_example.test
+

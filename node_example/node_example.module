@@ -18,13 +18,12 @@
  * "colors", a "quantity" and an "image" for their nodes; some kind of
  * rudimentary inventory-tracking system, perhaps?
  *
- * The basic pattern for defining a node type is to tell Drupal about the
- * node's fields and view modes. Drupal will then take over and manage
- * the storage for this node type. This differs from Drupal 6, where we
- * would have to handle all the database storage ourselves in the module.
+ * The basic pattern for defining a node type is to tell Backdrop about the
+ * node's fields and view modes. Backdrop will then take over and manage
+ * the storage for this node type.
  *
  * Remember that most node types do not require any custom code, as one
- * simply creates them using the Drupal user interface. Creating a node like
+ * simply creates them using the Backdrop user interface. Creating a node like
  * this in code is a special case.
  *
  * At absolute minimum, in order to provide a content type for
@@ -33,24 +32,19 @@
  *
  * First and foremost, defining a node type happens in
  * hook_node_info(). Our implementation of this hook gives
- * Drupal an array of information about the content type
+ * Backdrop an array of information about the content type
  * we want to create.
  *
  * Next, since we want to add fields to our content type, we
  * implement hook_node_type_insert(), which gives us a chance
  * to modify recently-created content types.
  *
- * Drupal is able to handle deletion of our content, including
+ * Backdrop is able to handle deletion of our content, including
  * dependencies based on re-use of our field instances, so we don't
  * have to manage any of it.
  *
- * In previous versions of Drupal, "teaser" and "page" were node view modes.
- * In Drupal 7 we can define custom view modes to let the node know how it
- * should return it's data.  This module declares a custom view mode called
- * "example_node_list".
- *
- * Consult the @link http://drupal.org/node/707832 Field API Tutorial @endlink
- * and @link http://drupal.org/node/443536 Field API Handbook Page @endlink
+ * Consult the @link http://DOCUMENTATION_PENDING Field API Tutorial @endlink
+ * and @link http://DOCUMENTATION_PENDING Field API Handbook Page @endlink
  * and @link field Field API documentation @endlink.
  *
  * @see field_example.module
@@ -81,9 +75,9 @@ function node_example_node_info() {
   return array(
     'node_example' => array(
       'name' => t('Example Node Type'),
-      // 'base' tells Drupal the base string for hook functions.
+      // 'base' tells Backdrop the base string for hook functions.
       // This is often the module name; if base is set to 'mymodule',
-      // Drupal would call mymodule_insert() or similar for node
+      // Backdrop would call mymodule_insert() or similar for node
       // hooks. In our case, the base is 'node_example'.
       'base' => 'node_example',
       'description' => t('This is an example node type with a few fields.'),
@@ -102,7 +96,7 @@ function node_example_node_info() {
  * inserted into the database, hook_node_type_insert() lets us know
  * that a new content type has been inserted.
  *
- * Since Drupal will at some point insert our new content type,
+ * Since Backdrop will at some point insert our new content type,
  * this gives us a chance to add the fields we want.
  *
  * It is called for all inserts to the content type database, so
@@ -144,7 +138,7 @@ function node_example_node_type_insert($content_type) {
 /**
  * Implements hook_form().
  *
- * Drupal needs for us to provide a form that lets the user
+ * Backdrop needs for us to provide a form that lets the user
  * add content. This is the form that the user will see if
  * they go to node/add/node-example.
  *
@@ -184,8 +178,8 @@ function node_example_page() {
   );
   // Loop through each of our node_example nodes and instruct node_view
   // to use our "example_node_list" view.
-  // http://api.drupal.org/api/function/node_load/7
-  // http://api.drupal.org/api/function/node_view/7
+  // http://api.DOCUMENTATION_PENDING/api/function/node_load/7
+  // http://api.DOCUMENTATION_PENDING/api/function/node_view/7
   foreach ($result as $row) {
     $node = node_load($row->nid);
     $renderable_array['node_list'][] = node_view($node, 'example_node_list');
@@ -244,7 +238,7 @@ function node_example_field_formatter_view($object_type, $object, $field, $insta
 /**
  * Implements hook_theme().
  *
- * This lets us tell Drupal about our theme functions and their arguments.
+ * This lets us tell Backdrop about our theme functions and their arguments.
  */
 function node_example_theme($existing, $type, $theme, $path) {
   return array(
@@ -255,22 +249,10 @@ function node_example_theme($existing, $type, $theme, $path) {
 }
 
 /**
- * Implements hook_help().
- */
-function node_example_help($path, $arg) {
-  switch ($path) {
-    case 'examples/node_example':
-      return "<p>" . t("The Node Example module provides a custom node type.
-        You can create new Example Node nodes using the <a href='!nodeadd'>node add form</a>.",
-        array('!nodeadd' => url('node/add/node-example'))) . "</p>";
-  }
-}
-
-/**
  * A custom theme function.
  *
  * By using this function to format our node-specific information, themes
- * can override this presentation if they wish.  This is a simplifed theme
+ * can override this presentation if they wish.  This is a simplified theme
  * function purely for illustrative purposes.
  */
 function theme_example_node_color($variables) {
@@ -313,7 +295,7 @@ function _node_example_installed_fields() {
 /**
  * Define the field instances for our content type.
  *
- * The instance lets Drupal know which widget to use to allow the user to enter
+ * The instance lets Backdrop know which widget to use to allow the user to enter
  * data and how to react in different view modes.  We are going to display a
  * page that uses a custom "node_example_list" view mode.  We will set a
  * cardinality of three allowing our content type to give the user three color

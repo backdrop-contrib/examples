@@ -11,7 +11,7 @@
  *
  * @ingroup email_example
  */
-class EmailExampleTestCase extends DrupalWebTestCase {
+class EmailExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -37,12 +37,12 @@ class EmailExampleTestCase extends DrupalWebTestCase {
    */
   public function testContactForm() {
     // Create and login user.
-    $account = $this->drupalCreateUser();
-    $this->drupalLogin($account);
+    $account = $this->backdropCreateUser();
+    $this->backdropLogin($account);
 
     // Set default language for t() translations.
     $t_options = array(
-      'langcode' => language_default()->language,
+      'langcode' => language_default()->langcode,
     );
 
     // First try to send to an invalid email address.
@@ -50,21 +50,21 @@ class EmailExampleTestCase extends DrupalWebTestCase {
       'email'   => $this->randomName(),
       'message' => $this->randomName(128),
     );
-    $result = $this->drupalPost('example/email_example', $email_options, t('Submit'));
+    $result = $this->backdropPost('example/email_example', $email_options, t('Submit'));
 
     // Verify that email address is invalid and email was not sent.
     $this->assertText(t('That e-mail address is not valid.'), 'Options were validated and form submitted.');
-    $this->assertTrue(!count($this->drupalGetMails()), 'No email was sent.');
+    $this->assertTrue(!count($this->backdropGetMails()), 'No email was sent.');
 
     // Now try with a valid email address.
-    $email_options['email'] = $this->randomName() . '@' . $this->randomName() . '.drupal';
-    $result = $this->drupalPost('example/email_example', $email_options, t('Submit'));
+    $email_options['email'] = $this->randomName() . '@' . $this->randomName() . '.backdrop';
+    $result = $this->backdropPost('example/email_example', $email_options, t('Submit'));
 
     // Verify that email address is valid and email was sent.
-    $this->assertTrue(count($this->drupalGetMails()), 'An email has been sent.');
+    $this->assertTrue(count($this->backdropGetMails()), 'An email has been sent.');
 
     // Validate sent email.
-    $email  = $this->drupalGetMails();
+    $email  = $this->backdropGetMails();
     // Grab the first entry.
     $email = $email[0];
 
@@ -78,7 +78,7 @@ class EmailExampleTestCase extends DrupalWebTestCase {
     // Verify email subject.
     $this->assertEqual(
       $email['subject'],
-      t('E-mail sent from @site-name', array('@site-name' => variable_get('site_name', 'Drupal')), $t_options),
+      t('E-mail sent from @site-name', array('@site-name' => config_get('system.core', 'site_name')), $t_options),
       'Email subject successfully verified.'
     );
 

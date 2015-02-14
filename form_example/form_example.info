@@ -1,5 +1,6 @@
 name = Form example
-description = Examples of using the Drupal Form API.
+description = Examples of using the Backdrop Form API.
 package = Example modules
 core = 7.x
-files[] = form_example.test
+version = BACKDROP_VERSION
+backdrop = x.x

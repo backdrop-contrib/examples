@@ -10,7 +10,7 @@
  *
  * @ingroup vertical_tabs_example
  */
-class VerticalTabsExampleTestCase extends DrupalWebTestCase {
+class VerticalTabsExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -38,7 +38,7 @@ class VerticalTabsExampleTestCase extends DrupalWebTestCase {
       'examples/vertical_tabs',
     );
     foreach ($paths as $path) {
-      $this->drupalGet($path);
+      $this->backdropGet($path);
       $this->assertResponse(200, '200 response for path: ' . $path);
     }
   }

@@ -1,0 +1,5 @@
+[CronExampleTestCase]
+name = Cron example functionality
+description = Tests cron functionality.
+group = Example modules
+file = cron_example.test

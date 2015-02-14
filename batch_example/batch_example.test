@@ -12,7 +12,7 @@
  *
  * @ingroup batch_example
  */
-class BatchExampleTestCase extends DrupalWebTestCase {
+class BatchExampleTestCase extends BackdropWebTestCase {
   protected $webUser;
 
   /**
@@ -32,7 +32,7 @@ class BatchExampleTestCase extends DrupalWebTestCase {
   public function setUp() {
     parent::setUp('batch_example');
     // Create user.
-    $this->webUser = $this->drupalCreateUser();
+    $this->webUser = $this->backdropCreateUser();
   }
 
   /**
@@ -40,20 +40,20 @@ class BatchExampleTestCase extends DrupalWebTestCase {
    */
   public function testBatchExampleBasic() {
     // Login the admin user.
-    $this->drupalLogin($this->webUser);
+    $this->backdropLogin($this->webUser);
 
     // Create 30 nodes.
     for ($count = 0; $count < 30; $count++) {
-      $node = $this->drupalCreateNode();
+      $node = $this->backdropCreateNode();
     }
 
     // Launch Batch 1
-    $result = $this->drupalPost('examples/batch_example', array('batch' => 'batch_1'), t('Go'));
+    $result = $this->backdropPost('examples/batch_example', array('batch' => 'batch_1'), t('Go'));
     // Check that 1000 operations were performed.
     $this->assertText('1000 results processed');
 
     // Launch Batch 2
-    $result = $this->drupalPost('examples/batch_example', array('batch' => 'batch_2'), t('Go'));
+    $result = $this->backdropPost('examples/batch_example', array('batch' => 'batch_2'), t('Go'));
     // Check that 600 operations were performed.
     $this->assertText('600 results processed');
   }

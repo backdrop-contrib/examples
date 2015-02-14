@@ -10,7 +10,7 @@
  *
  * @ingroup render_example
  */
-class RenderExampleTestCase extends DrupalWebTestCase {
+class RenderExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -70,14 +70,14 @@ class RenderExampleTestCase extends DrupalWebTestCase {
   public function testRenderExampleBasic() {
 
     // Create a user that can access devel information and log in.
-    $web_user = $this->drupalCreateUser(array('access devel information', 'access content'));
-    $this->drupalLogin($web_user);
+    $web_user = $this->backdropCreateUser(array('access devel information', 'access content'));
+    $this->backdropLogin($web_user);
 
     // Turn on the block render array display and make sure it shows up.
     $edit = array(
       'render_example_show_block' => TRUE,
     );
-    $this->drupalPost('examples/render_example/altering', $edit, t('Save configuration'));
+    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
 
     $xpath_array = array(
       "//div[@id='sidebar-first']//fieldset[starts-with(@id, 'edit-render-example-block-fieldset')]",
@@ -91,7 +91,7 @@ class RenderExampleTestCase extends DrupalWebTestCase {
       'render_example_show_page' => TRUE,
       'render_example_show_block' => FALSE,
     );
-    $this->drupalPost('examples/render_example/altering', $edit, t('Save configuration'));
+    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
 
     $xpath_array = array(
       '//*[@id="content"]//fieldset[starts-with(@id,"edit-render-example-page-fieldset")]',
@@ -102,7 +102,7 @@ class RenderExampleTestCase extends DrupalWebTestCase {
     $edit = array(
       'render_example_note_about_render_arrays' => TRUE,
     );
-    $this->drupalPost('examples/render_example/altering', $edit, t('Save configuration'));
+    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
     $xpath_array = array(
       '//*[@id="sidebar-first"]//ol//li[starts-with(.,"Render arrays are everywhere")]',
     );
@@ -112,7 +112,7 @@ class RenderExampleTestCase extends DrupalWebTestCase {
     $edit = array(
       'render_example_move_navigation_menu' => TRUE,
     );
-    $this->drupalPost('examples/render_example/altering', $edit, t('Save configuration'));
+    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
     $xpath_array = array(
       '//*[@id="content"]//h2[starts-with(.,"Navigation")]',
     );
@@ -125,14 +125,14 @@ class RenderExampleTestCase extends DrupalWebTestCase {
     $edit = array(
       'render_example_prefix' => TRUE,
     );
-    $this->drupalPost('examples/render_example/altering', $edit, t('Save configuration'));
+    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
     $xpath_array = array(
       '//*[@id="sidebar-first"]//*[contains(@class, "block-prefix")]/span[contains(@class, "block-suffix")]',
     );
     $this->assertRenderResults($xpath_array);
 
     // Test some rendering facets of the various render examples.
-    $this->drupalGet('examples/render_example/arrays');
+    $this->backdropGet('examples/render_example/arrays');
     $content = $this->xpath('//*[@class="render-array"][1]');
 
     $xpath_array = array(

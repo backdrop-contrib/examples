@@ -1,0 +1,5 @@
+[NodeExampleTestCase]
+name = Node example functionality
+description = Tests node functionality.
+group = Example modules
+file = node_example.test

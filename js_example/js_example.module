@@ -2,14 +2,14 @@
 
 /**
  * @file
- * Examples showing how to use some of the new JavaScript features in Drupal 7.
+ * Examples showing how to use some of the JavaScript features in Backdrop.
  */
 
 /**
  * @defgroup js_example Example: JavaScript
  * @ingroup examples
  * @{
- * Examples using Drupal 7's built-in JavaScript.
+ * Examples using Backdrop's built-in JavaScript.
  */
 
 /**
@@ -48,12 +48,12 @@ function js_example_menu() {
  * Here we demonstrate attaching a number of scripts to the render array.
  * These scripts generate content according to 'weight' and color.
  *
- * On the Drupal side, we do three main things:
+ * On the Backdrop side, we do three main things:
  * - Create a container DIV, with an ID all the scripts can recognize.
  * - Attach some scripts which generate color-coded content. We use the
  *   'weight' attribute to set the order in which the scripts are included.
  * - Add the color->weight array to the settings variable in each *color*.js
- *   file. This is where Drupal passes data out to JavaScript.
+ *   file. This is where Backdrop passes data out to JavaScript.
  *
  * Each of the color scripts (red.js, blue.js, etc) uses jQuery to find our
  * DIV, and then add some content to it. The order in which the color scripts
@@ -76,7 +76,7 @@ function js_example_menu() {
  */
 function js_example_js_weights() {
   // Add some css to show which line is output by which script.
-  drupal_add_css(drupal_get_path('module', 'js_example') . '/css/jsweights.css');
+  backdrop_add_css(backdrop_get_path('module', 'js_example') . '/css/jsweights.css');
   // Create an array of items with random-ish weight values.
   $weights = array(
     'red' => 100,
@@ -90,16 +90,16 @@ function js_example_js_weights() {
   // color scripts to discover their weight values, by accessing
   // settings.jsWeights.*color*. The color scripts only use this information for
   // display to the user.
-  drupal_add_js(array('jsWeights' => $weights), array('type' => 'setting'));
+  backdrop_add_js(array('jsWeights' => $weights), array('type' => 'setting'));
   // Add our individual scripts. We add them in an arbitrary order, but the
-  // 'weight' attribute will cause Drupal to render (and thus load and execute)
+  // 'weight' attribute will cause Backdrop to render (and thus load and execute)
   // them in the weighted order.
-  drupal_add_js(drupal_get_path('module', 'js_example') . '/js/red.js', array('weight' => $weights['red']));
-  drupal_add_js(drupal_get_path('module', 'js_example') . '/js/blue.js', array('weight' => $weights['blue']));
-  drupal_add_js(drupal_get_path('module', 'js_example') . '/js/green.js', array('weight' => $weights['green']));
-  drupal_add_js(drupal_get_path('module', 'js_example') . '/js/brown.js', array('weight' => $weights['brown']));
-  drupal_add_js(drupal_get_path('module', 'js_example') . '/js/black.js', array('weight' => $weights['black']));
-  drupal_add_js(drupal_get_path('module', 'js_example') . '/js/purple.js', array('weight' => $weights['purple']));
+  backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/red.js', array('weight' => $weights['red']));
+  backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/blue.js', array('weight' => $weights['blue']));
+  backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/green.js', array('weight' => $weights['green']));
+  backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/brown.js', array('weight' => $weights['brown']));
+  backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/black.js', array('weight' => $weights['black']));
+  backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/purple.js', array('weight' => $weights['purple']));
   // Main container DIV. We give it a unique ID so that the JavaScript can
   // find it using jQuery.
   $output = '<div id="js-weights"></div>';
@@ -117,6 +117,6 @@ function js_example_accordion() {
   );
   $build['myelement']['#attached']['library'][] = array('system', 'ui.accordion');
   $build['myelement']['#attached']['js'][] = array('data' => '(function($){$(function() { $("#accordion").accordion(); })})(jQuery);', 'type' => 'inline');
-  $output = drupal_render($build);
+  $output = backdrop_render($build);
   return $output;
 }

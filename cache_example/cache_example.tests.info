@@ -1,0 +1,5 @@
+[CacheExampleTestCase]
+name = Cache example functionality
+description = Tests cache functionality.
+group = Example modules
+file = cache_example.test

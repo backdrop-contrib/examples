@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Examples demonstrating the Drupal Queue API.
+ * Examples demonstrating the Backdrop Queue API.
  */
 
 /**
@@ -29,7 +29,7 @@
  * More:
  *
  * @link http://www.ent.iastate.edu/it/Batch_and_Queue.pdf Batch vs Queue Presentation slides by John VanDyk @endlink
- * @link http://sf2010.drupal.org/conference/sessions/batch-vs-queue-api-smackdown session video. @endlink
+ * @link http://sf2010.DOCUMENTATION_PENDING/conference/sessions/batch-vs-queue-api-smackdown session video. @endlink
  *
  * @see system.queue.inc
  */
@@ -41,7 +41,7 @@ function queue_example_menu() {
   $items = array();
   $items['queue_example/insert_remove'] = array(
     'title' => 'Queue Example: Insert and remove',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('queue_example_add_remove_form'),
     'access callback' => TRUE,
   );
@@ -68,17 +68,17 @@ function queue_example_add_remove_form($form, &$form_state) {
   $items = queue_example_retrieve_queue($queue_name);
 
   // Add CSS to make the form a bit denser.
-  $form['#attached']['css'] = array(drupal_get_path('module', 'queue_example') . '/queue_example.css');
+  $form['#attached']['css'] = array(backdrop_get_path('module', 'queue_example') . '/queue_example.css');
 
   $form['help'] = array(
     '#type' => 'markup',
-    '#markup' => '<div>' . t('This page is an interface on the Drupal queue API. You can add new items to the queue, "claim" one (retrieve the next item and keep a lock on it), and delete one (remove it from the queue). Note that claims are not expired until cron runs, so there is a special button to run cron to perform any necessary expirations.') . '</div>',
+    '#markup' => '<div>' . t('This page is an interface on the Backdrop queue API. You can add new items to the queue, "claim" one (retrieve the next item and keep a lock on it), and delete one (remove it from the queue). Note that claims are not expired until cron runs, so there is a special button to run cron to perform any necessary expirations.') . '</div>',
   );
 
   $form['queue_name'] = array(
     '#type' => 'select',
     '#title' => t('Choose queue to examine'),
-    '#options' => drupal_map_assoc(array('queue_example_first_queue', 'queue_example_second_queue')),
+    '#options' => backdrop_map_assoc(array('queue_example_first_queue', 'queue_example_second_queue')),
     '#default_value' => $queue_name,
   );
   $form['queue_show'] = array(
@@ -156,14 +156,14 @@ function queue_example_add_remove_form_insert($form, &$form_state) {
   // Get a queue (of the default type) called 'queue_example_queue'.
   // If the default queue class is SystemQueue this creates a queue that stores
   // its items in the database.
-  $queue = DrupalQueue::get($form_state['values']['queue_name']);
+  $queue = BackdropQueue::get($form_state['values']['queue_name']);
   // There is no harm in trying to recreate existing.
   $queue->createQueue();
 
   // Queue the string.
   $queue->createItem($form_state['values']['string_to_add']);
   $count = $queue->numberOfItems();
-  drupal_set_message(t('Queued your string (@string_to_add). There are now @count items in the queue.', array('@count' => $count, '@string_to_add' => $form_state['values']['string_to_add'])));
+  backdrop_set_message(t('Queued your string (@string_to_add). There are now @count items in the queue.', array('@count' => $count, '@string_to_add' => $form_state['values']['string_to_add'])));
   // Setting 'rebuild' to TRUE allows us to keep information in $form_state.
   $form_state['rebuild'] = TRUE;
   // Unsetting the string_to_add allows us to set the incremented default value
@@ -176,7 +176,7 @@ function queue_example_add_remove_form_insert($form, &$form_state) {
  * Submit function for the show-queue button.
  */
 function queue_example_show_queue($form, &$form_state) {
-  $queue = DrupalQueue::get($form_state['values']['queue_name']);
+  $queue = BackdropQueue::get($form_state['values']['queue_name']);
   // There is no harm in trying to recreate existing.
   $queue->createQueue();
 
@@ -198,13 +198,13 @@ function queue_example_show_queue($form, &$form_state) {
  * Claims (retrieves) an item from the queue and reports the results.
  */
 function queue_example_add_remove_form_claim($form, &$form_state) {
-  $queue = DrupalQueue::get($form_state['values']['queue_name']);
+  $queue = BackdropQueue::get($form_state['values']['queue_name']);
   // There is no harm in trying to recreate existing.
   $queue->createQueue();
   $item = $queue->claimItem($form_state['values']['claim_time']);
   $count = $queue->numberOfItems();
   if (!empty($item)) {
-    drupal_set_message(
+    backdrop_set_message(
       t('Claimed item id=@item_id string=@string for @seconds seconds. There are @count items in the queue.',
         array(
           '@count' => $count,
@@ -216,7 +216,7 @@ function queue_example_add_remove_form_claim($form, &$form_state) {
     );
   }
   else {
-    drupal_set_message(t('There were no items in the queue available to claim. There are @count items in the queue.', array('@count' => $count)));
+    backdrop_set_message(t('There were no items in the queue available to claim. There are @count items in the queue.', array('@count' => $count)));
   }
   $form_state['rebuild'] = TRUE;
 }
@@ -225,13 +225,13 @@ function queue_example_add_remove_form_claim($form, &$form_state) {
  * Submit function for "Claim and delete" button.
  */
 function queue_example_add_remove_form_delete($form, &$form_state) {
-  $queue = DrupalQueue::get($form_state['values']['queue_name']);
+  $queue = BackdropQueue::get($form_state['values']['queue_name']);
   // There is no harm in trying to recreate existing.
   $queue->createQueue();
   $count = $queue->numberOfItems();
   $item = $queue->claimItem(60);
   if (!empty($item)) {
-    drupal_set_message(
+    backdrop_set_message(
       t('Claimed and deleted item id=@item_id string=@string for @seconds seconds. There are @count items in the queue.',
         array(
           '@count' => $count,
@@ -243,11 +243,11 @@ function queue_example_add_remove_form_delete($form, &$form_state) {
     );
     $queue->deleteItem($item);
     $count = $queue->numberOfItems();
-    drupal_set_message(t('There are now @count items in the queue.', array('@count' => $count)));
+    backdrop_set_message(t('There are now @count items in the queue.', array('@count' => $count)));
   }
   else {
     $count = $queue->numberOfItems();
-    drupal_set_message(t('There were no items in the queue available to claim/delete. There are currently @count items in the queue.', array('@count' => $count)));
+    backdrop_set_message(t('There were no items in the queue available to claim/delete. There are currently @count items in the queue.', array('@count' => $count)));
   }
   $form_state['rebuild'] = TRUE;
 }
@@ -258,12 +258,12 @@ function queue_example_add_remove_form_delete($form, &$form_state) {
  * Runs cron (to release expired claims) and reports the results.
  */
 function queue_example_add_remove_form_run_cron($form, &$form_state) {
-  drupal_cron_run();
-  $queue = DrupalQueue::get($form_state['values']['queue_name']);
+  backdrop_cron_run();
+  $queue = BackdropQueue::get($form_state['values']['queue_name']);
   // There is no harm in trying to recreate existing.
   $queue->createQueue();
   $count = $queue->numberOfItems();
-  drupal_set_message(t('Ran cron. If claimed items expired, they should be expired now. There are now @count items in the queue', array('@count' => $count)));
+  backdrop_set_message(t('Ran cron. If claimed items expired, they should be expired now. There are now @count items in the queue', array('@count' => $count)));
   $form_state['rebuild'] = TRUE;
 }
 
@@ -271,9 +271,9 @@ function queue_example_add_remove_form_run_cron($form, &$form_state) {
  * Submit handler for clearing/deleting the queue.
  */
 function queue_example_add_remove_form_clear_queue($form, &$form_state) {
-  $queue = DrupalQueue::get($form_state['values']['queue_name']);
+  $queue = BackdropQueue::get($form_state['values']['queue_name']);
   $queue->deleteQueue();
-  drupal_set_message(t('Deleted the @queue_name queue and all items in it', array('@queue_name' => $form_state['values']['queue_name'])));
+  backdrop_set_message(t('Deleted the @queue_name queue and all items in it', array('@queue_name' => $form_state['values']['queue_name'])));
 }
 
 /**

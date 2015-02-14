@@ -1,0 +1,5 @@
+[PagerExampleTestCase]
+name = Pager example functionality
+description = Tests pager functionality.
+group = Example modules
+file = pager_example.test

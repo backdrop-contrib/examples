@@ -1,5 +1,7 @@
 name = Vertical tabs example
 description = Show how to use vertical tabs for enhancing user experience.
 package = Example modules
+version = BACKDROP_VERSION
+backdrop = x.x
 core = 7.x
-files[] = vertical_tabs_example.test
+

@@ -1,0 +1,5 @@
+[DBTNGExampleUnitTestCase]
+name = DBTNG example functionality
+description = Tests DBTNG functionality.
+group = Example modules
+file = dbtng_example.test

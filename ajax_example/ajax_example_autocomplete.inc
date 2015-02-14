@@ -45,7 +45,7 @@ function ajax_example_simple_autocomplete($form, &$form_state) {
 /**
  * This is just a copy of user_autocomplete().
  *
- * It works simply by searching usernames (and of course in Drupal usernames
+ * It works simply by searching usernames (and of course in Backdrop usernames
  * are unique, so can be used for identifying a record.)
  *
  * The returned $matches array has
@@ -80,7 +80,7 @@ function ajax_example_simple_user_autocomplete_callback($string = "") {
     }
   }
 
-  drupal_json_output($matches);
+  backdrop_json_output($matches);
 }
 
 /**
@@ -195,7 +195,7 @@ function ajax_example_unique_autocomplete_validate($form, &$form_state) {
  */
 function ajax_example_unique_autocomplete_submit($form, &$form_state) {
   $node = node_load($form_state['values']['node']);
-  drupal_set_message(t('You found node %nid with title %title', array('%nid' => $node->nid, '%title' => $node->title)));
+  backdrop_set_message(t('You found node %nid with title %title', array('%nid' => $node->nid, '%title' => $node->title)));
 }
 
 /**
@@ -229,7 +229,7 @@ function ajax_example_unique_node_autocomplete_callback($string = "") {
     }
   }
 
-  drupal_json_output($matches);
+  backdrop_json_output($matches);
 }
 
 /**
@@ -414,7 +414,7 @@ function ajax_example_node_by_author_autocomplete_validate($form, &$form_state) 
 function ajax_example_node_by_author_autocomplete_submit($form, &$form_state) {
   $node = node_load($form_state['values']['node']);
   $account = user_load($node->uid);
-  drupal_set_message(t('You found node %nid with title !title_link, authored by !user_link',
+  backdrop_set_message(t('You found node %nid with title !title_link, authored by !user_link',
     array(
       '%nid' => $node->nid,
       '!title_link' => l($node->title, 'node/' . $node->nid),
@@ -456,5 +456,5 @@ function ajax_example_node_by_author_node_autocomplete_callback($author_uid, $st
     }
   }
 
-  drupal_json_output($matches);
+  backdrop_json_output($matches);
 }

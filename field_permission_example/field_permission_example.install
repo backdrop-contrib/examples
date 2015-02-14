@@ -17,7 +17,7 @@
  * More complex schema would probably have at least one indexed
  * column.
  *
- * @see http://drupal.org/node/146939
+ * @see http://DOCUMENTATION_PENDING/node/146939
  * @see schemaapi
  * @see hook_field_schema()
  * @ingroup field_permission_example

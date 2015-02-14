@@ -10,7 +10,7 @@
  * @{
  * Examples using Field Types API.
  *
- * This is updated from Barry Jaspan's presentation at Drupalcon Paris,
+ * This is updated from Barry Jaspan's presentation at Backdropcon Paris,
  * @link http://acquia.com/community/resources/acquia-tv/intro-field-api-module-developers Video Presentation @endlink
  *
  * Providing a field requires:
@@ -96,7 +96,7 @@ function field_example_field_validate($entity_type, $entity, $field, $instance, 
 /**
  * Implements hook_field_is_empty().
  *
- * hook_field_is_emtpy() is where Drupal asks us if this field is empty.
+ * hook_field_is_emtpy() is where Backdrop asks us if this field is empty.
  * Return TRUE if it does not contain data, FALSE if it does. This lets
  * the form API flag an error when required fields are empty.
  */
@@ -107,7 +107,7 @@ function field_example_field_is_empty($item, $field) {
 /**
  * Implements hook_field_formatter_info().
  *
- * We need to tell Drupal that we have two different types of formatters
+ * We need to tell Backdrop that we have two different types of formatters
  * for this field. One will change the text color, and the other will
  * change the background color.
  *
@@ -218,7 +218,7 @@ function field_example_field_widget_info() {
 /**
  * Implements hook_field_widget_form().
  *
- * hook_widget_form() is where Drupal tells us to create form elements for
+ * hook_widget_form() is where Backdrop tells us to create form elements for
  * our field's widget.
  *
  * We provide one of three different forms, depending on the widget type of
@@ -252,7 +252,7 @@ function field_example_field_widget_form(&$form, &$form_state, $field, $instance
             array('system', 'farbtastic'),
           ),
           // Add javascript to trigger the colorpicker.
-          'js' => array(drupal_get_path('module', 'field_example') . '/field_example.js'),
+          'js' => array(backdrop_get_path('module', 'field_example') . '/field_example.js'),
         ),
       );
       // DELIBERATE fall-through: From here on the field_example_text and
@@ -288,7 +288,7 @@ function field_example_field_widget_form(&$form, &$form_state, $field, $instance
         '#delta' => $delta,
 
         '#attached' => array(
-          'css' => array(drupal_get_path('module', 'field_example') . '/field_example.css'),
+          'css' => array(backdrop_get_path('module', 'field_example') . '/field_example.css'),
         ),
       );
 

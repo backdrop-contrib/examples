@@ -9,7 +9,7 @@
  * @defgroup menu_example Example: Menu
  * @ingroup examples
  * @{
- * Demonstrates uses of the Menu APIs in Drupal.
+ * Demonstrates uses of the Menu APIs in Backdrop.
  *
  * The Page Example module also talks about the menu system, as well
  * as how to use menu arguments to generate pages.
@@ -139,7 +139,7 @@ function menu_example_menu() {
     'page callback' => '_menu_example_menu_page',
     'page arguments' => array(t('This menu entry will not be visible and access will result in a 403 error unless the user has the "authenticated user" role. This is accomplished with a custom access callback.')),
     'access callback' => 'menu_example_custom_access',
-    'access arguments' => array('authenticated user'),
+    'access arguments' => array('authenticated'),
   );
 
   // A menu router entry with no menu link. This could be used any time we
@@ -287,7 +287,7 @@ function menu_example_menu() {
     'access callback' => TRUE,
   );
 
-  // Drupal provides magic placeholder processing as well, so if the placeholder
+  // Backdrop provides magic placeholder processing as well, so if the placeholder
   // is '%menu_example_arg_optional', the function
   // menu_example_arg_optional_load($arg) will be called to translate the path
   // argument to a more substantial object. $arg will be the value of the

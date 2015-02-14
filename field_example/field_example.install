@@ -16,7 +16,7 @@
  * All implementations of hook_field_schema() must be in the module's
  * .install file.
  *
- * @see http://drupal.org/node/146939
+ * @see http://DOCUMENTATION_PENDING/node/146939
  * @see schemaapi
  * @see hook_field_schema()
  * @ingroup field_example

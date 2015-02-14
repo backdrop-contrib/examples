@@ -18,35 +18,6 @@
  */
 
 /**
- * Implements hook_help().
- *
- * Through hook_help(), a module can make documentation available to the user
- * for the module as a whole or for specific paths. Where the help appears
- * depends on the $path specified.
- *
- * In the first example below, the help text will appear on the simple page
- * defined in hook_menu below in the region designated for help text.
- *
- * In the second example, the text will be available through the module page as
- * a link beside the module or on the admin help page (admin/help) in the list
- * of help topics using the name of the module. To specify help in the admin
- * section use the module name in the path as in the second case below.
- *
- * @see hook_help()
- */
-function page_example_help($path, $arg) {
-  switch ($path) {
-    case 'examples/page_example/simple':
-      // Help text for the simple page registered for this path.
-      return t('This is help text for the simple page.');
-
-    case 'admin/help#page_example':
-      // Help text for the admin section, using the module name in the path.
-      return t("This is help text created in the page example's second case.");
-  }
-}
-
-/**
  * Implements hook_permission().
  *
  * Since the access to our new custom pages will be granted based on
@@ -143,7 +114,7 @@ function page_example_menu() {
 function page_example_description() {
   return array(
     '#markup' =>
-    t('<p>The page_example provides two pages, "simple" and "arguments".</p><p>The <a href="@simple_link">simple page</a> just returns a renderable array for display.</p><p>The <a href="@arguments_link">arguments page</a> takes two arguments and displays them, as in @arguments_link</p>',
+    t('<p>WORKING IN BACKDROP: The page_example provides two pages, "simple" and "arguments".</p><p>The <a href="@simple_link">simple page</a> just returns a renderable array for display.</p><p>The <a href="@arguments_link">arguments page</a> takes two arguments and displays them, as in @arguments_link</p>',
       array(
         '@simple_link' => url('examples/page_example/simple', array('absolute' => TRUE)),
         '@arguments_link' => url('examples/page_example/arguments/23/56', array('absolute' => TRUE)),
@@ -183,14 +154,14 @@ function page_example_simple() {
  * rendered as late as possible, giving more parts of the system a chance to
  * change it if necessary.
  *
- * Consult @link http://drupal.org/node/930760 Render Arrays documentation
+ * Consult @link http://DOCUMENTATION_PENDING Render Arrays documentation
  * @endlink for details.
  */
 function page_example_arguments($first, $second) {
   // Make sure you don't trust the URL to be safe! Always check for exploits.
   if (!is_numeric($first) || !is_numeric($second)) {
     // We will just show a standard "access denied" page in this case.
-    drupal_access_denied();
+    backdrop_access_denied();
     // We actually don't get here.
     return;
   }

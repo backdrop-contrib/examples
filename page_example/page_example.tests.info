@@ -1,0 +1,5 @@
+[PageExampleTestCase]
+name = Page example functionality
+description = Tests page functionality.
+group = Example modules
+file = page_example.test

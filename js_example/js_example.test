@@ -10,7 +10,7 @@
  *
  * @ingroup js_example
  */
-class JsExampleTestCase extends DrupalWebTestCase {
+class JsExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -39,7 +39,7 @@ class JsExampleTestCase extends DrupalWebTestCase {
       'js_example/accordion',
     );
     foreach ($paths as $path) {
-      $this->drupalGet($path);
+      $this->backdropGet($path);
       $this->assertResponse(200, '200 response for path: ' . $path);
     }
   }

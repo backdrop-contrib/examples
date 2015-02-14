@@ -1,6 +1,6 @@
 name = File example
-description = Examples of using the Drupal File API and Stream Wrappers.
-package = Example modules
+description = Examples of using the Backdrop File API and Stream Wrappers.
 core = 7.x
-files[] = file_example_session_streams.inc
-files[] = file_example.test
+package = Example modules
+version = BACKDROP_VERSION
+backdrop = x.x

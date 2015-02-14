@@ -1,0 +1,5 @@
+[EmailExampleTestCase]
+name = Email example functionality
+description = Tests email functionality.
+group = Example modules
+file = email_example.test

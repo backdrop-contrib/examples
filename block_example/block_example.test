@@ -9,7 +9,7 @@
  *
  * @ingroup block_example
  */
-class BlockExampleTestCase extends DrupalWebTestCase {
+class BlockExampleTestCase extends BackdropWebTestCase {
 
   protected $webUser;
 
@@ -31,11 +31,12 @@ class BlockExampleTestCase extends DrupalWebTestCase {
     parent::setUp('block_example', 'search');
     // Create user. Search content permission granted for the search block to
     // be shown.
-    $this->webUser = $this->drupalCreateUser(
+    $this->webUser = $this->backdropCreateUser(
       array(
         'administer blocks',
         'search content',
         'access contextual links',
+        'administer layouts',
       )
     );
   }
@@ -48,67 +49,63 @@ class BlockExampleTestCase extends DrupalWebTestCase {
    */
   public function testBlockExampleBasic() {
     // Login the admin user.
-    $this->drupalLogin($this->webUser);
+    $this->backdropLogin($this->webUser);
 
-    // Find the blocks in the settings page.
-    $this->drupalGet('admin/structure/block');
+    $this->backdropGet('admin/structure/layouts/manage/default');
+    // Add a block to the sidebar.
+    $this->clickLink(t('Add block'), 3);
+
+    // Find the blocks in the 'Add block' modal.
     $this->assertRaw(t('Example: configurable text string'), 'Block configurable-string found.');
     $this->assertRaw(t('Example: empty block'), 'Block empty-block found.');
 
-    // Verify the default settings for block are processed.
-    $this->assertFieldByName('blocks[block_example_example_empty][region]', 'sidebar_first', 'Empty block is enabled in first sidebar successfully verified.');
-    $this->assertFieldByName('blocks[block_example_example_configurable_text][region]', -1, 'Configurable text block is disabled in first sidebar successfully verified.');
-
-    // Verify that blocks are not shown.
-    $this->drupalGet('/');
-    $this->assertNoRaw(t('Title of first block (example_configurable_text)'), 'Block configurable test not found.');
-    $this->assertNoRaw(t('Title of second block (example_empty)'), 'Block empty not found.');
-
     // Enable the Configurable text block and verify.
-    $this->drupalPost('admin/structure/block', array('blocks[block_example_example_configurable_text][region]' => 'sidebar_first'), t('Save blocks'));
-    $this->assertFieldByName('blocks[block_example_example_configurable_text][region]', 'sidebar_first', 'Configurable text block is enabled in first sidebar successfully verified.');
+    $this->clickLink(t('Example: configurable text string'));
+    $this->backdropPost(NULL, array(), t('Add block'));
 
-    // Verify that blocks are there. Empty block will not be shown, because it
-    // is empty.
-    $this->drupalGet('/');
+    // Record the UUID for the newly added block.
+    $last_block = $this->xpath('(//*[contains(@class,:region)]//*[@data-block-id])[last()]', array(
+      ':region' => 'l-sidebar',
+    ));
+    $block_uuid = (string) $last_block[0]['data-block-id'];
+    $block_edit_url = 'admin/structure/layouts/manage/default/configure-block/editor/' . $block_uuid;
+    
+    // Confirm the block exists, and is the right place.
+    $this->assertText('Example: configurable text string');
+    // Save the layout.
+    $this->backdropPost(NULL, array(), t('Save layout'));
+
+    // Verify that block is there.
+    $this->backdropGet('/');
     $this->assertRaw(t('Title of first block (example_configurable_text)'), 'Block configurable text found.');
+    $elements = $this->xpath('//*[contains(@class,:region)]//*[contains(@class,:block)]', array(
+      ':region' => 'l-sidebar',
+      ':block' => 'block-block-example-example-configurable-text',
+    ));
+    $this->assertEqual(count($elements), 1, 'The sample block was found in the sidebar.');
 
     // Change content of configurable text block.
     $string = $this->randomName();
-    $this->drupalPost('admin/structure/block/manage/block_example/example_configurable_text/configure', array('block_example_string' => $string), t('Save block'));
-
+    $edit = array(
+      'block_settings[block_example_string]' => $string,
+    );
+    $this->backdropPost($block_edit_url, $edit, t('Save configuration'));
+    $this->backdropPost(NULL, array(), t('Save layout'));
+    
     // Verify that new content is shown.
-    $this->drupalGet('/');
+    $this->backdropGet('/');
     $this->assertRaw($string, 'Content of configurable text block successfully verified.');
 
     // Make sure our example uppercased block is shown as altered by the
     // hook_block_view_alter().
-    $this->assertRaw(t('UPPERCASE THIS PLEASE'));
+    $this->backdropGet('admin/structure/layouts/manage/default');
+    $this->clickLink(t('Add block'), 3);
+    $this->clickLink(t('Example: uppercase this please'));
+    $this->backdropPost(NULL, array(), t('Add block'));
+    $this->backdropPost(NULL, array(), t('Save layout'));
 
-    // Create a new block and make sure it gets uppercased.
-    $post = array(
-      'title' => t('configurable block to be uppercased'),
-      'info' => t('configurable block to be uppercased'),
-      'body[value]' => t('body of new  block'),
-      'regions[bartik]' => 'sidebar_first',
-    );
-    $this->drupalPost('admin/structure/block/add', $post, t('Save block'));
-    $this->drupalGet('/');
-    $this->assertRaw(('CONFIGURABLE BLOCK TO BE UPPERCASED'));
-
-    // Verify that search block is at the bottom of the region.
-    // Enable the search block on top of sidebar_first.
-    $block_options = array(
-      'blocks[search_form][region]' => 'sidebar_first',
-      'blocks[search_form][weight]' => -9,
-    );
-    $this->drupalPost('admin/structure/block', $block_options, t('Save blocks'));
-
-    // The first 'configure block' link should be from our configurable block,
-    // the second from the Navigation menu, and the fifth (#4) from
-    // search block if it was successfully pushed to the bottom.
-    $this->drupalGet('/');
-    $this->clickLink('Configure block', 4);
-    $this->assertText(t("'@search' block", array('@search' => t('Search form'))), 'hook_block_info_alter successfully verified.');
+    // Verify that block is there.
+    $this->backdropGet('/');
+    $this->assertRaw(t('UPPERCASE THIS PLEASE'), 'Block uppercase text found.');
   }
 }

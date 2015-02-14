@@ -20,7 +20,7 @@
  * - $title_suffix (array): An array containing additional output populated by
  *   modules, intended to be displayed after the main title tag that appears in
  *   the template.
- * The above variables are a subset of those which Drupal provides to all
+ * The above variables are a subset of those which Backdrop provides to all
  * templates, and they must be printed in your template file in order for
  * contextual links to be properly attached. For example, the core Contextual
  * Links module adds the renderable contextual links themselves inside
@@ -28,7 +28,7 @@
  * the HTML. (This placement is for accessibility reasons, among others.)
  */
 ?>
-<div class="<?php print $classes; ?>">
+<div class="<?php print implode(' ', $classes); ?>">
   <?php print render($title_prefix); ?>
   <h2><?php print $title; ?></h2>
   <?php print render($title_suffix); ?>

@@ -10,7 +10,7 @@
  *
  * @ingroup tabledrag_example
  */
-class TabledragExampleTestCase extends DrupalWebTestCase {
+class TabledragExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -39,7 +39,7 @@ class TabledragExampleTestCase extends DrupalWebTestCase {
       'examples/tabledrag_example_parent',
     );
     foreach ($paths as $path) {
-      $this->drupalGet($path);
+      $this->backdropGet($path);
       $this->assertResponse(200, '200 response for path: ' . $path);
     }
   }

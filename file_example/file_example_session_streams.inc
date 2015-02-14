@@ -25,8 +25,8 @@
  *
  * The idea of "stream wrapper" is that this can be extended indefinitely.
  * The classic example is HTTP: With PHP you can do a
- * file_get_contents("http://drupal.org/projects") as if it were a file,
- * because the scheme "http" is supported natively in PHP. So Drupal adds
+ * file_get_contents("http://DOCUMENTATION_PENDING/projects") as if it were a file,
+ * because the scheme "http" is supported natively in PHP. So Backdrop adds
  * the public:// and private:// schemes, and contrib modules can add any
  * scheme they want to. This example adds the session:// scheme, which allows
  * reading and writing the $_SESSION['file_example'] key as if it were a file.
@@ -37,7 +37,7 @@
  *
  * @ingroup file_example
  */
-class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
+class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface {
   /**
    * Stream context resource.
    *
@@ -125,7 +125,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
     if (!isset($mapping)) {
       // The default file map, defined in file.mimetypes.inc is quite big.
       // We only load it when necessary.
-      include_once DRUPAL_ROOT . '/includes/file.mimetypes.inc';
+      include_once BACKDROP_ROOT . '/includes/file.mimetypes.inc';
       $mapping = file_mimetype_mapping();
     }
 
@@ -141,7 +141,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
     // - image.jpeg, and
     // - awesome.image.jpeg
     while ($additional_part = array_pop($file_parts)) {
-      $extension = drupal_strtolower($additional_part . ($extension ? '.' . $extension : ''));
+      $extension = backdrop_strtolower($additional_part . ($extension ? '.' . $extension : ''));
       if (isset($mapping['extensions'][$extension])) {
         return $mapping['mimetypes'][$mapping['extensions'][$extension]];
       }
@@ -312,10 +312,10 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
    */
   public function stream_read($count) {
     if (is_string($this->sessionContent)) {
-      $remaining_chars = drupal_strlen($this->sessionContent) - $this->streamPointer;
+      $remaining_chars = backdrop_strlen($this->sessionContent) - $this->streamPointer;
       $number_to_read = min($count, $remaining_chars);
       if ($remaining_chars > 0) {
-        $buffer = drupal_substr($this->sessionContent, $this->streamPointer, $number_to_read);
+        $buffer = backdrop_substr($this->sessionContent, $this->streamPointer, $number_to_read);
         $this->streamPointer += $number_to_read;
         return $buffer;
       }
@@ -339,8 +339,8 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
     // session variable.
     $data = check_plain($data);
     $this->sessionContent = substr_replace($this->sessionContent, $data, $this->streamPointer);
-    $this->streamPointer += drupal_strlen($data);
-    return drupal_strlen($data);
+    $this->streamPointer += backdrop_strlen($data);
+    return backdrop_strlen($data);
   }
 
   /**
@@ -369,7 +369,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
    * @see http://php.net/manual/en/streamwrapper.stream-seek.php
    */
   public function stream_seek($offset, $whence) {
-    if (drupal_strlen($this->sessionContent) >= $offset) {
+    if (backdrop_strlen($this->sessionContent) >= $offset) {
       $this->streamPointer = $offset;
       return TRUE;
     }
@@ -413,7 +413,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
    */
   public function stream_stat() {
     return array(
-      'size' => drupal_strlen($this->sessionContent),
+      'size' => backdrop_strlen($this->sessionContent),
     );
   }
 
@@ -452,7 +452,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
       $unset .= '[\'' . $component . '\']';
     }
     // TODO: Is there a better way to delete from an array?
-    // drupal_array_get_nested_value() doesn't work because it only returns
+    // backdrop_array_get_nested_value() doesn't work because it only returns
     // a reference; unsetting a reference only unsets the reference.
     eval("unset($unset);");
     return TRUE;
@@ -491,7 +491,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
    * @return string
    *   A string containing the directory name.
    *
-   * @see drupal_dirname()
+   * @see backdrop_dirname()
    */
   public function dirname($uri = NULL) {
     list($scheme, $target) = explode('://', $uri, 2);
@@ -603,7 +603,7 @@ class FileExampleSessionStreamWrapper implements DrupalStreamWrapperInterface {
     if ($mode) {
       $size = 0;
       if ($mode == 0100000) {
-        $size = drupal_strlen($key);
+        $size = backdrop_strlen($key);
       }
 
       // There are no protections on this, so all writable.

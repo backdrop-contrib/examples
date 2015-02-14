@@ -9,10 +9,10 @@
 (function($) {
 
   // Re-enable form elements that are disabled for non-ajax situations.
-  Drupal.behaviors.enableFormItemsForAjaxForms = {
+  Backdrop.behaviors.enableFormItemsForAjaxForms = {
     attach: function() {
     // If ajax is enabled.
-    if (Drupal.ajax) {
+    if (Backdrop.ajax) {
       $('.enabled-for-ajax').removeAttr('disabled');
     }
 
@@ -20,7 +20,7 @@
     // It overrides the behavior of the CSS that would normally turn off
     // the 'ok' button when JS is enabled. Here, for demonstration purposes,
     // we have AJAX disabled but JS turned on, so use this to simulate.
-    if (!Drupal.ajax) {
+    if (!Backdrop.ajax) {
       $('html.js .next-button').show();
     }
   }

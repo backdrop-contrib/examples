@@ -9,7 +9,7 @@
  *
  * @ingroup field_example
  */
-class FieldExampleTest extends DrupalWebTestCase {
+class FieldExampleTest extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -46,10 +46,10 @@ class FieldExampleTest extends DrupalWebTestCase {
     $title = $this->randomName(20);
 
     // Create and login user.
-    $account = $this->drupalCreateUser(array('administer content types'));
-    $this->drupalLogin($account);
+    $account = $this->backdropCreateUser(array('administer content types'));
+    $this->backdropLogin($account);
 
-    $this->drupalGet('admin/structure/types');
+    $this->backdropGet('admin/structure/types');
 
     // Create the content type.
     $this->clickLink(t('Add content type'));
@@ -58,7 +58,7 @@ class FieldExampleTest extends DrupalWebTestCase {
       'name' => $content_type_machine,
       'type' => $content_type_machine,
     );
-    $this->drupalPost(NULL, $edit, t('Save and add fields'));
+    $this->backdropPost(NULL, $edit, t('Save and add fields'));
     $this->assertText(t('The content type @name has been added.', array('@name' => $content_type_machine)));
 
     $single_text_field = strtolower($this->randomName(10));
@@ -101,10 +101,10 @@ class FieldExampleTest extends DrupalWebTestCase {
 
     // Now that we have a new content type, create a user that has privileges
     // on the content type.
-    $account = $this->drupalCreateUser(array($permission));
-    $this->drupalLogin($account);
+    $account = $this->backdropCreateUser(array($permission));
+    $this->backdropLogin($account);
 
-    $this->drupalGet('node/add/' . $content_type_machine);
+    $this->backdropGet('node/add/' . $content_type_machine);
 
     // Add a node.
     $edit = array(
@@ -122,7 +122,7 @@ class FieldExampleTest extends DrupalWebTestCase {
 
     );
     // We want to add a 2nd item to the multivalue field, so hit "add another".
-    $this->drupalPost(NULL, $edit, t('Add another item'));
+    $this->backdropPost(NULL, $edit, t('Add another item'));
 
     $edit = array(
       'field_' . $multivalue_3text_field . '[und][1][rgb][r]' => '00',
@@ -130,7 +130,7 @@ class FieldExampleTest extends DrupalWebTestCase {
       'field_' . $multivalue_3text_field . '[und][1][rgb][b]' => '05',
     );
     // Now we can fill in the second item in the multivalue field and save.
-    $this->drupalPost(NULL, $edit, t('Save'));
+    $this->backdropPost(NULL, $edit, t('Save'));
     $this->assertText(t('@content_type_machine @title has been created', array('@content_type_machine' => $content_type_machine, '@title' => $title)));
 
     $output_strings = $this->xpath("//div[contains(@class,'field-type-field-example-rgb')]/div/div/p/text()");
@@ -161,15 +161,15 @@ class FieldExampleTest extends DrupalWebTestCase {
       'fields[_add_new_field][widget_type]' => $widget_type,
 
     );
-    $this->drupalPost(NULL, $edit, t('Save'));
+    $this->backdropPost(NULL, $edit, t('Save'));
 
     // There are no settings for this, so just press the button.
-    $this->drupalPost(NULL, array(), t('Save field settings'));
+    $this->backdropPost(NULL, array(), t('Save field settings'));
 
     $edit = array('field[cardinality]' => (string) $cardinality);
 
     // Using all the default settings, so press the button.
-    $this->drupalPost(NULL, $edit, t('Save settings'));
+    $this->backdropPost(NULL, $edit, t('Save settings'));
     debug(
       t('Saved settings for field %field_name with widget %widget_type and cardinality %cardinality',
         array(

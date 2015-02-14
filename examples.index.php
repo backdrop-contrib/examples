@@ -8,7 +8,7 @@
  * @link ajax_example.module Using AJAX forms @endlink
  * @link batch_example.module Using the batch API @endlink
  * @link block_example.module Defining blocks @endlink
- * @link cache_example.module Demonstrate Drupal caching @endlink
+ * @link cache_example.module Demonstrate Backdrop caching @endlink
  * @link contextual_links_example.module Defining contextual links @endlink
  * @link cron_example.module Using hook_cron() and hook_cron_queue_info() @endlink
  * @link dbtng_example.module Database examples (DBTNG) @endlink
@@ -27,9 +27,9 @@
  * @link page_example.module Creating a custom page @endlink
  * @link pager_example.module Using a table with a pager @endlink
  * @link queue_example.module Using the Queue API @endlink
- * @link rdf_example.module Implementing RDF in Drupal @endlink
+ * @link rdf_example.module Implementing RDF in Backdrop @endlink
  * @link render_example.module Demonstrates the render API @endlink
- * @link simpletest_example.module Writing tests for Drupal @endlink
+ * @link simpletest_example.module Writing tests for Backdrop @endlink
  * @link tablesort_example.module Use a render array to present a table with automatic sorting @endlink
  * @link tabledrag_example.module Demonstrates tabledrag forms @endlink
  * @link theming_example.module Demonstrate how modules shoule use theme functions and provide tpl.php files @endlink

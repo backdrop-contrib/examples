@@ -9,7 +9,7 @@
  * @defgroup vertical_tabs_example Example: Vertical Tabs
  * @ingroup examples
  * @{
- * Demonstrates the vertical tabs functionality provided by Drupal 7.
+ * Demonstrates the vertical tabs functionality provided by Backdrop.
  *
  * This example does not cover how to save or load a custom setting, and only
  * deals with the elements visibility and summary in the tab.
@@ -62,7 +62,7 @@ function vertical_tabs_example_form_alter(&$form, $form_state, $form_id) {
       // when form settings are changed.
       '#attached' => array(
         'js' => array(
-          'vertical-tabs' => drupal_get_path('module', 'vertical_tabs_example') . '/vertical_tabs_example.js',
+          'vertical-tabs' => backdrop_get_path('module', 'vertical_tabs_example') . '/vertical_tabs_example.js',
         ),
       ),
     );

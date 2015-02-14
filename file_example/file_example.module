@@ -1,23 +1,23 @@
 <?php
 /**
  * @file
- * Examples demonstrating the Drupal File API (and Stream Wrappers).
+ * Examples demonstrating the backdrop File API (and Stream Wrappers).
  */
 
 /**
  * @defgroup file_example Example: Files
  * @ingroup examples
  * @{
- * Examples demonstrating the Drupal File API (and Stream Wrappers).
+ * Examples demonstrating the backdrop File API (and Stream Wrappers).
  *
  * The File Example module is a part of the Examples for Developers Project
- * and provides various Drupal File API Examples. You can download and
+ * and provides various backdrop File API Examples. You can download and
  * experiment with this code at the
- * @link http://drupal.org/project/examples Examples for Developers project page. @endlink
+ * @link http://DOCUMENTATION_PENDING/project/examples Examples for Developers project page. @endlink
  *
- * See @link http://drupal.org/node/555118 Drupal File API @endlink for handbook
+ * See @link http://DOCUMENTATION_PENDING Backdrop File API @endlink for handbook
  * documentation on the File API and
- * @link file File summary on api.drupal.org @endlink for the function summary.
+ * @link file File summary on api.DOCUMENTATION_PENDING @endlink for the function summary.
  */
 
 /**
@@ -35,7 +35,7 @@ function file_example_menu() {
   );
   $items['examples/file_example/fileapi'] = array(
     'title' => 'Use File API to read/write a file',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'access arguments' => array('use file example'),
     'page arguments' => array('file_example_readwrite'),
   );
@@ -63,7 +63,7 @@ function file_example_permission() {
  * A simple introduction to the workings of this module.
  */
 function file_example_intro() {
-  $markup = t('The file example module provides a form and code to demonstrate the Drupal 7 file api. Experiment with the form, and then look at the submit handlers in the code to understand the file api.');
+  $markup = t('The file example module provides a form and code to demonstrate the Backdrop file api. Experiment with the form, and then look at the submit handlers in the code to understand the file api.');
   return array('#markup' => $markup);
 }
 /**
@@ -74,7 +74,7 @@ function file_example_intro() {
  */
 function file_example_readwrite($form, &$form_state) {
   if (empty($_SESSION['file_example_default_file'])) {
-    $_SESSION['file_example_default_file'] = 'session://drupal.txt';
+    $_SESSION['file_example_default_file'] = 'session://backdrop.txt';
   }
   $default_file = $_SESSION['file_example_default_file'];
   if (empty($_SESSION['file_example_default_directory'])) {
@@ -123,7 +123,7 @@ function file_example_readwrite($form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => $default_file,
     '#title' => t('Enter the URI of a file'),
-    '#description' => t('This must be a stream-type description like public://some_file.txt or http://drupal.org or private://another_file.txt or (for this example) session://yet_another_file.txt.'),
+    '#description' => t('This must be a stream-type description like public://some_file.txt or http://backdropcms.org or private://another_file.txt or (for this example) session://yet_another_file.txt.'),
   );
   $form['fileops']['read_submit'] = array(
     '#type' => 'submit',
@@ -203,7 +203,7 @@ function file_example_managed_write_submit($form, &$form_state) {
   if (!empty($file_object)) {
     $url = file_create_url($file_object->uri);
     $_SESSION['file_example_default_file'] = $file_object->uri;
-    drupal_set_message(
+    backdrop_set_message(
       t('Saved managed file: %file to destination %destination (accessible via !url, actual uri=<span id="uri">@uri</span>)',
         array(
           '%file' => print_r($file_object, TRUE),
@@ -214,7 +214,7 @@ function file_example_managed_write_submit($form, &$form_state) {
     );
   }
   else {
-    drupal_set_message(t('Failed to save the managed file'), 'error');
+    backdrop_set_message(t('Failed to save the managed file'), 'error');
   }
 }
 
@@ -239,7 +239,7 @@ function file_example_unmanaged_write_submit($form, &$form_state) {
   if ($filename) {
     $url = file_create_url($filename);
     $_SESSION['file_example_default_file'] = $filename;
-    drupal_set_message(
+    backdrop_set_message(
       t('Saved file as %filename (accessible via !url, uri=<span id="uri">@uri</span>)',
         array(
           '%filename' => $filename,
@@ -250,7 +250,7 @@ function file_example_unmanaged_write_submit($form, &$form_state) {
     );
   }
   else {
-    drupal_set_message(t('Failed to save the file'), 'error');
+    backdrop_set_message(t('Failed to save the file'), 'error');
   }
 }
 
@@ -263,7 +263,7 @@ function file_example_unmanaged_write_submit($form, &$form_state) {
  * - file_create_url(), which converts a URI in the form public://junk.txt or
  *   private://something/test.txt into a URL like
  *   http://example.com/sites/default/files/junk.txt.
- * - drupal_tempnam() generates a temporary filename for use.
+ * - backdrop_tempnam() generates a temporary filename for use.
  */
 function file_example_unmanaged_php_submit($form, &$form_state) {
   $data = $form_state['values']['write_contents'];
@@ -271,7 +271,7 @@ function file_example_unmanaged_php_submit($form, &$form_state) {
 
   if (empty($destination)) {
     // If no destination has been provided, use a generated name.
-    $destination = drupal_tempnam('public://', 'file');
+    $destination = backdrop_tempnam('public://', 'file');
   }
 
   // With all traditional PHP functions we can use the stream wrapper notation
@@ -287,14 +287,14 @@ function file_example_unmanaged_php_submit($form, &$form_state) {
   for ($i = 0; $i < $length; $i += $write_size) {
     $result = fwrite($fp, substr($data, $i, $write_size));
     if ($result === FALSE) {
-      drupal_set_message(t('Failed writing to the file %file', array('%file' => $destination)), 'error');
+      backdrop_set_message(t('Failed writing to the file %file', array('%file' => $destination)), 'error');
       fclose($fp);
       return;
     }
   }
   $url = file_create_url($destination);
   $_SESSION['file_example_default_file'] = $destination;
-  drupal_set_message(
+  backdrop_set_message(
     t('Saved file as %filename (accessible via !url, uri=<span id="uri">@uri</span>)',
       array(
         '%filename' => $destination,
@@ -308,10 +308,10 @@ function file_example_unmanaged_php_submit($form, &$form_state) {
 /**
  * Submit handler for reading a stream wrapper.
  *
- * Drupal now has full support for PHP's stream wrappers, which means that
+ * Backdrop now has full support for PHP's stream wrappers, which means that
  * instead of the traditional use of all the file functions
  * ($fp = fopen("/tmp/some_file.txt");) far more sophisticated and generalized
- * (and extensible) things can be opened as if they were files. Drupal itself
+ * (and extensible) things can be opened as if they were files. Backdrop itself
  * provides the public:// and private:// schemes for handling public and
  * private files. PHP provides file:// (the default) and http://, so that a
  * URL can be read or written (as in a POST) as if it were a file. In addition,
@@ -329,7 +329,7 @@ function file_example_read_submit($form, &$form_state) {
   $uri = $form_state['values']['fileops_file'];
 
   if (!is_file($uri)) {
-    drupal_set_message(t('The file %uri does not exist', array('%uri' => $uri)), 'error');
+    backdrop_set_message(t('The file %uri does not exist', array('%uri' => $uri)), 'error');
     return;
   }
 
@@ -344,7 +344,7 @@ function file_example_read_submit($form, &$form_state) {
     if ($sourcename) {
       $url = file_create_url($sourcename);
       $_SESSION['file_example_default_file'] = $sourcename;
-      drupal_set_message(
+      backdrop_set_message(
         t('The file was read and copied to %filename which is accessible at !url',
           array(
             '%filename' => $sourcename,
@@ -354,12 +354,12 @@ function file_example_read_submit($form, &$form_state) {
       );
     }
     else {
-      drupal_set_message(t('Failed to save the file'));
+      backdrop_set_message(t('Failed to save the file'));
     }
   }
   else {
     // We failed to get the contents of the requested file.
-    drupal_set_message(t('Failed to retrieve the file %file', array('%file' => $uri)));
+    backdrop_set_message(t('Failed to retrieve the file %file', array('%file' => $uri)));
   }
 }
 
@@ -379,7 +379,7 @@ function file_example_delete_submit($form, &$form_state) {
   if (!empty($file_object)) {
     $result = file_delete($file_object);
     if ($result !== TRUE) {
-      drupal_set_message(t('Failed deleting managed file %uri. Result was %result',
+      backdrop_set_message(t('Failed deleting managed file %uri. Result was %result',
         array(
           '%uri' => $uri,
           '%result' => print_r($result, TRUE),
@@ -387,7 +387,7 @@ function file_example_delete_submit($form, &$form_state) {
       ), 'error');
     }
     else {
-      drupal_set_message(t('Successfully deleted managed file %uri', array('%uri' => $uri)));
+      backdrop_set_message(t('Successfully deleted managed file %uri', array('%uri' => $uri)));
       $_SESSION['file_example_default_file'] = $uri;
     }
   }
@@ -395,10 +395,10 @@ function file_example_delete_submit($form, &$form_state) {
   else {
     $result = file_unmanaged_delete($uri);
     if ($result !== TRUE) {
-      drupal_set_message(t('Failed deleting unmanaged file %uri', array('%uri' => $uri, 'error')));
+      backdrop_set_message(t('Failed deleting unmanaged file %uri', array('%uri' => $uri, 'error')));
     }
     else {
-      drupal_set_message(t('Successfully deleted unmanaged file %uri', array('%uri' => $uri)));
+      backdrop_set_message(t('Successfully deleted unmanaged file %uri', array('%uri' => $uri)));
       $_SESSION['file_example_default_file'] = $uri;
     }
   }
@@ -410,10 +410,10 @@ function file_example_delete_submit($form, &$form_state) {
 function file_example_file_check_exists_submit($form, &$form_state) {
   $uri = $form_state['values']['fileops_file'];
   if (is_file($uri)) {
-    drupal_set_message(t('The file %uri exists.', array('%uri' => $uri)));
+    backdrop_set_message(t('The file %uri exists.', array('%uri' => $uri)));
   }
   else {
-    drupal_set_message(t('The file %uri does not exist.', array('%uri' => $uri)));
+    backdrop_set_message(t('The file %uri does not exist.', array('%uri' => $uri)));
   }
 
 }
@@ -433,11 +433,11 @@ function file_example_create_directory_submit($form, &$form_state) {
   // FILE_MODIFY_PERMISSIONS will set the permissions of the directory by
   // by default to 0755, or to the value of the variable 'file_chmod_directory'.
   if (!file_prepare_directory($directory, FILE_MODIFY_PERMISSIONS | FILE_CREATE_DIRECTORY)) {
-    drupal_set_message(t('Failed to create %directory.', array('%directory' => $directory)), 'error');
+    backdrop_set_message(t('Failed to create %directory.', array('%directory' => $directory)), 'error');
   }
   else {
     $result = is_dir($directory);
-    drupal_set_message(t('Directory %directory is ready for use.', array('%directory' => $directory)));
+    backdrop_set_message(t('Directory %directory is ready for use.', array('%directory' => $directory)));
     $_SESSION['file_example_default_directory'] = $directory;
   }
 }
@@ -452,10 +452,10 @@ function file_example_delete_directory_submit($form, &$form_state) {
 
   $result = file_unmanaged_delete_recursive($directory);
   if (!$result) {
-    drupal_set_message(t('Failed to delete %directory.', array('%directory' => $directory)), 'error');
+    backdrop_set_message(t('Failed to delete %directory.', array('%directory' => $directory)), 'error');
   }
   else {
-    drupal_set_message(t('Recursively deleted directory %directory.', array('%directory' => $directory)));
+    backdrop_set_message(t('Recursively deleted directory %directory.', array('%directory' => $directory)));
     $_SESSION['file_example_default_directory'] = $directory;
   }
 }
@@ -474,10 +474,10 @@ function file_example_check_directory_submit($form, &$form_state) {
   $directory = $form_state['values']['directory_name'];
   $result = is_dir($directory);
   if (!$result) {
-    drupal_set_message(t('Directory %directory does not exist.', array('%directory' => $directory)));
+    backdrop_set_message(t('Directory %directory does not exist.', array('%directory' => $directory)));
   }
   else {
-    drupal_set_message(t('Directory %directory exists.', array('%directory' => $directory)));
+    backdrop_set_message(t('Directory %directory exists.', array('%directory' => $directory)));
   }
 }
 
@@ -490,7 +490,7 @@ function file_example_show_session_contents_submit($form, &$form_state) {
     dsm($_SESSION['file_example'], t('Entire $_SESSION["file_example"]'));
   }
   else {
-    drupal_set_message('<pre>' . print_r($_SESSION['file_example'], TRUE) . '</pre>');
+    backdrop_set_message('<pre>' . print_r($_SESSION['file_example'], TRUE) . '</pre>');
   }
 }
 
@@ -517,7 +517,7 @@ function file_example_get_managed_file($uri) {
 /**
  * Implements hook_stream_wrappers().
  *
- * hook_stream_wrappers() is Drupal's way of exposing the class that PHP will
+ * hook_stream_wrappers() is Backdrop's way of exposing the class that PHP will
  * use to provide a new stream wrapper class. In this case, we'll expose the
  * 'session' scheme, so a file reference like "session://example/example.txt"
  * is readable and writable as a location in the $_SESSION variable.

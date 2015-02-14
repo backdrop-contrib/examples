@@ -9,7 +9,7 @@
  *
  * @ingroup theming_example
  */
-class ThemingExampleTestCase extends DrupalWebTestCase {
+class ThemingExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -37,13 +37,13 @@ class ThemingExampleTestCase extends DrupalWebTestCase {
     // No need to login for this test.
     // Check that the main page has been themed (first line with <b>) and has
     // content.
-    $this->drupalGet('examples/theming_example');
+    $this->backdropGet('examples/theming_example');
     $this->assertRaw('<strong>Some examples of pages');
     $this->assertRaw('examples/theming_example/theming_example_select_form">Simple form 1</a>');
 
     // Visit the list demonstration page and check that css gets loaded
     // and do some spot checks on how the two lists were themed.
-    $this->drupalGet('examples/theming_example/theming_example_list_page');
+    $this->backdropGet('examples/theming_example/theming_example_list_page');
     $this->assertPattern('/@import.*theming_example.css/');
     $first_ul = $this->xpath('//ul[contains(@class,"render-version-list")]');
     $this->assertTrue($first_ul[0]->li[0] == 'First item');
@@ -51,14 +51,14 @@ class ThemingExampleTestCase extends DrupalWebTestCase {
     $this->assertTrue($second_ul[0]->li[1] == 'Second item');
 
     // Visit the select form page to do spot checks.
-    $this->drupalGet('examples/theming_example/theming_example_select_form');
+    $this->backdropGet('examples/theming_example/theming_example_select_form');
     // We did explicit theming to accomplish the below...
     $this->assertRaw('<strong>Choose which ordering you want</strong>');
     $this->assertRaw('<div class="container-inline"><div class="form-item form-type-select form-item-choice">');
     $this->assertNoPattern('/@import.*theming_example.css/');
 
     // Visit the text form page and do spot checks.
-    $this->drupalGet('examples/theming_example/theming_example_text_form');
+    $this->backdropGet('examples/theming_example/theming_example_text_form');
     $this->assertText('Please input something!');
     // If it were themed normally there would be a div wrapper in our pattern.
     $this->assertPattern('%</div>\s*<input +type="submit"%');

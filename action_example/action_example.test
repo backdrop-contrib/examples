@@ -43,7 +43,7 @@ class ActionExampleTestCase extends TriggerWebTestCase {
    */
   public function testActionExample() {
     // Create an administrative user.
-    $admin_user = $this->drupalCreateUser(
+    $admin_user = $this->backdropCreateUser(
       array(
         'administer actions',
         'access comments',
@@ -55,36 +55,36 @@ class ActionExampleTestCase extends TriggerWebTestCase {
         'administer users',
       )
     );
-    $this->drupalLogin($admin_user);
+    $this->backdropLogin($admin_user);
 
     // 1. Assign basic action; then logout and login user and see if it puts
     // the message on the screen.
-    $hash = drupal_hash_base64('action_example_basic_action');
+    $hash = backdrop_hash_base64('action_example_basic_action');
     $edit = array('aid' => $hash);
-    $this->drupalPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), 'trigger-user-login-assign-form');
+    $this->backdropPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), 'trigger-user-login-assign-form');
 
-    $this->drupalLogout();
-    $this->drupalLogin($admin_user);
+    $this->backdropLogout();
+    $this->backdropLogin($admin_user);
     $this->assertText(t('action_example_basic_action fired'));
 
     // 2. Unblock: When a user's profile is being viewed, unblock.
-    $normal_user = $this->drupalCreateUser();
+    $normal_user = $this->backdropCreateUser();
     // Create blocked user.
     user_save($normal_user, array('status' => 0));
     $normal_user = user_load($normal_user->uid, TRUE);
     $this->assertFalse($normal_user->status, 'Normal user status has been set to blocked');
 
-    $hash = drupal_hash_base64('action_example_unblock_user_action');
+    $hash = backdrop_hash_base64('action_example_unblock_user_action');
     $edit = array('aid' => $hash);
-    $this->drupalPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), 'trigger-user-view-assign-form');
+    $this->backdropPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), 'trigger-user-view-assign-form');
 
-    $this->drupalGet("user/$normal_user->uid");
+    $this->backdropGet("user/$normal_user->uid");
     $normal_user = user_load($normal_user->uid, TRUE);
     $this->assertTrue($normal_user->status, 'Normal user status has been set to unblocked');
     $this->assertRaw(t('Unblocked user %name', array('%name' => $normal_user->name)));
 
     // 3. Create a user whose posts are always to be stickied.
-    $sticky_user = $this->drupalCreateUser(
+    $sticky_user = $this->backdropCreateUser(
       array(
         'access comments',
         'access content',
@@ -100,12 +100,12 @@ class ActionExampleTestCase extends TriggerWebTestCase {
       'author' => $sticky_user->name,
     );
     $aid = $this->configureAdvancedAction('action_example_node_sticky_action', $edit);
-    $edit = array('aid' => drupal_hash_base64($aid));
-    $this->drupalPost('admin/structure/trigger/node', $edit, t('Assign'), array(), array(), 'trigger-node-insert-assign-form');
+    $edit = array('aid' => backdrop_hash_base64($aid));
+    $this->backdropPost('admin/structure/trigger/node', $edit, t('Assign'), array(), array(), 'trigger-node-insert-assign-form');
     // Now create a node and verify that it gets stickied.
-    $this->drupalLogout();
-    $this->drupalLogin($sticky_user);
-    $node = $this->drupalCreateNode();
+    $this->backdropLogout();
+    $this->backdropLogin($sticky_user);
+    $node = $this->backdropCreateNode();
     $this->assertTrue($node->sticky, 'Node was set to sticky on creation');
   }
 }

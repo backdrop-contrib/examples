@@ -9,10 +9,10 @@
  * @defgroup action_example Example: Action
  * @ingroup examples
  * @{
- * Creating actions in Drupal 7
+ * Creating actions in Backdrop
  *
- * Triggers and actions are a matched pair of Drupal features allowing some
- * Drupal programming without using PHP. Using the appropriate action in a
+ * Triggers and actions are a matched pair of Backdrop features allowing some
+ * Backdrop programming without using PHP. Using the appropriate action in a
  * specific event, a site administrator can add new functionality.
  *
  * Examples are:
@@ -39,8 +39,8 @@
  * trigger.
  *
  * What are good candidates to be triggers? Any function can be a trigger, as
- * long as it has the code to call the enqueued actions, but to make Drupal
- * more extensible, you will find hooks (from Drupal and contributed modules)
+ * long as it has the code to call the enqueued actions, but to make Backdrop
+ * more extensible, you will find hooks (from Backdrop and contributed modules)
  * very good candidates. A trigger should build the arguments, ask for enqueued
  * actions and run them. You may define a function being a trigger, and run it
  * through a button in the front page, or you may prepare a trigger for a hook,
@@ -49,7 +49,7 @@
  * What are good candidates to be actions? any function is a possible action,
  * the only problem is finding a trigger able to run it.
  *
- * This module describes how to create actions for Drupal. In this
+ * This module describes how to create actions for Backdrop. In this
  * example we are providing three actions:
  *
  * - A generic action that can be used in any trigger, which is the most
@@ -61,9 +61,6 @@
  * - An action which extends the capabilities of node triggers, but limited
  *   to certain events only, and using a customizable option.
  *
- * @link http://drupal.org/node/172152 Writing Actions in Drupal 6 @endlink
- * @link http://drupal.org/node/199254 Triggers and Actions in Drupal 6 @endlink
- *
  * @see trigger_example
  * @see hook_action_info()
  */
@@ -74,13 +71,13 @@
  * We call hook_action_info when we are defining the actions we provide.
  * Actions are the actions fired by the associated triggers. In this example,
  * we are registering our three new actions, providing the unique name (using
- * Drupal's convention modulename_description_action), an easy to understand
+ * Backdrop's convention modulename_description_action), an easy to understand
  * description of what the action does, the 'object' expected by this action
  * (default options from core are node, user, comment and system, however other
  * trigger modules may declare new object types), which are the triggers allowed
  * to use these action, and if some customization is available. Please, note
  * that the function name is not required to finish as _action to be declared as
- * a Drupal action, and that only information provided by hook_trigger_info()
+ * a Backdrop action, and that only information provided by hook_trigger_info()
  * will be considered for valid actions creation.
  *
  * These are the actions being provided in hook_action_info()
@@ -97,7 +94,7 @@
  *   only available to Node type triggers, and can only be associated with the
  *   events node presave, node insert and node update. The action does not
  *   exist by default and it has to be created by user configuration. This makes
- *   it an "advanced action" in Drupal, so-called because it requires
+ *   it an "advanced action" in Backdrop, so-called because it requires
  *   configuration or customization.
  *   In this example action, the action will promote nodes and make them sticky
  *   during presave, insert, or update, but only for particular users. As an
@@ -146,21 +143,16 @@ function action_example_action_info() {
     'action_example_basic_action' => array(
       'label' => t('Action Example: A basic example action that does nothing'),
       'type' => 'system',
-      'configurable' => FALSE,
-      'triggers' => array('any'),
     ),
     'action_example_unblock_user_action' => array(
       'label' => t('Action Example: Unblock a user'),
       'type' => 'user',
-      'configurable' => FALSE,
-      'triggers' => array('any'),
     ),
     'action_example_node_sticky_action' => array(
       'type' => 'node',
       'label' => t('Action Example: Promote to frontpage and sticky on top any content created by :'),
-      'configurable' => TRUE,
-      'behavior' => array('changes_property'),
-      'triggers' => array('node_presave', 'node_insert', 'node_update'),
+      'callback' => 'action_example_node_sticky_callback',
+      'user_uid' => 1, // Arbitrary node ID to pass to action context.
     ),
   );
 }
@@ -206,7 +198,7 @@ function action_example_basic_action(&$entity, $context = array()) {
   // action is useful when your action does not depend on the context, and
   // the function must do something regardless the scope of the trigger.
   // Simply announces that the action was executed using a message.
-  drupal_set_message(t('action_example_basic_action fired'));
+  backdrop_set_message(t('action_example_basic_action fired'));
   watchdog('action_example', 'action_example_basic_action fired.');
 }
 
@@ -247,83 +239,7 @@ function action_example_unblock_user_action(&$entity, $context = array()) {
   $account = user_load($uid);
   $account = user_save($account, array('status' => 1));
   watchdog('action_example', 'Unblocked user %name.', array('%name' => $account->name));
-  drupal_set_message(t('Unblocked user %name', array('%name' => $account->name)));
-}
-
-/**
- * Form function for action_example_node_sticky_action.
- *
- * Since we defined action_example_node_sticky_action as 'configurable' => TRUE,
- * this action requires a configuration form to create/configure the action.
- * In this circumstance, Drupal will attempt to call a function named by
- * combining the action name (action_example_node_sticky_action) and _form, in
- * this case yielding action_example_node_sticky_action_form.
- *
- * In Drupal, actions requiring creation and configuration are called 'advanced
- * actions', because they must be customized to define their functionality.
- *
- * The 'action_example_node_sticky_action' allows creating rules to promote and
- * set sticky content created by selected users on certain events. A form is
- * used to configure which user is affected by this action, and this form
- * includes the standard _validate and _submit hooks.
- */
-
-
-/**
- * Generates settings form for action_example_node_sticky_action().
- *
- * @param array $context
- *   An array of options of this action (in case it is being edited)
- *
- * @return array
- *   Settings form as Form API array.
- *
- * @see action_example_action_info()
- */
-function action_example_node_sticky_action_form($context) {
-  /*
-  * We return a configuration form to set the requirements that will
-  * match this action before being executed. This is a regular Drupal form and
-  * may include any type of information you want, but all the fields of the
-  * form will be saved into the $context variable.
-  *
-  * In this case we are promoting all content types submitted by this user, but
-  * it is possible to extend these conditions providing more options in the
-  * settings form.
-  */
-  $form['author'] = array(
-    '#title' => t('Author name'),
-    '#type' => 'textfield',
-    '#description' => t('Any content created, presaved or updated by this user will be promoted to front page and set as sticky.'),
-    '#default_value' => isset($context['author']) ? $context['author'] : '',
-  );
-  // Verify user permissions and provide an easier way to fill this field.
-  if (user_access('access user profiles')) {
-    $form['author']['#autocomplete_path'] = 'user/autocomplete';
-  }
-  // No more options, return the form.
-  return $form;
-}
-
-/**
- * Validates settings form for action_example_node_sticky_action().
- *
- * Verifies that user exists before continuing.
- */
-function action_example_node_sticky_action_validate($form, $form_state) {
-  if (!$account = user_load_by_name($form_state['values']['author'])) {
-    form_set_error('author', t('Please, provide a valid username'));
-  }
-}
-
-/**
- * Submit handler for action_example_node_sticky_action.
- *
- * Returns an associative array of values which will be available in the
- * $context when an action is executed.
- */
-function action_example_node_sticky_action_submit($form, $form_state) {
-  return array('author' => $form_state['values']['author']);
+  backdrop_set_message(t('Unblocked user %name', array('%name' => $account->name)));
 }
 
 /**
@@ -340,13 +256,13 @@ function action_example_node_sticky_action_submit($form, $form_state) {
  *   - 'author': username of the author's content this function will promote and
  *     set as sticky.
  */
-function action_example_node_sticky_action($node, $context) {
+function action_example_node_sticky_callback($node, $context) {
   if (function_exists('dsm')) {
     dsm($node, 'action_example_node_sticky_action is firing. Here is the $node');
     dsm($context, 'action_example_node_sticky_action is firing. Here is the $context');
   }
   // Get the user configured for this special action.
-  $account = user_load_by_name($context['author']);
+  $account = user_load_by_name($context['user_uid']);
   // Is the node created by this user? then promote and set as sticky.
   if ($account->uid == $node->uid) {
     $node->promote = NODE_PROMOTED;
@@ -359,7 +275,7 @@ function action_example_node_sticky_action($node, $context) {
           '%username' => $account->name,
         )
     );
-    drupal_set_message(
+    backdrop_set_message(
       t('Set @type %title to sticky and promoted by special action for user %username.',
         array(
           '@type' => node_type_get_name($node),

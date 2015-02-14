@@ -1,0 +1,5 @@
+[BatchExampleTestCase]
+name = Batch example functionality
+description = Tests batch functionality.
+group = Example modules
+file = batch_example.test

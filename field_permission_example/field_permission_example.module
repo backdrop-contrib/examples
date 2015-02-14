@@ -14,7 +14,7 @@
  * any fieldable entity.
  *
  * In this module we demonstrate how to limit access to a field.
- * Drupal's Field API gives you two operations to permit or restrict:
+ * Backdrop's Field API gives you two operations to permit or restrict:
  * view and edit. So you can then decide who gets to see fields,
  * who can edit them, and who can manage them.
  *
@@ -110,7 +110,7 @@ function field_permission_example_permission() {
  * by those who shouldn't.
  *
  * We have to build a permission string similar to those in
- * hook_permission() in order to ask Drupal whether the user
+ * hook_permission() in order to ask Backdrop whether the user
  * has that permission. Permission strings will end up being
  * like 'view any fieldnote' or 'edit own fieldnote'.
  *
@@ -130,11 +130,11 @@ function field_permission_example_field_access($op, $field, $entity_type, $entit
     // permissions that node provides. This way administrators
     // will be able to administer the content types.
     if (user_access('bypass node access', $account)) {
-      drupal_set_message(t('User can bypass node access.'));
+      backdrop_set_message(t('User can bypass node access.'));
       return TRUE;
     }
     if (user_access('administer content types', $account)) {
-      drupal_set_message(t('User can administer content types.'));
+      backdrop_set_message(t('User can administer content types.'));
       return TRUE;
     }
     // Now check for our own permissions.
@@ -154,13 +154,13 @@ function field_permission_example_field_access($op, $field, $entity_type, $entit
     // Assemble a permission string, such as
     // 'view any fieldnote'
     $permission = $op . ' ' . $context . ' fieldnote';
-    // Finally, ask Drupal if this account has that permission.
+    // Finally, ask Backdrop if this account has that permission.
     $access = user_access($permission, $account);
     $status = 'FALSE';
     if ($access) {
       $status = 'TRUE';
     }
-    drupal_set_message($permission . ': ' . $status);
+    backdrop_set_message($permission . ': ' . $status);
     return $access;
   }
   // We have no opinion on field types other than our own.
@@ -187,7 +187,7 @@ function field_permission_example_field_info() {
 /**
  * Implements hook_field_is_empty().
  *
- * hook_field_is_emtpy() is where Drupal asks us if this field is empty.
+ * hook_field_is_emtpy() is where Backdrop asks us if this field is empty.
  * Return TRUE if it does not contain data, FALSE if it does. This lets
  * the form API flag an error when required fields are empty.
  */
@@ -198,7 +198,7 @@ function field_permission_example_field_is_empty($item, $field) {
 /**
  * Implements hook_field_formatter_info().
  *
- * We need to tell Drupal about our excellent field formatter.
+ * We need to tell Backdrop about our excellent field formatter.
  *
  * It's some text in a div, styled to look like a sticky note.
  *
@@ -242,7 +242,7 @@ function field_permission_example_field_formatter_view($entity_type, $entity, $f
           ),
           // ..And this is the CSS for the stickynote.
           '#attached' => array(
-            'css' => array(drupal_get_path('module', 'field_permission_example') .
+            'css' => array(backdrop_get_path('module', 'field_permission_example') .
               '/field_permission_example.css'),
           ),
         );
@@ -271,7 +271,7 @@ function field_permission_example_field_widget_info() {
 /**
  * Implements hook_field_widget_form().
  *
- * Drupal wants us to create a form for our field. We'll use
+ * Backdrop wants us to create a form for our field. We'll use
  * something very basic like a default textarea.
  *
  * @see field_permission_example_field_widget_info()

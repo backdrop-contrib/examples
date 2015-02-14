@@ -20,10 +20,10 @@
  * @ingroup ajax_example
  */
 function ajax_example_render_link() {
-  // drupal_add_library is invoked automatically when a form element has the
+  // backdrop_add_library is invoked automatically when a form element has the
   // '#ajax' property, but since we are not rendering a form here, we have to
   // do it ourselves.
-  drupal_add_library('system', 'drupal.ajax');
+  backdrop_add_library('system', 'backdrop.ajax');
   $explanation = t("
 The link below has the <i>use-ajax</i> class applied to it, so if
 javascript is enabled, ajax.js will try to submit it via an AJAX call instead

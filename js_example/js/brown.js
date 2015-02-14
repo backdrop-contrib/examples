@@ -1,5 +1,5 @@
 (function ($) {
-  Drupal.behaviors.jsWeightsBrown = {
+  Backdrop.behaviors.jsWeightsBrown = {
     attach: function (context, settings) {
       var weight = settings.jsWeights.brown;
       var newDiv = $('<div />').css('color', 'brown').html('I have a weight of ' + weight);

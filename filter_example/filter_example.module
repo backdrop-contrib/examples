@@ -20,7 +20,7 @@
  *
  * Foo filter
  *
- * Drupal has several content formats (they are not filters), and in our example
+ * Backdrop has several content formats (they are not filters), and in our example
  * the foo replacement can be configured for each one of them, allowing an html
  * or php replacement, so the module includes a settings callback, with options
  * to configure that replacements. Also, a Tips callback will help showing the
@@ -47,16 +47,6 @@ function filter_example_menu() {
     'access callback' => TRUE,
   );
   return $items;
-}
-
-/**
- * Implements hook_help().
- */
-function filter_example_help($path, $arg) {
-  switch ($path) {
-    case 'admin/help#filter_example':
-      return _filter_example_information();
-  }
 }
 
 /**
@@ -103,7 +93,7 @@ function filter_example_filter_info() {
 /*
  * Foo filter
  *
- * Drupal has several text formats (they are not filters), and in our example
+ * Backdrop has several text formats (they are not filters), and in our example
  * the foo replacement can be configured for each one of them, so the module
  * includes a settings callback, with options to configure those replacements.
  * Also, a Tips callback will help showing the current replacement
@@ -169,7 +159,7 @@ function _filter_example_filter_foo_tips($filter, $format, $long = FALSE) {
  * We'll use [filter-example-time] as a replacement for the time tag.
  * Note that in a more complicated filter a closing tag may also be
  * required. For more information, see "Temporary placeholders and
- * delimiters" at http://drupal.org/node/209715.
+ * delimiters" at http://DOCUMENTATION_PENDING/node/209715.
  */
 function _filter_example_filter_time_prepare($text, $filter) {
   return preg_replace('!<time ?/>!', '[filter-example-time]', $text);

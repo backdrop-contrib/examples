@@ -51,10 +51,10 @@ function ajax_example_dependent_dropdown_degrades($form, &$form_state, $no_js_us
   // Without javascript we need an extra "Choose" button, and this is
   // hidden when we have javascript enabled.
   $form['#attached']['css'] = array(
-    drupal_get_path('module', 'ajax_example') . '/ajax_example.css',
+    backdrop_get_path('module', 'ajax_example') . '/ajax_example.css',
   );
   $form['#attached']['js'] = array(
-    drupal_get_path('module', 'ajax_example') . '/ajax_example.js',
+    backdrop_get_path('module', 'ajax_example') . '/ajax_example.js',
   );
 
   $form['dropdown_first_fieldset'] = array(
@@ -133,7 +133,7 @@ function ajax_example_dependent_dropdown_degrades_submit($form, &$form_state) {
   switch ($form_state['triggering_element']['#value']) {
     case t('OK'):
       // Submit: We're done.
-      drupal_set_message(t('Your values have been submitted. dropdown_first=@first, dropdown_second=@second', array('@first' => $form_state['values']['dropdown_first'], '@second' => $form_state['values']['dropdown_second'])));
+      backdrop_set_message(t('Your values have been submitted. dropdown_first=@first, dropdown_second=@second', array('@first' => $form_state['values']['dropdown_first'], '@second' => $form_state['values']['dropdown_second'])));
       return;
   }
   // 'Choose' or anything else will cause rebuild of the form and present
@@ -171,10 +171,10 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
   // Without javascript we need an extra "Choose" button, and this is
   // hidden when we have javascript enabled.
   $form['#attached']['css'] = array(
-    drupal_get_path('module', 'ajax_example') . '/ajax_example.css',
+    backdrop_get_path('module', 'ajax_example') . '/ajax_example.css',
   );
   $form['#attached']['js'] = array(
-    drupal_get_path('module', 'ajax_example') . '/ajax_example.js',
+    backdrop_get_path('module', 'ajax_example') . '/ajax_example.js',
   );
   $form['description'] = array(
     '#type' => 'markup',
@@ -192,7 +192,7 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
   $form['question_type_select'] = array(
     '#type' => 'select',
     '#title' => t('Question style'),
-    '#options' => drupal_map_assoc(
+    '#options' => backdrop_map_assoc(
       array(
         t('Choose question style'),
         t('Multiple Choice'),
@@ -244,7 +244,7 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
         $form['questions_fieldset']['question'] = array(
           '#type' => 'radios',
           '#title' => t('Who was the first president of the United States'),
-          '#options' => drupal_map_assoc(
+          '#options' => backdrop_map_assoc(
             array(
               t('George Bush'),
               t('Adam McGuire'),
@@ -310,11 +310,12 @@ function ajax_example_dynamic_sections_submit($form, &$form_state) {
         $answer = $form['questions_fieldset']['question']['#title'];
       }
       if ($answer === t('George Washington')) {
-        drupal_set_message(t('You got the right answer: @answer', array('@answer' => $answer)));
+        backdrop_set_message(t('You got the right answer: @answer', array('@answer' => $answer)));
       }
       else {
-        drupal_set_message(t('Sorry, your answer (@answer) is wrong', array('@answer' => $answer)));
+        backdrop_set_message(t('Sorry, your answer (@answer) is wrong', array('@answer' => $answer)));
       }
+      $form_state['rebuild'] = FALSE;
       return;
 
     // Any other form element will cause rebuild of the form and present
@@ -371,7 +372,7 @@ function ajax_example_wizard($form, &$form_state, $no_js_use = FALSE) {
     . '</div>',
   );
 
-  // $form_state['storage'] has no specific drupal meaning, but it is
+  // $form_state['storage'] has no specific backdrop meaning, but it is
   // traditional to keep variables for multistep forms there.
   $step = empty($form_state['storage']['step']) ? 1 : $form_state['storage']['step'];
   $form_state['storage']['step'] = $step;
@@ -519,7 +520,7 @@ function ajax_example_wizard_submit($form, &$form_state) {
         $value_message .= "$key=$value, ";
       }
     }
-    drupal_set_message($value_message);
+    backdrop_set_message($value_message);
     $form_state['rebuild'] = FALSE;
     return;
   }
@@ -661,7 +662,7 @@ function ajax_example_add_more_submit($form, &$form_state) {
       '@names' => implode(', ', $form_state['values']['names_fieldset']['name']),
     )
   );
-  drupal_set_message($output);
+  backdrop_set_message($output);
 }
 /**
  * @} End of "defgroup ajax_degradation_example".

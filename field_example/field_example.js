@@ -7,7 +7,7 @@
  * Provides a farbtastic colorpicker for the fancier widget.
  */
 (function ($) {
-  Drupal.behaviors.field_example_colorpicker = {
+  Backdrop.behaviors.field_example_colorpicker = {
     attach: function(context) {
       $(".edit-field-example-colorpicker").live("focus", function(event) {
         var edit_field = this;

@@ -8,7 +8,7 @@
  * Form elements are already familiar to anyone who uses Form API. They share
  * history with render elements, which are explained in the
  * @link render_example.module Render Example @endlink. Examples
- * of core form elements are 'textfield', 'checkbox' and 'fieldset'. Drupal
+ * of core form elements are 'textfield', 'checkbox' and 'fieldset'. Backdrop
  * utilizes hook_elements() to define these FAPI types, and this occurs in
  * the core function system_elements().
  *
@@ -71,7 +71,7 @@
  * form_builder() has significant discussion of #process and #value_callback.
  * See also hook_element_info().
  *
- * system_element_info() contains the Drupal default element types, which can
+ * system_element_info() contains the Backdrop default element types, which can
  * also be used as examples.
  */
 function _form_example_element_info() {
@@ -423,7 +423,7 @@ function theme_form_example_inline_form_element($variables) {
   if (!empty($element['#attributes']['disabled'])) {
     $attributes['class'][] = 'form-disabled';
   }
-  $output = '<div' . drupal_attributes($attributes) . '>' . "\n";
+  $output = '<div' . backdrop_attributes($attributes) . '>' . "\n";
 
   // If #title is not set, we don't display any label or required marker.
   if (!isset($element['#title'])) {
@@ -519,7 +519,7 @@ function form_example_element_demo_form_submit($form, &$form_state) {
 
   foreach ($form_state['values'] as $key => $value) {
     variable_set($key, $value);
-    drupal_set_message(
+    backdrop_set_message(
       t('%name has value %value',
         array(
           '%name' => $key,

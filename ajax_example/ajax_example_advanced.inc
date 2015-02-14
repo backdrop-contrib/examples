@@ -194,7 +194,7 @@ function ajax_example_advanced_commands($form, &$form_state) {
   $form['restripe_command_example_fieldset']['restripe_num_rows'] = array(
     '#type' => 'select',
     '#default_value' => !empty($form_state['values']['restripe_num_rows']) ? $form_state['values']['restripe_num_rows'] : 1,
-    '#options' => drupal_map_assoc(array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)),
+    '#options' => backdrop_map_assoc(array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)),
     '#ajax' => array(
       'callback' => 'ajax_example_advanced_commands_restripe_num_rows',
       'method' => 'replace',

@@ -1,5 +1,6 @@
 name = Table Sort example
 description = Demonstrates how to create sortable output in a table.
 package = Example modules
+version = BACKDROP_VERSION
+backdrop = x.x
 core = 7.x
-files[] = tablesort_example.test

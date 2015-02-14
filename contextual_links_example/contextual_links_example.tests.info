@@ -1,0 +1,5 @@
+[ContextualLinksExampleTestCase]
+name = Contextual Links example functionality
+description = Tests Contextual Links functionality.
+group = Example modules
+file = contextual_links_example.test

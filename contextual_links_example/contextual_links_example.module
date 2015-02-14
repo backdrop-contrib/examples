@@ -2,9 +2,9 @@
 
 /**
  * @file
- * Shows how to use Drupal's contextual links functionality.
+ * Shows how to use Backdrop's contextual links functionality.
  *
- * @see http://drupal.org/node/1089922
+ * @see http://DOCUMENTATION_PENDING/node/1089922
  */
 
 /**
@@ -17,20 +17,20 @@
 /**
  * Implements hook_menu().
  *
- * Drupal's menu system allows you to indicate that particular menu items
+ * Backdrop's menu system allows you to indicate that particular menu items
  * should be displayed as contextual links. If you hover over a block or node
  * while logged in as an administrator (and with the Contextual Links module
  * enabled) you'll see a small gear icon appear. Click on this icon, and the
- * list of items that appears in the exposed menu are what Drupal calls
+ * list of items that appears in the exposed menu are what Backdrop calls
  * "contextual links".
  *
  * Contextual links allow site administrators to quickly perform actions
  * related to elements on a page, without having to hunt through the
  * administrative interface. As such, you should usually attach them to objects
- * that appear on the main part of a Drupal site and limit them to a few common
+ * that appear on the main part of a Backdrop site and limit them to a few common
  * tasks that are frequently performed (for example, "edit" or "configure").
  * Do not rely on contextual links being present for your module to work
- * correctly, since they are a convenience feature only. Within Drupal core,
+ * correctly, since they are a convenience feature only. Within Backdrop core,
  * the Contextual Links module must be enabled (and the user viewing the page
  * must have the "access contextual links" permission) in order for the
  * contextual links corresponding to actions that the user can perform to
@@ -57,13 +57,13 @@ function contextual_links_example_menu() {
   // already has code to display all contextual links underneath the node/<nid>
   // path (such as "Edit" and "Delete") when a node is being rendered outside
   // of its own page (for example, when a teaser of the node is being displayed
-  // on the front page of the site), you only need to inform Drupal's menu
+  // on the front page of the site), you only need to inform Backdrop's menu
   // system that your path is a contextual link also, and it will automatically
   // appear with the others. In the example below, we add a contextual link
   // named "Example action" to the list.
   $items['node/%node/example-action'] = array(
     'title' => 'Example action',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('contextual_links_example_node_action_form', 1),
     'access callback' => TRUE,
     // To be displayed as a contextual link, a menu item should be defined as
@@ -118,7 +118,7 @@ function contextual_links_example_menu() {
   );
   $items['examples/contextual-links/%contextual_links_example_object/edit'] = array(
     'title' => 'Edit object',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('contextual_links_example_object_edit_form', 2),
     'access callback' => TRUE,
     'type' => MENU_LOCAL_TASK,
@@ -209,7 +209,7 @@ function contextual_links_example_block_view($delta = '') {
           // should be attached. The two elements are split such that the first
           // is the static part of the path and the second is the dynamic part.
           // (This split is for performance reasons.) For example, the code
-          // below tells Drupal to load the menu item corresponding to the path
+          // below tells Backdrop to load the menu item corresponding to the path
           // "examples/contextual-links/$id" and attach all this item's
           // contextual links (which were defined in hook_menu()) to the object
           // when it is rendered. If the contextual links you are attaching
@@ -348,7 +348,7 @@ function contextual_links_example_object_edit_form($form, &$form_state, $object)
  * Submit handler for contextual_links_example_object_edit_form().
  */
 function contextual_links_example_object_edit_form_submit($form, &$form_state) {
-  drupal_set_message(t('Object @id was edited.', array('@id' => $form_state['values']['object_id'])));
+  backdrop_set_message(t('Object @id was edited.', array('@id' => $form_state['values']['object_id'])));
 }
 
 /**
@@ -381,7 +381,7 @@ function contextual_links_example_node_action_form($form, &$form_state, $node) {
  * Submit handler for contextual_links_example_node_action_form().
  */
 function contextual_links_example_node_action_form_submit($form, &$form_state) {
-  drupal_set_message(t('The example action was performed on node @nid.', array('@nid' => $form_state['values']['nid'])));
+  backdrop_set_message(t('The example action was performed on node @nid.', array('@nid' => $form_state['values']['nid'])));
 }
 /**
  * @} End of "defgroup contextual_links_example".

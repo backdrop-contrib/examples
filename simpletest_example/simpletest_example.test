@@ -3,7 +3,7 @@
 /**
  * @file
  * An example of simpletest tests to accompany the tutorial at
- * http://drupal.org/node/890654.
+ * http://DOCUMENTATION_PENDING/node/890654.
  */
 
 /**
@@ -14,14 +14,14 @@
  * in this file.
  *
  * Functional test cases are far slower to execute than unit test cases because
- * they require a complete Drupal install to be done for each test.
+ * they require a complete Backdrop install to be done for each test.
  *
- * @see DrupalWebTestCase
+ * @see BackdropWebTestCase
  * @see SimpleTestUnitTestExampleTestCase
  *
  * @ingroup simpletest_example
  */
-class SimpleTestExampleTestCase extends DrupalWebTestCase {
+class SimpleTestExampleTestCase extends BackdropWebTestCase {
 
   protected $privilegedUser;
 
@@ -48,9 +48,9 @@ class SimpleTestExampleTestCase extends DrupalWebTestCase {
    * It gives you a chance to control the setup of the test environment.
    *
    * If you need a different test environment, then you should create another
-   * test class which overloads DrupalWebTestCase::setUp() differently.
+   * test class which overloads BackdropWebTestCase::setUp() differently.
    *
-   * @see DrupalWebTestCase::setUp()
+   * @see BackdropWebTestCase::setUp()
    */
   public function setUp() {
     // We call parent::setUp() with the list of modules we want to enable.
@@ -59,8 +59,8 @@ class SimpleTestExampleTestCase extends DrupalWebTestCase {
     // Create and log in our user. The user has the arbitrary privilege
     // 'extra special edit any simpletest_example' which is provided by
     // our module to grant access.
-    $this->privilegedUser = $this->drupalCreateUser(array('create simpletest_example content', 'extra special edit any simpletest_example'));
-    $this->drupalLogin($this->privilegedUser);
+    $this->privilegedUser = $this->backdropCreateUser(array('create simpletest_example content', 'extra special edit any simpletest_example'));
+    $this->backdropLogin($this->privilegedUser);
   }
 
   /**
@@ -71,7 +71,7 @@ class SimpleTestExampleTestCase extends DrupalWebTestCase {
     $edit = array();
     $edit['title'] = $this->randomName(8);
     $edit["body[und][0][value]"] = $this->randomName(16);
-    $this->drupalPost('node/add/simpletest-example', $edit, t('Save'));
+    $this->backdropPost('node/add/simpletest-example', $edit, t('Save'));
     $this->assertText(t('SimpleTest Example Node Type @title has been created.', array('@title' => $edit['title'])));
   }
 
@@ -84,7 +84,7 @@ class SimpleTestExampleTestCase extends DrupalWebTestCase {
       'title' => $this->randomName(32),
       'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
     );
-    $node = $this->drupalCreateNode($settings);
+    $node = $this->backdropCreateNode($settings);
 
     // For debugging, we might output the node structure with $this->verbose()
     // It would only be output if the testing settings had 'verbose' set.
@@ -94,10 +94,10 @@ class SimpleTestExampleTestCase extends DrupalWebTestCase {
     // indicate that the examples module was failing tests.
     if (!$this->runningOnTestbot()) {
       // The debug() statement will output information into the test results.
-      // It can also be used in Drupal 7 anywhere in code and will come out
-      // as a drupal_set_message().
+      // It can also be used in Backdrop anywhere in code and will come out
+      // as a backdrop_set_message().
       debug('We are not running on the PIFR testing server, so will go ahead and catch the failure.');
-      $this->drupalGet("node/{$node->nid}/edit");
+      $this->backdropGet("node/{$node->nid}/edit");
       // Make sure we don't get a 401 unauthorized response:
       $this->assertResponse(200, 'User is allowed to edit the content.');
 
@@ -123,17 +123,17 @@ class SimpleTestExampleTestCase extends DrupalWebTestCase {
 
 
 /**
- * Although most core test cases are based on DrupalWebTestCase and are
- * functional tests (exercising the web UI) we also have DrupalUnitTestCase,
- * which executes much faster because a Drupal install does not have to be
- * one. No environment is provided to a test case based on DrupalUnitTestCase;
+ * Although most core test cases are based on BackdropWebTestCase and are
+ * functional tests (exercising the web UI) we also have BackdropUnitTestCase,
+ * which executes much faster because a Backdrop install does not have to be
+ * one. No environment is provided to a test case based on BackdropUnitTestCase;
  * it must be entirely self-contained.
  *
- * @see DrupalUnitTestCase
+ * @see BackdropUnitTestCase
  *
  * @ingroup simpletest_example
  */
-class SimpleTestUnitTestExampleTestCase extends DrupalUnitTestCase {
+class SimpleTestUnitTestExampleTestCase extends BackdropUnitTestCase {
 
   /**
    * {@inheritdoc}
@@ -149,15 +149,15 @@ class SimpleTestUnitTestExampleTestCase extends DrupalUnitTestCase {
   /**
    * Set up the test environment.
    *
-   * Note that we use drupal_load() instead of passing our module dependency
-   * to parent::setUp(). That's because we're using DrupalUnitTestCase, and
+   * Note that we use backdrop_load() instead of passing our module dependency
+   * to parent::setUp(). That's because we're using BackdropUnitTestCase, and
    * thus we don't want to install the module, only load it's code.
    *
-   * Also, DrupalUnitTestCase can't actually install modules. This is by
+   * Also, BackdropUnitTestCase can't actually install modules. This is by
    * design.
    */
   public function setUp() {
-    drupal_load('module', 'simpletest_example');
+    backdrop_load('module', 'simpletest_example');
     parent::setUp();
   }
 
@@ -190,7 +190,7 @@ class SimpleTestUnitTestExampleTestCase extends DrupalUnitTestCase {
 
 /**
  * SimpleTestExampleMockModuleTestCase allows us to demonstrate how you can
- * use a mock module to aid in functional testing in Drupal.
+ * use a mock module to aid in functional testing in Backdrop.
  *
  * If you have some functionality that's not intrinsic to the code under test,
  * you can add a special mock module that only gets installed during test
@@ -205,7 +205,7 @@ class SimpleTestUnitTestExampleTestCase extends DrupalUnitTestCase {
  *
  * @ingroup simpletest_example
  */
-class SimpleTestExampleMockModuleTestCase extends DrupalWebTestCase {
+class SimpleTestExampleMockModuleTestCase extends BackdropWebTestCase {
 
   /**
    * Give display information to the SimpleTest system.
@@ -242,9 +242,9 @@ class SimpleTestExampleMockModuleTestCase extends DrupalWebTestCase {
    */
   public function testSimpleTestExampleMockModule() {
     // Create a user.
-    $test_user = $this->drupalCreateUser(array('access content'));
+    $test_user = $this->backdropCreateUser(array('access content'));
     // Log them in.
-    $this->drupalLogin($test_user);
+    $this->backdropLogin($test_user);
     // Set up some content.
     $settings = array(
       'type' => 'simpletest_example',
@@ -252,9 +252,9 @@ class SimpleTestExampleMockModuleTestCase extends DrupalWebTestCase {
       'body' => array(LANGUAGE_NONE => array(array($this->randomName(64)))),
     );
     // Create the content node.
-    $node = $this->drupalCreateNode($settings);
+    $node = $this->backdropCreateNode($settings);
     // View the node.
-    $this->drupalGet("node/{$node->nid}");
+    $this->backdropGet("node/{$node->nid}");
     // Check that our module did it's thing.
     $this->assertText(t('The test module did its thing.'), "Found evidence of test module.");
   }

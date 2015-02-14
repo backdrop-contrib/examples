@@ -9,7 +9,7 @@
  *
  * @ingroup pager_example
  */
-class PagerExampleTestCase extends DrupalWebTestCase {
+class PagerExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -35,7 +35,7 @@ class PagerExampleTestCase extends DrupalWebTestCase {
    */
   public function testPagerPage() {
     // No need to login for this test.
-    $this->drupalGet('examples/pager_example');
+    $this->backdropGet('examples/pager_example');
     $this->assertText('next', 'Found next link');
     $this->assertText('last', 'Found last link');
 
@@ -45,7 +45,7 @@ class PagerExampleTestCase extends DrupalWebTestCase {
     $this->assertNoText('previous', 'No previous link on the first page');
 
     // Let's go to the second page.
-    $this->drupalGet('examples/pager_example', array('query' => array('page' => 1)));
+    $this->backdropGet('examples/pager_example', array('query' => array('page' => 1)));
     $this->assertText('next', 'Found next link');
     $this->assertText('last', 'Found last link');
 

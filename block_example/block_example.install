@@ -10,5 +10,7 @@
  * @ingroup block_example
  */
 function block_example_uninstall() {
-  variable_del('block_example_string');
+    $config = config('block_example.settings');
+    $config->set('block_example_string', 'Some example content.');
+    $config->save();
 }

@@ -24,7 +24,7 @@
  *
  * @ingroup batch_example
  */
-function batch_example_update_7100(&$sandbox) {
+function batch_example_update_1100(&$sandbox) {
   $ret = array();
 
   // Use the sandbox at your convenience to store the information needed

@@ -56,7 +56,7 @@
  * There are examples below of changing or hiding an element when a checkbox
  * is checked, when a textarea is filled, when a select has a given value.
  *
- * See drupal_process_states() for full documentation.
+ * See backdrop_process_states() for full documentation.
  *
  * @see forms_api_reference.html
  */
@@ -85,7 +85,7 @@ function form_example_states_form($form, &$form_state) {
   // High school information.
   $form['high_school']['tests_taken'] = array(
     '#type' => 'checkboxes',
-    '#options' => drupal_map_assoc(array(t('SAT'), t('ACT'))),
+    '#options' => backdrop_map_assoc(array(t('SAT'), t('ACT'))),
     '#title' => t('What standardized tests did you take?'),
     // This #states rule says that this checkboxes array will be visible only
     // when $form['student_type'] is set to t('High School').
@@ -173,7 +173,7 @@ function form_example_states_form($form, &$form_state) {
   );
   $form['undergraduate']['school_country'] = array(
     '#type' => 'select',
-    '#options' => drupal_map_assoc(array(t('UK'), t('Other'))),
+    '#options' => backdrop_map_assoc(array(t('UK'), t('Other'))),
     '#title' => t('In what country is your college or university located?'),
   );
   $form['undergraduate']['country_writein'] = array(
@@ -292,5 +292,5 @@ function form_example_states_form($form, &$form_state) {
  * Submit handler for form_example_states_form().
  */
 function form_example_states_form_submit($form, &$form_state) {
-  drupal_set_message(t('Submitting values: @values', array('@values' => var_export($form_state['values'], TRUE))));
+  backdrop_set_message(t('Submitting values: @values', array('@values' => var_export($form_state['values'], TRUE))));
 }

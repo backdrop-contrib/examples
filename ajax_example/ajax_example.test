@@ -9,7 +9,7 @@
  *
  * @ingroup ajax_example
  */
-class AjaxExampleTestCase extends DrupalWebTestCase {
+class AjaxExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -59,7 +59,7 @@ class AjaxExampleTestCase extends DrupalWebTestCase {
     foreach ($params as $style => $q_and_a) {
       // Submit the initial form.
       $edit = array('question_type_select' => $style);
-      $this->drupalPost($path, $edit, t('Choose'));
+      $this->backdropPost($path, $edit, t('Choose'));
       $this->assertResponse(200, format_string('Question style "@style" selected.', array('@style' => $style)));
       // For convenience, make variables out of the entries in $QandA.
       extract($q_and_a);
@@ -67,7 +67,7 @@ class AjaxExampleTestCase extends DrupalWebTestCase {
       $this->assertFieldByName('question', $value);
       // Now, submit the dynamically generated form.
       $edit = array('question' => $answer);
-      $this->drupalPost(NULL, $edit, t('Submit your answer'));
+      $this->backdropPost(NULL, $edit, t('Submit your answer'));
       $this->assertRaw($response, 'Dynamic form has been submitted.');
     }
   }

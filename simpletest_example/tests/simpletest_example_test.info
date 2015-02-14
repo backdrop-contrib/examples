@@ -4,3 +4,10 @@ package = Example modules
 core = 7.x
 hidden = TRUE
 dependencies[] = simpletest_example
+
+; Information added by DOCUMENTATION_PENDING packaging script on 2014-07-10
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "examples"
+datestamp = "1405030771"
+

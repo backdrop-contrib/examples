@@ -8,7 +8,7 @@
  * - $text_form_content: An array of form elements keyed by the element name.
  *
  * The default example below renders the entire form and its form elements in
- * a default order provided by Drupal.
+ * a default order provided by Backdrop.
  *
  * Alternatively, you may print each form element in the order you desire,
  * adding any extra html markup you wish to decorate the form like this:

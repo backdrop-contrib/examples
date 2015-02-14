@@ -61,7 +61,7 @@ function _form_example_steps() {
 /**
  * The primary formbuilder function for the wizard form.
  *
- * This is the form that you should call with drupal_get_form() from your code,
+ * This is the form that you should call with backdrop_get_form() from your code,
  * and it will include the rest of the step forms defined. You are not required
  * to change this function, as this will handle all the step actions for you.
  *
@@ -90,7 +90,7 @@ function form_example_wizard($form, &$form_state) {
     $form_state['step_information'] = _form_example_steps();
   }
   $step = &$form_state['step'];
-  drupal_set_title(t('Extensible Wizard: Step @step', array('@step' => $step)));
+  backdrop_set_title(t('Extensible Wizard: Step @step', array('@step' => $step)));
 
   // Call the function named in $form_state['step_information'] to get the
   // form elements to display for this step.
@@ -292,7 +292,7 @@ function form_example_wizard_other_info($form, &$form_state) {
  * And now comes the magic of the wizard, the function that should handle all
  * the inputs from the user on each different step.
  *
- * This demonstration handler just do a drupal_set_message() with the
+ * This demonstration handler just do a backdrop_set_message() with the
  * information collected on each different step of the wizard.
  *
  * @ingroup form_example
@@ -303,19 +303,19 @@ function form_example_wizard_submit($form, &$form_state) {
 
   // In this case we've completed the final page of the wizard, so process the
   // submitted information.
-  drupal_set_message(t('This information was collected by this wizard:'));
+  backdrop_set_message(t('This information was collected by this wizard:'));
   foreach ($form_state['step_information'] as $index => $value) {
     // Remove FAPI fields included in the values (form_token, form_id and
     // form_build_id. This is not required, you may access the values using
     // $value['stored_values'] but I'm removing them to make a more clear
     // representation of the collected information as the complete array will
-    // be passed through drupal_set_message().
+    // be passed through backdrop_set_message().
     unset($value['stored_values']['form_id']);
     unset($value['stored_values']['form_build_id']);
     unset($value['stored_values']['form_token']);
 
     // Now show all the values.
-    drupal_set_message(t('Step @num collected the following values: <pre>@result</pre>',
+    backdrop_set_message(t('Step @num collected the following values: <pre>@result</pre>',
       array(
         '@num' => $index,
         '@result' => print_r($value['stored_values'], TRUE),

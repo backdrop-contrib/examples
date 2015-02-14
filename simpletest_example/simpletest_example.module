@@ -10,7 +10,7 @@
  * @ingroup examples
  * @{
  * An example of simpletest tests to accompany the tutorial at
- * http://drupal.org/node/890654.
+ * http://DOCUMENTATION_PENDING/node/890654.
  *
  * This module creates a new node type called 'SimpleTest Example Node Type,'
  * so that we can test it.
@@ -111,7 +111,7 @@ function simpletest_example_menu() {
 function _simpletest_example_explanation() {
 
   $explanation = t("This Simpletest Example is designed to give an introductory tutorial to writing
-    a simpletest test. Please see the <a href='http://drupal.org/node/890654'>associated tutorial</a>.");
+    a simpletest test. Please see the <a href='http://DOCUMENTATION_PENDING/node/890654'>associated tutorial</a>.");
   return $explanation;
 }
 

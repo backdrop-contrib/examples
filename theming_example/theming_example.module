@@ -16,7 +16,7 @@
  * @defgroup theming_example Example: Theming
  * @ingroup examples
  * @{
- * Example of Drupal theming.
+ * Example of Backdrop theming.
  *
  * The theming_example module attempts to show how module developers can add
  * theme functions to their projects so that themes can modify output.
@@ -34,7 +34,7 @@
  * type 'hook_theme'.
  *
  * function 'theming_example_theme()' does this for this module.
- * for details of what can be done in this hook see the link to api.drupal.org
+ * for details of what can be done in this hook see the link to api.DOCUMENTATION_PENDING
  *
  * The functions 'theming_example_list_page()' and theming_example_order_form()
  * work in the same way.
@@ -59,7 +59,7 @@
  * 'theming_example_text_form.tpl.php'
  * This file can be copied to a theme's folder and it will be used instead.
  *
- * This example also shows what can be done using Drupal's
+ * This example also shows what can be done using Backdrop's
  * template_preprocess_HOOK method. In this case it modifies the output so
  * that a themer can output the whole form or gain control over some of its
  * parts in the template file.
@@ -87,14 +87,14 @@ function theming_example_menu() {
   );
   $items['examples/theming_example/theming_example_select_form'] = array(
     'title' => 'Theming a form (select form)',
-    'page callback'    => 'drupal_get_form',
+    'page callback'    => 'backdrop_get_form',
     'page arguments'   => array('theming_example_select_form'),
     'access arguments' => array('access content'),
     'weight' => 2,
   );
   $items['examples/theming_example/theming_example_text_form'] = array(
     'title' => 'Theming a form (text form)',
-    'page callback'    => 'drupal_get_form',
+    'page callback'    => 'backdrop_get_form',
     'page arguments'   => array('theming_example_text_form'),
     'access arguments' => array('access content'),
     'weight' => 3,
@@ -185,7 +185,7 @@ function theming_example_list_page() {
     '#theme' => 'item_list',
     // '#type' => 'ul',  // The default type is 'ul'
     // We can easily make sure that a css or js file is present using #attached.
-    '#attached' => array('css' => array(drupal_get_path('module', 'theming_example') . '/theming_example.css')),
+    '#attached' => array('css' => array(backdrop_get_path('module', 'theming_example') . '/theming_example.css')),
     '#title' => $title,
     '#items' => $items,
     '#attributes' => array('class' => array('render-version-list')),
@@ -196,7 +196,7 @@ function theming_example_list_page() {
   $title = t("The same list rendered by theme('theming_example_list')");
   $build['our_theme_function'] = array(
     '#theme' => 'theming_example_list',
-    '#attached' => array('css' => array(drupal_get_path('module', 'theming_example') . '/theming_example.css')),
+    '#attached' => array('css' => array(backdrop_get_path('module', 'theming_example') . '/theming_example.css')),
     '#title' => $title,
     '#items' => $items,
   );
@@ -239,7 +239,7 @@ function theming_example_select_form($form, &$form_state) {
  *   Form API form state array.
  */
 function theming_example_select_form_submit($form, &$form_state) {
-  drupal_set_message(t('You chose %input', array('%input' => $form_state['values']['choice'])));
+  backdrop_set_message(t('You chose %input', array('%input' => $form_state['values']['choice'])));
 }
 
 /**
@@ -270,7 +270,7 @@ function theming_example_text_form($form, &$form_state) {
  *   Form API form state array.
  */
 function theming_example_text_form_submit($form, &$form_state) {
-  drupal_set_message(t('You entered %input', array('%input' => $form_state['values']['text'])));
+  backdrop_set_message(t('You entered %input', array('%input' => $form_state['values']['text'])));
 }
 
 
@@ -340,7 +340,7 @@ function theme_theming_example_select_form($variables) {
   $output = '<strong>' . $title . '</strong>';
   $form['choice']['#prefix'] = '<div class="container-inline">';
   $form['submit']['#suffix'] = '</div>';
-  $output .= drupal_render_children($form);
+  $output .= backdrop_render_children($form);
   return $output;
 }
 
@@ -351,7 +351,7 @@ function theme_theming_example_select_form($variables) {
  * template file.
  *
  * In this example, we create a couple new variables, 'text_form' and
- * 'text_form_content', that clean up the form output.  Drupal will turn the
+ * 'text_form_content', that clean up the form output.  Backdrop will turn the
  * array keys in the $variables array into variables for use in the template.
  *
  * So $variables['text_form'] becomes available as $text_form in the template.
@@ -369,10 +369,10 @@ function template_preprocess_theming_example_text_form(&$variables) {
   foreach (element_children($variables['form']) as $key) {
     $type = $variables['form'][$key]['#type'];
     if ($type == 'hidden' || $type == 'token') {
-      $text_form_hidden[] = drupal_render($variables['form'][$key]);
+      $text_form_hidden[] = backdrop_render($variables['form'][$key]);
     }
     else {
-      $variables['text_form_content'][$key] = drupal_render($variables['form'][$key]);
+      $variables['text_form_content'][$key] = backdrop_render($variables['form'][$key]);
     }
   }
   $variables['text_form_content']['hidden'] = implode($text_form_hidden);

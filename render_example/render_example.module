@@ -13,10 +13,10 @@
  * This alters blocks and the page to show the actual render array
  * that is being used to create each item.
  *
- * @see drupal_render()
+ * @see backdrop_render()
  */
 
-// This allows drupal_var_export() to work.
+// This allows backdrop_var_export() to work.
 require_once 'includes/utility.inc';
 
 /**
@@ -30,7 +30,7 @@ function render_example_menu() {
   );
   $items['examples/render_example/altering'] = array(
     'title' => 'Alter pages and blocks',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('render_example_demo_form'),
     'access arguments' => array('access devel information'),
   );
@@ -137,7 +137,7 @@ function render_example_arrays() {
     t('cache demonstration') => array(
       // If your expensive function were to be executed here it would happen
       // on every page load regardless of the cache. The actual markup is
-      // added via the #pre_render function, so that drupal_render() will only
+      // added via the #pre_render function, so that backdrop_render() will only
       // execute the expensive function if this array has not been cached.
       '#markup' => '',
       '#pre_render' => array('render_example_cache_pre_render'),
@@ -145,7 +145,7 @@ function render_example_arrays() {
         'keys' => array('render_example', 'cache', 'demonstration'),
         'bin' => 'cache',
         'expire' => time() + $interval,
-        'granularity' => DRUPAL_CACHE_PER_PAGE | DRUPAL_CACHE_PER_ROLE,
+        'granularity' => BACKDROP_CACHE_PER_PAGE | BACKDROP_CACHE_PER_ROLE,
       ),
     ),
   );
@@ -160,7 +160,7 @@ function render_example_arrays() {
     $page_array[$key]['unrendered'] = array(
       '#prefix' => '<div class="unrendered-label">' . t('Unrendered array (as plain text and with a krumo version)') . ':</div>',
       '#type' => 'markup',
-      '#markup' => htmlentities(drupal_var_export($item)),
+      '#markup' => htmlentities(backdrop_var_export($item)),
     );
     $page_array[$key]['kpr'] = array(
       // The kpr() function is from devel module and is here only allow us
@@ -189,9 +189,9 @@ function render_example_cache_pre_render($element) {
   $element['#markup'] = render_example_cache_expensive();
 
   // The following line is due to the bug described in
-  // http://drupal.org/node/914792. A #markup element's #pre_render must set
+  // http://DOCUMENTATION_PENDING/node/914792. A #markup element's #pre_render must set
   // #children because it replaces the default #markup pre_render, which is
-  // drupal_pre_render_markup().
+  // backdrop_pre_render_markup().
   $element['#children'] = $element['#markup'];
   return $element;
 }
@@ -207,7 +207,7 @@ function render_example_cache_expensive() {
   $time_message = t('The current time was %time when this was cached. Updated every %interval seconds', array('%time' => date('r'), '%interval' => $interval));
   // Uncomment the following line to demonstrate that this function is not
   // being run when the rendered array is cached.
-  // drupal_set_message($time_message);
+  // backdrop_set_message($time_message);
   return $time_message;
 }
 
@@ -224,9 +224,9 @@ function render_example_add_suffix($element) {
   $element['#suffix'] = '<div style="color:red">' . t('This #suffix was added by a #pre_render') . '</div>';
 
   // The following line is due to the bug described in
-  // http://drupal.org/node/914792. A #markup element's #pre_render must set
+  // http://DOCUMENTATION_PENDING/node/914792. A #markup element's #pre_render must set
   // #children because it replaces the default #markup pre_render, which is
-  // drupal_pre_render_markup().
+  // backdrop_pre_render_markup().
   $element['#children'] = $element['#markup'];
   return $element;
 }
@@ -395,7 +395,7 @@ function render_example_page_alter(&$page) {
       // to output the array in a way that's easy to explore.
       '#markup' => kpr($page, TRUE),
     );
-    $page['content']['page_render_array'] = drupal_get_form('render_example_embedded_form', $form);
+    $page['content']['page_render_array'] = backdrop_get_form('render_example_embedded_form', $form);
     $page['content']['page_render_array']['#weight'] = -999999;
     $page['content']['#sorted'] = FALSE;
   }
@@ -427,7 +427,7 @@ function render_example_page_alter(&$page) {
         );
 
         // Add the new block that contains the render array.
-        $page[$region_name][$block_name]['render_example_block_render_array'] = drupal_get_form('render_example_embedded_form', $form);
+        $page[$region_name][$block_name]['render_example_block_render_array'] = backdrop_get_form('render_example_embedded_form', $form);
         $page[$region_name][$block_name]['render_example_block_render_array']['#weight'] = 999;
       }
     }

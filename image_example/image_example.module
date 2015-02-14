@@ -11,7 +11,7 @@
  * @{
  * Demonstrates the basic use of image API.
  *
- * This module demonstrates the use of Drupal 7's new image styles and effects
+ * This module demonstrates the use of Backdrop's image styles and effects
  * including the following topics.
  *  - Define default image styles in code. Useful for modules that want to ship
  *    with predefined image styles and for site developers who want their image
@@ -49,7 +49,7 @@ function image_example_menu() {
   $items = array();
   $items['image_example/styles'] = array(
     'title' => 'Image Example',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('image_example_style_form'),
     'access arguments' => array('access content'),
     'file' => 'image_example.pages.inc',
@@ -58,21 +58,9 @@ function image_example_menu() {
 }
 
 /**
- * Implements hook_help().
- */
-function image_example_help($path) {
-  switch ($path) {
-    case 'image_example/styles':
-      $output = '<p>' . t('Use this form to upload an image and choose an Image Style to use when displaying the image. This demonstrates basic use of the Drupal 7 Image styles & effects system.') . '</p>';
-      $output .= '<p>' . t('Image styles can be added/edited using the !link.', array('!link' => l(t('Image styles UI'), 'admin/config/media/image-styles'))) . '</p>';
-      return $output;
-  }
-}
-
-/**
  * Implements hook_image_default_styles().
  *
- * hook_image_default_styles() declares to Drupal any image styles that are
+ * hook_image_default_styles() declares to Backdrop any image styles that are
  * provided by the module. An image style is a collection of image effects that
  * are performed in a specified order, manipulating the image and generating a
  * new derivative image.
@@ -97,7 +85,7 @@ function image_example_image_default_styles() {
     array(
       // Name of the image effect. See image_image_effect_info() in
       // modules/image/image.effects.inc for a list of image effects available
-      // in Drupal 7 core.
+      // in Backdrop core.
       'name' => 'image_scale',
       // Arguments to pass to the effect callback function.
       // The arguments that an effect accepts are documented with each
@@ -318,7 +306,7 @@ function image_example_colorize_effect(&$image, $data) {
     return FALSE;
   }
 
-  // Verify that Drupal is using the PHP GD library for image manipulations
+  // Verify that Backdrop is using the PHP GD library for image manipulations
   // since this effect depends on functions in the GD library.
   if ($image->toolkit != 'gd') {
     watchdog('image', 'Image colorize failed on %path. Using non GD toolkit.', array('%path' => $image->source), WATCHDOG_ERROR);

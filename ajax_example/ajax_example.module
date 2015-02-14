@@ -13,7 +13,7 @@
  *
  * General documentation is available at
  * @link ajax AJAX Framework documentation @endlink and at the
- * @link http://drupal.org/node/752056 AJAX Forms handbook page @endlink.
+ * @link http://DOCUMENTATION_PENDING AJAX Forms handbook page @endlink.
  *
  * The several examples here demonstrate basic AJAX usage.
  */
@@ -24,7 +24,7 @@ module_load_include('inc', 'ajax_example', 'ajax_example_node_form_alter');
 /**
  * Implements hook_menu().
  *
- * Sets up calls to drupal_get_form() for all our example cases.
+ * Sets up calls to backdrop_get_form() for all our example cases.
  *
  * @see menu_example.module
  * @see menu_example_menu()
@@ -42,7 +42,7 @@ function ajax_example_menu() {
   // Change the description of a form element.
   $items['examples/ajax_example/simplest'] = array(
     'title' => 'Simplest AJAX Example',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_simplest'),
     'access callback' => TRUE,
     'weight' => 0,
@@ -50,7 +50,7 @@ function ajax_example_menu() {
   // Generate a changing number of checkboxes.
   $items['examples/ajax_example/autocheckboxes'] = array(
     'title' => 'Generate checkboxes',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_autocheckboxes'),
     'access callback' => TRUE,
     'weight' => 1,
@@ -58,7 +58,7 @@ function ajax_example_menu() {
   // Generate different textfields based on form state.
   $items['examples/ajax_example/autotextfields'] = array(
     'title' => 'Generate textfields',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_autotextfields'),
     'access callback' => TRUE,
     'weight' => 2,
@@ -67,7 +67,7 @@ function ajax_example_menu() {
   // Submit a form without a page reload.
   $items['examples/ajax_example/submit_driven_ajax'] = array(
     'title' => 'Submit-driven AJAX',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_submit_driven_ajax'),
     'access callback' => TRUE,
     'weight' => 3,
@@ -76,7 +76,7 @@ function ajax_example_menu() {
   // Repopulate a dropdown based on form state.
   $items['examples/ajax_example/dependent_dropdown'] = array(
     'title' => 'Dependent dropdown',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dependent_dropdown'),
     'access callback' => TRUE,
     'weight' => 4,
@@ -85,7 +85,7 @@ function ajax_example_menu() {
   // See ajax_example_graceful_degradation.inc.
   $items['examples/ajax_example/dependent_dropdown_degrades'] = array(
     'title' => 'Dependent dropdown (with graceful degradation)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dependent_dropdown_degrades'),
     'access callback' => TRUE,
     'weight' => 5,
@@ -94,7 +94,7 @@ function ajax_example_menu() {
   // The above example as it appears to users with no javascript.
   $items['examples/ajax_example/dependent_dropdown_degrades_no_js'] = array(
     'title' => 'Dependent dropdown with javascript off',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dependent_dropdown_degrades', TRUE),
     'access callback' => TRUE,
     'file' => 'ajax_example_graceful_degradation.inc',
@@ -104,7 +104,7 @@ function ajax_example_menu() {
   // Populate a form section based on input in another element.
   $items['examples/ajax_example/dynamic_sections'] = array(
     'title' => 'Dynamic Sections (with graceful degradation)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dynamic_sections'),
     'access callback' => TRUE,
     'weight' => 6,
@@ -113,7 +113,7 @@ function ajax_example_menu() {
   // The  above example as it appears to users with no javascript.
   $items['examples/ajax_example/dynamic_sections_no_js'] = array(
     'title' => 'Dynamic Sections w/JS turned off',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dynamic_sections', TRUE),
     'access callback' => TRUE,
     'weight' => 6,
@@ -124,7 +124,7 @@ function ajax_example_menu() {
   // See ajax_example_graceful_degradation.inc.
   $items['examples/ajax_example/wizard'] = array(
     'title' => 'Wizard (with graceful degradation)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_wizard'),
     'access callback' => TRUE,
     'file' => 'ajax_example_graceful_degradation.inc',
@@ -133,7 +133,7 @@ function ajax_example_menu() {
   // The above example as it appears to users with no javascript.
   $items['examples/ajax_example/wizard_no_js'] = array(
     'title' => 'Wizard w/JS turned off',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_wizard', TRUE),
     'access callback' => TRUE,
     'file' => 'ajax_example_graceful_degradation.inc',
@@ -144,7 +144,7 @@ function ajax_example_menu() {
   // See ajax_example_graceful_degradation.inc.
   $items['examples/ajax_example/add_more'] = array(
     'title' => 'Add-more button (with graceful degradation)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_add_more'),
     'access callback' => TRUE,
     'file' => 'ajax_example_graceful_degradation.inc',
@@ -153,7 +153,7 @@ function ajax_example_menu() {
   // The above example as it appears to users with no javascript.
   $items['examples/ajax_example/add_more_no_js'] = array(
     'title' => 'Add-more button w/JS turned off',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_add_more', TRUE),
     'access callback' => TRUE,
     'file' => 'ajax_example_graceful_degradation.inc',
@@ -191,7 +191,7 @@ function ajax_example_menu() {
   // See ajax_example_advanced.inc.
   $items['examples/ajax_example/advanced_commands'] = array(
     'title' => 'AJAX framework commands',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_advanced_commands'),
     'access callback' => TRUE,
     'file' => 'ajax_example_advanced.inc',
@@ -201,7 +201,7 @@ function ajax_example_menu() {
   // Autocomplete examples.
   $items['examples/ajax_example/simple_autocomplete'] = array(
     'title' => 'Autocomplete (simple)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_simple_autocomplete'),
     'access arguments' => array('access user profiles'),
     'file' => 'ajax_example_autocomplete.inc',
@@ -215,7 +215,7 @@ function ajax_example_menu() {
   );
   $items['examples/ajax_example/node_autocomplete'] = array(
     'title' => 'Autocomplete (node with nid)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_unique_autocomplete'),
     'access arguments' => array('access content'),
     'file' => 'ajax_example_autocomplete.inc',
@@ -229,7 +229,7 @@ function ajax_example_menu() {
   );
   $items['examples/ajax_example/node_by_author'] = array(
     'title' => 'Autocomplete (node limited by author)',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_node_by_author_autocomplete'),
     'access callback' => TRUE,
     'file' => 'ajax_example_autocomplete.inc',
@@ -240,24 +240,6 @@ function ajax_example_menu() {
     'file' => 'ajax_example_autocomplete.inc',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
-  );
-  // This is the landing page for the progress bar example. It uses
-  // drupal_get_form() in order to build the form.
-  $items['examples/ajax_example/progressbar'] = array(
-    'title' => 'Progress bar example',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('ajax_example_progressbar_form'),
-    'access arguments' => array('access content'),
-    'file' => 'ajax_example_progressbar.inc',
-  );
-  // This is the callback route for the AJAX-based progress bar.
-  $items['examples/ajax_example/progressbar/progress/%'] = array(
-    'title' => 'Progress bar progress',
-    'page callback' => 'ajax_example_progressbar_progress',
-    'page arguments' => array(4),
-    'type' => MENU_CALLBACK,
-    'access arguments' => array('access content'),
-    'file' => 'ajax_example_progressbar.inc',
   );
 
   return $items;
@@ -300,7 +282,7 @@ function ajax_example_intro() {
  * Simple form whose ajax-enabled 'changethis' member causes a text change
  * in the description of the 'replace_textfield' member.
  *
- * See @link http://drupal.org/node/262422 Form API Tutorial @endlink
+ * See @link http://DOCUMENTATION_PENDING Form API Tutorial @endlink
  */
 function ajax_example_simplest($form, &$form_state) {
   $form = array();
@@ -573,7 +555,7 @@ function ajax_example_dependent_dropdown($form, &$form_state) {
     // select form type) of the first dropdown. It will replace the second
     // dropdown when rebuilt.
     '#ajax' => array(
-      // When 'event' occurs, Drupal will perform an ajax request in the
+      // When 'event' occurs, Backdrop will perform an ajax request in the
       // background. Usually the default value is sufficient (eg. change for
       // select elements), but valid values include any jQuery event,
       // most notably 'mousedown', 'blur', and 'submit'.
@@ -624,8 +606,8 @@ function ajax_example_dependent_dropdown_callback($form, $form_state) {
  *   Dropdown options.
  */
 function _ajax_example_get_first_dropdown_options() {
-  // drupal_map_assoc() just makes an array('String' => 'String'...).
-  return drupal_map_assoc(
+  // backdrop_map_assoc() just makes an array('String' => 'String'...).
+  return backdrop_map_assoc(
     array(
       t('String'),
       t('Woodwind'),
@@ -648,7 +630,7 @@ function _ajax_example_get_first_dropdown_options() {
  */
 function _ajax_example_get_second_dropdown_options($key = '') {
   $options = array(
-    t('String') => drupal_map_assoc(
+    t('String') => backdrop_map_assoc(
       array(
         t('Violin'),
         t('Viola'),
@@ -656,7 +638,7 @@ function _ajax_example_get_second_dropdown_options($key = '') {
         t('Double Bass'),
       )
     ),
-    t('Woodwind') => drupal_map_assoc(
+    t('Woodwind') => backdrop_map_assoc(
       array(
         t('Flute'),
         t('Clarinet'),
@@ -664,7 +646,7 @@ function _ajax_example_get_second_dropdown_options($key = '') {
         t('Bassoon'),
       )
     ),
-    t('Brass') => drupal_map_assoc(
+    t('Brass') => backdrop_map_assoc(
       array(
         t('Trumpet'),
         t('Trombone'),
@@ -672,7 +654,7 @@ function _ajax_example_get_second_dropdown_options($key = '') {
         t('Euphonium'),
       )
     ),
-    t('Percussion') => drupal_map_assoc(
+    t('Percussion') => backdrop_map_assoc(
       array(
         t('Bass Drum'),
         t('Timpani'),

@@ -9,7 +9,7 @@
  *
  * @ingroup dbtng_example
  */
-class DBTNGExampleUnitTestCase extends DrupalWebTestCase {
+class DBTNGExampleUnitTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -47,12 +47,12 @@ class DBTNGExampleUnitTestCase extends DrupalWebTestCase {
    */
   public function testUI() {
     // Test the basic list.
-    $this->drupalGet('examples/dbtng');
+    $this->backdropGet('examples/dbtng');
     $this->assertPattern("/John[td\/<>\w]+Doe/", "Text 'John Doe' found in table");
 
     // Test the add tab.
     // Add the new entry.
-    $this->drupalPost('examples/dbtng/add',
+    $this->backdropPost('examples/dbtng/add',
       array(
         'name'  => 'Some',
         'surname' => 'Anonymous',
@@ -61,13 +61,13 @@ class DBTNGExampleUnitTestCase extends DrupalWebTestCase {
       t('Add')
     );
     // Now find the new entry.
-    $this->drupalGet('examples/dbtng');
+    $this->backdropGet('examples/dbtng');
     $this->assertPattern("/Some[td\/<>\w]+Anonymous/", "Text 'Some Anonymous' found in table");
 
     // Try the update tab.
     // Find out the pid of our "anonymous" guy.
     $result = dbtng_example_entry_load(array('surname' => 'Anonymous'));
-    $this->drupalGet("examples/dbtng");
+    $this->backdropGet("examples/dbtng");
     $this->assertEqual(
       count($result),
       1,
@@ -76,16 +76,16 @@ class DBTNGExampleUnitTestCase extends DrupalWebTestCase {
     $entry = $result[0];
     unset($entry->uid);
     $entry->name = 'NewFirstName';
-    $this->drupalPost('examples/dbtng/update', (array) $entry, t('Update'));
+    $this->backdropPost('examples/dbtng/update', (array) $entry, t('Update'));
     // Now find the new entry.
-    $this->drupalGet('examples/dbtng');
+    $this->backdropGet('examples/dbtng');
     $this->assertPattern("/NewFirstName[td\/<>\w]+Anonymous/", "Text 'NewFirstName Anonymous' found in table");
 
     // Try the advanced tab.
-    $this->drupalGet('examples/dbtng/advanced');
-    $rows = $this->xpath("//*[@id='block-system-main']/div/table[1]/tbody/tr");
+    $this->backdropGet('examples/dbtng/advanced');
+    $rows = $this->xpath("//*[@class='l-content']/table[1]/tbody/tr");
     $this->assertEqual(count($rows), 1, "One row found in advanced view");
-    $this->assertFieldByXPath("//*[@id='block-system-main']/div/table[1]/tbody/tr/td[4]", "Roe", "Name 'Roe' Exists in advanced list");
+    $this->assertFieldByXPath("//*[@class='l-content']/table[1]/tbody/tr/td[4]", "Roe", "Name 'Roe' Exists in advanced list");
   }
 
   /**

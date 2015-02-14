@@ -12,7 +12,7 @@
  *
  * @ingroup entity_example
  */
-class EntityExampleTestCase extends DrupalWebTestCase {
+class EntityExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
@@ -41,8 +41,8 @@ class EntityExampleTestCase extends DrupalWebTestCase {
       'administer entity_example_basic entities',
       'administer site configuration',
     );
-    $account = $this->drupalCreateUser($permissions);
-    $this->drupalLogin($account);
+    $account = $this->backdropCreateUser($permissions);
+    $this->backdropLogin($account);
 
     // Attach a field.
     $field = array(
@@ -74,17 +74,17 @@ class EntityExampleTestCase extends DrupalWebTestCase {
       $edit[$i]['item_description'] = $this->randomName();
       $edit[$i]['entity_example_test_text[und][0][value]'] = $this->randomName(32);
 
-      $this->drupalPost('examples/entity_example/basic/add', $edit[$i], 'Save');
+      $this->backdropPost('examples/entity_example/basic/add', $edit[$i], 'Save');
       $this->assertText('item_description=' . $edit[$i]['item_description']);
 
-      $this->drupalGet('examples/entity_example/basic/' . $i);
+      $this->backdropGet('examples/entity_example/basic/' . $i);
       $this->assertText('item_description=' . $edit[$i]['item_description']);
       $this->assertText($edit[$i]['entity_example_test_text[und][0][value]']);
     }
 
     // Delete entity 5.
-    $this->drupalPost('examples/entity_example/basic/5/edit', $edit[5], 'Delete');
-    $this->drupalGet('examples/entity_example/basic/5');
+    $this->backdropPost('examples/entity_example/basic/5/edit', $edit[5], 'Delete');
+    $this->backdropGet('examples/entity_example/basic/5');
     $this->assertResponse(404, 'Deleted entity 5 no longer exists');
     unset($edit[5]);
 
@@ -93,13 +93,13 @@ class EntityExampleTestCase extends DrupalWebTestCase {
       'item_description' => 'updated entity 2 ',
       'entity_example_test_text[und][0][value]' => 'updated entity 2 test text',
     );
-    $this->drupalPost('examples/entity_example/basic/2/edit', $edit[2], 'Save');
+    $this->backdropPost('examples/entity_example/basic/2/edit', $edit[2], 'Save');
     $this->assertText('item_description=' . $edit[2]['item_description']);
     $this->assertText('updated entity 2 test text');
 
     // View the entity list page  and verify that the items which still exist
     // are there, and that the deleted #5 no longer is there.
-    $this->drupalGet('admin/structure/entity_example_basic/manage');
+    $this->backdropGet('admin/structure/entity_example_basic/manage');
     foreach ($edit as $id => $item) {
       $this->assertRaw('examples/entity_example/basic/' . $id . '">' . $item['item_description'] . '</a>');
     }
@@ -112,50 +112,50 @@ class EntityExampleTestCase extends DrupalWebTestCase {
       'fields[_add_new_field][type]' => 'text',
       'fields[_add_new_field][widget_type]' => 'text_textfield',
     );
-    $this->drupalPost('admin/structure/entity_example_basic/manage/fields', $field_edit, t('Save'));
-    $this->drupalPost(NULL, array(), t('Save field settings'));
-    $this->drupalPost(NULL, array(), t('Save settings'));
+    $this->backdropPost('admin/structure/entity_example_basic/manage/fields', $field_edit, t('Save'));
+    $this->backdropPost(NULL, array(), t('Save field settings'));
+    $this->backdropPost(NULL, array(), t('Save settings'));
     $this->assertResponse(200);
 
     // Now verify that we can edit and view this entity with fields.
     $edit[10]['field_new_junk_field[und][0][value]'] = $this->randomName();
-    $this->drupalPost('examples/entity_example/basic/10/edit', $edit[10], 'Save');
+    $this->backdropPost('examples/entity_example/basic/10/edit', $edit[10], 'Save');
     $this->assertResponse(200);
     $this->assertText('item_description=' . $edit[10]['item_description']);
     $this->assertText($edit[10]['field_new_junk_field[und][0][value]'], 'Custom field updated successfully');
 
     // Create and login user without view access.
-    $account = $this->drupalCreateUser(array('access content'));
-    $this->drupalLogin($account);
-    $this->drupalGet('admin/structure/entity_example_basic/manage');
+    $account = $this->backdropCreateUser(array('access content'));
+    $this->backdropLogin($account);
+    $this->backdropGet('admin/structure/entity_example_basic/manage');
     $this->assertResponse(403);
-    $this->drupalGet('examples/entity_example/basic/2');
+    $this->backdropGet('examples/entity_example/basic/2');
     $this->assertResponse(403, 'User does not have permission to view entity');
 
     // Create and login user with view access but no edit access.
-    $account = $this->drupalCreateUser(array('access content', 'view any entity_example_basic entity'));
-    $this->drupalLogin($account);
-    $this->drupalGet('admin/structure/entity_example_basic/manage');
+    $account = $this->backdropCreateUser(array('access content', 'view any entity_example_basic entity'));
+    $this->backdropLogin($account);
+    $this->backdropGet('admin/structure/entity_example_basic/manage');
     $this->assertResponse(403, 'Denied access to admin manage page');
-    $this->drupalGet('examples/entity_example/basic/2');
+    $this->backdropGet('examples/entity_example/basic/2');
     $this->assertResponse(200, 'User has permission to view entity');
-    $this->drupalGet('examples/entity_example/basic/2/edit');
+    $this->backdropGet('examples/entity_example/basic/2/edit');
     $this->assertResponse(403, 'User is denied edit privileges');
 
     // Create and login user with view and edit but no manage privs.
-    $account = $this->drupalCreateUser(
+    $account = $this->backdropCreateUser(
       array(
         'access content',
         'view any entity_example_basic entity',
         'edit any entity_example_basic entity',
       )
     );
-    $this->drupalLogin($account);
-    $this->drupalGet('admin/structure/entity_example_basic/manage');
+    $this->backdropLogin($account);
+    $this->backdropGet('admin/structure/entity_example_basic/manage');
     $this->assertResponse(403, 'Denied access to admin manage page');
-    $this->drupalGet('examples/entity_example/basic/2');
+    $this->backdropGet('examples/entity_example/basic/2');
     $this->assertResponse(200, 'User has permission to view entity');
-    $this->drupalGet('examples/entity_example/basic/2/edit');
+    $this->backdropGet('examples/entity_example/basic/2/edit');
     $this->assertResponse(200, 'User has edit privileges');
   }
 }
