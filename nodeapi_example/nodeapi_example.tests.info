@@ -1,0 +1,5 @@
+[NodeApiExampleTestCase]
+name = Node API example functionality
+description = Tests node API functionality.
+group = Example modules
+file = nodeapi_example.test

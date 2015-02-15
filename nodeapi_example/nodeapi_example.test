@@ -206,7 +206,7 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
     // Now switch back to previous revision of the node.
     $this->backdropGet($node_url . '/revisions');
     // There is only a revision, so it must work just clicking the first link..
-    $this->clickLink('revert');
+    $this->clickLink('Revert');
     $revert_form = $this->getUrl();
     $this->backdropPost($revert_form, array(), t('Revert'));
 
