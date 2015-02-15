@@ -1,0 +1,5 @@
+[FieldTestPermissionsExample]
+name = Field permission example functionality
+description = Tests field permission functionality.
+group = Example modules
+file = field_permission_example.test
