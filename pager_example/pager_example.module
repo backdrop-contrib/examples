@@ -34,7 +34,7 @@ function pager_example_menu() {
 /**
  * Build the pager query.
  *
- * Uses the date_formats table since it is installed with ~35 rows
+ * Uses the menu_links table since it is installed with several rows
  * in it and we don't have to create fake data in order to show
  * this example.
  *
@@ -44,21 +44,23 @@ function pager_example_menu() {
 function pager_example_page() {
   // We are going to output the results in a table with a nice header.
   $header = array(
-    array('data' => t('DFID')),
-    array('data' => t('Format')),
-    array('data' => t('Type')),
+    array('data' => t('MLID')),
+    array('data' => t('Link title')),
+    array('data' => t('Menu name')),
   );
 
   // We are extending the PagerDefault class here.
   // It has a default of 10 rows per page.
   // The extend('PagerDefault') part here does all the magic.
-  $query = db_select('date_formats', 'd')->extend('PagerDefault');
-  $query->fields('d', array('dfid', 'format', 'type'));
+  $query = db_select('menu_links', 'm')->extend('PagerDefault');
+  $query->fields('m', array('mlid', 'link_title', 'menu_name'));
 
-  // Change the number of rows with the limit() call.
+  // Change the number of rows with the limit() call. Skip rows with no link
+  // title to prevent empty table cells.
   $result = $query
+    ->condition('m.link_title', '', '<>')
     ->limit(10)
-    ->orderBy('d.dfid')
+    ->orderBy('m.mlid')
     ->execute();
 
   $rows = array();
