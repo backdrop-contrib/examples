@@ -467,38 +467,33 @@ function theme_form_example_inline_form_element($variables) {
  * we've defined.
  */
 function form_example_element_demo_form($form, &$form_state) {
+  $config = config('form_example.settings');
+
   $form['a_form_example_textfield'] = array(
     '#type' => 'form_example_textfield',
     '#title' => t('Form Example textfield'),
-    '#default_value' => variable_get('form_example_textfield', ''),
+    '#default_value' =>   $config->get('form_example_textfield'),
     '#description' => t('form_example_textfield is a new type, but it is actually uses the system-provided functions of textfield'),
   );
 
   $form['a_form_example_checkbox'] = array(
     '#type' => 'form_example_checkbox',
     '#title' => t('Form Example checkbox'),
-    '#default_value' => variable_get('form_example_checkbox', FALSE),
+    '#default_value' =>   $config->get('form_example_checkbox'),
     '#description' => t('Nothing more than a regular checkbox but with a theme provided by this module.'),
   );
 
   $form['a_form_example_element_discrete'] = array(
     '#type' => 'form_example_phonenumber_discrete',
     '#title' => t('Discrete phone number'),
-    '#default_value' => variable_get(
-      'form_example_element_discrete',
-      array(
-        'areacode' => '999',
-        'prefix' => '999',
-        'extension' => '9999',
-      )
-    ),
+    '#default_value' =>   $config->get('form_example_element_discrete'),
     '#description' => t('A phone number : areacode (XXX), prefix (XXX) and extension (XXXX). This one uses a "discrete" element type, one which stores the three parts of the telephone number separately.'),
   );
 
   $form['a_form_example_element_combined'] = array(
     '#type' => 'form_example_phonenumber_combined',
     '#title' => t('Combined phone number'),
-    '#default_value' => variable_get('form_example_element_combined', '0000000000'),
+    '#default_value' =>   $config->get('form_example_element_combined'),
     '#description' => t('form_example_element_combined one uses a "combined" element type, one with a single 10-digit value which is broken apart when needed.'),
   );
 
@@ -518,7 +513,7 @@ function form_example_element_demo_form_submit($form, &$form_state) {
   unset($form_state['values']['submit'], $form_state['values']['form_id'], $form_state['values']['op'], $form_state['values']['form_token'], $form_state['values']['form_build_id']);
 
   foreach ($form_state['values'] as $key => $value) {
-    variable_set($key, $value);
+    config_set('form_example.settings', $key, $value);
     backdrop_set_message(
       t('%name has value %value',
         array(

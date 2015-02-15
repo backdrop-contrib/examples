@@ -18,6 +18,17 @@
  */
 
 /**
+ * Implements hook_config_info().
+ */
+function form_example_config_info() {
+  $prefixes['form_example.settings'] = array(
+    'label' => t('Form Example settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
+/**
  * Implements hook_menu().
  *
  * Here we set up the URLs (menu entries) for the

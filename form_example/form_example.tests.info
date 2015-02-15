@@ -1,0 +1,5 @@
+[FormExampleTestCase]
+name = Form example functionality
+description = Tests form functionality.
+group = Example modules
+file = form_example.test

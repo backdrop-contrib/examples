@@ -3,4 +3,4 @@ description = Examples of using the Backdrop Form API.
 package = Example modules
 core = 7.x
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x

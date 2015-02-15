@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * @file
+ * Examples demonstrating the Backdrop Form API.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function form_example_install() {
+  $config = config('form_example.settings');
+  $config->set('form_example_checkbox', FALSE);
+  $config->set('form_example_element_combined', '0000000000');
+  $config->set('form_example_textfield', '');
+  $config->set('form_example_element_discrete', array(
+    'areacode' => '999',
+    'prefix' => '999',
+    'extension' => '9999',
+  ));
+  $config->save();
+}
