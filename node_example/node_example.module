@@ -66,30 +66,6 @@ function node_example_menu() {
 }
 
 /**
- * Implements hook_node_info().
- *
- * We use hook_node_info() to define our node content type.
- */
-function node_example_node_info() {
-  // We define the node type as an associative array.
-  return array(
-    'node_example' => array(
-      'name' => t('Example Node Type'),
-      // 'base' tells Backdrop the base string for hook functions.
-      // This is often the module name; if base is set to 'mymodule',
-      // Backdrop would call mymodule_insert() or similar for node
-      // hooks. In our case, the base is 'node_example'.
-      'base' => 'node_example',
-      'description' => t('This is an example node type with a few fields.'),
-      'title_label' => t('Example Title'),
-      // We'll set the 'locked' attribute to TRUE, so users won't be
-      // able to change the machine name of our content type.
-      'locked' => TRUE,
-    ),
-  );
-}
-
-/**
  * Implements hook_node_type_insert().
  *
  * Much like hook_node_insert() lets us know that a node is being
