@@ -92,7 +92,8 @@ class FieldExampleTest extends BackdropWebTestCase {
     // node_types_rebuild().
     node_types_rebuild();
     menu_rebuild();
-    $type_exists = db_query('SELECT 1 FROM {node_type} WHERE type = :type', array(':type' => $content_type_machine))->fetchField();
+    //$type_exists = db_query('SELECT 1 FROM {node_type} WHERE type = :type', array(':type' => $content_type_machine))->fetchField();
+    $type_exists = config_get('node.type.' . $content_type_machine);
     $this->assertTrue($type_exists, 'The new content type has been created in the database.');
 
     $permission = 'create ' . $content_type_machine . ' content';

@@ -37,7 +37,7 @@
  * field_example_field_formatter_view(). These are the API hooks that present
  * formatted and themed output to the user.
  *
- * And finally, our module defines the widet in
+ * And finally, our module defines the widget in
  * field_example_field_widget_info() and field_example_field_widget_form().
  * The widget is the form element used to receive input from the user
  * when the field is being populated.
@@ -149,8 +149,8 @@ function field_example_field_formatter_view($entity_type, $entity, $field, $inst
         $element[$delta] = array(
           // We create a render array to produce the desired markup,
           // "<p style="color: #hexcolor">The color code ... #hexcolor</p>".
-          // See theme_html_tag().
-          '#type' => 'html_tag',
+          // See theme_head_tag().
+          '#type' => 'head_tag',
           '#tag' => 'p',
           '#attributes' => array(
             'style' => 'color: ' . $item['rgb'],
@@ -165,7 +165,7 @@ function field_example_field_formatter_view($entity_type, $entity, $field, $inst
     case 'field_example_color_background':
       foreach ($items as $delta => $item) {
         $element[$delta] = array(
-          '#type' => 'html_tag',
+          '#type' => 'head_tag',
           '#tag' => 'p',
           '#value' => t('The content area color has been changed to @code', array('@code' => $item['rgb'])),
           '#attached' => array(

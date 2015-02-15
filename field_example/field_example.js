@@ -1,15 +1,10 @@
 /**
- * @file
- * Javascript for Field Example.
- */
-
-/**
  * Provides a farbtastic colorpicker for the fancier widget.
  */
 (function ($) {
   Backdrop.behaviors.field_example_colorpicker = {
     attach: function(context) {
-      $(".edit-field-example-colorpicker").live("focus", function(event) {
+      $('.node-form').on('focus', '.edit-field-example-colorpicker', function(event){
         var edit_field = this;
         var picker = $(this).closest('div').parent().find(".field-example-colorpicker");
         

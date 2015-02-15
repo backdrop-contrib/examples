@@ -1,0 +1,5 @@
+[FieldExampleTest]
+name = Field example functionality
+description = Tests field functionality.
+group = Example modules
+file = field_example.test
