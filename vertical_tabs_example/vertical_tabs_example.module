@@ -42,8 +42,7 @@ function vertical_tabs_example_menu() {
  */
 function vertical_tabs_example_form_alter(&$form, $form_state, $form_id) {
   // Only include on node add/edit forms.
-  if (!empty($form['#node_edit_form'])) {
-
+  if (isset($form['#node']) && $form['#node']->type . '_node_form' == $form_id) {
     // Create a fieldset that will be included in the vertical tab.
     $form['vertical_tabs_example'] = array(
       '#type' => 'fieldset',

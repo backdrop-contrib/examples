@@ -1,0 +1,5 @@
+[VerticalTabsExampleTestCase]
+name = Vertical tabs example functionality
+description = Tests vertical tabs functionality.
+group = Example modules
+file = vertical_tabs_example.test
