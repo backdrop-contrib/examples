@@ -125,7 +125,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     if (!isset($mapping)) {
       // The default file map, defined in file.mimetypes.inc is quite big.
       // We only load it when necessary.
-      include_once BACKDROP_ROOT . '/includes/file.mimetypes.inc';
+      include_once BACKDROP_ROOT . '/core/includes/file.mimetypes.inc';
       $mapping = file_mimetype_mapping();
     }
 

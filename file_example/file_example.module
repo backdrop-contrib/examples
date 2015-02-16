@@ -377,14 +377,12 @@ function file_example_delete_submit($form, &$form_state) {
 
   // If a managed file, use file_delete().
   if (!empty($file_object)) {
-    $result = file_delete($file_object);
-    if ($result !== TRUE) {
-      backdrop_set_message(t('Failed deleting managed file %uri. Result was %result',
-        array(
-          '%uri' => $uri,
-          '%result' => print_r($result, TRUE),
-        )
-      ), 'error');
+    file_delete($file_object->fid);
+    // File delete has no return; see https://github.com/backdrop/backdrop-issues/issues/652
+    // so we check if the file was deleted by trying to load it.
+    $not_deleted = file_load($file_object->fid);
+    if ($not_deleted) {
+      backdrop_set_message(t('Failed deleting managed file %uri', array('%uri' => $uri, 'error')));
     }
     else {
       backdrop_set_message(t('Successfully deleted managed file %uri', array('%uri' => $uri)));
@@ -564,6 +562,15 @@ function file_example_session_contents() {
   }
   return t('Unable to load contents of: @path',
     array('@path' => check_plain($session_path)));
+}
+
+/**
+ * Implements hook_autoload_info().
+ */
+function file_example_autoload_info() {
+  return array(
+    'FileExampleSessionStreamWrapper' => 'file_example_session_streams.inc',
+  );
 }
 
 /**
