@@ -39,6 +39,21 @@
  * @see theme_image_style().
  */
 
+ /**
+ * Implements hook_config_info().
+ */
+function image_example_config_info() {
+  $prefixes['image_example.settings'] = array(
+    'label' => t('Image Example settings'),
+    'group' => t('Configuration'),
+  );
+  $prefixes['image.style.image_example_style'] = array(
+    'label' => t('Image example custum image style'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
 /**
  * Implements hook_menu().
  *
@@ -130,8 +145,8 @@ function image_example_image_style_save($style) {
   // Here we update a variable that contains the name of the image style that
   // the block provided by this module uses when formating images to use the
   // new user choosen style name.
-  if (isset($style['old_name']) && $style['old_name'] == variable_get('image_example_style_name', '')) {
-    variable_set('image_example_style_name', $style['name']);
+  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
+    config_set('image_example.settings', 'image_example_style_name', $style['name']);
   }
 }
 
@@ -148,8 +163,8 @@ function image_example_image_style_delete($style) {
   //
   // Update the modules variable that contains the name of the image style
   // being deleted to the name of the replacement style.
-  if (isset($style['old_name']) && $style['old_name'] == variable_get('image_example_style_name', '')) {
-    variable_set('image_example_style_name', $style['name']);
+  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
+    config_set('image_example.settings', 'image_example_style_name', $style['name']);
   }
 }
 
@@ -174,7 +189,7 @@ function image_example_style_flush($style) {
   // after the style has been flushed. Stale data occurs because the module may
   // have cached content with a reference to the derivative image which is
   // being deleted.
-  cache_clear_all('*', 'image_example', TRUE);
+  cache_flush('image_example');
 }
 
 /**

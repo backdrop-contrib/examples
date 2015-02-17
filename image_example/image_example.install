@@ -11,19 +11,12 @@
  * @ingroup image_example
  */
 function image_example_install() {
-  // Set a variable containing the name of the style to use when the module
+  // Set config containing the name of the style to use when the module
   // outputs an image.
-  variable_set('image_example_style_name', 'image_example_style');
-}
-
-/**
- * Implements hook_uninstall().
- *
- * @ingroup image_example
- */
-function image_example_uninstall() {
-  variable_del('image_example_style_name');
-  variable_del('image_example_image_fid');
+  $config = config('image_example.settings');
+  $config->set('image_example_style_name', 'image_example_style');
+  $config->set('image_example_image_fid', FALSE);
+  $config->save();
 }
 
 /**
