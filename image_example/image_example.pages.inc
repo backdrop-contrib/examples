@@ -19,10 +19,12 @@
  * @ingroup image_example
  */
 function image_example_style_form($form, &$form_state) {
+  $config = config('image_example.settings');
+
   // If there is already an uploaded image display the image here.
-  if ($image_fid = variable_get('image_example_image_fid', FALSE)) {
+  if ($image_fid = $config->get('image_example_image_fid')) {
     $image = file_load($image_fid);
-    $style = variable_get('image_example_style_name', 'thumbnail');
+    $style = $config->get('image_example_style_name');
     $form['image'] = array(
       '#markup' => theme('image_example_image', array('image' => $image, 'style' => $style)),
     );
@@ -33,7 +35,7 @@ function image_example_style_form($form, &$form_state) {
     '#title' => t('Image'),
     '#type' => 'managed_file',
     '#description' => t('The uploaded image will be displayed on this page using the image style choosen below.'),
-    '#default_value' => variable_get('image_example_image_fid', ''),
+    '#default_value' => $config->get('image_example_image_fid'),
     '#upload_location' => 'public://image_example_images/',
   );
 
@@ -48,7 +50,7 @@ function image_example_style_form($form, &$form_state) {
     // style's name. The fucntion takes on paramater, a boolean flag
     // signifying wether or not the array should include a <none> option.
     '#options' => image_style_options(TRUE),
-    '#default_value' => variable_get('image_example_style_name', ''),
+    '#default_value' => $config->get('image_example_style_name'),
   );
 
   // Submit Button.
@@ -77,6 +79,8 @@ function image_example_style_form_validate($form, &$form_state) {
  * @ingroup image_example
  */
 function image_example_style_form_submit($form, &$form_state) {
+  $config = config('image_example.settings');
+
   // When using the #managed_file form element the file is automatically
   // uploaded an saved to the {file} table. The value of the corresponding
   // form element is set to the {file}.fid of the new file.
@@ -95,7 +99,7 @@ function image_example_style_form_submit($form, &$form_state) {
     file_usage_add($file, 'image_example', 'sample_image', 1);
 
     // Save the fid of the file so that the module can reference it later.
-    variable_set('image_example_image_fid', $file->fid);
+    $config->set('image_example_image_fid', $file->fid);
     backdrop_set_message(t('The image @image_name was uploaded and saved with an ID of @fid and will be displayed using the style @style.',
       array(
         '@image_name' => $file->filename,
@@ -108,28 +112,29 @@ function image_example_style_form_submit($form, &$form_state) {
   // removed file's fid, and remove the file.
   elseif ($form_state['values']['image_example_image_fid'] == 0) {
     // Retrieve the old file's id.
-    $fid = variable_get('image_example_image_fid', FALSE);
+    $fid = $config->get('image_example_image_fid');
     $file = $fid ? file_load($fid) : FALSE;
     if ($file) {
       // When a module is managing a file, it must manage the usage count.
       // Here we decrement the usage count with file_usage_delete().
       file_usage_delete($file, 'image_example', 'sample_image', 1);
 
-      // The file_delete() function takes a file object and checks to see if
+      // The file_delete() function takes a file ID and checks to see if
       // the file is being used by any other modules. If it is the delete
       // operation is cancelled, otherwise the file is deleted.
-      file_delete($file);
+      file_delete($file->fid);
     }
 
     // Either way the module needs to update it's reference since even if the
     // file is in use by another module and not deleted we no longer want to
     // use it.
-    variable_set('image_example_image_fid', FALSE);
+    $config->set('image_example_image_fid', FALSE);
     backdrop_set_message(t('The image @image_name was removed.', array('@image_name' => $file->filename)));
   }
 
   // Save the name of the image style choosen by the user.
-  variable_set('image_example_style_name', $form_state['values']['image_example_style_name']);
+  $config->set('image_example_style_name', $form_state['values']['image_example_style_name']);
+  $config->save();
 }
 
 /**
@@ -157,8 +162,7 @@ function theme_image_example_image($variables) {
   $output = theme('image_style',
     array(
       'style_name' => $style,
-      'path' => $image->uri,
-      'getsize' => FALSE,
+      'uri' => $image->uri,
     )
   );
   $output .= '<p>' . t('This image is being displayed using the image style %style_name.', array('%style_name' => $style)) . '</p>';

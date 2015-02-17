@@ -1,0 +1,5 @@
+[ImageExampleTestCase]
+name = Image example functionality
+description = Tests image functionality.
+group = Example modules
+file = image_example.test

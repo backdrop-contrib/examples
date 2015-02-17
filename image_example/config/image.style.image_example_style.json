@@ -1,0 +1,25 @@
+{
+    "_config_name": "image.style.image_example_style",
+    "storage": 4,
+    "module": "image_example",
+    "label": "Image example style",
+    "name": "image_example_style",
+    "effects": [
+        {
+            "name": "image_scale",
+            "data": {
+                "width": "100",
+                "height": "100",
+                "upscale": 1
+            },
+            "weight": 0
+        },
+        {
+            "name": "image_example_colorize",
+            "data": {
+                "color": "#FFFF66"
+            },
+            "weight": 1
+        }
+    ]
+}
