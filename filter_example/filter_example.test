@@ -37,8 +37,10 @@ class FilterExampleTestCase extends BackdropWebTestCase {
     parent::setUp('filter_example');
 
     // Load the used input formats.
-    $this->filteredHtml = db_query_range('SELECT * FROM {filter_format} WHERE name = :name', 0, 1, array(':name' => 'Filtered HTML'))->fetchObject();
-    $this->fullHtml = db_query_range('SELECT * FROM {filter_format} WHERE name = :name', 0, 1, array(':name' => 'Full HTML'))->fetchObject();
+    // $this->filteredHtml = db_query_range('SELECT * FROM {filter_format} WHERE name = :name', 0, 1, array(':name' => 'Filtered HTML'))->fetchObject();
+    // $this->fullHtml = db_query_range('SELECT * FROM {filter_format} WHERE name = :name', 0, 1, array(':name' => 'Full HTML'))->fetchObject();
+    $this->filteredHtml = (object) config_get('filter.format.filtered_html');
+    $this->fullHtml = (object) config_get('filter.format.full_html');
 
     // Create user.
     $this->webUser = $this->backdropCreateUser(array(
@@ -77,7 +79,7 @@ class FilterExampleTestCase extends BackdropWebTestCase {
     );
     $result = $this->backdropPost('node/add/' . $content_type->type, $edit, t('Save'));
     $this->assertResponse(200);
-    $time = format_date(time());
+    $time = format_date(time(), 'medium', '', 'Europe/London');
     $this->assertRaw('What bar is it? it is <em>' . $time . '</em>');
 
     // Enable foo filter in other format id 2

@@ -111,11 +111,11 @@ function filter_example_filter_info() {
  * The settings defined in this form are stored in database by the filter
  * module, and they will be available in the $filter argument.
  */
-function _filter_example_filter_foo_settings($form, $form_state, $filter, $format, $defaults) {
+function _filter_example_filter_foo_settings($form, $form_state, $filter, $format) {
   $settings['filter_example_foo'] = array(
     '#type' => 'textfield',
     '#title' => t('Substitution string'),
-    '#default_value' => isset($filter->settings['filter_example_foo']) ? $filter->settings['filter_example_foo'] : $defaults['filter_example_foo'],
+    '#default_value' => $filter->settings['filter_example_foo'],
     '#description' => t('The string to substitute for "foo" everywhere in the text.'),
   );
   return $settings;
@@ -172,7 +172,7 @@ function _filter_example_filter_time_prepare($text, $filter) {
  * do the real filtering: replace the xml tag with the date.
  */
 function _filter_example_filter_time_process($text, $filter) {
-  return str_replace('[filter-example-time]', '<em>' . format_date(time()) . '</em>', $text);
+  return str_replace('[filter-example-time]', '<em>' . format_date(time(), 'medium', '', 'Europe/London') . '</em>', $text);
 }
 
 

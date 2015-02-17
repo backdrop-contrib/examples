@@ -1,0 +1,5 @@
+[FilterExampleTestCase]
+name = Filter example functionality
+description = Tests filter functionality.
+group = Example modules
+file = filter_example.test
