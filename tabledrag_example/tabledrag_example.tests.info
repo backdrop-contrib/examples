@@ -1,0 +1,5 @@
+[TabledragExampleTestCase]
+name = Tabledrag example functionality
+description = Tests Tabledrag functionality.
+group = Example modules
+file = tabledrag_example.test

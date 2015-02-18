@@ -1,7 +1,6 @@
 name = Tabledrag Example
 description = Demonstrates how to create tabledrag forms.
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x
 package = Example modules
-core = 7.x
 
