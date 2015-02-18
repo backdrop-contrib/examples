@@ -1,0 +1,5 @@
+[RenderExampleTestCase]
+name = Render example functionality
+description = Tests Render functionality.
+group = Example modules
+file = render_example.test

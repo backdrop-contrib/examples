@@ -1,8 +1,7 @@
 name = Render example
 description = Demonstrates backdrop_render's capabilities and altering render arrays
 package = Example modules
-core = 7.x
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x
 dependencies[] = devel
 stylesheets[all][] = render_example.css

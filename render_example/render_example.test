@@ -33,20 +33,6 @@ class RenderExampleTestCase extends BackdropWebTestCase {
 
 
   /**
-   * Assert that all of the xpaths in the array have results.
-   *
-   * @param array $xpath_array
-   *   An array of xpaths, each of which must return something.
-   */
-  public function assertRenderResults($xpath_array) {
-    foreach ($xpath_array as $xpath) {
-      $result = $this->xpath($xpath);
-      $this->assertTrue(!empty($result), format_string('Found xpath %xpath', array('%xpath' => $xpath)));
-    }
-  }
-
-
-  /**
    * Asserts that the string value of the result is the same as the passed text.
    *
    * @param array $xpath_array
@@ -73,63 +59,6 @@ class RenderExampleTestCase extends BackdropWebTestCase {
     $web_user = $this->backdropCreateUser(array('access devel information', 'access content'));
     $this->backdropLogin($web_user);
 
-    // Turn on the block render array display and make sure it shows up.
-    $edit = array(
-      'render_example_show_block' => TRUE,
-    );
-    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
-
-    $xpath_array = array(
-      "//div[@id='sidebar-first']//fieldset[starts-with(@id, 'edit-render-example-block-fieldset')]",
-      '//*[@id="content"]//fieldset[contains(@id,"edit-render-example-block-fieldset")]',
-    );
-    $this->assertRenderResults($xpath_array);
-
-    // Turn off block render array display and turn on the page render array
-    // display.
-    $edit = array(
-      'render_example_show_page' => TRUE,
-      'render_example_show_block' => FALSE,
-    );
-    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
-
-    $xpath_array = array(
-      '//*[@id="content"]//fieldset[starts-with(@id,"edit-render-example-page-fieldset")]',
-    );
-    $this->assertRenderResults($xpath_array);
-
-    // Add note about render arrays to the top of sidebar_first.
-    $edit = array(
-      'render_example_note_about_render_arrays' => TRUE,
-    );
-    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
-    $xpath_array = array(
-      '//*[@id="sidebar-first"]//ol//li[starts-with(.,"Render arrays are everywhere")]',
-    );
-    $this->assertRenderResults($xpath_array);
-
-    // Move the navigation menu to the top of the content area.
-    $edit = array(
-      'render_example_move_navigation_menu' => TRUE,
-    );
-    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
-    $xpath_array = array(
-      '//*[@id="content"]//h2[starts-with(.,"Navigation")]',
-    );
-    $this->assertRenderResults($xpath_array);
-
-    // Skip a test for reversing order of sidebar_first as I think it would
-    // be too fragile.
-    //
-    // Test the addition of #prefix and #suffix
-    $edit = array(
-      'render_example_prefix' => TRUE,
-    );
-    $this->backdropPost('examples/render_example/altering', $edit, t('Save configuration'));
-    $xpath_array = array(
-      '//*[@id="sidebar-first"]//*[contains(@class, "block-prefix")]/span[contains(@class, "block-suffix")]',
-    );
-    $this->assertRenderResults($xpath_array);
 
     // Test some rendering facets of the various render examples.
     $this->backdropGet('examples/render_example/arrays');
