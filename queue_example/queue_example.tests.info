@@ -1,0 +1,5 @@
+[QueueExampleTestCase]
+name = Queue example functionality
+description = Tests Queue functionality.
+group = Example modules
+file = queue_example.test
