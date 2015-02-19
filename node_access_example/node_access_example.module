@@ -372,7 +372,7 @@ function node_access_example_node_access_records($node) {
  * 'access any private content' privileges may see it.
  */
 function node_access_example_form_alter(&$form, $form_state) {
-  if (!empty($form['#node_edit_form'])) {
+  if (isset($form_state['build_info']['base_form_id']) && $form_state['build_info']['base_form_id'] == 'node_form') {
     $form['node_access_example'] = array(
       '#type' => 'fieldset',
       '#title' => t('Node Access Example'),

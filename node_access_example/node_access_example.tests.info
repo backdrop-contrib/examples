@@ -1,0 +1,5 @@
+[NodeAccessExampleTestCase]
+name = Node Access example functionality
+description = Tests Node Access functionality.
+group = Example modules
+file = node_access_example.test
