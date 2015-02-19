@@ -10,24 +10,11 @@
  * @ingroup examples
  * @{
  * An example of simpletest tests to accompany the tutorial at
- * http://DOCUMENTATION_PENDING/node/890654.
+ * https://api.backdropcms.org/node/41659.
  *
  * This module creates a new node type called 'SimpleTest Example Node Type,'
  * so that we can test it.
  */
-
-/**
- * Implements hook_node_info().
- */
-function simpletest_example_node_info() {
-  return array(
-    'simpletest_example' => array(
-      'name' => t('SimpleTest Example Node Type'),
-      'base' => 'simpletest_example',
-      'description' => t('simpletest_example page node type.'),
-    ),
-  );
-}
 
 /**
  * Implements hook_permission().
@@ -111,7 +98,7 @@ function simpletest_example_menu() {
 function _simpletest_example_explanation() {
 
   $explanation = t("This Simpletest Example is designed to give an introductory tutorial to writing
-    a simpletest test. Please see the <a href='http://DOCUMENTATION_PENDING/node/890654'>associated tutorial</a>.");
+    a simpletest test. Please see the <a href='https://api.backdropcms.org/node/41659'>associated tutorial</a>.");
   return $explanation;
 }
 

@@ -1,7 +1,6 @@
 name = SimpleTest Example
 description = Provides simpletest_example page node type.
 package = Example modules
-core = 7.x
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x
 dependencies[] = simpletest

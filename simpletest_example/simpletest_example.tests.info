@@ -1,0 +1,18 @@
+[SimpleTestExampleTestCase]
+name = SimpleTest functional example
+description = A SimpleTest functional test case.
+group = Example modules
+file = simpletest_example.test
+
+[SimpleTestUnitTestExampleTestCase]
+name = SimpleTest Unit Test example
+description = A SimpleTest Unit Test test case.
+group = Example modules
+file = simpletest_example.test
+
+[SimpleTestExampleMockModuleTestCase]
+name = SimpleTest module test example 
+description = A SimpleTest functional test case with a mock module.
+group = Example modules
+file = simpletest_example.test
+
