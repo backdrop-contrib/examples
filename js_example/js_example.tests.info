@@ -1,0 +1,5 @@
+[JsExampleTestCase]
+name = Javascript example functionality
+description = Tests Javascript functionality.
+group = Example modules
+file = js_example.test
