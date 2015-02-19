@@ -1,0 +1,5 @@
+[TableSortExampleTestCase]
+name = Tablesort example functionality
+description = Tests Tablesort functionality.
+group = Example modules
+file = tablesort_example.test
