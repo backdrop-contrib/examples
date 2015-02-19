@@ -1,7 +1,5 @@
 name = Action example
 description = Demonstrates providing actions that can be associated to triggers.
-core = x.x
-files[] = action_example.test
 package = Example modules
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x
