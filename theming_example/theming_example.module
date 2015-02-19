@@ -151,10 +151,11 @@ function theming_example_theme() {
  * @see form_example_elements.inc
  */
 function theming_example_page() {
-  $content[] = t('Some examples of pages and forms that are run through theme functions.');
-  $content[] = l(t('Simple page with a list'), 'examples/theming_example/theming_example_list_page');
-  $content[] = l(t('Simple form 1'), 'examples/theming_example/theming_example_select_form');
-  $content[] = l(t('Simple form 2'), 'examples/theming_example/theming_example_text_form');
+  $content = array();
+  $content[] = array('#markup' => t('Some examples of pages and forms that are run through theme functions.'));
+  $content[] = array('#markup' => l(t('Simple page with a list'), 'examples/theming_example/theming_example_list_page'));
+  $content[] = array('#markup' => l(t('Simple form 1'), 'examples/theming_example/theming_example_select_form'));
+  $content[] = array('#markup' => l(t('Simple form 2'), 'examples/theming_example/theming_example_text_form'));
   $content['#theme_wrappers'] = array('theming_example_content_array');
   return $content;
 }
@@ -286,11 +287,11 @@ function theme_theming_example_content_array($variables) {
   foreach (element_children($element) as $count) {
     if (!$count) {
       // The first paragraph is bolded.
-      $output .= '<p><strong>' . $element[$count] . '</strong></p>';
+      $output .= '<p><strong>' . render($element[$count]) . '</strong></p>';
     }
     else {
       // Following paragraphs are just output as routine paragraphs.
-      $output .= '<p>' . $element[$count] . '</p>';
+      $output .= '<p>' . render($element[$count]) . '</p>';
     }
   }
   return $output;

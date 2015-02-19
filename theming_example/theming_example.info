@@ -2,6 +2,4 @@ name = Theming example
 description = An example module showing how to use theming.
 package = Example modules
 version = BACKDROP_VERSION
-backdrop = x.x
-core = 7.x
-
+backdrop = 1.x
