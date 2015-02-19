@@ -15,6 +15,8 @@
  */
 function ajax_example_advanced_commands($form, &$form_state) {
   $form = array();
+  $form['#prefix'] = '<div class="ajax-advanced">';
+  $form['#suffix'] = '</div>';
   $form['intro'] = array(
     '#type' => 'markup',
     '#markup' => t("<div>Demonstrates how AJAX commands can be used.</div>"),

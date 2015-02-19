@@ -1,6 +1,6 @@
 name = AJAX Example
 description = An example module showing how to use Backdrop AJAX forms
-core = x.x
 package = Example modules
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x
+stylesheets[all][] = ajax_example.css

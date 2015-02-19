@@ -1,0 +1,5 @@
+[AjaxExampleTestCase]
+name = Ajax example functionality
+description = Tests Ajax functionality.
+group = Example modules
+file = ajax_example.test

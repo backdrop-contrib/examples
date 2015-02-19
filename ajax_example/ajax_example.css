@@ -15,3 +15,9 @@ html.js .next-button {
 .form-item-dropdown-first, .form-item-question-type-select {
   display: inline-block;
 }
+
+/* Bartik limits the height of fieldset legends */
+.ajax-advanced fieldset legend {
+height:inherit;
+position: relative;
+}

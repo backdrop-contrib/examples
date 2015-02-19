@@ -21,6 +21,17 @@
 // The Node Form Alter example needs to be in another file.
 module_load_include('inc', 'ajax_example', 'ajax_example_node_form_alter');
 
+ /**
+ * Implements hook_config_info().
+ */
+function ajax_example_config_info() {
+  $prefixes['ajax_example.settings'] = array(
+    'label' => t('AJAX Example settings'),
+    'group' => t('Configuration'),
+  );
+  return $prefixes;
+}
+
 /**
  * Implements hook_menu().
  *
