@@ -1,0 +1,5 @@
+[TokenExampleTestCase]
+name = Token example functionality
+description = Tests Token functionality.
+group = Example modules
+file = token_example.test

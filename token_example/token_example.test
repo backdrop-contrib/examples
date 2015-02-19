@@ -38,7 +38,7 @@ class TokenExampleTestCase extends BackdropWebTestCase {
    * Test interface.
    */
   public function testInterface() {
-    $filtered_id = db_query("SELECT format FROM {filter_format} WHERE name = 'Filtered HTML'")->fetchField();
+    $filtered_id = config_get('filter.format.filtered_html', 'format');
     $default_format_id = filter_default_format($this->webUser);
 
     $this->backdropGet('examples/token');
@@ -53,10 +53,7 @@ class TokenExampleTestCase extends BackdropWebTestCase {
 
     // Create a node and then make the 'Plain text' text format the default.
     $node = $this->backdropCreateNode(array('title' => 'Example node', 'status' => NODE_PUBLISHED));
-    db_update('filter_format')
-      ->fields(array('weight' => -10))
-      ->condition('name', 'Plain text')
-      ->execute();
+    config_set('filter.format.plain_text', 'weight', -10);
 
     $this->backdropGet('examples/token');
 

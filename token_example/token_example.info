@@ -1,8 +1,7 @@
 name = Token example
 description = An example module showing how to define and use tokens.
 package = Example modules
-core = 7.x
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x
 dependencies[] = token
 
