@@ -65,26 +65,52 @@ function block_example_block_info() {
   // The required block information is a block description, which is shown
   // to the site administrator in the list of possible blocks. You can also
   // provide initial settings for block weight, status, etc.
-  //
-  // Many options are defined in hook_block_info():
+
+  // This sample shows an empty block. This block will be available in the 
+  // Layout builder, but will not be displayed on page view because it is empty.
+  $blocks['example_empty'] = array(
+    'info' => t('Example: empty block'),
+    'description' => 'This is an empty block.',
+  );
+
+  // This sample demonstrates a block which accepts settings. It will present a
+  // textfield in the Layout builder settings popup for you to enter some text 
+  // which will be displayed as the content of the block.
   $blocks['example_configurable_text'] = array(
     // info: The name of the block.
     'info' => t('Example: configurable text string'),
     'description' => 'This is block is configurable.',
   );
 
-  // This sample shows how to provide default settings. In this case we'll
-  // enable the block in the first sidebar and make it visible only on
-  // 'node/*' pages. See the hook_block_info() documentation for these.
-  $blocks['example_empty'] = array(
-    'info' => t('Example: empty block'),
+  // This sample shows how to require contexts in creating a block. This block
+  // will be visible only on 'node/*' pages and will not be listed in the block 
+  // in Layout builder if this context is not available in the URL.
+  $blocks['example_context'] = array(
+    'info' => t('Example: requires context'),
     'description' => 'This is an empty block.',
+    // A context of type "node" (the value here) will be given the key "the_node"
+    // (specified as the key here) in hook_block_view() in the $context
+    // parameter.
+    'required contexts' => array(
+      'the_node' => 'node',
+    ),
   );
 
+  // This sample block is to demonstrate the the ability to modify a block after
+  // it has been defined by a module. It will have its title altered by 
+  // block_example_block_view_alter().
   $blocks['example_uppercase'] = array(
-    // info: The name of the block.
     'info' => t('Example: uppercase this please'),
     'description' => 'This block\'s title will be uppercase.',
+  );
+
+  // This block will be generated without using the usual Block module hooks; it
+  // is being defined by a custom class.  
+  $blocks['example_custom_class'] = array(
+    'info' => t('Example: uses custom class'),
+    'description' => 'This block uses a custom class.',
+    // Our custom class declared here is defined in block_example.inc.
+    'class' => 'BlockExampleCustomClass',
   );
 
   return $blocks;
@@ -95,7 +121,7 @@ function block_example_block_info() {
  *
  * This hook declares configuration options for blocks provided by this module.
  */
-function block_example_block_configure($delta = '') {
+function block_example_block_configure($delta = '', $settings = array()) {
   $form = array();
   // The $delta parameter tells us which block is being configured.
   // In this example, we'll allow the administrator to customize
@@ -110,6 +136,12 @@ function block_example_block_configure($delta = '') {
       '#size' => 60,
       '#description' => t('This text will appear in the example block.'),
       '#default_value' => config_get('block_example.settings', 'block_example_string'),
+      
+      // The '#default_value could also be retrieved from Layout settings if 
+      // the value is not unset in hook_block_save(). See hook_block_save() for
+      // explanation. The commented line below shows how this would be retrieved
+      // if it had been saved in Layout settings.
+      // '#default_value' => $settings['block_example_string'],
     );
   }
   return $form;
@@ -125,8 +157,16 @@ function block_example_block_save($delta = '', $edit = array()) {
   // We need to save settings from the configuration form.
   // We need to check $delta to make sure we are saving the right block.
   if ($delta == 'example_configurable_text') {
-    // Have Backdrop save the string to the database.
+    
+    // Have Backdrop save the string to the block_example config.
     config_set('block_example.settings', 'block_example_string', $edit['block_example_string']);
+    
+    // The value of $edit['block_example_string'] would also be saved to Layout 
+    // settings in the layout.layout.<layout_name>.json file as configuration 
+    // if the following line is commented out.
+    // Unsetting it here tells Layout that we don't want Layout to save this for
+    // us (because block_example has its own config file).
+    unset($edit['block_example_string']);
   }
 }
 
@@ -135,7 +175,7 @@ function block_example_block_save($delta = '', $edit = array()) {
  *
  * This hook generates the contents of the blocks themselves.
  */
-function block_example_block_view($delta = '') {
+function block_example_block_view($delta = '', $settings = array(), $contexts = array()) {
   // The $delta parameter tells us which block is being requested.
   switch ($delta) {
     case 'example_configurable_text':
@@ -146,6 +186,12 @@ function block_example_block_view($delta = '') {
       // The content of the block is typically generated by calling a custom
       // function.
       $block['content'] = block_example_contents($delta);
+      break;
+
+    case 'example_context':
+      $block['subject'] = t('Title of the context block (example_context)');
+      // The 'node' is available in $contexts. See block_example_block_info().
+      $block['content'] = block_example_contents($delta, $contexts['the_node']->title);
       break;
 
     case 'example_empty':
@@ -163,8 +209,11 @@ function block_example_block_view($delta = '') {
 
 /**
  * A module-defined block content function.
+ *
+ * Note that $node_title is only applicable to the context block and is ignored
+ * for the other blocks.
  */
-function block_example_contents($which_block) {
+function block_example_contents($which_block, $node_title = NULL) {
   switch ($which_block) {
     case 'example_configurable_text':
       // Modules would typically perform some database queries to fetch the
@@ -175,6 +224,14 @@ function block_example_contents($which_block) {
       // Block content created through the UI defaults to a string.
       $result = array(
         '#markup' => config_get('block_example.settings', 'block_example_string'),
+      );
+      return $result;
+
+    case 'example_context':
+      // We can now display the node title as the block content. This should be
+      // available as 'node' is a required context for this block.
+      $result = array(
+        '#markup' => check_plain($node_title),
       );
       return $result;
 
@@ -216,6 +273,18 @@ function block_example_block_view_alter(&$data, $block) {
     $block->title = isset($block->title) ? backdrop_strtoupper($block->title) : '';
   }
 }
+
+/**
+ * Implements hook_autoload_info().
+ *
+ * Required to load our custom class.
+ */
+function block_example_autoload_info() {
+  return array(
+    'BlockExampleCustomClass' => 'block_example.inc',
+  );
+}
+
 /**
  * @} End of "defgroup block_example".
  */
