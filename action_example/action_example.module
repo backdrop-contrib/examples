@@ -11,7 +11,7 @@
  * @{
  * Creating actions in Backdrop
  *
-Actions are a Backdrop features allowing some Backdrop programming without
+ * Actions are Backdrop features allowing some Backdrop programming without
  * using PHP. Using the appropriate action in a specific event, a site 
  * administrator can add new functionality.
  * 
