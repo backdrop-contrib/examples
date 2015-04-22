@@ -74,6 +74,20 @@ function block_example_block_info() {
     'description' => 'This block\'s title will be uppercase.',
   );
 
+
+  // This sample shows how to make a block that is only available when required
+  // information is provided. This block will only be available when it is
+  // placed in a layout that has a node context. That is, the layout's path
+  // is node/% or any other path where the wildcard is a node ID.
+  $blocks['example_node_context'] = array(
+    'info' => t('Example: Node Context'),
+    'description' => t('This block is only available when a node context is available. It will pull out information about the node and display it in the block.'),
+    // The key of this array is the name of the context and the value is the
+    // type of context. This allows you to require multiple contexts of the same
+    // type. e.g. array('node1' => 'node', 'node2' => 'node').
+    'required contexts' => array('node' => 'node'),
+  );
+
   return $blocks;
 }
 
@@ -109,6 +123,7 @@ function block_example_block_configure($delta = '', $settings = array()) {
       '#default_value' => $settings['uppercase'],
     );
   }
+
   return $form;
 }
 
@@ -155,6 +170,14 @@ function block_example_block_view($delta = '', $settings = array(), $contexts = 
       $block['subject'] = t("uppercase this please");
       $block['content'] = t("This block's title will be changed to uppercase. Any other block with 'uppercase' in the subject or title will also be altered. If you change this block's title through the UI to omit the word 'uppercase', it will still be altered to uppercase as the subject key has not been changed.");
       break;
+
+    case 'example_node_context':
+      // Pull out the contextual information (a node in this case) from the
+      // contexts array.
+      $node = $contexts['node'];
+      $author = user_load($node->uid);
+      $block['subject'] = t('Block with node context');
+      $block['content'] = t('The title of the node on this page is "@title" and was created by !author.', array('@title' => $node->title, '!author' => theme('username', array('account' => $author))));
   }
   return $block;
 }
