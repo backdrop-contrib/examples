@@ -53,8 +53,7 @@ function cache_example_page_form($form, &$form_state) {
   // Log execution time.
   $start_time = microtime(TRUE);
 
-  // Cache operations implement the cache() function which by default returns
-  // an instance of the BackdropDatabaseCache class.
+  // Cache operations implement the cache() function.
   //
   // Try to load the files count from cache. This function will accept one
   // argument:
@@ -84,7 +83,7 @@ function cache_example_page_form($form, &$form_state) {
     // Here we use the default setting and create an unexpiring cache item.
     // See below for an example that creates an expiring cache item.
     // Alternative syntax: cache_set('cache_example_files_count', $files_count);
-    cache('cache')->set('cache_example_files_count');
+    cache('cache')->set('cache_example_files_count', $files_count);
   }
 
   $end_time = microtime(TRUE);
