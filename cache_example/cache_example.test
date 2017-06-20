@@ -12,17 +12,6 @@
 class CacheExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Cache example functionality',
-      'description' => 'Test the Cache Example module.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable module.
    */
   public function setUp() {
