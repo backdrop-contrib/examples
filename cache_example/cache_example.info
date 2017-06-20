@@ -2,4 +2,4 @@ name = Cache Example
 description = An example outlining how to use Cache API.
 package = Example modules
 version = BACKDROP_VERSION
-backdrop = x.x
+backdrop = 1.x

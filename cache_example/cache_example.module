@@ -22,6 +22,7 @@
  * take a while. This list will not change much on production
  * websites, so we decide to cache it.
  *
+ * @see cache()
  * @see cache_get()
  * @see cache_set()
  * @see cache_clear_all()
@@ -52,14 +53,21 @@ function cache_example_page_form($form, &$form_state) {
   // Log execution time.
   $start_time = microtime(TRUE);
 
-  // Try to load the files count from cache. This function will accept two
-  // arguments:
-  // - cache object name (cid)
-  // - cache bin, the (optional) cache bin (most often a database table) where
-  //   the object is to be saved.
+  // Cache operations implement the cache() function which by default returns
+  // an instance of the BackdropDatabaseCache class.
   //
-  // cache_get() returns the cached object or FALSE if object does not exist.
-  if ($cache = cache_get('cache_example_files_count', 'cache')) {
+  // Try to load the files count from cache. This function will accept one
+  // argument:
+  // - cache bin cache bin (most often a database table) where the object is to
+  //   be saved.
+  //
+  // The Cache::get() method accepts the cache object name (cid) as its argument
+  // and returns the cached object or FALSE if object does not exist.
+  //
+  // The shortcut function cache_get(), as in:
+  // $cache = cache_get('cache_example_files_count', 'cache');
+  // may alternatively be used.
+  if ($cache = cache('cache')->get('cache_example_files_count')) {
     /*
      * Get cached data. Complex data types will be unserialized automatically.
      */
@@ -75,7 +83,8 @@ function cache_example_page_form($form, &$form_state) {
     // into cache.
     // Here we use the default setting and create an unexpiring cache item.
     // See below for an example that creates an expiring cache item.
-    cache_set('cache_example_files_count', $files_count);
+    // Alternative syntax: cache_set('cache_example_files_count', $files_count);
+    cache('cache')->set('cache_example_files_count');
   }
 
   $end_time = microtime(TRUE);
@@ -124,7 +133,7 @@ function cache_example_page_form($form, &$form_state) {
   $form['expiration_demo']['explanation'] = array(
     '#markup' => t('A cache item can be set as CACHE_PERMANENT, meaning that it will only be removed when explicitly cleared, or it can have an expiration time (a Unix timestamp).'),
   );
-  $expiring_item = cache_get('cache_example_expiring_item', 'cache');
+  $expiring_item = cache('cache')->get('cache_example_expiring_item');
   $item_status = $expiring_item ?
       t('Cache item exists and is set to expire at %time', array('%time' => $expiring_item->data)) :
       t('Cache item does not exist');
@@ -155,14 +164,14 @@ function cache_example_page_form($form, &$form_state) {
   $form['cache_clearing'] = array(
     '#type' => 'fieldset',
     '#title' => t('Expire and remove options'),
-    '#description' => t("We have APIs to expire cached items and also to just remove them. Unfortunately, they're all the same API, cache_clear_all"),
+    '#description' => t("We have APIs to expire cached items and also to just remove them."),
   );
   $form['cache_clearing']['cache_clear_type'] = array(
     '#type' => 'radios',
     '#title' => t('Type of cache clearing to do'),
     '#options' => array(
       'expire' => t('Remove items from the "cache" bin that have expired'),
-      'remove_all' => t('Remove all items from the "cache" bin regardless of expiration (super-wildcard)'),
+      'remove_all' => t('Remove all items from the "cache" bin regardless of expiration'),
       'remove_wildcard' => t('Remove all items from the "cache" bin that match the pattern "cache_example"'),
     ),
     '#default_value' => 'expire',
@@ -181,14 +190,13 @@ function cache_example_page_form($form, &$form_state) {
  * Submit handler that explicitly clears cache_example_files_count from cache.
  */
 function cache_example_form_expire_files($form, &$form_state) {
-  // Clear cached data. This function will delete cached object from cache bin.
+  // Clear cached data. This will delete the cached object from cache bin.
   //
-  // The first argument is cache id to be deleted. Since we've provided it
-  // explicitly, it will be removed whether or not it has an associated
-  // expiration time. The second argument (required here) is the cache bin.
-  // Using cache_clear_all() explicitly in this way
-  // forces removal of the cached item.
-  cache_clear_all('cache_example_files_count', 'cache');
+  // Alternatives to this implementation are:
+  // - use the shortcut: cache_clear_all('cache_example_files_count', 'cache');
+  // - use deleteMultiple(), which is of course most useful if providing 
+  //   multiple cache IDs: cache('cache')->deleteMultiple(array('cache_example_files_count'));
+  cache('cache')->delete('cache_example_files_count');
 
   // Display message to the user.
   backdrop_set_message(t('Cached data key "cache_example_files_count" was cleared.'), 'status');
@@ -209,34 +217,38 @@ function cache_example_form_create_expiring_item($form, &$form_state) {
   }
   // Set the expiration to the actual Unix timestamp of the end of the required
   // interval.
-  cache_set('cache_example_expiring_item', $expiration_friendly, 'cache', $expiration);
+  // An alternative syntax is to use the shortcut: cache_set('cache_example_expiring_item', $expiration_friendly, 'cache', $expiration);
+  cache('cache')->set('cache_example_expiring_item', $expiration_friendly, $expiration);
   backdrop_set_message(t('cache_example_expiring_item was set to expire at %time', array('%time' => $expiration_friendly)));
 }
 
 /**
- * Submit handler to demonstrate the various uses of cache_clear_all().
+ * Submit handler to demonstrate the various methods for clearing cache.
  */
 function cache_example_form_cache_clearing($form, &$form_state) {
   switch ($form_state['values']['cache_clear_type']) {
     case 'expire':
       // Here we'll remove all cache keys in the 'cache' bin that have expired.
-      cache_clear_all(NULL, 'cache', NULL);
-      backdrop_set_message(t('cache_clear_all(NULL, "cache") was called, removing any expired cache items.'));
+      // An alternative syntax is to use the shortcut: cache_clear_all(NULL, 'cache', NULL);
+      cache('cache')->garbageCollection();
+      backdrop_set_message(t('Expired cache items were removed.'));
       break;
 
     case 'remove_all':
-      // This removes all keys in a bin using a super-wildcard. This
-      // has nothing to do with expiration. It's just brute-force removal.
-      cache_flush('cache');
-      backdrop_set_message(t('ALL entries in the "cache" bin were removed with cache_clear_all("*", "cache", TRUE).'));
+      // This removes all keys in a bin. This has nothing to do with expiration.
+      // It's just brute-force removal.
+      // An alternative syntax is to use the shortcut: cache_flush('cache');
+      cache('cache')->flush();
+      backdrop_set_message(t('ALL entries in the "cache" bin were removed.'));
       break;
 
     case 'remove_wildcard':
       // We can also explicitly remove all cache items whose cid begins with
       // 'cache_example' by using a wildcard. This again is brute-force
       // removal, not expiration.
-      cache_clear_all('cache_example', 'cache', TRUE);
-      backdrop_set_message(t('Cache entries whose cid began with "cache_example" in the "cache" bin were removed with cache_clear_all("cache_example", "cache", TRUE).'));
+      // An alternative syntax is to use the shortcut: cache_clear_all('cache_example', 'cache', TRUE);
+      cache('cache')->deletePrefix('cache_example');
+      backdrop_set_message(t('Cache entries whose cid began with "cache_example" in the "cache" bin were removed.'));
       break;
   }
 }
