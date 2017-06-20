@@ -1,5 +1,5 @@
 [ActionExampleTestCase]
 name = Action example functionality
-description = Tests actions functionality.
+description = Perform various tests on action_example module.
 group = Example modules
 file = action_example.test

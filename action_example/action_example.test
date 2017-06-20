@@ -10,24 +10,13 @@
  *
  * @ingroup action_example
  */
-class ActionExampleTestCase extends TriggerWebTestCase {
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Action example',
-      'description' => 'Perform various tests on action_example module.' ,
-      'group' => 'Examples',
-    );
-  }
+class ActionExampleTestCase extends BackdropWebTestCase {
 
   /**
    * {@inheritdoc}
    */
   public function setUp() {
-    parent::setUp('trigger', 'action_example');
+    parent::setUp('action_example');
   }
 
   /**

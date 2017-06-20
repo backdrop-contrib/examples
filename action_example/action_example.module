@@ -16,12 +16,12 @@
  * administrator can add new functionality.
  * 
  * Examples are:
- *  - Send an email after a node is published or edited.
  *  - Display a message after a user has logged in.
- *  - Display a message and send an email after a node has been deleted.
+ *  - Display a message after a node has been deleted.
+ *  - Unblock a user if selected in a Views list.
  * 
- * In Backdrop core Actions are mainly run by adding them to View Bulk 
- * Operations although modules may also trigger actions by calling 
+ * In Backdrop core Actions are mainly run by adding them to Bulk Operations
+ * executed on Views lists, although modules may also trigger actions by calling 
  * actions_execute().
  * 
  * Actions are very often grouped by functionality: examples are 'user', 'node',
@@ -52,7 +52,11 @@
  * 
  * - A User action.
  * 
- * - A node action.
+ * - A Node action.
+ *
+ * For this module, the generic action will be triggered by executing a submit
+ * function in a simple form. The Node and User actions will be triggered from
+ * a Views bulk operations form.
  * 
  * @see hook_action_info()
  * 
@@ -69,9 +73,8 @@
  * (default options from core are node, user, comment and system, however other
  * trigger modules may declare new object types), which are the triggers allowed
  * to use these action, and if some customization is available. Please, note
- * that the function name is not required to finish as _action to be declared as
- * a Backdrop action, and that only information provided by hook_trigger_info()
- * will be considered for valid actions creation.
+ * that the function name is not required to end in "_action" to be declared as
+ * a Backdrop action.
  *
  * These are the actions being provided in hook_action_info()
  *
