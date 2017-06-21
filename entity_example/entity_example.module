@@ -4,8 +4,7 @@
  * @file
  * Implements the basic functionality required to create and display an entity.
  *
- * @todo: Reference the ronald_istos article series
- * @todo: Reference the Backdrop module development book
+ * @todo: Define EntityExampleBasic types in code
  * @todo: Add a single field
  */
 
@@ -29,6 +28,10 @@ function entity_example_entity_info() {
   $info['entity_example_basic'] = array(
     // A human readable label to identify our entity.
     'label' => t('Example Basic Entity'),
+
+    // (Required) The entity class for our Entity, extending the core Backdrop
+    // Entity class.
+    'entity class' => 'EntityExampleBasic',
 
     // The controller for our Entity, extending the Backdrop core controller.
     'controller class' => 'EntityExampleBasicController',

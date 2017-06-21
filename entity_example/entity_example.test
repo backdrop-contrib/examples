@@ -17,17 +17,6 @@ class EntityExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Entity example',
-      'description' => 'Basic entity example tests',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the module.
     parent::setUp('entity_example');
@@ -40,6 +29,7 @@ class EntityExampleTestCase extends BackdropWebTestCase {
       'create entity_example_basic entities',
       'administer entity_example_basic entities',
       'administer site configuration',
+      'administer fields',
     );
     $account = $this->backdropCreateUser($permissions);
     $this->backdropLogin($account);

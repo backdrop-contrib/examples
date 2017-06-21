@@ -1,5 +1,41 @@
 <?php
 
+
+/**
+ * EntityExampleBasic extends Entity.
+ *
+ * A subclass of Entity is a requirement for creating a custom entity. It is
+ * also a minimum requirement to define the methods included here, even as 
+ * empty functions.
+ */
+class EntityExampleBasic extends Entity {
+
+  /**
+   * Implements EntityInterface::id().
+   */
+  public function id() {}
+
+  /**
+   * Implements EntityInterface::entityType().
+   */
+  public function entityType() {}
+
+  /**
+   * Implements EntityInterface::bundle().
+   */
+  public function bundle() {}
+
+  /**
+   * Implements EntityInterface::label().
+   */
+  public function label() {}
+
+  /**
+   * Implements EntityInterface::uri().
+   */
+  public function uri() {}
+}
+
 /**
  * EntityExampleBasicControllerInterface definition.
  *
@@ -50,7 +86,12 @@ class EntityExampleBasicController
    * Create and return a new entity_example_basic entity.
    */
   public function create() {
-    $entity = new stdClass();
+    // It is important when creating entities in Backdrop to ensure that you
+    // create an instance of the core Entity class rather than an instance of 
+    // stdClass(). This would lead to exceptions on attempting to save your
+    // custom entity.
+    // See https://github.com/backdrop/backdrop-issues/issues/2558
+    $entity = new EntityExampleBasic();
     $entity->type = 'entity_example_basic';
     $entity->basic_id = 0;
     $entity->bundle_type = 'first_example_bundle';
