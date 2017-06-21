@@ -22,79 +22,66 @@ class ActionExampleTestCase extends BackdropWebTestCase {
   /**
    * Test Action Example.
    *
-   * 1. action_example_basic_action: Configure a action_example_basic_action to
-   *    happen when user logs in.
-   * 2. action_example_unblock_user_action: When a user's profile is being
-   *    viewed, unblock that user.
-   * 3. action_example_node_sticky_action: Create a user, configure that user
-   *    to always be stickied using advanced configuration. Have the user
-   *    create content; verify that it gets stickied.
+   * 1. action_example_basic_action: Configure an action_example_basic_action to
+   *    execute from a form submit function.
+   * 2. action_example_unblock_user_action: Configure a User action to be
+   *    executed from a Views bulk operations form.
+   * 3. action_example_node_unpublish_action: Configure a Node action to be
+   *    executed from a Views bulk operations form.
    */
   public function testActionExample() {
     // Create an administrative user.
     $admin_user = $this->backdropCreateUser(
       array(
-        'administer actions',
         'access comments',
         'access content',
         'post comments',
         'skip comment approval',
-        'create article content',
+        'create post content',
         'access user profiles',
         'administer users',
+        'administer account settings',
+        'view own unpublished content',
       )
     );
     $this->backdropLogin($admin_user);
 
-    // 1. Assign basic action; then logout and login user and see if it puts
-    // the message on the screen.
-    $hash = backdrop_hash_base64('action_example_basic_action');
-    $edit = array('aid' => $hash);
-    $this->backdropPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), 'trigger-user-login-assign-form');
+    // 1. Submit the simple action form and see if it puts the message on the
+    // screen.
+    $this->backdropPost('examples/action_example/basic', array(), t('Execute'));
 
-    $this->backdropLogout();
-    $this->backdropLogin($admin_user);
     $this->assertText(t('action_example_basic_action fired'));
 
-    // 2. Unblock: When a user's profile is being viewed, unblock.
+    // 2. Unblock user from a Views list.
     $normal_user = $this->backdropCreateUser();
     // Create blocked user.
-    user_save($normal_user, array('status' => 0));
+    $normal_user->status = 0;
+    $normal_user->save();
     $normal_user = user_load($normal_user->uid, TRUE);
     $this->assertFalse($normal_user->status, 'Normal user status has been set to blocked');
 
-    $hash = backdrop_hash_base64('action_example_unblock_user_action');
-    $edit = array('aid' => $hash);
-    $this->backdropPost('admin/structure/trigger/user', $edit, t('Assign'), array(), array(), 'trigger-user-view-assign-form');
+    $edit = array(
+      'bulk_form[0]' => 1,
+      'action' => 'action_example_unblock_user_action',
+    );
+    $this->backdropGet('examples/ajax_example/actions-example-user-list');
+    $this->backdropPost('examples/ajax_example/actions-example-user-list', $edit, t('Execute'));
+    $this->assertRaw(t('Unblocked user %name', array('%name' => $normal_user->name)));
 
     $this->backdropGet("user/$normal_user->uid");
     $normal_user = user_load($normal_user->uid, TRUE);
     $this->assertTrue($normal_user->status, 'Normal user status has been set to unblocked');
-    $this->assertRaw(t('Unblocked user %name', array('%name' => $normal_user->name)));
 
-    // 3. Create a user whose posts are always to be stickied.
-    $sticky_user = $this->backdropCreateUser(
-      array(
-        'access comments',
-        'access content',
-        'post comments',
-        'skip comment approval',
-        'create article content',
-      )
-    );
-
-    $action_label = $this->randomName();
+    // 3. Unpublish a node from a Views list.
+    $node = $this->backdropCreateNode(array(
+      'type' => 'page',
+      'uid' => $admin_user->uid,
+    ));
     $edit = array(
-      'actions_label' => $action_label,
-      'author' => $sticky_user->name,
+      'bulk_form[2]' => 1,
+      'action' => 'action_example_node_unpublish_action',
     );
-    $aid = $this->configureAdvancedAction('action_example_node_sticky_action', $edit);
-    $edit = array('aid' => backdrop_hash_base64($aid));
-    $this->backdropPost('admin/structure/trigger/node', $edit, t('Assign'), array(), array(), 'trigger-node-insert-assign-form');
-    // Now create a node and verify that it gets stickied.
-    $this->backdropLogout();
-    $this->backdropLogin($sticky_user);
-    $node = $this->backdropCreateNode();
-    $this->assertTrue($node->sticky, 'Node was set to sticky on creation');
+    $this->backdropPost('examples/ajax_example/actions-example-node-list', $edit, t('Execute'));
+    $this->assertRaw(t('Set Page %title unpublished', array('%title' => $node->title)));
   }
 }
