@@ -16,23 +16,14 @@ class BatchExampleTestCase extends BackdropWebTestCase {
   protected $webUser;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Batch example functionality',
-      'description' => 'Verify the defined batches.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {
     parent::setUp('batch_example');
     // Create user.
     $this->webUser = $this->backdropCreateUser();
+    // Delete the existing default content.
+    node_delete_multiple(array(1, 2));
   }
 
   /**
