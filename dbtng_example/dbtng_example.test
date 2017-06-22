@@ -94,7 +94,7 @@ class DBTNGExampleUnitTestCase extends BackdropWebTestCase {
    * Test several combinations, adding entries, updating and deleting.
    */
   public function testAPIExamples() {
-/*     // Create a new entry.
+    // Create a new entry.
     $entry = array(
       'name' => 'James',
       'surname' => 'Doe',
@@ -189,5 +189,5 @@ class DBTNGExampleUnitTestCase extends BackdropWebTestCase {
       3,
       'Found only three records, a record was deleted.'
     );
- */  }
+  }
 }
