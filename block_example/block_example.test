@@ -57,7 +57,9 @@ class BlockExampleTestCase extends BackdropWebTestCase {
 
     // Find the blocks in the 'Add block' modal.
     $this->assertRaw(t('Example: configurable text string'), 'Block configurable-string found.');
-    $this->assertRaw(t('Example: empty block'), 'Block empty-block found.');
+    $this->assertRaw(t('Example: subclass block'), 'Block subclass-block found.');
+    $this->assertRaw(t('Example: uppercase this please'), 'Block uppercase-block found.');
+    $this->assertNoRaw(t('Example: Node Context'), 'Block node-context-block not found.');
 
     // Enable the Configurable text block and verify.
     $this->clickLink(t('Example: configurable text string'));
@@ -76,7 +78,7 @@ class BlockExampleTestCase extends BackdropWebTestCase {
     $this->backdropPost(NULL, array(), t('Save layout'));
 
     // Verify that block is there.
-    $this->backdropGet('/');
+    $this->backdropGet('examples/block_example');
     $this->assertRaw(t('Title of first block (example_configurable_text)'), 'Block configurable text found.');
     $elements = $this->xpath('//*[contains(@class,:region)]//*[contains(@class,:block)]', array(
       ':region' => 'l-sidebar',
@@ -86,14 +88,15 @@ class BlockExampleTestCase extends BackdropWebTestCase {
 
     // Change content of configurable text block.
     $string = $this->randomName();
+    $string2 = $this->randomName();
     $edit = array(
-      'block_settings[block_example_string]' => $string,
+      'block_settings[example_string]' => $string,
     );
-    $this->backdropPost($block_edit_url, $edit, t('Save configuration'));
+    $this->backdropPost($block_edit_url, $edit, t('Update block'));
     $this->backdropPost(NULL, array(), t('Save layout'));
     
     // Verify that new content is shown.
-    $this->backdropGet('/');
+    $this->backdropGet('examples/block_example');
     $this->assertRaw($string, 'Content of configurable text block successfully verified.');
 
     // Make sure our example uppercased block is shown as altered by the
@@ -105,7 +108,22 @@ class BlockExampleTestCase extends BackdropWebTestCase {
     $this->backdropPost(NULL, array(), t('Save layout'));
 
     // Verify that block is there.
-    $this->backdropGet('/');
+    $this->backdropGet('examples/block_example');
     $this->assertRaw(t('UPPERCASE THIS PLEASE'), 'Block uppercase text found.');
+
+    // Make sure our example subclass block is shown.
+    $this->backdropGet('admin/structure/layouts/manage/default');
+    $this->clickLink(t('Add block'), 3);
+    $this->clickLink(t('Example: subclass block'));
+    $edit = array(
+      'content[value]' => $string2,
+    );
+    $this->backdropPost(NULL, $edit, t('Add block'));
+    $this->backdropPost(NULL, array(), t('Save layout'));
+
+    // Verify that block is there.
+    $this->backdropGet('examples/block_example');
+    $this->assertRaw(t('The following is the content of the example subclass block'), 'Block subclass header found.');
+    $this->assertRaw($string2, 'Block subclass content found.');
   }
 }
