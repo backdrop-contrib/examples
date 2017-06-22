@@ -46,7 +46,7 @@ class FieldExampleTest extends BackdropWebTestCase {
     $title = $this->randomName(20);
 
     // Create and login user.
-    $account = $this->backdropCreateUser(array('administer content types'));
+    $account = $this->backdropCreateUser(array('administer content types', 'administer fields'));
     $this->backdropLogin($account);
 
     $this->backdropGet('admin/structure/types');
@@ -164,13 +164,21 @@ class FieldExampleTest extends BackdropWebTestCase {
     );
     $this->backdropPost(NULL, $edit, t('Save'));
 
+    if ($cardinality == FIELD_CARDINALITY_UNLIMITED) {
+      $edit = array(
+        'field[cardinality]' => FIELD_CARDINALITY_UNLIMITED,
+      );
+    }
+    else {
+      $edit = array(
+        'field[cardinality]' => 'number',
+        'field[cardinality_number]' => (string) $cardinality,
+      );
+    }
     // There are no settings for this, so just press the button.
-    $this->backdropPost(NULL, array(), t('Save field settings'));
-
-    $edit = array('field[cardinality]' => (string) $cardinality);
-
-    // Using all the default settings, so press the button.
     $this->backdropPost(NULL, $edit, t('Save settings'));
+
+
     debug(
       t('Saved settings for field %field_name with widget %widget_type and cardinality %cardinality',
         array(
