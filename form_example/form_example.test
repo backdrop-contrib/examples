@@ -170,7 +170,7 @@ class FormExampleTestCase extends BackdropWebTestCase {
   public function testWizard() {
     // Check if the wizard is there.
     $this->backdropGet('examples/form_example/wizard');
-    $this->assertText(t('Extensible wizard example'));
+    $this->assertText(t('Extensible wizard'));
 
     $first_name = $this->randomName(8);
     $last_name  = $this->randomName(8);
