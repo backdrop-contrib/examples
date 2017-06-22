@@ -205,6 +205,7 @@ class GenericFieldTest extends BackdropWebTestCase {
     // Create and login user.
     $account = $this->backdropCreateUser(array(
       'administer content types',
+      'administer fields',
       ));
     $this->backdropLogin($account);
 
@@ -304,10 +305,7 @@ class GenericFieldTest extends BackdropWebTestCase {
 
     // Assume there are no settings for this,
     // so just press the button.
-    $this->backdropPost(NULL, array(), t('Save field settings'));
-
-    $edit = array('field[cardinality]' => (string) $cardinality);
-    $this->backdropPost(NULL, $edit, t('Save settings'));
+    $this->backdropPost(NULL, array(), t('Save settings'));
 
     debug(
       t('Saved settings for field !field_name with widget !widget_type and cardinality !cardinality',
@@ -343,6 +341,7 @@ class GenericFieldTest extends BackdropWebTestCase {
       $account = $this->backdropCreateUser(array(
         'bypass node access',
         'administer content types',
+        'administer fields',
         ));
     }
     $this->backdropLogin($account);
