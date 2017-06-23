@@ -28,13 +28,36 @@ class MenuExampleTestCase extends BackdropWebTestCase {
    */
   public function setUp() {
     parent::setUp('menu_example');
+    $this->webUser = $this->backdropCreateUser(
+      array(
+        'administer blocks',
+        'administer layouts',
+      )
+    );
   }
 
   /**
    * Test the various menus.
    */
   public function testMenuExample() {
-    $this->backdropGet('');
+    // Login the admin user.
+    $this->backdropLogin($this->webUser);
+
+    $this->backdropGet('admin/structure/layouts/manage/default');
+    // Add a block to the sidebar.
+    $this->clickLink(t('Add block'), 3);
+
+    // Enable the Menu example menu block and verify.
+    $this->clickLink(t('Menu example menu'));
+    $this->backdropPost(NULL, array(), t('Add block'));
+
+    // Save the layout.
+    $this->backdropPost(NULL, array(), t('Save layout'));
+
+    // Logout the user.
+    $this->backdropLogout();
+
+    $this->backdropGet('examples/menu_example');
     $this->clickLink(t('Menu Example'));
     $this->assertText(t('This is the base page of the Menu Example'));
 
@@ -56,6 +79,8 @@ class MenuExampleTestCase extends BackdropWebTestCase {
 
     $this->backdropGet('examples/menu_example/path_only/callback');
     $this->assertText(t('The menu entry for this page is of type MENU_CALLBACK'));
+
+    $this->backdropGet('examples/menu_example');
 
     $this->clickLink(t('Tabs'));
     $this->assertText(t('This is the "tabs" menu entry'));

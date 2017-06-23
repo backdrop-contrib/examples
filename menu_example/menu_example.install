@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * @file
+ * Examples demonstrating the Backdrop Menu API.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Programmatically create a menu. We'll use this menu to show links created by
+ * this module.
+ */
+function menu_example_install() {
+  $menu = array();
+  $menu['menu_name'] = "menu-example-menu";
+  $menu['title'] = "Menu example menu";
+  $menu['description'] = "A programmatically created menu.";
+  menu_save($menu);
+}

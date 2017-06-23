@@ -74,7 +74,7 @@ function menu_example_menu() {
     'title' => 'Menu Example: Menu in alternate menu',
 
     // Machine name of the menu in which the link should appear.
-    'menu_name' => 'primary-links',
+    'menu_name' => 'user-menu',
 
     'page callback' => '_menu_example_menu_page',
     'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
@@ -312,6 +312,12 @@ function menu_example_menu() {
     'access callback' => TRUE,
     'weight' => 80,
   );
+  foreach ($items as $path => $item) {
+    if (!isset($item['menu_name'])) {
+      $items[$path]['menu_name'] = 'menu-example-menu';
+    }
+  }
+
   return $items;
 }
 
@@ -323,9 +329,7 @@ function menu_example_menu() {
  */
 function _menu_example_basic_instructions($content = NULL) {
   $base_content = t(
-  'This is the base page of the Menu Example. There are a number of examples
-  here, from the most basic (like this one) to extravagant mappings of loaded
-  placeholder arguments. Enjoy!');
+  'This is the base page of the Menu Example. To view the full range of example menu links created by Menu Example, place the Menu example menu block into a layout region. There are a number of examples there, from the most basic (like this one) to extravagant mappings of loaded placeholder arguments. Enjoy!');
   return '<div>' . $base_content . '</div><br /><div>' . $content . '</div>';
 }
 
