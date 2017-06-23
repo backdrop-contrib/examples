@@ -42,6 +42,7 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
    */
   public function setUp() {
     parent::setUp('nodeapi_example');
+    module_disable(array('path'));
 
     // Create admin user. This module has no access control, so we can use a
     // trusted user. Revision access and revert permissions are required too.
@@ -49,6 +50,7 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
       // Required to set revision checkbox.
       'administer nodes',
       'administer content types',
+      'administer fields',
       'bypass node access',
       'view revisions',
       'revert revisions',
