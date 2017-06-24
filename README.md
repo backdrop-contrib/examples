@@ -1,11 +1,6 @@
 Examples for Developers
 =======================
 
-Based on: http://DOCUMENTATION_PENDING/project/examples
-
-What Is This?
--------------
-
 This set of modules is intended to provide working examples of Backdrop's
 features and APIs.  The modules strive to be simple, well documented and
 modification friendly, in order to help developers quickly learn their inner
@@ -37,7 +32,7 @@ do this:
 It has all manner of cross-linked references between the example code and the
 APIs being demonstrated.
 
-* https://github.com/cellear/backdrop-examples allows you to browse the git
+* https://github.com/backdrop-contrib/examples allows you to browse the git
 repository for the Backdrop Examples project.
 
 
