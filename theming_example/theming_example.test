@@ -10,6 +10,7 @@
  * @ingroup theming_example
  */
 class ThemingExampleTestCase extends BackdropWebTestCase {
+  protected $profile = 'testing';
 
   /**
    * {@inheritdoc}
@@ -28,6 +29,8 @@ class ThemingExampleTestCase extends BackdropWebTestCase {
   public function setUp() {
     // Enable the module.
     parent::setUp('theming_example');
+    $web_user = $this->backdropCreateUser(array('access content'));
+    $this->backdropLogin($web_user);
   }
 
   /**
