@@ -15,17 +15,6 @@ class ContextualLinksExampleTestCase extends BackdropWebTestCase {
   protected $webUser;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Contextual links example functionality',
-      'description' => 'Tests the behavior of the contextual links provided by the Contextual links example module.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

@@ -20,17 +20,6 @@ class FilterExampleTestCase extends BackdropWebTestCase {
   protected $fullHtml;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Filter example functionality',
-      'description' => 'Verify that content is processed by example filter.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

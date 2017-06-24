@@ -13,17 +13,6 @@
 class NodeAccessExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Node Access Example functionality',
-      'description' => 'Checks behavior of Node Access Example.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

@@ -14,17 +14,6 @@ class BlockExampleTestCase extends BackdropWebTestCase {
   protected $webUser;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Block example functionality',
-      'description' => 'Test the configuration options and block created by Block Example module.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

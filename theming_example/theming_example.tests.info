@@ -1,5 +1,5 @@
 [ThemingExampleTestCase]
 name = Theming example functionality
-description = Tests theming functionality.
+description = Verify theming functionality.
 group = Example modules
 file = theming_example.test

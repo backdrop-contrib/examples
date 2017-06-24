@@ -12,17 +12,6 @@
 class AjaxExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Ajax example',
-      'description' => 'Checks behavior of the Ajax Example',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable module.
    */
   public function setUp() {

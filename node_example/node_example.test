@@ -17,17 +17,6 @@ class NodeExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Node example',
-      'description' => 'Verify the custom node type creation.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the module.
     parent::setUp('node_example');

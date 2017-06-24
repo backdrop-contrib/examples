@@ -13,17 +13,6 @@
 class QueueExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Queue Example functionality',
-      'description' => 'Test Queue Example functionality',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

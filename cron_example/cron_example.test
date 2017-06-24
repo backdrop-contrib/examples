@@ -13,17 +13,6 @@ class CronExampleTestCase extends BackdropWebTestCase {
   protected $webUser;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Cron example functionality',
-      'description' => 'Test the functionality of the Cron Example.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

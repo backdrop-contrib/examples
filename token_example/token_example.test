@@ -17,17 +17,6 @@ class TokenExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Token example functionality',
-      'description' => 'Verify the token example interface.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     parent::setUp('token_example');
     $this->webUser = $this->backdropCreateUser();

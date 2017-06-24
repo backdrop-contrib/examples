@@ -14,17 +14,6 @@ class PagerExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Pager Example',
-      'description' => 'Verify the pager functionality',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the module.
     parent::setUp('pager_example');

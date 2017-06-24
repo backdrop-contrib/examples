@@ -1,5 +1,5 @@
 [BlockExampleTestCase]
 name = Block example functionality
-description = Tests block functionality.
+description = Test the configuration options and blocks created by Block Example module.
 group = Example modules
 file = block_example.test

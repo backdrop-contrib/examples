@@ -13,17 +13,6 @@
 class FormExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Form Example',
-      'description' => 'Various tests on the form_example module.' ,
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules.
    */
   public function setUp() {

@@ -13,17 +13,6 @@
 class MenuExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Menu example functionality',
-      'description' => 'Checks behavior of Menu Example.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

@@ -17,17 +17,6 @@ class ImageExampleTestCase extends BackdropWebTestCase {
   protected $webUser;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Image example functionality',
-      'description' => 'Test functionality of the Image Example module.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

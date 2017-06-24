@@ -26,22 +26,6 @@ class SimpleTestExampleTestCase extends BackdropWebTestCase {
   protected $privilegedUser;
 
   /**
-   * Give display information to the SimpleTest system.
-   *
-   * getInfo() returns a keyed array of information for SimpleTest to show.
-   *
-   * It's a good idea to organize your tests consistently using the 'group'
-   * key.
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'SimpleTest Example',
-      'description' => 'Ensure that the simpletest_example content type provided functions properly.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Set up the test environment.
    *
    * This method is called once per test method, before the test is executed.
@@ -136,17 +120,6 @@ class SimpleTestExampleTestCase extends BackdropWebTestCase {
 class SimpleTestUnitTestExampleTestCase extends BackdropUnitTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'SimpleTest Example unit tests',
-      'description' => 'Test that simpletest_example_empty_mysql_date works properly.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Set up the test environment.
    *
    * Note that we use backdrop_load() instead of passing our module dependency
@@ -206,22 +179,6 @@ class SimpleTestUnitTestExampleTestCase extends BackdropUnitTestCase {
  * @ingroup simpletest_example
  */
 class SimpleTestExampleMockModuleTestCase extends BackdropWebTestCase {
-
-  /**
-   * Give display information to the SimpleTest system.
-   *
-   * getInfo() returns a keyed array of information for SimpleTest to show.
-   *
-   * It's a good idea to organize your tests consistently using the 'group'
-   * key.
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'SimpleTest Mock Module Example',
-      'description' => "Ensure that we can modify SimpleTest Example's content types.",
-      'group' => 'Examples',
-    );
-  }
 
   /**
    * Set up the test environment.

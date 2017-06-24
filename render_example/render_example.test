@@ -13,18 +13,6 @@
 class RenderExampleTestCase extends BackdropWebTestCase {
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Render example functionality',
-      'description' => 'Test Render Example',
-      'group' => 'Examples',
-      'dependencies' => array('devel'),
-    );
-  }
-
-  /**
    * Enable modules and create user with specific permissions.
    */
   public function setUp() {

@@ -14,17 +14,6 @@ class DBTNGExampleUnitTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'DBTNG example unit and UI tests',
-      'description' => 'Various unit tests on the dbtng example module.' ,
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     parent::setUp('dbtng_example');
   }

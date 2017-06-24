@@ -15,17 +15,6 @@ class JsExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'JavaScript Example',
-      'description' => 'Functional tests for the JavaScript Example module.' ,
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     parent::setUp('js_example');
   }

@@ -1,5 +1,5 @@
 [EmailExampleTestCase]
 name = Email example functionality
-description = Tests email functionality.
+description = Verify email submission using the contact form.
 group = Example modules
 file = email_example.test

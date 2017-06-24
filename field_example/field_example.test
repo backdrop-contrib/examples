@@ -14,17 +14,6 @@ class FieldExampleTest extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Field Example',
-      'description' => 'Create a content type with example_field_rgb fields, create a node, check for correct values.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the email_example module.
     parent::setUp(array('field_ui', 'field_example'));

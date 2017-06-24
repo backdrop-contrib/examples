@@ -15,17 +15,6 @@ class ThemingExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Theming Example',
-      'description' => 'Verify theming example functionality',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the module.
     parent::setUp('theming_example');

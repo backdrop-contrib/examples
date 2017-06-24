@@ -16,17 +16,6 @@ class EmailExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Email example',
-      'description' => 'Verify the email submission using the contact form.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the email_example module.
     parent::setUp('email_example');

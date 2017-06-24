@@ -15,17 +15,6 @@ class VerticalTabsExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'Vertical Tabs Example',
-      'description' => 'Functional tests for the Vertical Tabs Example module.' ,
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     parent::setUp('vertical_tabs_example');
   }

@@ -1,5 +1,5 @@
 [NodeExampleTestCase]
 name = Node example functionality
-description = Tests node functionality.
+description = Verify custom node type creation.
 group = Example modules
 file = node_example.test

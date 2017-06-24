@@ -1,5 +1,5 @@
 [PageExampleTestCase]
 name = Page example functionality
-description = Tests page functionality.
+description = Creates a page and renders the content based on arguments passed in the URL.
 group = Example modules
 file = page_example.test

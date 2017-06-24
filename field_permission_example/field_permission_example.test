@@ -30,17 +30,6 @@ class GenericFieldTest extends BackdropWebTestCase {
   protected $instanceNames;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Generic Field Test',
-      'description' => 'Someone neglected to override GenericFieldTest::getInfo().',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Supply the field types we wish to test.
    *
    * Return an array of field types to instantiate and test.
@@ -382,17 +371,6 @@ class FieldTestPermissionsExample extends GenericFieldTest {
    */
   public function setUp() {
     parent::setUp(array('field_permission_example'));
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Field Permission Example',
-      'description' => 'Various tests on the functionality of the Fieldnote field.',
-      'group' => 'Examples',
-    );
   }
 
   /**

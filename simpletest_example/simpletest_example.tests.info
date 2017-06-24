@@ -1,18 +1,18 @@
 [SimpleTestExampleTestCase]
 name = SimpleTest functional example
-description = A SimpleTest functional test case.
+description = Ensure that the simpletest_example content type provided functions properly.
 group = Example modules
 file = simpletest_example.test
 
 [SimpleTestUnitTestExampleTestCase]
 name = SimpleTest Unit Test example
-description = A SimpleTest Unit Test test case.
+description = Test that simpletest_example_empty_mysql_date works properly.
 group = Example modules
 file = simpletest_example.test
 
 [SimpleTestExampleMockModuleTestCase]
 name = SimpleTest module test example 
-description = A SimpleTest functional test case with a mock module.
+description = Ensure that we can modify SimpleTest Example's content types.
 group = Example modules
 file = simpletest_example.test
 

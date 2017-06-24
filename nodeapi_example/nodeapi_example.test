@@ -27,17 +27,6 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
   protected $type;
 
   /**
-   * {@inheritdoc}
-   */
-  public static function getInfo() {
-    return array(
-      'name' => 'Node API example functionality',
-      'description' => 'Demonstrate Node API hooks that allow altering a node. These are the former hook_nodeapi.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
    * Enables modules and create user with specific permissions.
    */
   public function setUp() {

@@ -16,17 +16,6 @@ class FileExampleTest extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'File Example Functionality',
-      'description' => 'Test File Example features and sample streamwrapper.',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     parent::setUp(array('file_example'));
     $this->priviledgedUser = $this->backdropCreateUser(array('use file example'));

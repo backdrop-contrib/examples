@@ -15,17 +15,6 @@ class TableSortExampleTestCase extends BackdropWebTestCase {
   /**
    * {@inheritdoc}
    */
-  public static function getInfo() {
-    return array(
-      'name' => 'TableSort Example',
-      'description' => 'Verify the tablesort functionality',
-      'group' => 'Examples',
-    );
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function setUp() {
     // Enable the module.
     parent::setUp('tablesort_example');
