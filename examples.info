@@ -3,3 +3,4 @@ description = A variety of example modules for you to learn from and hack upon.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module
