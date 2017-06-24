@@ -54,7 +54,7 @@ Now you can read the code and its comments and see the result, experiment with
 it, and hopefully quickly grasp how things work.
 
 If you find a problem, incorrect comment, obsolete or improper code or such,
-please search for an issue about it at https://github.com/cellear/backdrop-examples/issues
+please search for an issue about it at https://github.com/backdrop-contrib/examples/issues
 If there isn't already an issue for it, please create a new one.
 
 
