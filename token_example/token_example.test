@@ -42,7 +42,7 @@ class TokenExampleTestCase extends BackdropWebTestCase {
     $default_format_id = filter_default_format($this->webUser);
 
     $this->backdropGet('examples/token');
-    $this->assertNoFieldByName('node');
+    $this->assertFieldByName('node');
     $this->assertNoFieldByName('user');
 
     $edit = array(
@@ -62,7 +62,7 @@ class TokenExampleTestCase extends BackdropWebTestCase {
       'node' => $node->nid,
     );
     $this->backdropPost(NULL, $edit, t('Submit'));
-    $this->assertText('Would you like to view the Basic page Example node with text format Filtered HTML (ID ' . $filtered_id . ')?');
+    $this->assertText('Would you like to view the Page Example node with text format Filtered HTML (ID ' . $filtered_id . ')?');
 
     $edit = array(
       'text' => 'Your default text format is [default-format:name] (ID [default-format:id]).',

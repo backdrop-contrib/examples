@@ -4,7 +4,6 @@
  * @file
  * An example module showing how to define and use tokens.
  *
- * The Token module provides an API for providing tokens to other modules.
  * Tokens are small bits of text that can be placed into larger documents
  * via simple placeholders, like %site-name or [user].
  */
@@ -15,7 +14,6 @@
  * @{
  * Examples using the Token API.
  *
- * The Token module provides an API for providing tokens to other modules.
  * Tokens are small bits of text that can be placed into larger documents
  * via simple placeholders, like %site-name or [user].
  *
@@ -118,17 +116,10 @@ function token_example_example_form($form, &$form_state) {
     '#value' => t('Submit'),
   );
 
-  if (module_exists('token')) {
-    $form['token_tree'] = array(
-      '#theme' => 'token_tree',
-      '#token_types' => $token_types,
-    );
-  }
-  else {
-    $form['token_tree'] = array(
-      '#markup' => '<p>' . t('Enable the <a href="@backdrop-token">Token module</a> to view the available token browser.', array('@backdrop-token' => 'http://DOCUMENTATION_PENDING/project/token')) . '</p>',
-    );
-  }
+  $form['token_tree'] = array(
+    '#theme' => 'token_tree',
+    '#token_types' => $token_types,
+  );
 
   return $form;
 }
