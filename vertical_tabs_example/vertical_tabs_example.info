@@ -3,4 +3,4 @@ description = Show how to use vertical tabs for enhancing user experience.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
-
+type = module
