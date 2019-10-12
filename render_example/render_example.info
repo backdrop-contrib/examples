@@ -3,5 +3,6 @@ description = Demonstrates backdrop_render's capabilities and altering render ar
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module
 dependencies[] = devel
 stylesheets[all][] = render_example.css

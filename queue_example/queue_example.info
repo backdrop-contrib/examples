@@ -3,4 +3,4 @@ description = Examples of using the Backdrop Queue API.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
-
+type = module

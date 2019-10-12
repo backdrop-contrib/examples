@@ -3,4 +3,5 @@ description = Example implementation of image.module hooks.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module
 dependencies[] = image

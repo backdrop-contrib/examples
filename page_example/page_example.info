@@ -3,3 +3,4 @@ description = An example module showing how to define a page to be displayed to 
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module

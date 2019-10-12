@@ -4,3 +4,4 @@ dependencies[] = image
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module

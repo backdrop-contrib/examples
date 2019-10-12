@@ -3,4 +3,5 @@ description = An example module showing how to use Backdrop AJAX forms
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module
 stylesheets[all][] = ajax_example.css

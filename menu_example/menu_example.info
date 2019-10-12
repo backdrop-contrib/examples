@@ -3,3 +3,4 @@ description = An example of advanced uses of the menu APIs.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module

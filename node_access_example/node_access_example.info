@@ -3,3 +3,4 @@ description = Demonstrates how a module can use Backdrop's node access system
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module
