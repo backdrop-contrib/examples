@@ -57,7 +57,7 @@ function block_example_block_info() {
   $blocks['example_configurable_text'] = array(
     // info: The name of the block.
     'info' => t('Example: configurable text string'),
-    'description' => 'This is block is configurable.',
+    'description' => 'This block is configurable.',
   );
 
   // This sample shows how to provide a block which extends Block class. The
