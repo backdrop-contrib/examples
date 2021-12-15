@@ -29,6 +29,9 @@ function entity_example_entity_info() {
     // A human readable label to identify our entity.
     'label' => t('Example Basic Entity'),
 
+    // A human readable bundle label.
+    'bundle label' => t('Type'),
+
     // (Required) The entity class for our Entity, extending the core Backdrop
     // Entity class.
     'entity class' => 'EntityExampleBasic',
@@ -53,6 +56,7 @@ function entity_example_entity_info() {
       'id' => 'basic_id' ,
       // Bundle will be determined by the 'bundle_type' field.
       'bundle' => 'bundle_type',
+      'label' => 'item_description',
     ),
     'bundle keys' => array(
       'bundle' => 'bundle_type',

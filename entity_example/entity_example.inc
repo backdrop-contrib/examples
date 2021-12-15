@@ -11,29 +11,61 @@
 class EntityExampleBasic extends Entity {
 
   /**
+   * The basic ID.
+   *
+   * @var integer
+   */
+  public $basic_id;
+
+  /**
+   * Item description.
+   */
+  public $item_description;
+
+  /**
+   * The bundle type.
+   *
+   * @var string
+   */
+  public $bundle_type;
+
+  /**
    * Implements EntityInterface::id().
    */
-  public function id() {}
+  public function id() {
+    return isset($this->basic_id) ? $this->basic_id : NULL;
+  }
 
   /**
    * Implements EntityInterface::entityType().
    */
-  public function entityType() {}
+  public function entityType() {
+    return 'entity_example_basic';
+  }
 
   /**
    * Implements EntityInterface::bundle().
    */
-  public function bundle() {}
+  public function bundle() {
+    return $this->bundle_type;
+  }
 
   /**
    * Implements EntityInterface::label().
    */
-  public function label() {}
+  public function label() {
+    return $this->item_description;
+  }
 
   /**
    * Implements EntityInterface::uri().
    */
-  public function uri() {}
+  public function uri() {
+    return array(
+      'path' => 'examples/entity_example/basic/' . $this->basic_id,
+      'options' => array(),
+    );
+  }
 }
 
 /**
