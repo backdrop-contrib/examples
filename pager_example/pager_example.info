@@ -3,3 +3,4 @@ description = Demonstrates a page with content in a pager
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module

@@ -3,3 +3,4 @@ description = Demonstrates providing actions that can be associated to triggers.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
+type = module
