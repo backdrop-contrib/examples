@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * An example of how to use the new #states Form API element, allowing

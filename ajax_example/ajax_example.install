@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * AJAX Examples install file schema for ajax_example_form_node_form_alter()

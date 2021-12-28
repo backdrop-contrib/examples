@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Token callbacks for the token_example module.

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Demonstrations of AJAX with graceful degradation.

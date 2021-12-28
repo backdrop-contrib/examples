@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Demonstrates use of the Cron API in Backdrop - hook_cron()

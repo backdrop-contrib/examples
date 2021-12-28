@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Install and uninstall functions for the tablesort example module.

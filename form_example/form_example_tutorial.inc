@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * This is the Form API Tutorial, originally from the Backdrop handbook.
