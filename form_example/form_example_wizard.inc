@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Extensible wizard form example.

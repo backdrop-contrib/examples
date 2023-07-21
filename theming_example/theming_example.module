@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Explains how a module declares theme functions, preprocess functions, and

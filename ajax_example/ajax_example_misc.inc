@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * AJAX Miscellaneous Topics.

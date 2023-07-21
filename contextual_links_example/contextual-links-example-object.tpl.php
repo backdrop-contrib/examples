@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Default theme implementation: Display a sample object with contextual links.

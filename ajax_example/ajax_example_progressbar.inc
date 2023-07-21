@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Progress bar example.
