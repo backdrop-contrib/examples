@@ -95,10 +95,9 @@ function simpletest_example_menu() {
  * Returns an explanation of this module.
  */
 function _simpletest_example_explanation() {
-
-  $explanation = t("This Simpletest Example is designed to give an introductory tutorial to writing
-    a simpletest test. Please see the <a href='https://api.backdropcms.org/node/41659'>associated tutorial</a>.");
-  return $explanation;
+  return t('This Simpletest Example is designed to give an example of simpletest tests to accompany <a href="@testing_framework">Testing Framework</a>.'
+    array('@testing_framework' => 'https://docs.backdropcms.org/documentation/testing-framework')
+  );
 }
 
 /**
