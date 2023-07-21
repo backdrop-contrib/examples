@@ -28,7 +28,7 @@ and documentation blocks.
 3. Browse the code and documentation on the web. There are two main places to
 do this:
 
-* http://api.backdropcms.org/ is the main API site for all of Backdrop.
+* http://docs.backdropcms.org/ is the main API site for all of Backdrop.
 It has all manner of cross-linked references between the example code and the
 APIs being demonstrated.
 
