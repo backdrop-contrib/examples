@@ -69,6 +69,7 @@ Maintainers
 
 - Luke McCormick (https://github.com/cellear/)
 - Andy Shillingford (https://github.com/docwilmot/)
+- Alberto Paderno (https://github.com/kiamlaluno/)
 
 Credits
 -------
