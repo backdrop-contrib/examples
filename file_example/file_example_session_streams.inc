@@ -166,9 +166,9 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
    * key via HTTP; normally it would be accessible some other way.
    */
   public function getExternalUrl() {
-    $path = $this->getLocalPath();
-    $url = url('examples/file_example/access_session/' . $path, array('absolute' => TRUE));
-    return $url;
+    return url('examples/file_example/access_session/' . $this->getLocalPath(),
+      array('absolute' => TRUE)
+    );
   }
 
   /**
@@ -203,9 +203,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
       $uri = $this->uri;
     }
 
-    $path  = str_replace('session://', '', $uri);
-    $path = trim($path, '/');
-    return $path;
+    return trim(str_replace('session://', '', $uri), '/');
   }
 
   /**
@@ -262,6 +260,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     if (count($path_components) < 1) {
       return $var;
     }
+
     // Walk through the path components and create keys in $_SESSION,
     // unless we're told not to create them.
     foreach ($path_components as $component) {
@@ -274,6 +273,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
         return $fail;
       }
     }
+
     return $var;
   }
 
@@ -502,6 +502,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     else {
       $dirname = '';
     }
+
     return $scheme . '://' . $dirname;
   }
 
@@ -532,6 +533,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     // Place a magic file inside it to differentiate this from an empty file.
     $marker_uri = $uri . '/.isadir.txt';
     $this->uri_to_session_key($marker_uri, TRUE);
+
     return TRUE;
   }
 
@@ -624,6 +626,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
         'blocks' => 0,
       );
     }
+
     return $return;
   }
 
@@ -669,6 +672,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
       $this->directoryPointer++;
       return $next;
     }
+
     return FALSE;
   }
 

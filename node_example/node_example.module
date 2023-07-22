@@ -61,6 +61,7 @@ function node_example_menu() {
     'access arguments' => array('access content'),
     'title' => 'Node Example',
   );
+
   return $items;
 }
 
@@ -159,6 +160,7 @@ function node_example_page() {
     $node = node_load($row->nid);
     $renderable_array['node_list'][] = node_view($node, 'example_node_list');
   }
+
   return $renderable_array;
 }
 
@@ -231,8 +233,7 @@ function node_example_theme($existing, $type, $theme, $path) {
  * function purely for illustrative purposes.
  */
 function theme_example_node_color($variables) {
-  $output = '<span style="background-color: #ccc; padding: 1em; margin-bottom: 1em; float: left; color: ' . $variables['color'] . '">' . $variables['color'] . '</span>';
-  return $output;
+  return '<span style="background-color: #ccc; padding: 1em; margin-bottom: 1em; float: left; color: ' . $variables['color'] . '">' . $variables['color'] . '</span>';
 }
 
 /**

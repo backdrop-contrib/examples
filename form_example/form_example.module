@@ -24,6 +24,7 @@ function form_example_config_info() {
     'label' => t('Form Example settings'),
     'group' => t('Configuration'),
   );
+
   return $prefixes;
 }
 

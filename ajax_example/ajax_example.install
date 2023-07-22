@@ -40,6 +40,7 @@ function ajax_example_schema() {
       ),
     ),
   );
+
   return $schema;
 }
 

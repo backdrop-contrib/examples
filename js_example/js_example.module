@@ -33,11 +33,13 @@ function js_example_menu() {
     'page callback' => 'js_example_js_weights',
     'access callback' => TRUE,
   );
+
   $items['js_example/accordion'] = array(
     'title' => 'JS Example: jQuery UI accordion',
     'page callback' => 'js_example_accordion',
     'access callback' => TRUE,
   );
+
   return $items;
 }
 
@@ -99,10 +101,10 @@ function js_example_js_weights() {
   backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/brown.js', array('weight' => $weights['brown']));
   backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/black.js', array('weight' => $weights['black']));
   backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/purple.js', array('weight' => $weights['purple']));
+
   // Main container DIV. We give it a unique ID so that the JavaScript can
   // find it using jQuery.
-  $output = '<div id="js-weights"></div>';
-  return $output;
+  return '<div id="js-weights"></div>';
 }
 
 /**
@@ -114,8 +116,9 @@ function js_example_accordion() {
     '#theme' => 'my_accordion',
     '#title' => $title,
   );
+
   $build['myelement']['#attached']['library'][] = array('system', 'ui.accordion');
   $build['myelement']['#attached']['js'][] = array('data' => '(function($){$(function() { $("#accordion").accordion(); })})(jQuery);', 'type' => 'inline');
-  $output = backdrop_render($build);
-  return $output;
+
+  return backdrop_render($build);
 }

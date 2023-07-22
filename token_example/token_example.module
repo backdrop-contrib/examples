@@ -37,6 +37,7 @@ function token_example_menu() {
     'page arguments' => array('token_example_example_form'),
     'access callback' => TRUE,
   );
+
   return $items;
 }
 
@@ -146,8 +147,8 @@ function _token_example_get_node() {
   $node_query->range(0, 10);
   $node_query->addTag('node_access');
   $nodes = $node_query->execute()->fetchAllKeyed();
-  $nodes = array_map('check_plain', $nodes);
-  return $nodes;
+
+  return array_map('check_plain', $nodes);
 }
 
 /**
@@ -167,8 +168,8 @@ function _token_example_get_comment() {
   $comment_query->range(0, 10);
   $comment_query->addTag('node_access');
   $comments = $comment_query->execute()->fetchAllKeyed();
-  $comments = array_map('check_plain', $comments);
-  return $comments;
+
+  return array_map('check_plain', $comments);
 }
 
 /**
@@ -186,8 +187,8 @@ function _token_example_get_user() {
   $account_query->condition('u.status', 1);
   $account_query->range(0, 10);
   $accounts = $account_query->execute()->fetchAllKeyed();
-  $accounts = array_map('check_plain', $accounts);
-  return $accounts;
+
+  return array_map('check_plain', $accounts);
 }
 
 /**
@@ -199,8 +200,8 @@ function _token_example_get_taxonomy_term() {
   $term_query->range(0, 10);
   $term_query->addTag('term_access');
   $terms = $term_query->execute()->fetchAllKeyed();
-  $terms = array_map('check_plain', $terms);
-  return $terms;
+
+  return array_map('check_plain', $terms);
 }
 
 /**
@@ -211,8 +212,8 @@ function _token_example_get_file() {
   $file_query->fields('f', array('fid', 'filename'));
   $file_query->range(0, 10);
   $files = $file_query->execute()->fetchAllKeyed();
-  $files = array_map('check_plain', $files);
-  return $files;
+
+  return array_map('check_plain', $files);
 }
 /**
  * @} End of "defgroup token_example".

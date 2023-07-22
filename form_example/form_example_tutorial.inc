@@ -56,6 +56,7 @@ function form_example_tutorial_1($form, &$form_state) {
     '#type' => 'textfield',
     '#title' => t('Name'),
   );
+
   return $form;
 }
 
@@ -82,6 +83,7 @@ function form_example_tutorial_2($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Submit',
   );
+
   return $form;
 }
 
@@ -121,6 +123,7 @@ function form_example_tutorial_3($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Submit',
   );
+
   return $form;
 }
 
@@ -159,6 +162,7 @@ function form_example_tutorial_4($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Submit',
   );
+
   return $form;
 }
 
@@ -203,6 +207,7 @@ function form_example_tutorial_5($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Submit',
   );
+
   return $form;
 }
 
@@ -252,6 +257,7 @@ function form_example_tutorial_6($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Submit',
   );
+
   return $form;
 }
 
@@ -321,6 +327,7 @@ function form_example_tutorial_7($form, &$form_state) {
     '#type' => 'submit',
     '#value' => 'Submit',
   );
+
   return $form;
 }
 
@@ -412,6 +419,7 @@ function form_example_tutorial_8($form, &$form_state) {
     '#submit' => array('form_example_tutorial_8_next_submit'),
     '#validate' => array('form_example_tutorial_8_next_validate'),
   );
+
   return $form;
 }
 
@@ -430,11 +438,13 @@ function form_example_tutorial_8_page_two($form, &$form_state) {
     '#required' => TRUE,
     '#default_value' => !empty($form_state['values']['color']) ? $form_state['values']['color'] : '',
   );
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
     '#submit' => array('form_example_tutorial_8_page_two_submit'),
   );
+
   $form['back'] = array(
     '#type' => 'submit',
     '#value' => t('<< Back'),
@@ -443,6 +453,7 @@ function form_example_tutorial_8_page_two($form, &$form_state) {
     // have to come back to this page to submit anyway.
     '#limit_validation_errors' => array(),
   );
+
   return $form;
 }
 

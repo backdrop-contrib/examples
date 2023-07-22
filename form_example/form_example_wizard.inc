@@ -221,11 +221,13 @@ function form_example_wizard_personal_info($form, &$form_state) {
     '#title' => t('First Name'),
     '#default_value' => !empty($form_state['values']['first_name']) ? $form_state['values']['first_name'] : '',
   );
+
   $form['last_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Last Name'),
     '#default_value' => !empty($form_state['values']['last_name']) ? $form_state['values']['last_name'] : '',
   );
+
   return $form;
 }
 
@@ -247,6 +249,7 @@ function form_example_wizard_location_info($form, &$form_state) {
     '#default_value' => !empty($form_state['values']['city']) ? $form_state['values']['city'] : '',
 
   );
+
   return $form;
 }
 
@@ -278,6 +281,7 @@ function form_example_wizard_other_info($form, &$form_state) {
     '#title' => t("Your first cousin's aunt's Social Security number"),
     '#default_value' => !empty($form_state['values']['aunts_name']) ? $form_state['values']['aunts_name'] : '',
   );
+
   return $form;
 }
 

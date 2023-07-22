@@ -26,6 +26,7 @@ function block_example_menu() {
     'access callback' => TRUE,
     'title' => 'Block Example',
   );
+
   return $items;
 }
 
@@ -33,12 +34,12 @@ function block_example_menu() {
  * Simple page function to explain what the block example is about.
  */
 function block_example_page() {
-  $page = array(
+  return array(
     '#type' => 'markup',
     '#markup' => t('The Block Example provides three sample blocks which demonstrate the various block APIs. To experiment with the blocks, enable and configure them on <a href="@url">the layout admin page</a>.', array('@url' => url('/admin/structure/layouts/'))),
   );
-  return $page;
 }
+
 /**
  * Implements hook_block_info().
  *
@@ -174,6 +175,7 @@ function block_example_block_view($delta = '', $settings = array(), $contexts = 
       $block['subject'] = t('Block with node context');
       $block['content'] = t('The title of the node on this page is "@title" and was created by !author.', array('@title' => $node->title, '!author' => theme('username', array('account' => $author))));
   }
+
   return $block;
 }
 
@@ -191,10 +193,9 @@ function block_example_contents($settings) {
   if ($settings['uppercase']) {
     $string = backdrop_strtoupper($string);
   }
-  $result = array(
+  return array(
     '#markup' => check_plain($string),
   );
-  return $result;
 }
 
 

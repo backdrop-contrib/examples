@@ -28,6 +28,7 @@ function ajax_example_config_info() {
     'label' => t('AJAX Example settings'),
     'group' => t('Configuration'),
   );
+
   return $prefixes;
 }
 
@@ -57,6 +58,7 @@ function ajax_example_menu() {
     'access callback' => TRUE,
     'weight' => 0,
   );
+
   // Generate a changing number of checkboxes.
   $items['examples/ajax_example/autocheckboxes'] = array(
     'title' => 'Generate checkboxes',
@@ -65,6 +67,7 @@ function ajax_example_menu() {
     'access callback' => TRUE,
     'weight' => 1,
   );
+
   // Generate different textfields based on form state.
   $items['examples/ajax_example/autotextfields'] = array(
     'title' => 'Generate textfields',
@@ -91,6 +94,7 @@ function ajax_example_menu() {
     'access callback' => TRUE,
     'weight' => 4,
   );
+
   // Repopulate a dropdown, but this time with graceful degredation.
   // See ajax_example_graceful_degradation.inc.
   $items['examples/ajax_example/dependent_dropdown_degrades'] = array(
@@ -101,6 +105,7 @@ function ajax_example_menu() {
     'weight' => 5,
     'file' => 'ajax_example_graceful_degradation.inc',
   );
+
   // The above example as it appears to users with no javascript.
   $items['examples/ajax_example/dependent_dropdown_degrades_no_js'] = array(
     'title' => 'Dependent dropdown with javascript off',
@@ -120,6 +125,7 @@ function ajax_example_menu() {
     'weight' => 6,
     'file' => 'ajax_example_graceful_degradation.inc',
   );
+
   // The  above example as it appears to users with no javascript.
   $items['examples/ajax_example/dynamic_sections_no_js'] = array(
     'title' => 'Dynamic Sections w/JS turned off',
@@ -140,6 +146,7 @@ function ajax_example_menu() {
     'file' => 'ajax_example_graceful_degradation.inc',
     'weight' => 7,
   );
+
   // The above example as it appears to users with no javascript.
   $items['examples/ajax_example/wizard_no_js'] = array(
     'title' => 'Wizard w/JS turned off',
@@ -160,6 +167,7 @@ function ajax_example_menu() {
     'file' => 'ajax_example_graceful_degradation.inc',
     'weight' => 8,
   );
+
   // The above example as it appears to users with no javascript.
   $items['examples/ajax_example/add_more_no_js'] = array(
     'title' => 'Add-more button w/JS turned off',
@@ -179,6 +187,7 @@ function ajax_example_menu() {
     'file' => 'ajax_example_misc.inc',
     'weight' => 9,
   );
+
   // Use the AJAX framework outside the context of a form using a renderable
   // array of type link with the #ajax property. See ajax_example_misc.inc.
   $items['examples/ajax_example/ajax_link_renderable'] = array(
@@ -188,6 +197,7 @@ function ajax_example_menu() {
     'file' => 'ajax_example_misc.inc',
     'weight' => 9,
   );
+
   // A menu callback is required when using ajax outside of the Form API.
   $items['ajax_link_callback'] = array(
     'page callback' => 'ajax_link_response',
@@ -217,12 +227,14 @@ function ajax_example_menu() {
     'file' => 'ajax_example_autocomplete.inc',
     'weight' => 10,
   );
+
   $items['examples/ajax_example/simple_user_autocomplete_callback'] = array(
     'page callback' => 'ajax_example_simple_user_autocomplete_callback',
     'file' => 'ajax_example_autocomplete.inc',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access user profiles'),
   );
+
   $items['examples/ajax_example/node_autocomplete'] = array(
     'title' => 'Autocomplete (node with nid)',
     'page callback' => 'backdrop_get_form',
@@ -231,12 +243,14 @@ function ajax_example_menu() {
     'file' => 'ajax_example_autocomplete.inc',
     'weight' => 11,
   );
+
   $items['examples/ajax_example/unique_node_autocomplete_callback'] = array(
     'page callback' => 'ajax_example_unique_node_autocomplete_callback',
     'file' => 'ajax_example_autocomplete.inc',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+
   $items['examples/ajax_example/node_by_author'] = array(
     'title' => 'Autocomplete (node limited by author)',
     'page callback' => 'backdrop_get_form',
@@ -245,6 +259,7 @@ function ajax_example_menu() {
     'file' => 'ajax_example_autocomplete.inc',
     'weight' => 12,
   );
+
   $items['examples/ajax_example/node_by_author_autocomplete'] = array(
     'page callback' => 'ajax_example_node_by_author_node_autocomplete_callback',
     'file' => 'ajax_example_autocomplete.inc',
@@ -534,6 +549,7 @@ function ajax_example_submit_driven_callback($form, $form_state) {
   // you may not want to return the form at all.
   $element = $form['box'];
   $element['#markup'] = "Clicked submit ({$form_state['values']['op']}): " . date('c');
+
   return $element;
 }
 
@@ -587,10 +603,12 @@ function ajax_example_dependent_dropdown($form, &$form_state) {
     '#options' => _ajax_example_get_second_dropdown_options($selected),
     '#default_value' => isset($form_state['values']['dropdown_second']) ? $form_state['values']['dropdown_second'] : '',
   );
+
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Submit'),
   );
+
   return $form;
 }
 
@@ -673,12 +691,8 @@ function _ajax_example_get_second_dropdown_options($key = '') {
       )
     ),
   );
-  if (isset($options[$key])) {
-    return $options[$key];
-  }
-  else {
-    return array();
-  }
+
+  return isset($options[$key]) ? $options[$key] : array();
 }
 /**
  * @} End of "defgroup ajax_example".

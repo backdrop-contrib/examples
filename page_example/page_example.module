@@ -176,6 +176,7 @@ function page_example_arguments($first, $second) {
     '#items' => $list,
     '#title' => t('Argument Information'),
   );
+
   return $render_array;
 }
 /**

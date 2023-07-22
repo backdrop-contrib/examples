@@ -27,6 +27,7 @@ function pager_example_menu() {
     'page callback' => 'pager_example_page',
     'access callback' => TRUE,
   );
+
   return $items;
 }
 

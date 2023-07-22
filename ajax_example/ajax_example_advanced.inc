@@ -384,8 +384,8 @@ function ajax_example_advanced_commands_restripe_num_rows($form, $form_state) {
   for ($i = 1; $i <= $num_rows; $i++) {
     $output .= "<tr><td>Row $i</td></tr>";
   }
-  $output .= "</table>";
-  return $output;
+
+  return $output . "</table>";
 }
 
 /**
@@ -397,5 +397,6 @@ function ajax_example_advanced_commands_restripe_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_restripe('#restripe_table');
   $commands[] = ajax_command_replace("#restripe_status", "<div id='restripe_status'>Restriped table " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }

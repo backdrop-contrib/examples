@@ -164,6 +164,6 @@ function theme_image_example_image($variables) {
       'uri' => $image->uri,
     )
   );
-  $output .= '<p>' . t('This image is being displayed using the image style %style_name.', array('%style_name' => $style)) . '</p>';
-  return $output;
+
+  return $output . '<p>' . t('This image is being displayed using the image style %style_name.', array('%style_name' => $style)) . '</p>';
 }

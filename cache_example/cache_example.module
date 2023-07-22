@@ -99,6 +99,7 @@ function cache_example_page_form($form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('File search caching'),
   );
+
   $form['file_search']['introduction'] = array(
     '#markup' => $intro_message,
   );
@@ -118,6 +119,7 @@ function cache_example_page_form($form, &$form_state) {
       )
     ),
   );
+
   $form['file_search']['remove_file_count'] = array(
     '#type' => 'submit',
     '#submit' => array('cache_example_form_expire_files'),
@@ -128,9 +130,11 @@ function cache_example_page_form($form, &$form_state) {
     '#type' => 'fieldset',
     '#title' => t('Cache expiration settings'),
   );
+
   $form['expiration_demo']['explanation'] = array(
     '#markup' => t('A cache item can be set as CACHE_PERMANENT, meaning that it will only be removed when explicitly cleared, or it can have an expiration time (a Unix timestamp).'),
   );
+
   $expiring_item = cache('cache')->get('cache_example_expiring_item');
   $item_status = $expiring_item ?
       t('Cache item exists and is set to expire at %time', array('%time' => $expiring_item->data)) :
@@ -140,6 +144,7 @@ function cache_example_page_form($form, &$form_state) {
     '#title' => t('Current status of cache item "cache_example_expiring_item"'),
     '#markup' => $item_status,
   );
+
   $form['expiration_demo']['expiration'] = array(
     '#type' => 'select',
     '#title' => t('Time before cache expiration'),
@@ -153,6 +158,7 @@ function cache_example_page_form($form, &$form_state) {
     '#default_value' => -10,
     '#description' => t('Any cache item can be set to only expire when explicitly cleared, or to expire at a given time.'),
   );
+
   $form['expiration_demo']['create_cache_item'] = array(
     '#type' => 'submit',
     '#value' => t('Create a cache item with this expiration'),
@@ -164,6 +170,7 @@ function cache_example_page_form($form, &$form_state) {
     '#title' => t('Expire and remove options'),
     '#description' => t("We have APIs to expire cached items and also to just remove them."),
   );
+
   $form['cache_clearing']['cache_clear_type'] = array(
     '#type' => 'radios',
     '#title' => t('Type of cache clearing to do'),
@@ -174,6 +181,7 @@ function cache_example_page_form($form, &$form_state) {
     ),
     '#default_value' => 'expire',
   );
+
   // Submit button to clear cached data.
   $form['cache_clearing']['clear_expired'] = array(
     '#type' => 'submit',
@@ -181,6 +189,7 @@ function cache_example_page_form($form, &$form_state) {
     '#submit' => array('cache_example_form_cache_clearing'),
     '#access' => user_access('administer site configuration'),
   );
+
   return $form;
 }
 
@@ -192,7 +201,7 @@ function cache_example_form_expire_files($form, &$form_state) {
   //
   // Alternatives to this implementation are:
   // - use the shortcut: cache_clear_all('cache_example_files_count', 'cache');
-  // - use deleteMultiple(), which is of course most useful if providing 
+  // - use deleteMultiple(), which is of course most useful if providing
   //   multiple cache IDs: cache('cache')->deleteMultiple(array('cache_example_files_count'));
   cache('cache')->delete('cache_example_files_count');
 

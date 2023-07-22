@@ -70,6 +70,7 @@ function batch_example_simple_form() {
     backdrop_set_message(t("You don't currently have any nodes, and this example requires a node to work with. As a result, this form is disabled."));
     $form['submit']['#disabled'] = TRUE;
   }
+
   return $form;
 }
 
@@ -125,11 +126,10 @@ function batch_example_batch_1() {
       ),
     );
   }
-  $batch = array(
+  return array(
     'operations' => $operations,
     'finished' => 'batch_example_finished',
   );
-  return $batch;
 }
 
 /**
@@ -177,7 +177,8 @@ function batch_example_batch_2() {
       array(t('(Operation @operation)', array('@operation' => $i))),
     );
   }
-  $batch = array(
+
+  return array(
     'operations' => $operations,
     'finished' => 'batch_example_finished',
     // Message displayed while processing the batch. Available placeholders are:
@@ -194,7 +195,6 @@ function batch_example_batch_2() {
     'progress_message' => t('Processed @current out of @total.'),
     'error_message' => t('Batch 2 has encountered an error.'),
   );
-  return $batch;
 }
 
 /**
@@ -291,8 +291,8 @@ function batch_example_lowest_nid() {
   ->orderBy('n.nid', 'ASC')
   ->extend('PagerDefault')
   ->limit(1);
-  $nid = $select->execute()->fetchField();
-  return $nid;
+
+  return $select->execute()->fetchField();
 }
 
 /**
@@ -304,7 +304,7 @@ function _batch_example_update_http_requests() {
 
 /**
  * Utility function to count the HTTP requests in a session variable.
- * 
+ *
  * @return int
  *   Number of requests.
  */

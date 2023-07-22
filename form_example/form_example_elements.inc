@@ -161,6 +161,7 @@ function _form_example_element_info() {
     ),
     '#theme_wrappers' => array('form_example_inline_form_element'),
   );
+
   return $types;
 }
 
@@ -191,6 +192,7 @@ function form_example_phonenumber_combined_value(&$element, $input = FALSE, $for
       list($element['areacode'], $element['prefix'], $element['extension']) = $matches;
     }
   }
+
   return $element;
 }
 
@@ -283,6 +285,7 @@ function form_example_phonenumber_discrete_validate($element, &$form_state) {
       form_error($element['extension'], t('The extension is invalid.'));
     }
   }
+
   return $element;
 }
 
@@ -360,6 +363,7 @@ function form_example_phonenumber_combined_validate($element, &$form_state) {
   // Consolidate into the three parts into one combined value.
   $value = $element['areacode']['#value'] . $element['prefix']['#value'] . $element['extension']['#value'];
   form_set_value($element, $value, $form_state);
+
   return $element;
 }
 
@@ -389,8 +393,7 @@ function _form_example_element_theme() {
  * be done here.
  */
 function theme_form_example_checkbox($variables) {
-  $element = $variables['element'];
-  return theme('checkbox', $element);
+  return theme('checkbox', $variables['element']);
 }
 
 /**
@@ -454,9 +457,7 @@ function theme_form_example_inline_form_element($variables) {
     $output .= ' <div class="description">' . $element['#description'] . "</div>\n";
   }
 
-  $output .= "</div>\n";
-
-  return $output;
+  return $output . "</div>\n";
 }
 
 /**

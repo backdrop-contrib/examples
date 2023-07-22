@@ -33,17 +33,20 @@ function file_example_menu() {
     'access callback' => TRUE,
     'expanded' => TRUE,
   );
+
   $items['examples/file_example/fileapi'] = array(
     'title' => 'Use File API to read/write a file',
     'page callback' => 'backdrop_get_form',
     'access arguments' => array('use file example'),
     'page arguments' => array('file_example_readwrite'),
   );
+
   $items['examples/file_example/access_session'] = array(
     'page callback' => 'file_example_session_contents',
     'access arguments' => array('use file example'),
     'type' => MENU_CALLBACK,
   );
+
   return $items;
 }
 
@@ -506,8 +509,7 @@ function file_example_show_session_contents_submit($form, &$form_state) {
 function file_example_get_managed_file($uri) {
   $fid = db_query('SELECT fid FROM {file_managed} WHERE uri = :uri', array(':uri' => $uri))->fetchField();
   if (!empty($fid)) {
-    $file_object = file_load($fid);
-    return $file_object;
+    return file_load($fid);
   }
   return FALSE;
 }
@@ -523,14 +525,13 @@ function file_example_get_managed_file($uri) {
  * @see FileExampleSessionStreamWrapper
  */
 function file_example_stream_wrappers() {
-  $wrappers = array(
+  return array(
     'session' => array(
       'name' => t('Example: $_SESSION variable storage'),
       'class' => 'FileExampleSessionStreamWrapper',
       'description' => t('Store files in the $_SESSION variable as an example.'),
     ),
   );
-  return $wrappers;
 }
 
 /**

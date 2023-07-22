@@ -23,6 +23,7 @@ function cron_example_config_info() {
     'label' => t('cron_example settings'),
     'group' => t('Configuration'),
   );
+
   return $prefixes;
 }
 
@@ -30,7 +31,6 @@ function cron_example_config_info() {
  * Implements hook_menu().
  */
 function cron_example_menu() {
-
   $items['examples/cron_example'] = array(
     'title' => 'Cron Example',
     'page callback' => 'backdrop_get_form',
@@ -217,10 +217,12 @@ function cron_example_cron_queue_info() {
     // One second max runtime per cron run.
     'time' => 1,
   );
+
   $queues['cron_example_queue_2'] = array(
     'worker callback' => 'cron_example_queue_2_worker',
     'time' => 10,
   );
+
   return $queues;
 }
 
@@ -276,7 +278,7 @@ function cron_example_queue_report_work($worker, $item) {
 function cron_example_date_iso8601($date) {
   // The DATE_ISO8601 constant cannot be used here because it does not match
   // date('c') and produces invalid RDF markup.
-  return date('c', $date);  
+  return date('c', $date);
 }
 /**
  * @} End of "defgroup cron_example".

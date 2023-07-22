@@ -353,6 +353,7 @@ function _menu_example_menu_page($content = NULL, $arg1 = NULL, $arg2 = NULL) {
   if (!empty($arg2)) {
     $output .= '<div>' . t('Argument 2=%arg', array('%arg' => $arg2)) . '</div>';
   }
+
   return $output;
 }
 
@@ -380,8 +381,7 @@ function menu_example_permission() {
  *   True if the acting user has the role specified.
  */
 function menu_example_custom_access($role_name) {
-  $access_granted = in_array($role_name, $GLOBALS['user']->roles);
-  return $access_granted;
+  return in_array($role_name, $GLOBALS['user']->roles);
 }
 
 /**
@@ -397,17 +397,14 @@ function menu_example_custom_access($role_name) {
  *   The string to which the integer key mapped, or NULL if it did not map.
  */
 function _menu_example_mappings($id) {
-  $mapped_value = NULL;
   static $mappings = array(
     1 => 'one',
     2 => 'two',
     3 => 'three',
     99 => 'jackpot! default',
   );
-  if (isset($mappings[$id])) {
-    $mapped_value = $mappings[$id];
-  }
-  return $mapped_value;
+
+  return isset($mappings[$id]) ? $mappings[$id] : NULL;
 }
 
 /**
@@ -476,8 +473,8 @@ function menu_example_menu_alter(&$items) {
  */
 function _menu_example_simple_title_callback($base_string) {
   global $user;
-  $username = !empty($user->name) ? $user->name : t('anonymous');
-  return $base_string . ' ' . $username;
+
+  return $base_string . ' ' . (!empty($user->name) ? $user->name : t('anonymous'));
 }
 
 /**

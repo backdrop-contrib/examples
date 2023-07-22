@@ -277,6 +277,7 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
       '#value' => t('Submit your answer'),
     );
   }
+
   return $form;
 }
 
