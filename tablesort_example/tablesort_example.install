@@ -32,17 +32,6 @@ function tablesort_example_install() {
 }
 
 /**
- * Implements hook_uninstall().
- *
- * It's good to clean up after ourselves
- *
- * @ingroup tablesort_example
- */
-function tablesort_example_uninstall() {
-  db_drop_table('tablesort_example');
-}
-
-/**
  * Implements hook_schema().
  *
  * @ingroup tablesort_example
