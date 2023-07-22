@@ -346,6 +346,7 @@ function ajax_example_simplest($form, &$form_state) {
   if (!empty($form_state['values']['changethis'])) {
     $form['replace_textfield']['#description'] = t("Say why you chose '@value'", array('@value' => $form_state['values']['changethis']));
   }
+
   return $form;
 }
 

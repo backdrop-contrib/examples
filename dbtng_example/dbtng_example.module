@@ -25,8 +25,8 @@
  *
  * The several examples here demonstrate basic database usage.
  *
- * In Backdrop the usage of db_query() for INSERT, UPDATE, or DELETE is 
- * deprecated, because it is database-dependent. 
+ * In Backdrop the usage of db_query() for INSERT, UPDATE, or DELETE is
+ * deprecated, because it is database-dependent.
  * Instead specific functions are provided to perform these
  * operations: db_insert(), db_update(), and db_delete() do the job now.
  * (Note that backdrop_write_record() is also deprecated.)
@@ -128,16 +128,15 @@ function dbtng_example_entry_insert($entry) {
 function dbtng_example_entry_update($entry) {
   try {
     // db_update()...->execute() returns the number of rows updated.
-    $count = db_update('dbtng_example')
-              ->fields($entry)
-              ->condition('pid', $entry['pid'])
-              ->execute();
+    return db_update('dbtng_example')
+      ->fields($entry)
+      ->condition('pid', $entry['pid'])
+      ->execute();
   }
   catch (Exception $e) {
     backdrop_set_message(t('db_update failed. Message = %message, query= %query',
       array('%message' => $e->getMessage(), '%query' => $e->query_string)), 'error');
   }
-  return $count;
 }
 
 /**
@@ -166,7 +165,7 @@ function dbtng_example_entry_delete($entry) {
 /**
  * Read from the database using a filter array.
  *
- * db_query() used in an SQL query with placeholders and arguments as 
+ * db_query() used in an SQL query with placeholders and arguments as
  * parameters.
  *
  * @code
