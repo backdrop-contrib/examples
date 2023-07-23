@@ -233,6 +233,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
 
     // Reset the stream pointer since this is an open.
     $this->streamPointer = 0;
+
     return TRUE;
   }
 

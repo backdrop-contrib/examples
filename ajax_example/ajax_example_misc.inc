@@ -34,8 +34,9 @@ URL whether JS was enabled or not, letting it do different things based on that.
   // a page reload. Note the /nojs portion of the path - if javascript is
   // enabled, this part will be stripped from the path before it is called.
   $link = l(t('Click here'), 'ajax_link_callback/nojs/', array('attributes' => array('class' => array('use-ajax'))));
+  $output .= "<div id='myDiv'></div><div>$link</div>";
 
-  return $output . "<div id='myDiv'></div><div>$link</div>";
+  return $output;
 }
 
 /**

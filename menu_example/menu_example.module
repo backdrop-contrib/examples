@@ -311,6 +311,7 @@ function menu_example_menu() {
     'access callback' => TRUE,
     'weight' => 80,
   );
+
   foreach ($items as $path => $item) {
     if (!isset($item['menu_name'])) {
       $items[$path]['menu_name'] = 'menu-example-menu';

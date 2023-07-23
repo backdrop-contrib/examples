@@ -67,6 +67,7 @@ function file_example_permission() {
  */
 function file_example_intro() {
   $markup = t('The file example module provides a form and code to demonstrate the Backdrop file api. Experiment with the form, and then look at the submit handlers in the code to understand the file api.');
+
   return array('#markup' => $markup);
 }
 /**
@@ -511,6 +512,7 @@ function file_example_get_managed_file($uri) {
   if (!empty($fid)) {
     return file_load($fid);
   }
+
   return FALSE;
 }
 
@@ -561,8 +563,10 @@ function file_example_session_contents() {
       array('@path' => check_plain($session_path))) . ' ' .
       print_r($content, TRUE);
   }
+
   return t('Unable to load contents of: @path',
-    array('@path' => check_plain($session_path)));
+    array('@path' => check_plain($session_path))
+  );
 }
 
 /**

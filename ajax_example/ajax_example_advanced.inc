@@ -236,6 +236,7 @@ function ajax_example_advanced_commands_after_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_after($selector, "New 'after'...");
   $commands[] = ajax_command_replace("#after_status", "<div id='after_status'>Updated after_command_example " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -247,6 +248,7 @@ function ajax_example_advanced_commands_after_callback($form, $form_state) {
 function ajax_example_advanced_commands_alert_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_alert("Alert requested at " . date('r'));
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -261,6 +263,7 @@ function ajax_example_advanced_commands_append_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_append($selector, "Stuff...");
   $commands[] = ajax_command_replace("#append_status", "<div id='append_status'>Updated append_command_example " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -275,6 +278,7 @@ function ajax_example_advanced_commands_before_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_before($selector, "New 'before'...");
   $commands[] = ajax_command_replace("#before_status", "<div id='before_status'>Updated before_command_example " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -287,13 +291,16 @@ function ajax_example_advanced_commands_changed_callback($form, $form_state) {
   $checkbox_value = $form_state['values']['changed_command_example'];
   $checkbox_value_string = $checkbox_value ? "TRUE" : "FALSE";
   $commands = array();
+
   if ($checkbox_value) {
     $commands[] = ajax_command_changed('#changed_div', '#changed_div_mark_this');
   }
   else {
     $commands[] = ajax_command_replace('#changed_div', "<div id='changed_div'> <div id='changed_div_mark_this'>This div can be marked as changed or not.</div></div>");
   }
+
   $commands[] = ajax_command_replace("#changed_status", "<div id='changed_status'>Updated changed_command_example to $checkbox_value_string: " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -309,6 +316,7 @@ function ajax_example_advanced_commands_css_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_css($selector, array('background-color' => $color));
   $commands[] = ajax_command_replace("#css_status", "<div id='css_status'>Updated css_command_example to '{$color}' " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -325,6 +333,7 @@ function ajax_example_advanced_commands_data_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_data($selector, $key, $value);
   $commands[] = ajax_command_replace("#data_status", "<div id='data_status'>Updated data_command_example with key=$key, value=$value; " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -339,6 +348,7 @@ function ajax_example_advanced_commands_html_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_html('#html_div', $text);
   $commands[] = ajax_command_replace("#html_status", "<div id='html_status'>Updated html_command_example with text=$text;  " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -351,6 +361,7 @@ function ajax_example_advanced_commands_prepend_callback($form, $form_state) {
   $commands = array();
   $commands[] = ajax_command_prepend('#prepend_div', "Prepended Stuff...");
   $commands[] = ajax_command_replace("#prepend_status", "<div id='prepend_status'>Updated prepend_command_example " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -363,13 +374,16 @@ function ajax_example_advanced_commands_remove_callback($form, $form_state) {
   $commands = array();
   $should_remove = $form_state['values']['remove_command_example'];
   $should_remove_string = $should_remove ? 'TRUE' : 'FALSE';
+
   if ($should_remove) {
     $commands[] = ajax_command_remove('#remove_text');
   }
   else {
     $commands[] = ajax_command_html('#remove_div', "<div id='remove_text'>text to be removed</div>");
   }
+
   $commands[] = ajax_command_replace("#remove_status", "<div id='remove_status'>Updated remove_command_example (value={$should_remove_string} " . date('r') . "</div>");
+
   return array('#type' => 'ajax', '#commands' => $commands);
 }
 
@@ -381,11 +395,14 @@ function ajax_example_advanced_commands_remove_callback($form, $form_state) {
 function ajax_example_advanced_commands_restripe_num_rows($form, $form_state) {
   $num_rows = $form_state['values']['restripe_num_rows'];
   $output = "<table id='restripe_table' style='border: 1px solid black'>";
+
   for ($i = 1; $i <= $num_rows; $i++) {
     $output .= "<tr><td>Row $i</td></tr>";
   }
 
-  return $output . "</table>";
+  $output .= "</table>";
+
+  return $output;
 }
 
 /**
