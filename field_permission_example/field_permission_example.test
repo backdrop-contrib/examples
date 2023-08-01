@@ -260,9 +260,6 @@ class GenericFieldTest extends BackdropWebTestCase {
       );
     }
 
-    // Somehow clicking "save" isn't enough, and we have to
-    // rebuild a few caches.
-    node_types_rebuild();
     menu_rebuild();
     return $field_names;
   }
