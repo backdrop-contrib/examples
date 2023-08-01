@@ -316,7 +316,7 @@ function image_example_colorize_effect(&$image, $data) {
   // information about image manipulation functions is available in the PHP
   // manual. http://www.php.net/manual/en/book.image.php
   if (!function_exists('imagefilter')) {
-    watchdog('image', 'The image %image could not be colorized because the imagefilter() function is not available in this PHP installation.', array('%file' => $image->source));
+    watchdog('image', 'The image %image could not be colorized because the imagefilter() function is not available in this PHP installation.', array('%image' => $image->source));
     return FALSE;
   }
 
