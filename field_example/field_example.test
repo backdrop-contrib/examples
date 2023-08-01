@@ -77,9 +77,6 @@ class FieldExampleTest extends BackdropWebTestCase {
       $this->createField($fieldname, $details['widget'], $details['cardinality']);
     }
 
-    // Somehow clicking "save" isn't enough, and we have to do a
-    // node_types_rebuild().
-    node_types_rebuild();
     menu_rebuild();
     //$type_exists = db_query('SELECT 1 FROM {node_type} WHERE type = :type', array(':type' => $content_type_machine))->fetchField();
     $type_exists = config_get('node.type.' . $content_type_machine);
