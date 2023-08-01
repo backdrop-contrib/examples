@@ -138,14 +138,3 @@ function tabledrag_example_install() {
     }
   }
 }
-
-/**
- * Implements hook_uninstall().
- *
- * This removes the example data when the module is uninstalled.
- *
- * @ingroup tabledrag_example
- */
-function tabledrag_example_uninstall() {
-  db_drop_table('tabledrag_example');
-}
