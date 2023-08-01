@@ -76,7 +76,7 @@ function ajax_example_progressbar_progress($time) {
     $progress['percentage'] = $completed_percentage;
   }
 
-  drupal_json_output($progress);
+  backdrop_json_output($progress);
 }
 
 /**
