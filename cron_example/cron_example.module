@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Demonstrates use of the Cron API in Backdrop - hook_cron()
@@ -140,7 +139,7 @@ function cron_example_form($form, &$form_state) {
  */
 function cron_example_form_cron_run_submit($form, &$form_state) {
   if (!empty($form_state['values']['cron_reset'])) {
-    config_set('cron_example.settings', 'cron_example_next_execution', 0);
+    state_set('cron_example_next_execution', 0);
   }
 
   // We don't usually use globals in this way. This is used here only to
@@ -186,7 +185,7 @@ function cron_example_cron() {
   $interval = config_get('cron_example.settings', 'cron_example_interval');
   // We usually don't want to act every time cron runs (which could be every
   // minute) so keep a time for the next run in a variable.
-  if (time() >= config_get('cron_example.settings', 'cron_example_next_execution')) {
+  if (time() >= state_get('cron_example_next_execution', 0)) {
     // This is a silly example of a cron job.
     // It just makes it obvious that the job has run without
     // making any changes to your database.
@@ -194,7 +193,7 @@ function cron_example_cron() {
     if (!empty($GLOBALS['cron_example_show_status_message'])) {
       backdrop_set_message(t('cron_example executed at %time', array('%time' => cron_example_date_iso8601(time(0)))));
     }
-    config_set('cron_example.settings', 'cron_example_next_execution', time() + $interval);
+    state_set('cron_example_next_execution', time() + $interval);
   }
 }
 
@@ -277,7 +276,7 @@ function cron_example_queue_report_work($worker, $item) {
 function cron_example_date_iso8601($date) {
   // The DATE_ISO8601 constant cannot be used here because it does not match
   // date('c') and produces invalid RDF markup.
-  return date('c', $date);  
+  return date('c', $date);
 }
 /**
  * @} End of "defgroup cron_example".

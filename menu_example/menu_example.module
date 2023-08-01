@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Module file for menu_example.
@@ -488,7 +487,7 @@ function _menu_example_simple_title_callback($base_string) {
  *   User account related to the visited page.
  */
 function menu_example_user_page_title($account) {
-  return is_object($account) ? t("@name's account", array('@name' => format_username($account))) : '';
+  return is_object($account) ? t("@name's account", array('@name' => user_format_name($account))) : '';
 }
 
 /**

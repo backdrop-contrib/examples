@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Install and uninstall functions for the tablesort example module.
@@ -30,17 +29,6 @@ function tablesort_example_install() {
       db_insert('tablesort_example')->fields($row)->execute();
     }
   }
-}
-
-/**
- * Implements hook_uninstall().
- *
- * It's good to clean up after ourselves
- *
- * @ingroup tablesort_example
- */
-function tablesort_example_uninstall() {
-  db_drop_table('tablesort_example');
 }
 
 /**

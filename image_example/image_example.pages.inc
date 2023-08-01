@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Page/form showing image styles in use.

@@ -29,7 +29,7 @@ class CronExampleTestCase extends BackdropWebTestCase {
   public function testCronExampleBasic() {
     // Pretend that cron has never been run (even though simpletest seems to
     // run it once...)
-    config_set('cron_example.settings', 'cron_example_next_execution', 0);
+    state_set('cron_example_next_execution', 0);
     $this->backdropGet('examples/cron_example');
 
     // Initial run should cause cron_example_cron() to fire.

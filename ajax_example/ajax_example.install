@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * AJAX Examples install file schema for ajax_example_form_node_form_alter()
@@ -45,12 +44,8 @@ function ajax_example_schema() {
 }
 
 /**
- * Add the new ajax_example_node_form_alter table.
+ * Implements hook_update_last_removed().
  */
-function ajax_example_update_7100() {
-  if (!db_table_exists('ajax_example_node_form_alter')) {
-    $schema = ajax_example_schema();
-    db_create_table('ajax_example_node_form_alter', $schema['ajax_example_node_form_alter']);
-    return st('Created table ajax_example_node_form_alter');
-  }
+function ajax_example_update_last_removed() {
+  return 7100;
 }

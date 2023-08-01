@@ -1,5 +1,4 @@
 <?php
-
 /**
  * BlockExample extends Block
  *
