@@ -10,9 +10,9 @@
  * @{
  * Example using Cron API, including hook_cron() and hook_cron_queue_info().
  *
- * This example is part of the Examples for Developers Project
+ * This example is part of the Examples for Developers project
  * which you can download and experiment with at
- * http://backdrop.org/project/examples
+ * http://backdropcms.org/project/examples
  */
 
  /**
