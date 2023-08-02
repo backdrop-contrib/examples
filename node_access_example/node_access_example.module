@@ -67,7 +67,7 @@
  * first-grant-wins system, which means a module using it can't deny access to
  * a node. Contributed modules have been developed to overcome this
  * shortcoming, with their own APIs, such as
- * @link http://DOCUMENTATION_PENDING/project/acl ACL. @endlink ACL, in fact, has emerged
+ * @link http://backdropcms.org/project/acl ACL. @endlink ACL, in fact, has emerged
  * as the more-or-less standard solution for fine-grained access control, and
  * you really should be reading up on it. Many modules use it, and if your
  * module implements another node access system, there could be chaos.
@@ -204,7 +204,7 @@ function node_access_example_permission() {
  * Allows view and edit access to private nodes, when the account requesting
  * access has the username 'foobar'.
  *
- * hook_node_access() is used here to demonstrate allowing certain privileges 
+ * hook_node_access() is used here to demonstrate allowing certain privileges
  * to an arbitrary user.
  *
  * @see hook_node_access()

@@ -10,10 +10,10 @@
  * @{
  * Examples demonstrating the backdrop File API (and Stream Wrappers).
  *
- * The File Example module is a part of the Examples for Developers Project
+ * The File Example module is a part of the Examples for Developers project
  * and provides various backdrop File API Examples. You can download and
  * experiment with this code at the
- * @link http://DOCUMENTATION_PENDING/project/examples Examples for Developers project page. @endlink
+ * @link http://backdropcms.org/project/examples Examples for Developers project page. @endlink
  *
  * See @link http://DOCUMENTATION_PENDING Backdrop File API @endlink for handbook
  * documentation on the File API and

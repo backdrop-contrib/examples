@@ -44,7 +44,7 @@ function dbtng_example_install() {
  *
  * Defines the database tables used by this module.
  * Remember that the easiest way to create the code for hook_schema is with
- * the @link http://DOCUMENTATION_PENDING/project/schema schema module @endlink
+ * the @link http://backdropcms.org/project/schema schema module @endlink
  *
  * @see hook_schema()
  * @ingroup dbtng_example
