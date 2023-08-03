@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Provides a demonstration session:// streamwrapper.
+ * Provides a demonstration session:// stream-wrapper.
  *
  * This example is nearly fully functional, but has no known
  * practical use. It's an example and demonstration only.

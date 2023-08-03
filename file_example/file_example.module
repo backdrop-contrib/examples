@@ -334,7 +334,7 @@ function file_example_read_submit($form, &$form_state) {
   }
 
   // Make a working filename to save this by stripping off the (possible)
-  // file portion of the streamwrapper. If it's an evil file extension,
+  // file portion of the stream wrapper. If it's an evil file extension,
   // file_munge_filename() will neuter it.
   $filename = file_munge_filename(preg_replace('@^.*/@', '', $uri), '', TRUE);
   $buffer = file_get_contents($uri);

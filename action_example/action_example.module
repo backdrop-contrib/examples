@@ -11,27 +11,27 @@
  * Creating actions in Backdrop
  *
  * Actions are Backdrop features allowing some Backdrop programming without
- * using PHP. Using the appropriate action in a specific event, a site 
+ * using PHP. Using the appropriate action in a specific event, a site
  * administrator can add new functionality.
- * 
+ *
  * Examples are:
  *  - Display a message after a user has logged in.
  *  - Display a message after a node has been deleted.
  *  - Unblock a user if selected in a Views list.
- * 
+ *
  * In Backdrop core Actions are mainly run by adding them to Bulk Operations
- * executed on Views lists, although modules may also trigger actions by calling 
+ * executed on Views lists, although modules may also trigger actions by calling
  * actions_execute().
- * 
+ *
  * Actions are very often grouped by functionality: examples are 'user', 'node',
  * 'taxonomy'. When actions are grouped it is because they expect the same
  * arguments.
- * 
+ *
  * Not all actions can be used in all triggers because they require different
  * contexts. But some actions are generic enough that they do not require
  * special objects in their contexts, and so can be used on every available
  * trigger.
- * 
+ *
  * What are good candidates to be triggers? Any function can be a trigger, as
  * long as it has the code to call the action, but to make Backdrop
  * more extensible, you will find hooks (from Backdrop and contributed modules)
@@ -39,26 +39,26 @@
  * actions and run them. You may define a function being a trigger, and run it
  * through a button in the front page, or you may prepare a trigger for a hook,
  * and everytime that hook is fired, your trigger will be.
- * 
+ *
  * What are good candidates to be actions? any function is a possible action,
  * the only problem is finding a trigger able to run it.
- * 
+ *
  * This module describes how to create actions for Backdrop. In this
  * example we are providing three actions:
- * 
+ *
  * - A generic action that can be used in any trigger, which is the most
  *   basic example of an action.
- * 
+ *
  * - A User action.
- * 
+ *
  * - A Node action.
  *
  * For this module, the generic action will be triggered by executing a submit
  * function in a simple form. The Node and User actions will be triggered from
  * a Views bulk operations form.
- * 
+ *
  * @see hook_action_info()
- * 
+ *
  */
 
 /**
@@ -67,7 +67,7 @@
  * We call hook_action_info when we are defining the actions we provide.
  * Actions are the actions fired by the associated triggers. In this example,
  * we are registering our three new actions, providing the unique name (using
- * Backdrop's convention modulename_description_action), an easy to understand
+ * Backdrop's convention modulename_description_action), an easy-to-understand
  * description of what the action does, the 'object' expected by this action
  * (default options from core are node, user, comment and system, however other
  * trigger modules may declare new object types), which are the triggers allowed
@@ -83,9 +83,9 @@
  *   be confused about the scope of this action (expecting a node, user, or any
  *   other object).
  * - action_example_unblock_user_action: Unblocks a user.
- * - action_example_node_unpublish_action: In this example action, the action 
+ * - action_example_node_unpublish_action: In this example action, the action
  *   will unpublish only nodes created by the logged-in user.
- *  
+ *
  * We return an associative array of action descriptions. The keys of the array
  * are the names of the action functions, and each corresponding value
  * is an associative array with the following key-value pairs:
@@ -95,9 +95,9 @@
  *   used, as long as the trigger and action agree on them.
  * - 'label': The human-readable name of the action, which should be passed
  *   through the t() function for translation.
- * - 'callback': Optional. A function name that will execute the action if the 
+ * - 'callback': Optional. A function name that will execute the action if the
  *   name of the action differs from the function name.
- * - 'file': Optional. Relative path to a file from the module's directory 
+ * - 'file': Optional. Relative path to a file from the module's directory
  *   that contains the callback function. *
  * @see hook_action_info()
  */

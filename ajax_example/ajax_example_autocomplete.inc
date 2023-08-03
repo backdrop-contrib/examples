@@ -3,7 +3,7 @@
  * @file
  * ajax_example_autocomplete.inc
  *
- * Demonstrates usage of the Form API's autocomplete features.
+ * Demonstrates usage of the Form API autocomplete features.
  *
  * This file provides three examples in increasing complexity:
  * - A simple username autocomplete (usernames are unique, so little effort is
@@ -50,7 +50,7 @@ function ajax_example_simple_autocomplete($form, &$form_state) {
  *
  * The returned $matches array has
  * * key: string which will be displayed once the autocomplete is selected
- * * value: the value which will is displayed in the autocomplete pulldown.
+ * * value: the value which will is displayed in the autocomplete pull-down.
  *
  * In the simplest cases (see user_autocomplete()) these are the same, and
  * nothing needs to be done. However, more more complicated autocompletes
@@ -207,7 +207,7 @@ function ajax_example_unique_autocomplete_submit($form, &$form_state) {
  * The returned $matches array has
  * - key: The title, with the identifying nid in brackets, like "Some node
  *   title [3325]"
- * - value: the title which will is displayed in the autocomplete pulldown.
+ * - value: the title which will is displayed in the autocomplete pull-down.
  *
  * Note that we must use a key style that can be parsed successfully and
  * unambiguously. For example, if we might have node titles that could have
@@ -242,10 +242,10 @@ function ajax_example_unique_node_autocomplete_callback($string = "") {
  *
  * Although the implementation of the validate handler may look complex, it's
  * just ambitious. The idea here is:
- * 1. Autcomplete to get a valid username.
+ * 1. Autocomplete to get a valid username.
  * 2. Use #ajax to update the node element with a #autocomplete_callback that
  *    gives the context for the username.
- * 3. Do an autcomplete on the node field that is limited by the username.
+ * 3. Do an autocomplete on the node field that is limited by the username.
  *
  * @param array $form
  *   Form API form.
@@ -431,7 +431,7 @@ function ajax_example_node_by_author_autocomplete_submit($form, &$form_state) {
  * The returned $matches array has
  * - key: The title, with the identifying nid in brackets, like "Some node
  *   title [3325]"
- * - value: the title which will is displayed in the autocomplete pulldown.
+ * - value: the title which will is displayed in the autocomplete pull-down.
  *
  * Note that we must use a key style that can be parsed successfully and
  * unambiguously. For example, if we might have node titles that could have

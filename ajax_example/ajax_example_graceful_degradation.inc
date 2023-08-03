@@ -12,7 +12,7 @@
  * available.
  *
  * In each of these the key idea is that the form is rebuilt different ways
- * depending on form input. In order to accomplish that, the formbuilder
+ * depending on form input. In order to accomplish that, the form builder
  * function is in charge of almost all logic.
  */
 

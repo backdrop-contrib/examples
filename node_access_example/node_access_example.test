@@ -51,7 +51,7 @@ class NodeAccessExampleTestCase extends BackdropWebTestCase {
     $nodes_by_user = array();
     // Titles keyed by nid.
     $titles = array();
-    // Array of nids marked private.
+    // Array of IDs for nodes marked private.
     $private_nodes = array();
     for ($i = 0; $i < $num_simple_users; $i++) {
       $simple_users[$i] = $this->backdropCreateUser(
@@ -138,7 +138,7 @@ class NodeAccessExampleTestCase extends BackdropWebTestCase {
       }
     }
 
-    // Test cases for anonymus user.
+    // Test cases for anonymous user.
     $this->backdropLogout();
 
     // Test that private nodes with authors are not accessible.
@@ -156,7 +156,7 @@ class NodeAccessExampleTestCase extends BackdropWebTestCase {
       }
       $original_uid = $node->uid;
 
-      // Change node author to anonymus.
+      // Change node author to anonymous.
       $node->uid = 0;
       node_save($node);
       $node = node_load($nid);
@@ -276,7 +276,7 @@ class NodeAccessExampleTestCase extends BackdropWebTestCase {
    *   Node that will be checked.
    *
    * @return bool
-   *   Checker ran succesfully
+   *   Checker ran successfully
    */
   protected function checkNodeAccess($nid, $grant_view, $grant_update, $grant_delete) {
     // Test if node can be viewed.

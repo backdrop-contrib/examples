@@ -96,7 +96,7 @@ function field_example_field_validate($entity_type, $entity, $field, $instance, 
 /**
  * Implements hook_field_is_empty().
  *
- * hook_field_is_emtpy() is where Backdrop asks us if this field is empty.
+ * hook_field_is_empty() is where Backdrop asks us if this field is empty.
  * Return TRUE if it does not contain data, FALSE if it does. This lets
  * the form API flag an error when required fields are empty.
  */
@@ -191,7 +191,7 @@ function field_example_field_formatter_view($entity_type, $entity, $field, $inst
  * - A simple text-only widget where the user enters the '#ffffff'.
  * - A 3-textfield widget that gathers the red, green, and blue values
  *   separately.
- * - A farbtastic colorpicker widget that chooses the value graphically.
+ * - A Farbtastic color-picker widget that chooses the value graphically.
  *
  * These widget types will eventually show up in hook_field_widget_form,
  * where we will have to flesh them out.
@@ -247,11 +247,11 @@ function field_example_field_widget_form(&$form, &$form_state, $field, $instance
         '#suffix' => '<div class="field-example-colorpicker"></div>',
         '#attributes' => array('class' => array('edit-field-example-colorpicker')),
         '#attached' => array(
-          // Add Farbtastic color picker.
+          // Add the Farbtastic color-picker library.
           'library' => array(
             array('system', 'farbtastic'),
           ),
-          // Add javascript to trigger the colorpicker.
+          // Add javascript to trigger the color picker.
           'js' => array(backdrop_get_path('module', 'field_example') . '/field_example.js'),
         ),
       );

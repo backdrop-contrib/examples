@@ -46,8 +46,8 @@ class BlockExample extends Block {
    * from the parent class (Block class in this case) and made available in
    * the formValidate() and formSubmit() functions.
    *
-   * Block class adds default form elements to allow users to change the 
-   * block's title. If you do not wish for users to be able to define custom 
+   * Block class adds default form elements to allow users to change the
+   * block's title. If you do not wish for users to be able to define custom
    * block titles, you can set access to the title elements to false, and then
    * define a custom title element, as in the following example:
    *
@@ -58,7 +58,7 @@ class BlockExample extends Block {
    *     '#default_value' => $this->settings['title'],
    *   );
    *
-   * You would then need to explictly save a value for 'title' in formSubmit().
+   * You would then need to explicitly save a value for 'title' in formSubmit().
    */
   function form(&$form, &$form_state) {
     parent::form($form, $form_state);

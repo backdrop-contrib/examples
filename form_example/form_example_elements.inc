@@ -61,7 +61,7 @@
  * - form_example_checkbox: Nothing more than a regular checkbox, but uses
  *   an alternate theme function provided by this module.
  * - form_example_phonenumber_discrete: Provides a North-American style
- *   three-part phonenumber where the value of the phonenumber is managed
+ *   three-part phone number where the value of the phone number is managed
  *   as an array of three parts.
  * - form_example_phonenumber_combined: Provides a North-American style
  *   three-part phonenumber where the actual value is managed as a 10-digit

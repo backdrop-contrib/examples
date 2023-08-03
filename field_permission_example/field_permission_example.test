@@ -52,7 +52,7 @@ class GenericFieldTest extends BackdropWebTestCase {
   }
 
   /**
-   * Simpletest's setUp().
+   * Simpletest setUp().
    *
    * We want to be able to subclass this class, so we jump
    * through a few hoops in order to get the modules from args

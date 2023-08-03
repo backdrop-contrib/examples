@@ -30,7 +30,7 @@
  * subclassed and reused for other fields.
  *
  * If you wish to use this code as skeleton code for a field without
- * permissions, you can simply remove field_permission_exampe_permission()
+ * permissions, you can simply remove field_permission_example_permission()
  * and field_permission_field_access(). Also field_permission_example_menu()
  * and _field_permission_example_page() are vestigial to the Examples
  * project.
@@ -54,7 +54,7 @@
  * With our permissions defined in hook_permission(), we can now
  * handle requests for access. Those come in through
  * hook_field_access(), which we've implemented as
- * field_permission_example_field_acces(). This function determines
+ * field_permission_example_field_access(). This function determines
  * whether the user has the ability to view or edit the field
  * in question by calling user_access(). We also give special edit
  * access to users with the 'bypass node access' and
@@ -86,13 +86,12 @@
  * We want to let site administrators figure out who should
  * be able to view, edit, and administer our field.
  *
- * Field permission operations can only be view or edit, in the
- * context of one's own content or that of others. Constrast
- * with content types where we also have to worry about who can
- * create or delete content.
+ * Field permission operations can only be view or edit. It is different from
+ * content types, where we also have to worry about who can create or delete
+ * content.
  */
 function field_permission_example_permission() {
-  // Note: This would be very easy to generate programatically,
+  // Note: This would be very easy to generate programmatically,
   // but it's all typed out here for clarity.
   // The key text is the machine name of the permission.
   $perms['view own fieldnote'] = array('title' => t('View own fieldnote'));
@@ -187,7 +186,7 @@ function field_permission_example_field_info() {
 /**
  * Implements hook_field_is_empty().
  *
- * hook_field_is_emtpy() is where Backdrop asks us if this field is empty.
+ * hook_field_is_empty() is where Backdrop asks us if this field is empty.
  * Return TRUE if it does not contain data, FALSE if it does. This lets
  * the form API flag an error when required fields are empty.
  */
@@ -240,7 +239,7 @@ function field_permission_example_field_formatter_view($entity_type, $entity, $f
           '#attributes' => array(
             'class' => 'stickynote',
           ),
-          // ..And this is the CSS for the stickynote.
+          // This is the CSS for the stickynote.
           '#attached' => array(
             'css' => array(backdrop_get_path('module', 'field_permission_example') .
               '/field_permission_example.css'),

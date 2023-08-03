@@ -123,7 +123,7 @@ function tabledrag_example_parent_form($form_state) {
  * add our tabledrag functionality.  (Note that backdrop_add_tabledrag should be
  * called from the theme layer, and not from a form declaration.  This helps
  * keep template files clean and readable, and prevents tabledrag.js from
- * being added twice accidently.
+ * being added twice accidentally.
  *
  * @ingroup tabledrag_example
  */
@@ -273,7 +273,7 @@ function tabledrag_example_parent_form_submit($form, &$form_state) {
 }
 
 /**
- * Retrives the tree structure from database, and sorts by parent/child/weight.
+ * Retrieves the tree structure from database, and sorts by parent/child/weight.
  *
  * The sorting should result in children items immediately following their
  * parent items, with items at the same level of the hierarchy sorted by
