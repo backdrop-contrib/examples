@@ -596,7 +596,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
       $mode = 0040000;
     }
     elseif ($key !== FALSE) {
-      // S_IFREG, means it's a file.
+      // S_IFREG means it's a file.
       $mode = 0100000;
     }
 

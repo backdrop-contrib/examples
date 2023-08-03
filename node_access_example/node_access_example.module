@@ -323,8 +323,8 @@ function node_access_example_node_grants($account, $op) {
  * @see node_access_example_node_grants()
  */
 function node_access_example_node_access_records($node) {
-  // We only care about the node if it's been marked private. If not, it is
-  // treated just like any other node and we completely ignore it.
+  // We only care about the node if it has been marked private. If not, it is
+  // treated just like any other node, and we completely ignore it.
   if (!empty($node->private)) {
     $grants = array();
     $grants[] = array(
