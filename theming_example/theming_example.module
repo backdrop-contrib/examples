@@ -31,9 +31,9 @@
  * In order to get function 'theme_theming_example_page()' recognized it needs
  * to be registered with the module theme register function of the
  * type 'hook_theme'.
- *
- * function 'theming_example_theme()' does this for this module.
- * for details of what can be done in this hook see the link to api.DOCUMENTATION_PENDING
+ * theming_example_theme() does this for this module. For details of what can be
+ * done in this hook see
+ * @link https://docs.backdropcms.org/api/backdrop/core%21modules%21system%21system.api.php/function/hook_theme/1 hook_theme() @endlink
  *
  * The functions 'theming_example_list_page()' and theming_example_order_form()
  * work in the same way.
