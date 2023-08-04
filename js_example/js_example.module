@@ -70,8 +70,8 @@ function js_example_menu() {
  * this file and reload js_example/weights. Examine the new source to see the
  * reordering.
  *
- * @return array
- *   A renderable array.
+ * @return string
+ *   The HTML markup.
  */
 function js_example_js_weights() {
   // Add some css to show which line is output by which script.

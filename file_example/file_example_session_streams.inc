@@ -168,6 +168,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
   public function getExternalUrl() {
     $path = $this->getLocalPath();
     $url = url('examples/file_example/access_session/' . $path, array('absolute' => TRUE));
+
     return $url;
   }
 
@@ -205,6 +206,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
 
     $path  = str_replace('session://', '', $uri);
     $path = trim($path, '/');
+
     return $path;
   }
 
@@ -235,6 +237,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
 
     // Reset the stream pointer since this is an open.
     $this->streamPointer = 0;
+
     return TRUE;
   }
 
@@ -274,6 +277,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
         return $fail;
       }
     }
+
     return $var;
   }
 
@@ -320,6 +324,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
         return $buffer;
       }
     }
+
     return FALSE;
   }
 
@@ -340,6 +345,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     $data = check_plain($data);
     $this->sessionContent = substr_replace($this->sessionContent, $data, $this->streamPointer);
     $this->streamPointer += backdrop_strlen($data);
+
     return backdrop_strlen($data);
   }
 
@@ -373,6 +379,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
       $this->streamPointer = $offset;
       return TRUE;
     }
+
     return FALSE;
   }
 
@@ -429,6 +436,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     $this->streamPointer = 0;
     // Unassign the reference.
     unset($this->sessionContent);
+
     return TRUE;
   }
 
@@ -455,6 +463,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     // backdrop_array_get_nested_value() doesn't work because it only returns
     // a reference; unsetting a reference only unsets the reference.
     eval("unset($unset);");
+
     return TRUE;
   }
 
@@ -479,6 +488,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     }
     $to_key = $from_key;
     unset($from_key);
+
     return TRUE;
   }
 
@@ -502,6 +512,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     else {
       $dirname = '';
     }
+
     return $scheme . '://' . $dirname;
   }
 
@@ -532,6 +543,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     // Place a magic file inside it to differentiate this from an empty file.
     $marker_uri = $uri . '/.isadir.txt';
     $this->uri_to_session_key($marker_uri, TRUE);
+
     return TRUE;
   }
 
@@ -624,6 +636,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
         'blocks' => 0,
       );
     }
+
     return $return;
   }
 
@@ -652,6 +665,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
     unset($this->directoryKeys['.isadir.txt']);
     $this->directoryKeys = array_keys($this->directoryKeys);
     $this->directoryPointer = 0;
+
     return TRUE;
   }
 
@@ -669,6 +683,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
       $this->directoryPointer++;
       return $next;
     }
+
     return FALSE;
   }
 
@@ -682,6 +697,8 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
    */
   public function dir_rewinddir() {
     $this->directoryPointer = 0;
+
+    return TRUE;
   }
 
   /**
@@ -695,6 +712,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
   public function dir_closedir() {
     $this->directoryPointer = 0;
     unset($this->directoryKeys);
+
     return TRUE;
   }
 }

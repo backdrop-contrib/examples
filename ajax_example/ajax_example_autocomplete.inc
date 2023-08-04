@@ -342,9 +342,6 @@ function ajax_example_node_by_author_ajax_callback($form, $form_state) {
  *   Form API form.
  * @param array $form_state
  *   Form API form state.
- *
- * @return array
- *   Form API array.
  */
 function ajax_example_node_by_author_autocomplete_validate($form, &$form_state) {
   $title = $form_state['values']['node'];
@@ -407,9 +404,6 @@ function ajax_example_node_by_author_autocomplete_validate($form, &$form_state) 
  *   Form API form.
  * @param array $form_state
  *   Form API form state.
- *
- * @return array
- *   Form API array.
  */
 function ajax_example_node_by_author_autocomplete_submit($form, &$form_state) {
   $node = node_load($form_state['values']['node']);
