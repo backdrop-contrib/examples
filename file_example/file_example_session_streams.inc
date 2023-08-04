@@ -1,4 +1,12 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
 /**
  * @file
  * Provides a demonstration session:// stream-wrapper.

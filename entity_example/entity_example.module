@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
 /**
  * @file
  * Implements the basic functionality required to create and display an entity.

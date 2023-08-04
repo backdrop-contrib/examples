@@ -100,6 +100,7 @@
  * - 'file': Optional. Relative path to a file from the module's directory
  *   that contains the callback function. *
  * @see hook_action_info()
+ * @noinspection SpellCheckingInspection
  */
 function action_example_action_info() {
   return array(
