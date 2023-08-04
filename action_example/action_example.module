@@ -186,10 +186,10 @@ function action_example_basic_action(&$entity, $context = array()) {
  * Action function for action_example_unblock_user_action.
  *
  * This action is expecting an entity object user, node or comment. If none of
- * the above is provided (because it was not called from an user/node/comment
- * trigger event, then the action will be taken on the current logged in user.
+ * the above is provided, because it was not called from a user/node/comment
+ * trigger event, then the action will be taken on the current logged-in user.
  *
- * Unblock an user. This action can be fired from different trigger types:
+ * Unblock a user. This action can be fired from different trigger types:
  * - User trigger: this user will be unblocked.
  * - Node/Comment trigger: the author of the node or comment will be unblocked.
  * - Other: (including system or custom defined types), current user will be
