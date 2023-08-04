@@ -146,7 +146,9 @@ function batch_example_op_1($nid, $operation_details, &$context) {
   $context['results'][] = $node->nid . ' : ' . check_plain($node->title);
 
   // Optional message displayed under the progressbar.
-  $context['message'] = t('Loading node "@title"', array('@title' => $node->title)) . ' ' . $operation_details;
+  $context['message'] = t('Loading node "@title" @operation_details', array('@title' => $node->title,
+    '@operation_details' => print_r($operation_details, TRUE),
+  ));
 
   _batch_example_update_http_requests();
 }
@@ -304,7 +306,7 @@ function _batch_example_update_http_requests() {
 
 /**
  * Utility function to count the HTTP requests in a session variable.
- * 
+ *
  * @return int
  *   Number of requests.
  */
