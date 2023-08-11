@@ -145,8 +145,11 @@ function batch_example_op_1($nid, $operation_details, &$context) {
   // 'finished' function (in this example, batch_example_finished()).
   $context['results'][] = $node->nid . ' : ' . check_plain($node->title);
 
-  // Optional message displayed under the progressbar.
-  $context['message'] = t('Loading node "@title"', array('@title' => $node->title)) . ' ' . $operation_details;
+  // Optional message displayed under the progress bar.
+  // $operations_details is a translated string passed to the batch operation
+  // callback.
+  $context['message'] = t('Loading node "@title"', array('@title' => $node->title));
+  $context['message'] .= ' ' . $operation_details;
 
   _batch_example_update_http_requests();
 }
