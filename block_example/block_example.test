@@ -60,7 +60,7 @@ class BlockExampleTestCase extends BackdropWebTestCase {
     ));
     $block_uuid = (string) $last_block[0]['data-block-id'];
     $block_edit_url = 'admin/structure/layouts/manage/default/configure-block/editor/' . $block_uuid;
-    
+
     // Confirm the block exists, and is the right place.
     $this->assertText('Example: configurable text string');
     // Save the layout.
@@ -83,12 +83,12 @@ class BlockExampleTestCase extends BackdropWebTestCase {
     );
     $this->backdropPost($block_edit_url, $edit, t('Update block'));
     $this->backdropPost(NULL, array(), t('Save layout'));
-    
+
     // Verify that new content is shown.
     $this->backdropGet('examples/block_example');
     $this->assertRaw($string, 'Content of configurable text block successfully verified.');
 
-    // Make sure our example uppercased block is shown as altered by the
+    // Make sure our example uppercase block is shown as altered by the
     // hook_block_view_alter().
     $this->backdropGet('admin/structure/layouts/manage/default');
     $this->clickLink(t('Add block'), 3);

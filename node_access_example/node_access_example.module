@@ -105,8 +105,8 @@ function node_access_example_menu() {
  * use of the 'node_access' tag to make sure that we don't show inappropriate
  * information to unprivileged users.
  *
- * @return string
- *   Page content.
+ * @return array
+ *   A render array.
  *
  * @see page_example
  */
@@ -204,7 +204,7 @@ function node_access_example_permission() {
  * Allows view and edit access to private nodes, when the account requesting
  * access has the username 'foobar'.
  *
- * hook_node_access() is used here to demonstrate allowing certain privileges 
+ * hook_node_access() is used here to demonstrate allowing certain privileges
  * to an arbitrary user.
  *
  * @see hook_node_access()
@@ -323,8 +323,8 @@ function node_access_example_node_grants($account, $op) {
  * @see node_access_example_node_grants()
  */
 function node_access_example_node_access_records($node) {
-  // We only care about the node if it's been marked private. If not, it is
-  // treated just like any other node and we completely ignore it.
+  // We only care about the node if it has been marked private. If not, it is
+  // treated just like any other node, and we completely ignore it.
   if (!empty($node->private)) {
     $grants = array();
     $grants[] = array(
@@ -346,8 +346,8 @@ function node_access_example_node_access_records($node) {
 
     // For the node_access_example_author realm, the grant ID (gid) is
     // equivalent to the node author's user ID (UID).
-    // We check the node UID so that we don't grant author priviledges for
-    // anonymous nodes to anonymous users.
+    // We check the node UID so that we don't grant author permissions to
+    // anonymous users.
     if ($node->uid) {
       $grants[] = array(
         'realm' => 'node_access_example_author',

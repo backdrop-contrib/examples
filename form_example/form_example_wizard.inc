@@ -12,7 +12,7 @@
  * last stage of the form submission.
  *
  * This example is an extensible skeleton that can include (even
- * programatically) more steps. The demonstration form includes three steps,
+ * programmatically) more steps. The demonstration form includes three steps,
  * each step having its own validation functions.
  *
  * How to extend this example:
@@ -72,7 +72,7 @@ function _form_example_steps() {
  * handler used to process the information.
  *
  * You are not required to change the next or previous handlers, but you must
- * change the form_example_wizard_sbumit handler to perform the operations you
+ * change the form_example_wizard_submit handler to perform the operations you
  * need on the collected information.
  *
  * @ingroup form_example
@@ -267,7 +267,7 @@ function form_example_wizard_location_info_validate($form, &$form_state) {
 /**
  * Returns form elements for the 'other info' page of the wizard.
  *
- * This is the thid and last step of the example wizard.
+ * This is the third and last step of the example wizard.
  *
  * @ingroup form_example
  */

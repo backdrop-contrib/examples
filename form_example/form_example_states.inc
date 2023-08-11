@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
 /**
  * @file
  * An example of how to use the new #states Form API element, allowing
@@ -50,7 +50,7 @@
  * Note that the easiest way to select a textfield, checkbox, or select is with
  * the
  * @link http://api.jquery.com/input-selector/ ':input' jquery shortcut @endlink,
- * which selects any any of those.
+ * which selects any of those.
  *
  * There are examples below of changing or hiding an element when a checkbox
  * is checked, when a textarea is filled, when a select has a given value.

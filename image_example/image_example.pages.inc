@@ -46,8 +46,8 @@ function image_example_style_form($form, &$form_state) {
     '#description' => t('Choose an image style to use when displaying this image.'),
     // The image_style_options() function returns an array of all available
     // image styles both the key and the value of the array are the image
-    // style's name. The fucntion takes on paramater, a boolean flag
-    // signifying wether or not the array should include a <none> option.
+    // style's name. The function takes Boolean parameter, which is TRUE when
+    // the array should include a <none> option.
     '#options' => image_style_options(TRUE),
     '#default_value' => $config->get('image_example_style_name'),
   );
@@ -87,8 +87,8 @@ function image_example_style_form_submit($form, &$form_state) {
   // If fid is not 0 we have a valid file.
   if ($form_state['values']['image_example_image_fid'] != 0) {
     // The new file's status is set to 0 or temporary and in order to ensure
-    // that the file is not removed after 6 hours we need to change it's status
-    // to 1. Save the ID of the uploaded image for later use.
+    // that the file is not removed after 6 hours we need to change its status
+    // to 1. Save the image ID for later use.
     $file = file_load($form_state['values']['image_example_image_fid']);
     $file->status = FILE_STATUS_PERMANENT;
     file_save($file);
@@ -97,7 +97,7 @@ function image_example_style_form_submit($form, &$form_state) {
     // Here we increment the usage count with file_usage_add().
     file_usage_add($file, 'image_example', 'sample_image', 1);
 
-    // Save the fid of the file so that the module can reference it later.
+    // Save the file ID, so that the module can reference it later.
     $config->set('image_example_image_fid', $file->fid);
     backdrop_set_message(t('The image @image_name was uploaded and saved with an ID of @fid and will be displayed using the style @style.',
       array(
@@ -124,14 +124,14 @@ function image_example_style_form_submit($form, &$form_state) {
       file_delete($file->fid);
     }
 
-    // Either way the module needs to update it's reference since even if the
+    // Either way the module needs to update its reference since even if the
     // file is in use by another module and not deleted we no longer want to
     // use it.
     $config->set('image_example_image_fid', FALSE);
     backdrop_set_message(t('The image @image_name was removed.', array('@image_name' => $file->filename)));
   }
 
-  // Save the name of the image style choosen by the user.
+  // Save the name of the image style chosen by the user.
   $config->set('image_example_style_name', $form_state['values']['image_example_style_name']);
   $config->save();
 }

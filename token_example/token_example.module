@@ -75,7 +75,7 @@ function token_example_example_form($form, &$form_state) {
         '#access' => !empty($objects),
       );
 
-      // Build a list of supported token types based on the available entites.
+      // Build a list of supported token types based on the available entities.
       if ($form[$entity]['#access']) {
         $token_types[$entity] = !empty($info['token type']) ? $info['token type'] : $entity;
       }
