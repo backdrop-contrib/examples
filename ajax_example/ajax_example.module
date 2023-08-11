@@ -91,7 +91,7 @@ function ajax_example_menu() {
     'access callback' => TRUE,
     'weight' => 4,
   );
-  // Repopulate a dropdown, but this time with graceful degredation.
+  // Repopulate a dropdown, but this time with graceful degradation.
   // See ajax_example_graceful_degradation.inc.
   $items['examples/ajax_example/dependent_dropdown_degrades'] = array(
     'title' => 'Dependent dropdown (with graceful degradation)',
@@ -378,7 +378,7 @@ function ajax_example_autocheckboxes($form, &$form_state) {
       // 'speed' defaults to 'slow'. You can also use 'fast'
       // or a number of milliseconds for the animation to last.
       // 'speed' => 'slow',
-      // Don't show any throbber...
+      // Don't show any throbber.
       'progress' => array('type' => 'none'),
     ),
   );
@@ -529,7 +529,7 @@ function ajax_example_submit_driven_ajax($form, &$form_state) {
  *   Renderable array (the box element)
  */
 function ajax_example_submit_driven_callback($form, $form_state) {
-  // In most cases, it is recomended that you put this logic in form generation
+  // In most cases, it is recommended that you put this logic in form generation
   // rather than the callback. Submit driven forms are an exception, because
   // you may not want to return the form at all.
   $element = $form['box'];

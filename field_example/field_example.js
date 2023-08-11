@@ -1,5 +1,5 @@
 /**
- * Provides a farbtastic colorpicker for the fancier widget.
+ * Provides a Farbtastic color-picker for the fancier widget.
  */
 (function ($) {
   Backdrop.behaviors.field_example_colorpicker = {
@@ -7,7 +7,7 @@
       $('.node-form').on('focus', '.edit-field-example-colorpicker', function(event){
         var edit_field = this;
         var picker = $(this).closest('div').parent().find(".field-example-colorpicker");
-        
+
         // Hide all color pickers except this one.
         $(".field-example-colorpicker").hide();
         $(picker).show();

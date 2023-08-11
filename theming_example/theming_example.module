@@ -31,9 +31,9 @@
  * In order to get function 'theme_theming_example_page()' recognized it needs
  * to be registered with the module theme register function of the
  * type 'hook_theme'.
- *
- * function 'theming_example_theme()' does this for this module.
- * for details of what can be done in this hook see the link to api.DOCUMENTATION_PENDING
+ * theming_example_theme() does this for this module. For details of what can be
+ * done in this hook see
+ * @link https://docs.backdropcms.org/api/backdrop/core%21modules%21system%21system.api.php/function/hook_theme/1 hook_theme() @endlink
  *
  * The functions 'theming_example_list_page()' and theming_example_order_form()
  * work in the same way.
@@ -47,12 +47,11 @@
  * wrapped in html. The rest of the form is wrapped in a div using '#prefix'
  * and '#suffix'
  *
- * The theming functions can be copied to a theme's template.php, renaming
- * appropriately, so if you theme is called 'mytheme' you would copy
- * function 'theme_theming_example_page()'
- * to
- * function 'mytheme_theming_example_page()' in template.php and it will be
- * used instead of the original.
+ * The theming functions can be copied to a theme's template.php, renaming them
+ * appropriately. For example, if your theme is called 'mytheme', you would copy
+ * theme_theming_example_page() to mytheme_theming_example_page() in the
+ * template.php file, and it will be used instead of
+ * theme_theming_example_page().
  *
  * The fourth example shows the use of a template file
  * 'theming_example_text_form.tpl.php'

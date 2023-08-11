@@ -149,7 +149,7 @@ function page_example_simple() {
  *
  * This function also demonstrates a more complex render array in the returned
  * values. Instead of just rendering the HTML with a theme('item_list'), the
- * list is left unrendered, and a #theme attached to it so that it can be
+ * list is not rendered, and a #theme attached to it so that it can be
  * rendered as late as possible, giving more parts of the system a chance to
  * change it if necessary.
  *

@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
 /**
  * @file
  * Examples demonstrating the backdrop File API (and Stream Wrappers).
@@ -10,10 +14,10 @@
  * @{
  * Examples demonstrating the backdrop File API (and Stream Wrappers).
  *
- * The File Example module is a part of the Examples for Developers Project
+ * The File Example module is a part of the Examples for Developers project
  * and provides various backdrop File API Examples. You can download and
  * experiment with this code at the
- * @link http://DOCUMENTATION_PENDING/project/examples Examples for Developers project page. @endlink
+ * @link http://backdropcms.org/project/examples Examples for Developers project page. @endlink
  *
  * See @link http://DOCUMENTATION_PENDING Backdrop File API @endlink for handbook
  * documentation on the File API and
@@ -319,7 +323,7 @@ function file_example_unmanaged_php_submit($form, &$form_state) {
  * below.
  *
  * Here we take the stream wrapper provided in the form. We grab the
- * contents with file_get_contents(). Notice that's it's as simple as that:
+ * contents with file_get_contents(). Notice that it's as simple as that:
  * file_get_contents("http://example.com") or
  * file_get_contents("public://somefile.txt") just works. Although it's
  * not necessary, we use file_unmanaged_save_data() to save this file locally
@@ -334,7 +338,7 @@ function file_example_read_submit($form, &$form_state) {
   }
 
   // Make a working filename to save this by stripping off the (possible)
-  // file portion of the streamwrapper. If it's an evil file extension,
+  // file portion of the stream wrapper. If it's an evil file extension,
   // file_munge_filename() will neuter it.
   $filename = file_munge_filename(preg_replace('@^.*/@', '', $uri), '', TRUE);
   $buffer = file_get_contents($uri);
@@ -483,7 +487,7 @@ function file_example_check_directory_submit($form, &$form_state) {
  * Utility submit function to show the contents of $_SESSION.
  */
 function file_example_show_session_contents_submit($form, &$form_state) {
-  // If the devel module is installed, use it's nicer message format.
+  // If the devel module is installed, use its nicer message format.
   if (module_exists('devel')) {
     dsm($_SESSION['file_example'], t('Entire $_SESSION["file_example"]'));
   }

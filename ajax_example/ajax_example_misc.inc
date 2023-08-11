@@ -13,8 +13,8 @@
  * When using the AJAX framework outside the context of a form or a renderable
  * array of type 'link', you have to include ajax.js explicitly.
  *
- * @return array
- *   Form API array.
+ * @return string
+ *   The HTML markup for the rendered link.
  *
  * @ingroup ajax_example
  */

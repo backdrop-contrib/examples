@@ -8,7 +8,7 @@
  * Example of batch-driven update function.
  *
  * Because some update functions may require the batch API, the $sandbox
- * provides a place to store state. When $standbox['#finished'] == TRUE,
+ * provides a place to store state. When $sandbox['#finished'] == TRUE,
  * calls to this update function are completed.
  *
  * The $sandbox param provides a way to store data during multiple invocations.
@@ -43,7 +43,7 @@ function batch_example_update_1100(&$sandbox) {
   // progress feedback to the user and wait for the next request.
   $limit = 10;
 
-  // Retrieve the next group of nids.
+  // Retrieve the next group of node IDs.
   $result = db_select('node', 'n')
     ->fields('n', array('nid'))
     ->orderBy('n.nid', 'ASC')
