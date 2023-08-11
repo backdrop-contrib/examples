@@ -1,4 +1,14 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
 /**
  * @file
  * This is an example demonstrating how a module can define custom form and
@@ -58,14 +68,14 @@
  * - form_example_textfield: This is actually just a textfield, but provides
  *   the new type. If more were to be done with it a theme function could be
  *   provided.
- * - form_example_checkbox: Nothing more than a regular checkbox, but uses
+ * - form_example_checkbox: Nothing more than a regular checkbox, but it uses
  *   an alternate theme function provided by this module.
  * - form_example_phonenumber_discrete: Provides a North-American style
- *   three-part phonenumber where the value of the phonenumber is managed
- *   as an array of three parts.
+ *   three-part phone-number, where the phone-number value is as an array of
+ *   three parts.
  * - form_example_phonenumber_combined: Provides a North-American style
- *   three-part phonenumber where the actual value is managed as a 10-digit
- *   string and only broken up into three parts for the user interface.
+ *   three-part phone-number where the actual value is a 10-digit string which
+ *   is broken up into three parts for the user interface.
  *
  * form_builder() has significant discussion of #process and #value_callback.
  * See also hook_element_info().

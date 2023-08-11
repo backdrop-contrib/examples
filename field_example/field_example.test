@@ -108,7 +108,7 @@ class FieldExampleTest extends BackdropWebTestCase {
       'field_' . $multivalue_3text_field . '[und][0][rgb][b]' => '04',
 
     );
-    // We want to add a 2nd item to the multivalue field, so hit "add another".
+    // We want to add a 2nd item to the multi-value field, so hit "add another".
     $this->backdropPost(NULL, $edit, t('Add another item'));
 
     $edit = array(
@@ -116,7 +116,7 @@ class FieldExampleTest extends BackdropWebTestCase {
       'field_' . $multivalue_3text_field . '[und][1][rgb][g]' => '00',
       'field_' . $multivalue_3text_field . '[und][1][rgb][b]' => '05',
     );
-    // Now we can fill in the second item in the multivalue field and save.
+    // Now we can fill in the second item in the multi-value field and save.
     $this->backdropPost(NULL, $edit, t('Save'));
     $this->assertText(t('@content_type_machine @title has been created', array('@content_type_machine' => $content_type_machine, '@title' => $title)));
 

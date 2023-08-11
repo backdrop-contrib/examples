@@ -47,7 +47,7 @@ function image_example_config_info() {
     'group' => t('Configuration'),
   );
   $prefixes['image.style.image_example_style'] = array(
-    'label' => t('Image example custum image style'),
+    'label' => t('Image example custom image style'),
     'group' => t('Configuration'),
   );
   return $prefixes;
@@ -88,13 +88,13 @@ function image_example_image_default_styles() {
   // style. The array keys are the machine-readable image style names and
   // to avoid namespace conflicts should begin with the name of the
   // implementing module. e.g.) 'mymodule_stylename'. Styles names should
-  // use only alpha-numeric characters, underscores (_), and hyphens (-).
+  // use only alphanumeric characters, underscores (_), and hyphens (-).
   $styles = array();
   $styles['image_example_style'] = array();
 
   // Each style array consists of an 'effects' array that is made up of
   // sub-arrays which define the individual image effects that are combined
-  // together to create the image style.
+  // to create the image style.
   $styles['image_example_style']['effects'] = array(
     array(
       // Name of the image effect. See image_image_effect_info() in
@@ -115,7 +115,7 @@ function image_example_image_default_styles() {
       'weight' => 0,
     ),
     // Add a second effect to this image style. Effects are executed in order
-    // and are cummulative. When applying an image style to an image the result
+    // and are cumulative. When applying an image style to an image the result
     // will be the combination of all effects associated with that style.
     array(
       'name' => 'image_example_colorize',
@@ -137,13 +137,13 @@ function image_example_image_default_styles() {
  */
 function image_example_image_style_save($style) {
   // The $style parameter is an image style array with one notable exception.
-  // When a user has choosen to replace a deleted style with another style the
+  // When a user has chosen to replace a deleted style with another style the
   // $style['name'] property contains the name of the replacement style and
   // $style['old_name'] contains the name of the style being deleted.
   //
   // Here we update a variable that contains the name of the image style that
-  // the block provided by this module uses when formating images to use the
-  // new user choosen style name.
+  // the block provided by this module uses when formatting images to use the
+  // new user chosen style name.
   if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
     config_set('image_example.settings', 'image_example_style_name', $style['name']);
   }
@@ -157,7 +157,7 @@ function image_example_image_style_save($style) {
  * @see image_example_style_save()
  */
 function image_example_image_style_delete($style) {
-  // See information about $style paramater in documentation for
+  // See information about $style parameter in documentation for
   // image_example_style_save().
   //
   // Update the modules variable that contains the name of the image style
@@ -196,16 +196,16 @@ function image_example_style_flush($style) {
  *
  * Allows your module to modify, add, or remove image styles provided
  * by other modules. The best use of this hook is to modify default styles that
- * have not been overriden by the user. Altering styles that have been
- * overriden by the user could have an adverse affect on the user experience.
+ * have not been overridden by the user. Altering styles that have been
+ * overridden by the user could have an adverse effect on the user experience.
  * If you add an effect to a style through this hook and the user attempts to
- * remove the effect it will immediatly be re-applied.
+ * remove the effect it will immediately be re-applied.
  */
 function image_example_image_styles_alter(&$styles) {
-  // The $styles paramater is an array of image style arrays keyed by style
-  // name. You can check to see if a style has been overriden by checking the
+  // The $styles parameter is an array of image style arrays keyed by style
+  // name. You can check to see if a style has been overridden by checking the
   // $styles['stylename']['storage'] property.
-  // Verify that the effect has not been overriden.
+  // Verify that the effect has not been overridden.
   if ($styles['thumbnail']['storage'] == IMAGE_STORAGE_DEFAULT) {
     // Add an additional colorize effect to the system provided thumbnail
     // effect.
@@ -232,7 +232,7 @@ function image_example_image_effect_info() {
 
   // The array is keyed on the machine-readable effect name.
   $effects['image_example_colorize'] = array(
-    // Human readable name of the effect.
+    // Human-readable name of the effect.
     'label' => t('Colorize'),
     // (optional) Brief description of the effect that will be shown when
     // adding or configuring this image effect.
@@ -242,12 +242,12 @@ function image_example_image_effect_info() {
     // (optional) Name of function that provides a $form array with options for
     // configuring the effect. Note that you only need to return the fields
     // specific to your module. Submit buttons will be added automatically, and
-    // configuration options will be serailized and added to the 'data' element
-    // of the effect. The function will recieve the $effect['data'] array as
+    // configuration options will be serialized and added to the 'data' element
+    // of the effect. The function will receive the $effect['data'] array as
     // its only parameter.
     'form callback' => 'image_example_colorize_form',
     // (optional) Name of a theme function that will output a summary of this
-    // effects configuation. Used when displaying list of effects associated
+    // effects' configuration. Used when displaying list of effects associated
     // with an image style. In this example the function
     // theme_image_example_colorize_summary will be called via the theme()
     // function. Your module must also implement hook_theme() in order for this

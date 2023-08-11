@@ -126,7 +126,7 @@ function email_example_mail_send($form_values) {
  *
  * Hook_mail_alter() provides an interface to alter any aspect of email sent by
  * Backdrop. You can use this hook to add a common site footer to all outgoing
- * email, add extra header fields, and/or modify the email in anyway. HTML-izing
+ * email, add extra header fields, and/or modify the email in any way. HTML-izing
  * the outgoing email is one possibility.
  */
 function email_example_mail_alter(&$message) {

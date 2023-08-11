@@ -7,7 +7,7 @@
  */
 
 /**
- * Functionality tests for enitity example module.
+ * Functionality tests for entity example module.
  *
  * @ingroup entity_example
  */
@@ -131,7 +131,7 @@ class EntityExampleTestCase extends BackdropWebTestCase {
     $this->backdropGet('examples/entity_example/basic/2/edit');
     $this->assertResponse(403, 'User is denied edit privileges');
 
-    // Create and login user with view and edit but no manage privs.
+    // Create and log in user with view and edit but no manage permission.
     $account = $this->backdropCreateUser(
       array(
         'access content',

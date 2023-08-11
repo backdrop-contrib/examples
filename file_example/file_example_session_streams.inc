@@ -1,7 +1,15 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
+/** @noinspection SpellCheckingInspection */
 /**
  * @file
- * Provides a demonstration session:// streamwrapper.
+ * Provides a demonstration session:// stream-wrapper.
  *
  * This example is nearly fully functional, but has no known
  * practical use. It's an example and demonstration only.
@@ -608,7 +616,7 @@ class FileExampleSessionStreamWrapper implements BackdropStreamWrapperInterface 
       $mode = 0040000;
     }
     elseif ($key !== FALSE) {
-      // S_IFREG, means it's a file.
+      // S_IFREG means it's a file.
       $mode = 0100000;
     }
 

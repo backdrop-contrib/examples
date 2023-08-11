@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
 /**
  * @file
  * Implements the basic functionality required to create and display an entity.
@@ -44,7 +44,7 @@ function entity_example_entity_info() {
     // Returns the uri elements of an entity.
     'uri callback' => 'entity_example_basic_uri',
 
-    // IF fieldable == FALSE, we can't attach fields.
+    // When fieldable is set to FALSE, we can't attach fields.
     'fieldable' => TRUE,
 
     // entity_keys tells the controller what database fields are used for key

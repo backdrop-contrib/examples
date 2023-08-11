@@ -50,7 +50,7 @@ class AjaxExampleTestCase extends BackdropWebTestCase {
       $edit = array('question_type_select' => $style);
       $this->backdropPost($path, $edit, t('Choose'));
       $this->assertResponse(200, format_string('Question style "@style" selected.', array('@style' => $style)));
-      // For convenience, make variables out of the entries in $QandA.
+      // For convenience, make variables out of the entries in $q_and_a.
       extract($q_and_a);
       // Check for the expected input field.
       $this->assertFieldByName('question', $value);

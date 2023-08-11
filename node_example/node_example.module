@@ -138,7 +138,7 @@ function node_example_form($node, $form_state) {
  */
 function node_example_page() {
   // We'll start building a renderable array that will be our page.
-  // For now we just declare the array.
+  // For now, we just declare the array.
   $renderable_array = array();
   // We query the database and find all of the nodes for the type we defined.
   $sql = 'SELECT nid FROM {node} n WHERE n.type = :type AND n.status = :status';
