@@ -105,8 +105,8 @@ function node_access_example_menu() {
  * use of the 'node_access' tag to make sure that we don't show inappropriate
  * information to unprivileged users.
  *
- * @return string
- *   Page content.
+ * @return array
+ *   A render array.
  *
  * @see page_example
  */
@@ -204,7 +204,7 @@ function node_access_example_permission() {
  * Allows view and edit access to private nodes, when the account requesting
  * access has the username 'foobar'.
  *
- * hook_node_access() is used here to demonstrate allowing certain privileges 
+ * hook_node_access() is used here to demonstrate allowing certain privileges
  * to an arbitrary user.
  *
  * @see hook_node_access()

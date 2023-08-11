@@ -79,8 +79,8 @@ function tabledrag_example_simple_form($form_state) {
  * keep template files clean and readable, and prevents tabledrag.js from
  * being added twice accidently.
  *
- * @return array
- *   The rendered tabledrag form
+ * @return string
+ *   The HTML markup for the table-drag form.
  *
  * @ingroup tabledrag_example
  */
