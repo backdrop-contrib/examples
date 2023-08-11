@@ -223,7 +223,7 @@ function batch_example_op_2($operation_details, &$context) {
   // the operation itself is interruptible.
   $limit = 5;
 
-  // Retrieve the next group of nids.
+  // Retrieve the next group of node IDs.
   $result = db_select('node', 'n')
     ->fields('n', array('nid'))
     ->orderBy('n.nid', 'ASC')
@@ -304,7 +304,7 @@ function _batch_example_update_http_requests() {
 
 /**
  * Utility function to count the HTTP requests in a session variable.
- * 
+ *
  * @return int
  *   Number of requests.
  */

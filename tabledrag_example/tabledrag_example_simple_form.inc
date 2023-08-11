@@ -77,10 +77,10 @@ function tabledrag_example_simple_form($form_state) {
  * add our tabledrag functionality.  (Note that backdrop_add_tabledrag should be
  * called from the theme layer, and not from a form declaration.  This helps
  * keep template files clean and readable, and prevents tabledrag.js from
- * being added twice accidently.
+ * being added twice accidentally.
  *
- * @return array
- *   The rendered tabledrag form
+ * @return string
+ *   The HTML markup for the table-drag form.
  *
  * @ingroup tabledrag_example
  */
@@ -99,7 +99,7 @@ function theme_tabledrag_example_simple_form($variables) {
     //
     // This could also have been done during the form declaration by adding
     // '#attributes' => array('class' => 'example-item-weight'),
-    // directy to the 'weight' element in tabledrag_example_simple_form().
+    // directly to the 'weight' element in tabledrag_example_simple_form().
     $form['example_items'][$id]['weight']['#attributes']['class'] = array('example-item-weight');
 
     // We are now ready to add each element of our $form data to the $rows

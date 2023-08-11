@@ -123,7 +123,7 @@ class SimpleTestUnitTestExampleTestCase extends BackdropUnitTestCase {
    *
    * Note that we use backdrop_load() instead of passing our module dependency
    * to parent::setUp(). That's because we're using BackdropUnitTestCase, and
-   * thus we don't want to install the module, only load it's code.
+   * thus we don't want to install the module, only load its code.
    *
    * Also, BackdropUnitTestCase can't actually install modules. This is by
    * design.
@@ -211,7 +211,7 @@ class SimpleTestExampleMockModuleTestCase extends BackdropWebTestCase {
     $node = $this->backdropCreateNode($settings);
     // View the node.
     $this->backdropGet("node/{$node->nid}");
-    // Check that our module did it's thing.
+    // Check that our module did its thing.
     $this->assertText(t('The test module did its thing.'), "Found evidence of test module.");
   }
 
