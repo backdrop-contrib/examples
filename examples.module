@@ -2,7 +2,7 @@
 /**
  * @file
  * This file serves as a stub file for the many Examples modules in the
- * @link http://DOCUMENTATION_PENDING/project/examples Examples for Developers Project @endlink
+ * @link http://backdropcms.org/project/examples Examples for Developers project @endlink
  * which you can download and experiment with.
  *
  * One might say that examples.module is an example of documentation. However,
@@ -19,8 +19,8 @@
  * Developers can learn how to use a particular API quickly by experimenting
  * with the examples, and adapt them for their own use.
  *
- * Based on the Examples for Developers Project at
- * http://DOCUMENTATION_PENDING/project/examples
+ * Based on the Examples for Developers project at
+ * http://www.drupal.org/project/examples
  */
 
 

@@ -33,7 +33,7 @@
  *
  * The idea of "stream wrapper" is that this can be extended indefinitely.
  * The classic example is HTTP: With PHP you can do a
- * file_get_contents("http://DOCUMENTATION_PENDING/projects") as if it were a file,
+ * file_get_contents("http://backdropcms.org/add-ons") as if it were a file,
  * because the scheme "http" is supported natively in PHP. So Backdrop adds
  * the public:// and private:// schemes, and contrib modules can add any
  * scheme they want to. This example adds the session:// scheme, which allows
