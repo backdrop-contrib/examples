@@ -28,7 +28,6 @@
  * More:
  *
  * @link http://www.ent.iastate.edu/it/Batch_and_Queue.pdf Batch vs Queue Presentation slides by John VanDyk @endlink
- * @link http://sf2010.DOCUMENTATION_PENDING/conference/sessions/batch-vs-queue-api-smackdown session video. @endlink
  *
  * @see system.queue.inc
  */
