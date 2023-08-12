@@ -12,16 +12,11 @@
  *
  * This module demonstrates the use of Backdrop's image styles and effects
  * including the following topics.
- *  - Define default image styles in code. Useful for modules that want to ship
- *    with predefined image styles and for site developers who want their image
- *    style configurations to be in version control.
- *    hook_image_default_styles().
  *  - Define new image effects. Demonstrates how a module can add additional
  *    effects to the options available when creating image styles.
  *    hook_image_effect_info().
  *  - Alter existing image styles. Demonstrates the use of
- *    hook_image_styles_alter() to modify existing image effects, especially
- *    those defined by other modules in hook_image_default_styles() without
+ *    hook_image_styles_alter() to modify existing image effects without
  *    having to override the styles.
  *  - Demonstrates the use of hook_image_style_save() and
  *    hook_image_style_delete() to update module specific variables when an
@@ -31,7 +26,6 @@
  *  - Demonstrates the use of theme_image_style() to display images using an
  *    image style.
  *
- * @see hook_image_default_styles().
  * @see hook_image_effect_info().
  * @see hook_image_style_save().
  * @see hook_image_style_delete().
@@ -69,64 +63,6 @@ function image_example_menu() {
     'file' => 'image_example.pages.inc',
   );
   return $items;
-}
-
-/**
- * Implements hook_image_default_styles().
- *
- * hook_image_default_styles() declares to Backdrop any image styles that are
- * provided by the module. An image style is a collection of image effects that
- * are performed in a specified order, manipulating the image and generating a
- * new derivative image.
- *
- * This hook can be used to declare image styles that your module depends on or
- * allow you to define image styles in code and gain the benefits of using
- * a version control system.
- */
-function image_example_image_default_styles() {
-  // This hook returns an array, each component of which describes an image
-  // style. The array keys are the machine-readable image style names and
-  // to avoid namespace conflicts should begin with the name of the
-  // implementing module. e.g.) 'mymodule_stylename'. Styles names should
-  // use only alphanumeric characters, underscores (_), and hyphens (-).
-  $styles = array();
-  $styles['image_example_style'] = array();
-
-  // Each style array consists of an 'effects' array that is made up of
-  // sub-arrays which define the individual image effects that are combined
-  // to create the image style.
-  $styles['image_example_style']['effects'] = array(
-    array(
-      // Name of the image effect. See image_image_effect_info() in
-      // modules/image/image.effects.inc for a list of image effects available
-      // in Backdrop core.
-      'name' => 'image_scale',
-      // Arguments to pass to the effect callback function.
-      // The arguments that an effect accepts are documented with each
-      // individual image_EFFECT_NAME_effect function. See image_scale_effect()
-      // for an example.
-      'data' => array(
-        'width' => 100,
-        'height' => 100,
-        'upscale' => 1,
-      ),
-      // The order in which image effects should be applied when using this
-      // style.
-      'weight' => 0,
-    ),
-    // Add a second effect to this image style. Effects are executed in order
-    // and are cumulative. When applying an image style to an image the result
-    // will be the combination of all effects associated with that style.
-    array(
-      'name' => 'image_example_colorize',
-      'data' => array(
-        'color' => '#FFFF66',
-      ),
-      'weight' => 1,
-    ),
-  );
-
-  return $styles;
 }
 
 /**
