@@ -159,7 +159,7 @@ function ajax_example_unique_autocomplete_validate($form, &$form_state) {
       return;
     }
   }
-  // BUT: Not everybody will have javascript turned on, or they might hit ESC
+  // BUT: Not everybody will have JavaScript turned on, or they might hit ESC
   // and not use the autocomplete values offered. In that case, we can attempt
   // to come up with a useful value. This is not absolutely necessary, and we
   // *could* just emit a form_error() as below.
@@ -369,7 +369,7 @@ function ajax_example_node_by_author_autocomplete_validate($form, &$form_state) 
       return;
     }
   }
-  // BUT: Not everybody will have javascript turned on, or they might hit ESC
+  // BUT: Not everybody will have JavaScript turned on, or they might hit ESC
   // and not use the autocomplete values offered. In that case, we can attempt
   // to come up with a useful value. This is not absolutely necessary, and we
   // *could* just emit a form_error() as below. Here we'll find the *first*

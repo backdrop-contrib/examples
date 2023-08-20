@@ -413,7 +413,7 @@ function theme_form_example_inline_form_element($variables) {
   if (isset($element['#markup']) && !empty($element['#id'])) {
     $attributes['id'] = $element['#id'];
   }
-  // Add element's #type and #name as class to aid with JS/CSS selectors.
+  // Add #type and #name as class to aid with JavaScript/CSS selectors.
   $attributes['class'] = array('form-item');
   if (!empty($element['#type'])) {
     $attributes['class'][] = 'form-type-' . strtr($element['#type'], '_', '-');

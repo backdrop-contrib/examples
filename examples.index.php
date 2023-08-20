@@ -18,7 +18,7 @@
  * @link filter_example.module Defining an input filter @endlink
  * @link form_example.module Form API examples, including multistep forms @endlink
  * @link image_example.module Demonstrates image handling with styles and effects @endlink
- * @link js_example.module Javascript examples @endlink
+ * @link js_example.module JavaScript examples @endlink
  * @link menu_example.module Menu API examples @endlink
  * @link nodeapi_example.module Node API demonstrations showing how a separate module can change the behavior of a node @endlink
  * @link node_access_example.module Define custom node access fules using node access hooks @endlink

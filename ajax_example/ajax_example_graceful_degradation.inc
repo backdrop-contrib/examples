@@ -8,7 +8,7 @@
  * @defgroup ajax_degradation_example Example: AJAX Graceful Degradation
  * @ingroup examples
  * @{
- * These examples show AJAX with graceful degradation when Javascript is not
+ * These examples show AJAX with graceful degradation when JavaScript is not
  * available.
  *
  * In each of these the key idea is that the form is rebuilt different ways
@@ -23,18 +23,18 @@
  * previous dropdown.
  *
  * On changing the first dropdown, the options in the second
- * are updated. Gracefully degrades if no javascript.
+ * are updated. Gracefully degrades if no JavaScript.
  *
- * A bit of CSS and javascript is required. The CSS hides the "add more" button
- * if javascript is not enabled. The Javascript snippet is really only used
+ * A bit of CSS and JavaScript is required. The CSS hides the "add more" button
+ * if JavaScript is not enabled. The JavaScript snippet is really only used
  * to enable us to present the form in degraded mode without forcing the user
- * to turn off Javascript.  Both of these are loaded by using the
+ * to turn off JavaScript.  Both of these are loaded by using the
  * #attached FAPI property, so it is a good example of how to use that.
  *
  * The extra argument $no_js_use is here only to allow presentation of this
- * form as if Javascript were not enabled. ajax_example_menu() provides two
+ * form as if JavaScript were not enabled. ajax_example_menu() provides two
  * ways to call this form, one normal ($no_js_use = FALSE) and one simulating
- * Javascript disabled ($no_js_use = TRUE).
+ * JavaScript disabled ($no_js_use = TRUE).
  */
 function ajax_example_dependent_dropdown_degrades($form, &$form_state, $no_js_use = FALSE) {
   // Get the list of options to populate the first dropdown.
@@ -46,9 +46,10 @@ function ajax_example_dependent_dropdown_degrades($form, &$form_state, $no_js_us
   // second dropdown.
   $selected = isset($form_state['values']['dropdown_first']) ? $form_state['values']['dropdown_first'] : key($options_first);
 
-  // Attach the CSS and JS we need to show this with and without javascript.
-  // Without javascript we need an extra "Choose" button, and this is
-  // hidden when we have javascript enabled.
+  // Attach the CSS and JavaScript we need to show this with and without
+  // JavaScript.
+  // Without JavaScript, we need an extra "Choose" button, which is hidden when
+  // JavaScript is enabled.
   $form['#attached']['css'] = array(
     backdrop_get_path('module', 'ajax_example') . '/ajax_example.css',
   );
@@ -74,16 +75,16 @@ function ajax_example_dependent_dropdown_degrades($form, &$form_state, $no_js_us
     ),
   );
 
-  // This simply allows us to demonstrate no-javascript use without
-  // actually turning off javascript in the browser. Removing the #ajax
+  // This simply allows us to demonstrate no-JavaScript use without
+  // actually turning off JavaScript in the browser. Removing the #ajax
   // element turns off AJAX behaviors on that element and as a result
   // ajax.js doesn't get loaded. This is for demonstration purposes only.
   if ($no_js_use) {
     unset($form['dropdown_first_fieldset']['dropdown_first']['#ajax']);
   }
 
-  // Since we don't know if the user has js or not, we always need to output
-  // this element, then hide it with with css if javascript is enabled.
+  // Since we don't know if the user has JavaScript or not, we always need to
+  // output this element, then hide it with CSS if JavaScript is enabled.
   $form['dropdown_first_fieldset']['continue_to_second'] = array(
     '#type' => 'submit',
     '#value' => t('Choose'),
@@ -107,7 +108,7 @@ function ajax_example_dependent_dropdown_degrades($form, &$form_state, $no_js_us
   $form['dropdown_second_fieldset']['submit'] = array(
     '#type' => 'submit',
     '#value' => t('OK'),
-    // This class allows attached js file to override the disabled attribute,
+    // This class allows attached JavaScript file to override the disabled attribute,
     // since it's not necessary in ajax-enabled form.
     '#attributes' => array('class' => array('enabled-for-ajax')),
   );
@@ -152,23 +153,23 @@ function ajax_example_dependent_dropdown_degrades_first_callback($form, $form_st
 
 
 /**
- * Dynamically-enabled form with graceful no-JS degradation.
+ * Dynamically-enabled form with graceful no-JavaScript degradation.
  *
- * Example of a form with portions dynamically enabled or disabled, but
- * with graceful degradation in the case of no javascript.
+ * Example of a form with portions dynamically enabled or disabled, but with
+ * graceful degradation in the case of no JavaScript.
  *
  * The idea here is that certain parts of the form don't need to be displayed
  * unless a given option is selected, but then they should be displayed and
  * configured.
  *
- * The third $no_js_use argument is strictly for demonstrating operation
- * without javascript, without making the user/developer turn off javascript.
+ * The third $no_js_use argument is strictly for demonstrating operation without
+ * JavaScript, without turning off JavaScript on the browser side.
  */
 function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) {
 
-  // Attach the CSS and JS we need to show this with and without javascript.
-  // Without javascript we need an extra "Choose" button, and this is
-  // hidden when we have javascript enabled.
+  // Attach the CSS and JavaScript we need to show this with and without
+  // JavaScript. Without JavaScript, we need an extra "Choose" button, which is
+  // hidden when JavaScript is enabled.
   $form['#attached']['css'] = array(
     backdrop_get_path('module', 'ajax_example') . '/ajax_example.css',
   );
@@ -178,12 +179,12 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
   $form['description'] = array(
     '#type' => 'markup',
     '#markup' => '<div>' . t('This example demonstrates a form which dynamically creates various sections based on the configuration in the form.
-      It deliberately allows graceful degradation to a non-javascript environment.
-      In a non-javascript environment, the "Choose" button next to the select control
-      is displayed; in a javascript environment it is hidden by the module CSS.
+      It deliberately allows graceful degradation to a non-JavaScript environment.
+      In a non-JavaScript environment, the "Choose" button next to the select control
+      is displayed; in a JavaScript environment it is hidden by the module CSS.
       <br/><br/>The basic idea here is that the form is built up based on
       the selection in the question_type_select field, and it is built the same
-      whether we are in a javascript/AJAX environment or not.
+      whether we are in a JavaScript/AJAX environment or not.
       <br/><br/>
       Try the <a href="!ajax_link">AJAX version</a> and the <a href="!non_ajax_link">simulated-non-AJAX version</a>.
     ', array('!ajax_link' => url('examples/ajax_example/dynamic_sections'), '!non_ajax_link' => url('examples/ajax_example/dynamic_sections_no_js'))) . '</div>',
@@ -204,7 +205,7 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
       'callback' => 'ajax_example_dynamic_sections_select_callback',
     ),
   );
-  // The CSS for this module hides this next button if JS is enabled.
+  // The CSS for this module hides the next button if JavaScript is enabled.
   $form['question_type_submit'] = array(
     '#type' => 'submit',
     '#value' => t('Choose'),
@@ -214,17 +215,16 @@ function ajax_example_dynamic_sections($form, &$form_state, $no_js_use = FALSE) 
     '#validate' => array(),
   );
 
-  // This simply allows us to demonstrate no-javascript use without
-  // actually turning off javascript in the browser. Removing the #ajax
-  // element turns off AJAX behaviors on that element and as a result
-  // ajax.js doesn't get loaded.
+  // This simply allows us to demonstrate no-JavaScript use without actually
+  // turning off JavaScript in the browser. Removing the #ajax element turns off
+  // AJAX behaviors on that element and ajax.js doesn't get loaded.
   if ($no_js_use) {
     // Remove the #ajax from the above, so ajax.js won't be loaded.
     unset($form['question_type_select']['#ajax']);
   }
 
-  // This fieldset just serves as a container for the part of the form
-  // that gets rebuilt.
+  // This fieldset just serves as a container for the part of the form that gets
+  // rebuilt.
   $form['questions_fieldset'] = array(
     '#type' => 'fieldset',
     // These provide the wrapper referred to in #ajax['wrapper'] above.
@@ -351,7 +351,7 @@ function ajax_example_dynamic_sections_select_callback($form, $form_state) {
  *   Form API form.
  * @param bool $no_js_use
  *   Used for this demonstration only. If true means that the form should be
- *   built using a simulated no-javascript approach (ajax.js will not be
+ *   built using a simulated no-JavaScript approach (ajax.js will not be
  *   loaded.)
  *
  * @return array
@@ -366,7 +366,7 @@ function ajax_example_wizard($form, &$form_state, $no_js_use = FALSE) {
   // We want to deal with hierarchical form values.
   $form['#tree'] = TRUE;
   $form['description'] = array(
-    '#markup' => '<div>' . t('This example is a step-by-step wizard. The <a href="!ajax">AJAX version</a> does it without page reloads; the <a href="!multistep">multistep version</a> is the same code but simulates a non-javascript environment, showing it with page reloads.',
+    '#markup' => '<div>' . t('This example is a step-by-step wizard. The <a href="!ajax">AJAX version</a> does it without page reloads; the <a href="!multistep">multistep version</a> is the same code but simulates a non-JavaScript environment, showing it with page reloads.',
       array('!ajax' => url('examples/ajax_example/wizard'), '!multistep' => url('examples/ajax_example/wizard_no_js')))
     . '</div>',
   );
@@ -448,14 +448,11 @@ function ajax_example_wizard($form, &$form_state, $no_js_use = FALSE) {
     );
   }
 
-  // This simply allows us to demonstrate no-javascript use without
-  // actually turning off javascript in the browser. Removing the #ajax
-  // element turns off AJAX behaviors on that element and as a result
-  // ajax.js doesn't get loaded.
+  // This simply allows us to demonstrate no-JavaScript use without actually
+  // turning off JavaScript in the browser. Removing the #ajax element turns off
+  // AJAX behaviors on that element and ajax.js doesn't get loaded.
   // For demonstration only! You don't need this.
   if ($no_js_use) {
-    // Remove the #ajax from the above, so ajax.js won't be loaded.
-    // For demonstration only.
     unset($form['next']['#ajax']);
     unset($form['prev']['#ajax']);
   }
@@ -481,9 +478,8 @@ function ajax_example_wizard_callback($form, $form_state) {
 /**
  * Submit function for ajax_example_wizard.
  *
- * In AJAX this is only submitted when the final submit button is clicked,
- * but in the non-javascript situation, it is submitted with every
- * button click.
+ * In AJAX, this is only submitted when the final submit button is clicked, but
+ * in the non-JavaScript situation, it is submitted with every button click.
  */
 function ajax_example_wizard_submit($form, &$form_state) {
 
@@ -532,24 +528,24 @@ function ajax_example_wizard_submit($form, &$form_state) {
 /**
  * Form with 'add more' and 'remove' buttons.
  *
- * This example shows a button to "add more" - add another textfield, and
- * the corresponding "remove" button.
+ * This example shows a button to "add more" - add another textfield, and the
+ * corresponding "remove" button.
  *
- * It works equivalently with javascript or not, and does the same basic steps
+ * It works equivalently with JavaScript or not, and does the same basic steps
  * either way.
  *
  * The basic idea is that we build the form based on the setting of
- * $form_state['num_names']. The custom submit functions for the "add-one"
- * and "remove-one" buttons increment and decrement $form_state['num_names']
- * and then force a rebuild of the form.
+ * $form_state['num_names']. The custom submit functions for the "add-one" and
+ * "remove-one" buttons increment and decrement $form_state['num_names'] and
+ * then force a rebuild of the form.
  *
  * The $no_js_use argument is simply for demonstration: When set, it prevents
- * '#ajax' from being set, thus making the example behave as if javascript
- * were disabled in the browser.
+ * '#ajax' from being set, thus making the example behave as if JavaScript were
+ * disabled in the browser.
  */
 function ajax_example_add_more($form, &$form_state, $no_js_use = FALSE) {
   $form['description'] = array(
-    '#markup' => '<div>' . t('This example shows an add-more and a remove-last button. The <a href="!ajax">AJAX version</a> does it without page reloads; the <a href="!multistep">non-js version</a> is the same code but simulates a non-javascript environment, showing it with page reloads.',
+    '#markup' => '<div>' . t('This example shows an add-more and a remove-last button. The <a href="!ajax">AJAX version</a> does it without page reloads; the <a href="!multistep">non-js version</a> is the same code but simulates a non-JavaScript environment, showing it with page reloads.',
       array('!ajax' => url('examples/ajax_example/add_more'), '!multistep' => url('examples/ajax_example/add_more_no_js')))
     . '</div>',
   );
@@ -603,10 +599,9 @@ function ajax_example_add_more($form, &$form_state, $no_js_use = FALSE) {
     '#value' => t('Submit'),
   );
 
-  // This simply allows us to demonstrate no-javascript use without
-  // actually turning off javascript in the browser. Removing the #ajax
-  // element turns off AJAX behaviors on that element and as a result
-  // ajax.js doesn't get loaded.
+  // This simply allows us to demonstrate no-JavaScript use without actually
+  // turning off JavaScript in the browser. Removing the #ajax element turns off
+  // AJAX behaviors on that element and ajax.js doesn't get loaded.
   // For demonstration only! You don't need this.
   if ($no_js_use) {
     // Remove the #ajax from the above, so ajax.js won't be loaded.
