@@ -350,17 +350,16 @@ function ajax_example_dynamic_sections_select_callback($form, $form_state) {
  * @param array $form_state
  *   Form API form.
  * @param bool $no_js_use
- *   Used for this demonstration only. If true means that the form should be
- *   built using a simulated no-JavaScript approach (ajax.js will not be
- *   loaded.)
+ *   If true, the form should be built using a simulated no-JavaScript approach
+ *   (ajax.js will not be loaded.) Used for this demonstration only.
  *
  * @return array
  *   Form array.
  */
 function ajax_example_wizard($form, &$form_state, $no_js_use = FALSE) {
 
-  // Provide a wrapper around the entire form, since we'll replace the whole
-  // thing with each submit.
+  // Provide a wrapper around the entire form, since we'll replace it with each
+  // submit.
   $form['#prefix'] = '<div id="wizard-form-wrapper">';
   $form['#suffix'] = '</div>';
   // We want to deal with hierarchical form values.
@@ -576,8 +575,8 @@ function ajax_example_add_more($form, &$form_state, $no_js_use = FALSE) {
     '#type' => 'submit',
     '#value' => t('Add one more'),
     '#submit' => array('ajax_example_add_more_add_one'),
-    // See the examples in ajax_example.module for more details on the
-    // properties of #ajax.
+    // See the examples in ajax_example.module for more details on the #ajax
+    // properties.
     '#ajax' => array(
       'callback' => 'ajax_example_add_more_callback',
       'wrapper' => 'names-fieldset-wrapper',

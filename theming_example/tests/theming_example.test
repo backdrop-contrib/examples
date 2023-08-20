@@ -33,8 +33,8 @@ class ThemingExampleTestCase extends BackdropWebTestCase {
     $this->assertRaw('<strong>Some examples of pages');
     $this->assertRaw('examples/theming_example/theming_example_select_form">Simple form 1</a>');
 
-    // Visit the list demonstration page and check that css gets loaded
-    // and do some spot checks on how the two lists were themed.
+    // Visit the list demonstration page and check that CSS gets loaded and do
+    // some spot checks on how the two lists were themed.
     $this->backdropGet('examples/theming_example/theming_example_list_page');
     $this->assertPattern('/@import.*theming_example.css/');
     $first_ul = $this->xpath('//ul[contains(@class,"render-version-list")]');
