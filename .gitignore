@@ -1,0 +1,26 @@
+# Ignore the vendor directory.
+/vendor/
+
+# Ignore the directories used from frontend tools.
+node_modules/
+bower_components/
+
+# Ignore the Visual Studio Code settings directory.
+/.vscode
+
+# Ignore the PHPStorm settings directory.
+/.idea
+
+# Ignore Emacs files.
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Ignore Sublime Text files.
+/*.sublime-project
+/*.sublime-workspace

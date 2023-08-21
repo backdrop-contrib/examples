@@ -9,7 +9,7 @@
  *
  * Build a landing-page form for the progress bar example.
  *
- * @see https://api.drupal.org/api/drupal/developer%21topics%21forms_api_reference.html/7#ajax_progress
+ * @see https://docs.backdropcms.org/form_api#ajax['progress']
  */
 function ajax_example_progressbar_form($form, &$form_state) {
   $form_state['time'] = REQUEST_TIME;

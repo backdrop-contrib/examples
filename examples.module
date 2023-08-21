@@ -13,14 +13,16 @@
 /**
  * @defgroup examples Examples
  * @{
- * Well-documented API examples for a broad range of Backdrop core
- * functionality.
+ * These modules are well-documented API examples for a broad range of Backdrop
+ * core functionality.
  *
- * Developers can learn how to use a particular API quickly by experimenting
+ * Developers can quickly learn how to use a particular API by experimenting
  * with the examples, and adapt them for their own use.
  *
- * Based on the Examples for Developers project at
- * http://www.drupal.org/project/examples
+ * This project is based on the
+ * @link http://www.drupal.org/project/examples Examples for Developers @endlink
+ * project for Drupal.
+ *
  */
 
 
