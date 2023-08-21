@@ -1,5 +1,5 @@
-name = Backdrop Module Examples For Developers
-description = A variety of example modules for you to learn from and hack upon.
+name = Examples for Developers
+description = A variety of example modules to learn from and hack upon.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
