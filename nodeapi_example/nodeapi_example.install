@@ -55,7 +55,7 @@ function nodeapi_example_schema() {
  * @ingroup nodeapi_example
  */
 function nodeapi_example_install() {
-  $config = config('nodeapi_example.settings');
+  $config = config('nodeapi_example');
   $node_types = array_keys(node_type_get_types());
   foreach($node_types as $type) {
     $config->set('nodeapi_example_node_type_' . $type, 0);

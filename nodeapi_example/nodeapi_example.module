@@ -38,11 +38,11 @@
  */
 function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
   // We will be saving this setting to a configuration file.
-  $config = config('nodeapi_example.settings');
-  
+  $config = config('nodeapi_example');
+
   // First, check for the node type configuration form.
   if ($form_id == 'node_type_form') {
-    // Alter the node type's configuration form to add our setting. 
+    // Alter the node type's configuration form to add our setting.
     $form['rating'] = array(
       '#type' => 'fieldset',
       '#title' => t('Rating settings'),
@@ -87,12 +87,12 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
 
 /**
  *  A custom submit handler.
- *  
+ *
  *  This function runs when the 'node_type_form' is saved because we added it as
  *  a submit handler in '$form['#submit'][]'.
  */
 function nodeapi_example_node_type_form_submit(&$form, $form_state) {
-  config_set('nodeapi_example.settings', 'nodeapi_example_node_type_' . $form['#node_type']->type, $form_state['values']['nodeapi_example_node_type']);
+  config_set('nodeapi_example', 'nodeapi_example_node_type_' . $form['#node_type']->type, $form_state['values']['nodeapi_example_node_type']);
 }
 
 /**
@@ -102,7 +102,7 @@ function nodeapi_example_node_type_form_submit(&$form, $form_state) {
  * field is required. If not, send error message.
  */
 function nodeapi_example_node_validate($node, $form) {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
+  if (config_get('nodeapi_example', 'nodeapi_example_node_type_' . $node->type)) {
     if (isset($node->nodeapi_example_rating) && !$node->nodeapi_example_rating) {
       form_set_error('nodeapi_example_rating', t('You must rate this content.'));
     }
@@ -117,7 +117,7 @@ function nodeapi_example_node_validate($node, $form) {
  */
 function nodeapi_example_node_load($nodes, $types) {
   // We load the configuration file.
-  $config = config('nodeapi_example.settings');
+  $config = config('nodeapi_example');
 
   // We can use $types to figure out if we need to process any of these nodes.
   $our_types = array();
@@ -164,7 +164,7 @@ function nodeapi_example_node_load($nodes, $types) {
  * database inserts.
  */
 function nodeapi_example_node_insert($node) {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
+  if (config_get('nodeapi_example', 'nodeapi_example_node_type_' . $node->type)) {
     // Notice that we are ignoring any revision information using $node->nid
     db_insert('nodeapi_example')
     ->fields(array(
@@ -201,7 +201,7 @@ function nodeapi_example_node_delete($node) {
  * we update it. Otherwise, we call nodeapi_example_node_insert() to create one.
  */
 function nodeapi_example_node_update($node) {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
+  if (config_get('nodeapi_example', 'nodeapi_example_node_type_' . $node->type)) {
     // Check first if this node has a saved rating.
     $rating = db_select('nodeapi_example', 'e')
       ->fields('e', array(
@@ -241,7 +241,7 @@ function nodeapi_example_node_update($node) {
  * with additional information.
  */
 function nodeapi_example_node_view($node, $build_mode = 'full') {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
+  if (config_get('nodeapi_example', 'nodeapi_example_node_type_' . $node->type)) {
     // Make sure to set a rating, also for nodes saved previously and not yet
     // rated.
     $rating = isset($node->nodeapi_example_rating) ? $node->nodeapi_example_rating : 0;
@@ -293,7 +293,7 @@ function theme_nodeapi_example_rating($variables) {
  * Implements hook_config_info().
  */
 function nodeapi_example_config_info() {
-  $prefixes['nodeapi_example.settings'] = array(
+  $prefixes['nodeapi_example'] = array(
     'label' => t('NodeAPI Example settings'),
     'group' => t('Configuration'),
   );

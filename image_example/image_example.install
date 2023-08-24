@@ -10,9 +10,9 @@
  * @ingroup image_example
  */
 function image_example_install() {
-  // Set config containing the name of the style to use when the module
-  // outputs an image.
-  $config = config('image_example.settings');
+  // Set the config value containing the name of the style to use to output
+  // images.
+  $config = config('image_example');
   $config->set('image_example_style_name', 'image_example_style');
   $config->set('image_example_image_fid', FALSE);
   $config->save();

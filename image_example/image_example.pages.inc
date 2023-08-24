@@ -18,7 +18,7 @@
  * @ingroup image_example
  */
 function image_example_style_form($form, &$form_state) {
-  $config = config('image_example.settings');
+  $config = config('image_example');
 
   // If there is already an uploaded image display the image here.
   if ($image_fid = $config->get('image_example_image_fid')) {
@@ -78,7 +78,7 @@ function image_example_style_form_validate($form, &$form_state) {
  * @ingroup image_example
  */
 function image_example_style_form_submit($form, &$form_state) {
-  $config = config('image_example.settings');
+  $config = config('image_example');
 
   // When using the #managed_file form element the file is automatically
   // uploaded an saved to the {file} table. The value of the corresponding

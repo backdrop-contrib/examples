@@ -36,7 +36,7 @@
  * Implements hook_config_info().
  */
 function image_example_config_info() {
-  $prefixes['image_example.settings'] = array(
+  $prefixes['image_example'] = array(
     'label' => t('Image Example settings'),
     'group' => t('Configuration'),
   );
@@ -77,11 +77,10 @@ function image_example_image_style_save($style) {
   // $style['name'] property contains the name of the replacement style and
   // $style['old_name'] contains the name of the style being deleted.
   //
-  // Here we update a variable that contains the name of the image style that
-  // the block provided by this module uses when formatting images to use the
-  // new user chosen style name.
-  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
-    config_set('image_example.settings', 'image_example_style_name', $style['name']);
+  // We update a configuration value that contains the name of the image style
+  // used by the block provided by this module to format.
+  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example', 'image_example_style_name')) {
+    config_set('image_example', 'image_example_style_name', $style['name']);
   }
 }
 
@@ -96,10 +95,12 @@ function image_example_image_style_delete($style) {
   // See information about $style parameter in documentation for
   // image_example_style_save().
   //
-  // Update the modules variable that contains the name of the image style
-  // being deleted to the name of the replacement style.
-  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
-    config_set('image_example.settings', 'image_example_style_name', $style['name']);
+  // Update the configuration value containing the name of the image style being
+  // deleted to the name of the replacement style.
+  $config = config('image_example');
+
+  if (isset($style['old_name']) && $style['old_name'] == $config->get('image_example_style_name')) {
+    $config->set('image_example_style_name', $style['name']);
   }
 }
 

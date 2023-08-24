@@ -65,10 +65,10 @@ class ImageExampleTestCase extends BackdropWebTestCase {
     // @todo Enable this block once http://DOCUMENTATION_PENDING is fixed.
     if (defined('bug_713872_fixed')) {
       $style = image_style_load($new_style['name']);
-      config_set('image_example.settings', 'image_example_style_name', $style['name']);
+      config_set('image_example', 'image_example_style_name', $style['name']);
       $style['name'] = backdrop_strtolower($this->randomName());
       $style = image_style_save($style);
-      $variable = config_get('image_example.settings', 'image_example_style_name');
+      $variable = config_get('image_example', 'image_example_style_name');
       $this->assertTrue(($variable == $style['name']), 'Variable image_example_style_name successfully updated when renaming image style.');
     }
   }
@@ -92,7 +92,7 @@ class ImageExampleTestCase extends BackdropWebTestCase {
 
     // Verify the image is displayed.
     $this->backdropGet('image_example/styles');
-    $fid = config_get('image_example.settings', 'image_example_image_fid');
+    $fid = config_get('image_example', 'image_example_image_fid');
     $image = isset($fid) ? file_load($fid) : NULL;
     $this->assertRaw(file_uri_target($image->uri), 'Image is displayed');
   }

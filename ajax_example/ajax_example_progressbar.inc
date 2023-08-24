@@ -69,7 +69,7 @@ function ajax_example_progressbar_progress($time) {
     'percentage' => -1,
   );
 
-  $completed_percentage = config_get('ajax_example.settings', 'example_progressbar_' . $time);
+  $completed_percentage = config_get('ajax_example', 'example_progressbar_' . $time);
 
   if ($completed_percentage) {
     $progress['message'] = t('Executing...');
@@ -96,15 +96,15 @@ function ajax_example_progressbar_callback($form, &$form_state) {
   $variable_name = 'example_progressbar_' . $form_state['time'];
   $commands = array();
 
-  config_set('ajax_example.settings', $variable_name, 10);
+  config_set('ajax_example', $variable_name, 10);
   sleep(2);
-  config_set('ajax_example.settings', $variable_name, 40);
+  config_set('ajax_example', $variable_name, 40);
   sleep(2);
-  config_set('ajax_example.settings', $variable_name, 70);
+  config_set('ajax_example', $variable_name, 70);
   sleep(2);
-  config_set('ajax_example.settings', $variable_name, 90);
+  config_set('ajax_example', $variable_name, 90);
   sleep(2);
-  config_set('ajax_example.settings', $variable_name, NULL);
+  config_set('ajax_example', $variable_name, NULL);
 
   $commands[] = ajax_command_html('#progress-status', t('Executed.'));
 

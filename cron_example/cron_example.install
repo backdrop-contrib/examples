@@ -5,10 +5,12 @@
  */
 
 /**
- * Implements hook_install()
+ * Implements hook_install().
+ *
+ * @todo Remove this file once the cron_example.json file will be provided.
  */
 function cron_example_install() {
-  $config = config('cron_example.settings');
+  $config = config('cron_example');
   $config->set('cron_example_interval', 60*60);
   $config->save();
 }

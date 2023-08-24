@@ -24,7 +24,7 @@ module_load_include('inc', 'ajax_example', 'ajax_example_node_form_alter');
  * Implements hook_config_info().
  */
 function ajax_example_config_info() {
-  $prefixes['ajax_example.settings'] = array(
+  $prefixes['ajax_example'] = array(
     'label' => t('AJAX Example settings'),
     'group' => t('Configuration'),
   );

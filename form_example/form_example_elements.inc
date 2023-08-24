@@ -476,7 +476,7 @@ function theme_form_example_inline_form_element($variables) {
  * we've defined.
  */
 function form_example_element_demo_form($form, &$form_state) {
-  $config = config('form_example.settings');
+  $config = config('form_example');
 
   $form['a_form_example_textfield'] = array(
     '#type' => 'form_example_textfield',
@@ -522,7 +522,7 @@ function form_example_element_demo_form_submit($form, &$form_state) {
   unset($form_state['values']['submit'], $form_state['values']['form_id'], $form_state['values']['op'], $form_state['values']['form_token'], $form_state['values']['form_build_id']);
 
   foreach ($form_state['values'] as $key => $value) {
-    config_set('form_example.settings', $key, $value);
+    config_set('form_example', $key, $value);
     backdrop_set_message(
       t('%name has value %value',
         array(

@@ -20,7 +20,7 @@
  * Implements hook_config_info().
  */
 function form_example_config_info() {
-  $prefixes['form_example.settings'] = array(
+  $prefixes['form_example'] = array(
     'label' => t('Form Example settings'),
     'group' => t('Configuration'),
   );
