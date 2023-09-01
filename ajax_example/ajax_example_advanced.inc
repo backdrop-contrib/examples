@@ -118,7 +118,7 @@ function ajax_example_advanced_commands($form, &$form_state) {
   );
 
   // Shows the AJAX 'data' command. But there is no use of this information,
-  // as this would require a javascript client to use the data.
+  // as this would require a JavaScript client to use the data.
   $form['data_command_example_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t("Demonstrates the AJAX 'data' command."),
