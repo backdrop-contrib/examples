@@ -12,35 +12,27 @@
  * @{
  * Example defining a node type in code.
  *
- * This is an example outlining how a module can be used to define a new
- * node type. Our example node type will allow users to specify multiple
- * "colors", a "quantity" and an "image" for their nodes; some kind of
- * rudimentary inventory-tracking system, perhaps?
+ * This is an example outlining how a module can define a new content type. Our
+ * example node type will allow users to specify multiple colors, a quantity,
+ * and an image for their nodes. It could be used as some kind of rudimentary
+ * inventory-tracking system.
  *
- * The basic pattern for defining a node type is to tell Backdrop about the
- * node's fields and view modes. Backdrop will then take over and manage
- * the storage for this node type.
+ * The basic pattern for defining a node type is to tell Backdrop about the node
+ * fields and view modes. Backdrop will then take over and manage the storage
+ * for this content type.
  *
- * Remember that most node types do not require any custom code, as one
- * simply creates them using the Backdrop user interface. Creating a node like
- * this in code is a special case.
+ * Remember that most content types do not require any custom code, as they are
+ * usually created using the Backdrop user interface.
  *
- * At absolute minimum, in order to provide a content type for
- * node, you have to implement hook_node_info() and hook_form().
- * Node can take care of the rest, if you want it to.
+ * At absolute minimum, in order to provide a content type, you have to
+ * implement hook_form(). Node can take care of the rest, if you want it to.
  *
- * First and foremost, defining a node type happens in
- * hook_node_info(). Our implementation of this hook gives
- * Backdrop an array of information about the content type
- * we want to create.
+ * Next, since we want to add fields to our content type, we implement
+ * hook_node_type_insert(), which gives us a chance to modify recently-created
+ * content types.
  *
- * Next, since we want to add fields to our content type, we
- * implement hook_node_type_insert(), which gives us a chance
- * to modify recently-created content types.
- *
- * Backdrop is able to handle deletion of our content, including
- * dependencies based on re-use of our field instances, so we don't
- * have to manage any of it.
+ * Backdrop is able to handle deletion of our content, including dependencies
+ * based on re-use of our field instances, so we don't have to manage any of it.
  *
  * Consult the @link http://DOCUMENTATION_PENDING Field API Tutorial @endlink
  * and @link http://DOCUMENTATION_PENDING Field API Handbook Page @endlink
@@ -67,27 +59,25 @@ function node_example_menu() {
 /**
  * Implements hook_node_type_insert().
  *
- * Much like hook_node_insert() lets us know that a node is being
- * inserted into the database, hook_node_type_insert() lets us know
- * that a new content type has been inserted.
+ * Much like hook_node_insert() lets us know that a node is being inserted into
+ * the database, hook_node_type_insert() lets us know that a new content type
+ * has been inserted.
  *
- * Since Backdrop will at some point insert our new content type,
- * this gives us a chance to add the fields we want.
+ * Since Backdrop will at some point insert our new content type, this gives us
+ * a chance to add the fields we want.
  *
- * It is called for all inserts to the content type database, so
- * we have to make sure we're only modifying the type we're
- * concerned with.
+ * It is called for all inserts to the content type database, so we have to make
+ * sure we're only modifying the type we're concerned with.
  */
 function node_example_node_type_insert($content_type) {
   if ($content_type->type == 'node_example') {
-    // First we add the body field. Node API helpfully gives us
-    // node_add_body_field().
-    // We'll set the body label now, although we could also set
-    // it along with our other instance properties later.
+    // First, we add the body field with node_add_body_field(). We set the body
+    // label now, although we could also set it along with our other instance
+    // properties later.
     $body_instance = node_add_body_field($content_type, t('Example Description'));
 
-    // Add our example_node_list view mode to the body instance
-    // display by instructing the body to display as a summary.
+    // Add our example_node_list view mode to the body instance display by
+    // instructing the body to display as a summary.
     $body_instance['display']['example_node_list'] = array(
       'label' => 'hidden',
       'type' => 'text_summary_or_trimmed',
@@ -113,12 +103,11 @@ function node_example_node_type_insert($content_type) {
 /**
  * Implements hook_form().
  *
- * Backdrop needs for us to provide a form that lets the user
- * add content. This is the form that the user will see if
- * they go to node/add/node-example.
+ * Backdrop needs for us to provide a form that lets the user add content. This
+ * is the form users will see if they go to node/add/node-example.
  *
- * You can get fancy with this form, or you can just punt
- * and return the default form that node_content will provide.
+ * You can get fancy with this form, or you can just punt and return the default
+ * form node_content_form() provides.
  */
 function node_example_form($node, $form_state) {
   return node_content_form($node, $form_state);
@@ -137,10 +126,10 @@ function node_example_form($node, $form_state) {
  * @see node_example_field_formatter_view()
  */
 function node_example_page() {
-  // We'll start building a renderable array that will be our page.
-  // For now, we just declare the array.
+  // We'll start building a renderable array that will be our page. For now, we
+  // just declare the array.
   $renderable_array = array();
-  // We query the database and find all of the nodes for the type we defined.
+  // We query the database and find all the nodes for the type we defined.
   $sql = 'SELECT nid FROM {node} n WHERE n.type = :type AND n.status = :status';
   $result = db_query($sql,
     array(
@@ -151,8 +140,8 @@ function node_example_page() {
   $renderable_array['explanation'] = array(
     '#markup' => t("Node Example nodes you've created will be displayed here. Note that the color fields will be displayed differently in this list, than if you view the node normally. Click on the node title to see the difference. This is a result of using our 'example_node_list' node view type."),
   );
-  // Loop through each of our node_example nodes and instruct node_view
-  // to use our "example_node_list" view.
+  // Loop through each of our node_example nodes and instruct node_view() to use
+  // our "example_node_list" view.
   // http://api.DOCUMENTATION_PENDING/api/function/node_load/7
   // http://api.DOCUMENTATION_PENDING/api/function/node_view/7
   foreach ($result as $row) {
@@ -169,7 +158,7 @@ function node_example_page() {
  * be used in functions like node_view() or node_build_content().
  */
 function node_example_entity_info_alter(&$entity_info) {
-  // Add our new view mode to the list of view modes...
+  // Add our new view mode to the list of view modes.
   $entity_info['node']['view modes']['example_node_list'] = array(
     'label' => t('Example Node List'),
     'custom settings' => TRUE,
@@ -213,7 +202,7 @@ function node_example_field_formatter_view($object_type, $object, $field, $insta
 /**
  * Implements hook_theme().
  *
- * This lets us tell Backdrop about our theme functions and their arguments.
+ * It gives to Backdrop the list of our theme functions and their arguments.
  */
 function node_example_theme($existing, $type, $theme, $path) {
   return array(
@@ -226,9 +215,9 @@ function node_example_theme($existing, $type, $theme, $path) {
 /**
  * A custom theme function.
  *
- * By using this function to format our node-specific information, themes
- * can override this presentation if they wish.  This is a simplified theme
- * function purely for illustrative purposes.
+ * By using this function to format our node-specific information, themes can
+ * override this presentation if they wish. This is a simplified theme function
+ * purely for illustrative purposes.
  */
 function theme_example_node_color($variables) {
   $output = '<span style="background-color: #ccc; padding: 1em; margin-bottom: 1em; float: left; color: ' . $variables['color'] . '">' . $variables['color'] . '</span>';
@@ -236,13 +225,13 @@ function theme_example_node_color($variables) {
 }
 
 /**
- * Define the fields for our content type.
+ * Defines the fields for our content type.
  *
  * This big array is factored into this function for readability.
  *
  * @return array
- *   An associative array specifying the fields we wish to add to our
- *   new node type.
+ *   An associative array specifying the fields we wish to add to our new
+ *   content type.
  */
 function _node_example_installed_fields() {
   return array(
@@ -268,19 +257,18 @@ function _node_example_installed_fields() {
 }
 
 /**
- * Define the field instances for our content type.
+ * Defines the field instances for our content type.
  *
- * The instance lets Backdrop know which widget to use to allow the user to enter
- * data and how to react in different view modes.  We are going to display a
- * page that uses a custom "node_example_list" view mode.  We will set a
- * cardinality of three allowing our content type to give the user three color
- * fields.
+ * It lets Backdrop know which widget to use to allow users to enter data and
+ * how to react in different view modes. We are going to display a page that
+ * uses a custom "node_example_list" view mode. We will set the cardinality to
+ * three, allowing our content type to give users three color fields.
  *
  * This big array is factored into this function for readability.
  *
  * @return array
  *   An associative array specifying the instances we wish to add to our new
- *   node type.
+ *   content type.
  */
 function _node_example_installed_instances() {
   return array(
