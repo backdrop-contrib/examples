@@ -1,5 +1,5 @@
 name = NodeAPI example
-description = Demonstrates how to use the hook_node_*() hooks to alter a node.
+description = Demonstrates how to use hook_node_*().
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

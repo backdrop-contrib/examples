@@ -37,12 +37,10 @@
  * nodeapi_example_form_node_type_form_alter
  */
 function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
-  // We will be saving this setting to a configuration file.
   $config = config('nodeapi_example.settings');
-  
-  // First, check for the node type configuration form.
+
   if ($form_id == 'node_type_form') {
-    // Alter the node type's configuration form to add our setting. 
+    // Alter the content type's configuration form to add our settings.
     $form['rating'] = array(
       '#type' => 'fieldset',
       '#title' => t('Rating settings'),
@@ -51,7 +49,6 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
       '#group' => 'additional_settings',
       '#weight' => -1,
     );
-
     $form['rating']['nodeapi_example_node_type'] = array(
       '#type' => 'radios',
       '#title' => t('NodeAPI Example Rating'),
@@ -62,15 +59,12 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
       ),
       '#description' => t('Should this node have a rating attached to it?'),
     );
-    // Here we add our custom submit function (handler) to save the added
-    // settings.
+    // We add our custom submit handler to save the added settings.
     $form['#submit'][] = 'nodeapi_example_node_type_form_submit';
   }
-  // Here we check to see if the type and node field are set. If so, it could
-  // be a node edit form.
   elseif (isset($form['type']) && isset($form['#node']) && $form['type']['#value'] . '_node_form' == $form_id) {
-    // If the rating is enabled for this node type, we insert our control
-    // into the form.
+    // If rating is enabled for this content type, we insert our control into
+    // the node edit form.
     $node = $form['#node'];
     if ($config->get('nodeapi_example_node_type_' . $form['type']['#value'])) {
       $form['nodeapi_example_rating'] = array(
@@ -87,7 +81,7 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
 
 /**
  *  A custom submit handler.
- *  
+ *
  *  This function runs when the 'node_type_form' is saved because we added it as
  *  a submit handler in '$form['#submit'][]'.
  */
@@ -116,7 +110,6 @@ function nodeapi_example_node_validate($node, $form) {
  * argument list.
  */
 function nodeapi_example_node_load($nodes, $types) {
-  // We load the configuration file.
   $config = config('nodeapi_example.settings');
 
   // We can use $types to figure out if we need to process any of these nodes.
@@ -127,30 +120,30 @@ function nodeapi_example_node_load($nodes, $types) {
     }
   }
 
-  // Now $our_types contains all the types from $types that we want
-  // to deal with. If it's empty, we can safely return.
+  // $our_types contains all the types from $types that we want to deal with. If
+  // it's empty, we can return.
   if (!count($our_types)) {
     return;
   }
 
-  // Now we need to make a list of revisions based on $our_types
+  // Make a list of revisions based on $our_types.
   foreach ($nodes as $node) {
-    // We are using the revision id instead of node id.
+    // We use the revision ID instead of the node ID.
     if ($config->get('nodeapi_example_node_type_' . $node->type)) {
       $vids[] = $node->vid;
     }
   }
-  // Check if we should load rating for any of the nodes.
+  // Verify we should load the rating for any node.
   if (!isset($vids) || !count($vids)) {
     return;
   }
 
-  // When we read, we don't care about the node->nid; we look for the right
-  // revision ID (node->vid).
+  // When we read, we don't care about the node ID (the nid column); we look for
+  // the right revision ID (the vid column).
   $result = db_select('nodeapi_example', 'e')
-  ->fields('e', array('nid', 'vid', 'rating'))
-  ->where('e.vid IN (:vids)', array(':vids' => $vids))
-  ->execute();
+    ->fields('e', array('nid', 'vid', 'rating'))
+    ->where('e.vid IN (:vids)', array(':vids' => $vids))
+    ->execute();
 
   foreach ($result as $record) {
     $nodes[$record->nid]->nodeapi_example_rating = $record->rating;
@@ -165,14 +158,9 @@ function nodeapi_example_node_load($nodes, $types) {
  */
 function nodeapi_example_node_insert($node) {
   if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
-    // Notice that we are ignoring any revision information using $node->nid
     db_insert('nodeapi_example')
-    ->fields(array(
-        'nid' => $node->nid,
-        'vid' => $node->vid,
-        'rating' => $node->nodeapi_example_rating,
-    ))
-    ->execute();
+      ->fields(array('nid' => $node->nid, 'vid' => $node->vid, 'rating' => $node->nodeapi_example_rating))
+      ->execute();
   }
 }
 
@@ -204,9 +192,7 @@ function nodeapi_example_node_update($node) {
   if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
     // Check first if this node has a saved rating.
     $rating = db_select('nodeapi_example', 'e')
-      ->fields('e', array(
-        'rating',
-      ))
+      ->fields('e', array('rating'))
       ->where('e.vid = (:vid)', array(':vid' => $node->vid))
       ->execute()->fetchField();
 
@@ -258,11 +244,7 @@ function nodeapi_example_node_view($node, $build_mode = 'full') {
  * This lets us tell Backdrop about our theme functions and their arguments.
  */
 function nodeapi_example_theme() {
-  return array(
-    'nodeapi_example_rating' => array(
-      'variables' => array('rating' => NULL),
-    ),
-  );
+  return array('nodeapi_example_rating' => array('variables' => array('rating' => NULL)));
 }
 
 /**
