@@ -25,13 +25,13 @@ function ajax_example_render_link() {
   backdrop_add_library('system', 'backdrop.ajax');
   $explanation = t("
 The link below has the <i>use-ajax</i> class applied to it, so if
-javascript is enabled, ajax.js will try to submit it via an AJAX call instead
+JavaScript is enabled, ajax.js will try to submit it via an AJAX call instead
 of a normal page load. The URL also contains the '/nojs/' magic string, which
-is stripped if javascript is enabled, allowing the server code to tell by the
-URL whether JS was enabled or not, letting it do different things based on that.");
+is stripped if JavaScript is enabled, allowing the server code to tell by the
+URL whether JavaScript was enabled or not, letting it do different things based on that.");
   $output = "<div>" . $explanation . "</div>";
-  // The use-ajax class is special, so that the link will call without causing
-  // a page reload. Note the /nojs portion of the path - if javascript is
+  // The use-ajax class is special; that the link will call without causing a
+  // page reload. Note the /nojs portion of the path; when JavaScript is
   // enabled, this part will be stripped from the path before it is called.
   $link = l(t('Click here'), 'ajax_link_callback/nojs/', array('attributes' => array('class' => array('use-ajax'))));
   $output .= "<div id='myDiv'></div><div>$link</div>";
@@ -60,18 +60,18 @@ URL whether JS was enabled or not, letting it do different things based on that.
 function ajax_example_render_link_ra() {
   $explanation = "
 The link below has been rendered as an element with the #ajax property, so if
-javascript is enabled, ajax.js will try to submit it via an AJAX call instead
+JavaScript is enabled, ajax.js will try to submit it via an AJAX call instead
 of a normal page load. The URL also contains the '/nojs/' magic string, which
-is stripped if javascript is enabled, allowing the server code to tell by the
-URL whether JS was enabled or not, letting it do different things based on that.";
+is stripped if JavaScript is enabled, allowing the server code to tell by the
+URL whether JavaScript was enabled or not, letting it do different things based on that.";
   $build['my_div'] = array(
     '#markup' => $explanation . '<div id="myDiv"></div>',
   );
   $build['ajax_link'] = array(
     '#type' => 'link',
     '#title' => t('Click here'),
-    // Note the /nojs portion of the href - if javascript is enabled,
-    // this part will be stripped from the path before it is called.
+    // Note the /nojs portion of the href; when JavaScript is enabled, this part
+    // will be stripped from the path before it is called.
     '#href' => 'ajax_link_callback/nojs/',
     '#id' => 'ajax_link',
     '#ajax' => array(
@@ -85,7 +85,7 @@ URL whether JS was enabled or not, letting it do different things based on that.
 /**
  * Callback for link example.
  *
- * Takes different logic paths based on whether Javascript was enabled.
+ * Takes different logic paths based on whether JavaScript was enabled.
  * If $type == 'ajax', it tells this function that ajax.js has rewritten
  * the URL and thus we are doing an AJAX and can return an array of commands.
  *

@@ -18,8 +18,8 @@
 
     // Below is only for the demo case of showing with js turned off.
     // It overrides the behavior of the CSS that would normally turn off
-    // the 'ok' button when JS is enabled. Here, for demonstration purposes,
-    // we have AJAX disabled but JS turned on, so use this to simulate.
+    // the 'ok' button when JavaScript is enabled. For demonstration purposes,
+    // we have AJAX disabled but JavaScript turned on, so use this to simulate.
     if (!Backdrop.ajax) {
       $('html.js .next-button').show();
     }

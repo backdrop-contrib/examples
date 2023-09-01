@@ -101,9 +101,9 @@ function ajax_example_menu() {
     'weight' => 5,
     'file' => 'ajax_example_graceful_degradation.inc',
   );
-  // The above example as it appears to users with no javascript.
+  // The above example as it appears to users with no JavaScript.
   $items['examples/ajax_example/dependent_dropdown_degrades_no_js'] = array(
-    'title' => 'Dependent dropdown with javascript off',
+    'title' => 'Dependent dropdown with JavaScript off',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dependent_dropdown_degrades', TRUE),
     'access callback' => TRUE,
@@ -120,9 +120,9 @@ function ajax_example_menu() {
     'weight' => 6,
     'file' => 'ajax_example_graceful_degradation.inc',
   );
-  // The  above example as it appears to users with no javascript.
+  // The  above example as it appears to users with no JavaScript.
   $items['examples/ajax_example/dynamic_sections_no_js'] = array(
-    'title' => 'Dynamic Sections w/JS turned off',
+    'title' => 'Dynamic Sections with JavaScript turned off',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_dynamic_sections', TRUE),
     'access callback' => TRUE,
@@ -130,7 +130,7 @@ function ajax_example_menu() {
     'file' => 'ajax_example_graceful_degradation.inc',
   );
 
-  // A classic multi-step wizard, but with no page reloads.
+  // A classic multistep wizard, but with no page reloads.
   // See ajax_example_graceful_degradation.inc.
   $items['examples/ajax_example/wizard'] = array(
     'title' => 'Wizard (with graceful degradation)',
@@ -140,9 +140,9 @@ function ajax_example_menu() {
     'file' => 'ajax_example_graceful_degradation.inc',
     'weight' => 7,
   );
-  // The above example as it appears to users with no javascript.
+  // The above example as it appears to users with no JavaScript.
   $items['examples/ajax_example/wizard_no_js'] = array(
-    'title' => 'Wizard w/JS turned off',
+    'title' => 'Wizard with JavaScript turned off',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_wizard', TRUE),
     'access callback' => TRUE,
@@ -160,9 +160,9 @@ function ajax_example_menu() {
     'file' => 'ajax_example_graceful_degradation.inc',
     'weight' => 8,
   );
-  // The above example as it appears to users with no javascript.
+  // The above example as it appears to users with no JavaScript.
   $items['examples/ajax_example/add_more_no_js'] = array(
-    'title' => 'Add-more button w/JS turned off',
+    'title' => 'Add-more button with JavaScript turned off',
     'page callback' => 'backdrop_get_form',
     'page arguments' => array('ajax_example_add_more', TRUE),
     'access callback' => TRUE,
@@ -267,11 +267,11 @@ function ajax_example_intro() {
   $list[] = l(t('Submit-driven AJAX'), 'examples/ajax_example/submit_driven_ajax');
   $list[] = l(t('Dependent dropdown'), 'examples/ajax_example/dependent_dropdown');
   $list[] = l(t('Dependent dropdown (with graceful degradation)'), 'examples/ajax_example/dependent_dropdown_degrades');
-  $list[] = l(t('Dynamic Sections w/JS turned off'), 'examples/ajax_example/dependent_dropdown_degrades_no_js');
+  $list[] = l(t('Dynamic Sections with JavaScript turned off'), 'examples/ajax_example/dependent_dropdown_degrades_no_js');
   $list[] = l(t('Wizard (with graceful degradation)'), 'examples/ajax_example/wizard');
-  $list[] = l(t('Wizard w/JS turned off'), 'examples/ajax_example/wizard_no_js');
+  $list[] = l(t('Wizard with JavaScript turned off'), 'examples/ajax_example/wizard_no_js');
   $list[] = l(t('Add-more button (with graceful degradation)'), 'examples/ajax_example/add_more');
-  $list[] = l(t('Add-more button w/JS turned off'), 'examples/ajax_example/add_more_no_js');
+  $list[] = l(t('Add-more button with JavaScript turned off'), 'examples/ajax_example/add_more_no_js');
   $list[] = l(t('Ajax Link ("use-ajax" class)'), 'examples/ajax_example/ajax_link');
   $list[] = l(t('Ajax Link (Renderable Array)'), 'examples/ajax_example/ajax_link_renderable');
   $list[] = l(t('AJAX framework commands'), 'examples/ajax_example/advanced_commands');

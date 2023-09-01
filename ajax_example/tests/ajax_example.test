@@ -19,7 +19,7 @@ class AjaxExampleTestCase extends BackdropWebTestCase {
   }
 
   /**
-   * Check the non-JS version of the "Dynamic Sections" example.
+   * Check the non-JavaScript version of the "Dynamic Sections" example.
    */
   public function testDynamicSectionsNoJs() {
     // The path to the example form.
