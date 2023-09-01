@@ -29,12 +29,12 @@ function js_example_theme() {
 function js_example_menu() {
   $items = array();
   $items['js_example/weights'] = array(
-    'title' => 'JS Example: see weighting in action',
+    'title' => 'JavaScript Example: weighting in action',
     'page callback' => 'js_example_js_weights',
     'access callback' => TRUE,
   );
   $items['js_example/accordion'] = array(
-    'title' => 'JS Example: jQuery UI accordion',
+    'title' => 'JavaScript Example: jQuery UI accordion',
     'page callback' => 'js_example_accordion',
     'access callback' => TRUE,
   );
@@ -60,11 +60,11 @@ function js_example_menu() {
  *
  * The 'weight' form attribute determines the order in which a script is
  * output to the page. To see this in action:
- * - Uncheck the 'Aggregate Javascript files' setting at:
+ * - Uncheck the 'Aggregate JavaScript files' setting at
  *   admin/config/development/performance.
- * - Load the page: js_example/weights. Examine the page source.
- *   You will see that the color js scripts have been added in the <head>
- *   element in weight order.
+ * - Load js_example/weights. Examine the page source.
+ *   You will see that the color JavaScript scripts have been added in the
+ *   <head> element in weight order.
  *
  * To test further, change a weight in the $weights array below, then save
  * this file and reload js_example/weights. Examine the new source to see the
@@ -74,7 +74,7 @@ function js_example_menu() {
  *   The HTML markup.
  */
 function js_example_js_weights() {
-  // Add some css to show which line is output by which script.
+  // Add some CSS to show which line is output by which script.
   backdrop_add_css(backdrop_get_path('module', 'js_example') . '/css/jsweights.css');
   // Create an array of items with random-ish weight values.
   $weights = array(
@@ -85,14 +85,14 @@ function js_example_js_weights() {
     'black' => 5,
     'purple' => 60,
   );
-  // Attach the weights array to our JavaScript settings. This allows the
-  // color scripts to discover their weight values, by accessing
+  // Attach the weights array to our JavaScript settings. This allows the color
+  // scripts to discover their weight values, by accessing
   // settings.jsWeights.*color*. The color scripts only use this information for
   // display to the user.
   backdrop_add_js(array('jsWeights' => $weights), array('type' => 'setting'));
   // Add our individual scripts. We add them in an arbitrary order, but the
-  // 'weight' attribute will cause Backdrop to render (and thus load and execute)
-  // them in the weighted order.
+  // 'weight' attribute will cause Backdrop to render (and thus load and
+  // execute) them in the weighted order.
   backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/red.js', array('weight' => $weights['red']));
   backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/blue.js', array('weight' => $weights['blue']));
   backdrop_add_js(backdrop_get_path('module', 'js_example') . '/js/green.js', array('weight' => $weights['green']));

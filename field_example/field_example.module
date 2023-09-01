@@ -228,7 +228,7 @@ function field_example_field_widget_info() {
  * the Form API item provided.
  *
  * The 'field_example_colorpicker' and 'field_example_text' are essentially
- * the same, but field_example_colorpicker adds a javascript colorpicker
+ * the same, but field_example_colorpicker adds a JavaScript colorpicker
  * helper.
  *
  * field_example_3text displays three text fields, one each for red, green,
@@ -254,7 +254,7 @@ function field_example_field_widget_form(&$form, &$form_state, $field, $instance
           'library' => array(
             array('system', 'farbtastic'),
           ),
-          // Add javascript to trigger the color picker.
+          // Add JavaScript to trigger the color picker.
           'js' => array(backdrop_get_path('module', 'field_example') . '/field_example.js'),
         ),
       );

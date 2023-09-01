@@ -42,7 +42,7 @@ function ajax_example_progressbar_form($form, &$form_state) {
 }
 
 /**
- * Get the progress bar execution status, as JSON.
+ * Get the progress bar execution status as JSON.
  *
  * This is the menu handler for
  * examples/ajax_example/progressbar/progress/$time.
