@@ -159,10 +159,10 @@ function ajax_example_unique_autocomplete_validate($form, &$form_state) {
       return;
     }
   }
-  // BUT: Not everybody will have JavaScript turned on, or they might hit ESC
-  // and not use the autocomplete values offered. In that case, we can attempt
-  // to come up with a useful value. This is not absolutely necessary, and we
-  // *could* just emit a form_error() as below.
+  // Not everybody will have JavaScript turned on, or they might hit ESC and not
+  // use the autocomplete values offered. In that case, we can attempt to come
+  // up with a useful value. This is not absolutely necessary, and we can just
+  // show a form error.
   else {
     $nid = db_select('node')
       ->fields('node', array('nid'))
@@ -369,11 +369,11 @@ function ajax_example_node_by_author_autocomplete_validate($form, &$form_state) 
       return;
     }
   }
-  // BUT: Not everybody will have JavaScript turned on, or they might hit ESC
-  // and not use the autocomplete values offered. In that case, we can attempt
-  // to come up with a useful value. This is not absolutely necessary, and we
-  // *could* just emit a form_error() as below. Here we'll find the *first*
-  // matching title and assume that is adequate.
+  // Not everybody will have JavaScript turned on, or they might hit ESC and not
+  // use the autocomplete values offered. In that case, we can attempt to come
+  // up with a useful value. This is not absolutely necessary, and we can just
+  // show a form error. We find the first matching title and assume that is
+  // adequate.
   else {
     $nid = db_select('node')
       ->fields('node', array('nid'))
