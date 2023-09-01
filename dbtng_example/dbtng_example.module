@@ -7,8 +7,7 @@
  * @todo Demonstrate transaction usage.
  *
  * General documentation is available at
- * @link database Database abstraction layer documentation @endlink and
- * at @link http://DOCUMENTATION_PENDING @endlink.
+ * @link database Database abstraction layer documentation @endlink.
  */
 
 /**
