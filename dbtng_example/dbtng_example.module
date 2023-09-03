@@ -5,10 +5,6 @@
  * database API in Backdrop.
  *
  * @todo Demonstrate transaction usage.
- *
- * General documentation is available at
- * @link database Database abstraction layer documentation @endlink and
- * at @link http://DOCUMENTATION_PENDING @endlink.
  */
 
 /**
@@ -20,8 +16,7 @@
  * 'DBTNG' means 'Database: The Next Generation.' Yes, Backdroplers are nerds.
  *
  * General documentation is available at
- * @link database.inc database abstraction layer documentation @endlink and
- * at @link http://DOCUMENTATION_PENDING Database API @endlink.
+ * @link database Database abstraction layer @endlink.
  *
  * The several examples here demonstrate basic database usage.
  *
