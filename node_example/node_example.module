@@ -13,7 +13,7 @@
  * Example defining a node type in code.
  *
  * This is an example outlining how a module can define a new content type. Our
- * example node type will allow users to specify multiple colors, a quantity,
+ * example content type will allow users to specify multiple colors, a quantity,
  * and an image for their nodes. It could be used as some kind of rudimentary
  * inventory-tracking system.
  *
