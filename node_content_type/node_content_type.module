@@ -35,8 +35,7 @@
  * Backdrop is able to handle deletion of our content, including dependencies
  * based on re-use of our field instances, so we don't have to manage any of it.
  *
- * Consult
- * @link https://docs.backdropcms.org/api/backdrop/core%21modules%21field%21field.module/group/field/1 Field API @endlink.
+ * Consult @link field Field API @endlink.
  *
  * @see field_example.module
  */
