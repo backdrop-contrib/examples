@@ -1,23 +1,21 @@
 <?php
 /**
  * @file
- * Module implementation for nodeapi_example module.
+ * Module implementation for the Node Hooks Example module.
  */
 
 /**
- * @defgroup nodeapi_example Example: NodeAPI
+ * @defgroup node_hooks_example Example: Node Hooks
  * @ingroup examples
  * @{
- * Example using NodeAPI.
+ * Example using node hook.
  *
  * This is an example demonstrating how a module can be used to extend existing
- * node types.
+ * content types.
  *
- * We will add the ability for each node to have a "rating," which will be a
- * number from one to five. The rating will be tracked using the revision
- * system also, so every node revision may have different rating values.
- *
- * @see node_api_hooks
+ * We will add the ability for each node to have a rating, a number from one to
+ * five. The rating will also be tracked using the revision system, so every
+ * revision may have different rating values.
  */
 
 /**
@@ -27,17 +25,16 @@
  * changes to two types: a node's content type configuration and edit forms.
  *
  * We need to have a way for administrators to indicate which content types
- * should have our rating field added. This is done by inserting radios in
- * the node's content type configuration page.
+ * should have our rating field added. This is done by inserting radios in the
+ * content type's configuration page.
  *
  * Changes made by this hook will be shown when editing the settings of any
  * content type.
  *
- * Optionally, hook_form_FORM_ID_alter() could be used with the function name
- * nodeapi_example_form_node_type_form_alter
+ * Optionally, hook_form_FORM_ID_alter() could be used.
  */
-function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
-  $config = config('nodeapi_example.settings');
+function node_hooks_example_form_alter(&$form, $form_state, $form_id) {
+  $config = config('node_hooks_example.settings');
 
   if ($form_id == 'node_type_form') {
     // Alter the content type's configuration form to add our settings.
@@ -49,28 +46,28 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
       '#group' => 'additional_settings',
       '#weight' => -1,
     );
-    $form['rating']['nodeapi_example_node_type'] = array(
+    $form['rating']['node_hooks_example_node_type'] = array(
       '#type' => 'radios',
-      '#title' => t('NodeAPI Example Rating'),
-      '#default_value' => $config->get('nodeapi_example_node_type_' . $form['#node_type']->type),
+      '#title' => t('Node Hooks Example rating'),
+      '#default_value' => $config->get('node_hooks_example_node_type_' . $form['#node_type']->type),
       '#options' => array(
         FALSE => t('Disabled'),
         TRUE => t('Enabled'),
       ),
       '#description' => t('Should this node have a rating attached to it?'),
     );
-    // We add our custom submit handler to save the added settings.
-    $form['#submit'][] = 'nodeapi_example_node_type_form_submit';
+    // We add our custom submission handler to save the settings.
+    $form['#submit'][] = 'node_hooks_example_node_type_form_submit';
   }
   elseif (isset($form['type']) && isset($form['#node']) && $form['type']['#value'] . '_node_form' == $form_id) {
     // If rating is enabled for this content type, we insert our control into
     // the node edit form.
     $node = $form['#node'];
-    if ($config->get('nodeapi_example_node_type_' . $form['type']['#value'])) {
-      $form['nodeapi_example_rating'] = array(
+    if ($config->get('node_hooks_example_node_type_' . $form['type']['#value'])) {
+      $form['node_hooks_example_rating'] = array(
         '#type' => 'select',
         '#title' => t('Rating'),
-        '#default_value' => isset($node->nodeapi_example_rating) ? $node->nodeapi_example_rating : '',
+        '#default_value' => isset($node->node_hooks_example_rating) ? $node->node_hooks_example_rating : '',
         '#options' => array(0 => t('Unrated'), 1, 2, 3, 4, 5),
         '#required' => TRUE,
         '#weight' => 0,
@@ -83,10 +80,10 @@ function nodeapi_example_form_alter(&$form, $form_state, $form_id) {
  *  A custom submit handler.
  *
  *  This function runs when the 'node_type_form' is saved because we added it as
- *  a submit handler in '$form['#submit'][]'.
+ *  a submit handler.
  */
-function nodeapi_example_node_type_form_submit(&$form, $form_state) {
-  config_set('nodeapi_example.settings', 'nodeapi_example_node_type_' . $form['#node_type']->type, $form_state['values']['nodeapi_example_node_type']);
+function node_hooks_example_node_type_form_submit(&$form, $form_state) {
+  config_set('node_hooks_example.settings', 'node_hooks_example_node_type_' . $form['#node_type']->type, $form_state['values']['node_hooks_example_node_type']);
 }
 
 /**
@@ -95,10 +92,10 @@ function nodeapi_example_node_type_form_submit(&$form, $form_state) {
  * Check that the rating attribute is set in the form submission, since the
  * field is required. If not, send error message.
  */
-function nodeapi_example_node_validate($node, $form) {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
-    if (isset($node->nodeapi_example_rating) && !$node->nodeapi_example_rating) {
-      form_set_error('nodeapi_example_rating', t('You must rate this content.'));
+function node_hooks_example_node_validate($node, $form) {
+  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
+    if (isset($node->node_hooks_example_rating) && !$node->node_hooks_example_rating) {
+      form_set_error('node_hooks_example_rating', t('You must rate this content.'));
     }
   }
 }
@@ -109,13 +106,13 @@ function nodeapi_example_node_validate($node, $form) {
  * Loads the rating information if available for any of the nodes in the
  * argument list.
  */
-function nodeapi_example_node_load($nodes, $types) {
-  $config = config('nodeapi_example.settings');
+function node_hooks_example_node_load($nodes, $types) {
+  $config = config('node_hooks_example.settings');
 
   // We can use $types to figure out if we need to process any of these nodes.
   $our_types = array();
   foreach ($types as $type) {
-    if ($config->get('nodeapi_example_node_type_' . $type)) {
+    if ($config->get('node_hooks_example_node_type_' . $type)) {
       $our_types[] = $type;
     }
   }
@@ -129,7 +126,7 @@ function nodeapi_example_node_load($nodes, $types) {
   // Make a list of revisions based on $our_types.
   foreach ($nodes as $node) {
     // We use the revision ID instead of the node ID.
-    if ($config->get('nodeapi_example_node_type_' . $node->type)) {
+    if ($config->get('node_hooks_example_node_type_' . $node->type)) {
       $vids[] = $node->vid;
     }
   }
@@ -140,13 +137,13 @@ function nodeapi_example_node_load($nodes, $types) {
 
   // When we read, we don't care about the node ID (the nid column); we look for
   // the right revision ID (the vid column).
-  $result = db_select('nodeapi_example', 'e')
+  $result = db_select('node_hooks_example', 'e')
     ->fields('e', array('nid', 'vid', 'rating'))
     ->where('e.vid IN (:vids)', array(':vids' => $vids))
     ->execute();
 
   foreach ($result as $record) {
-    $nodes[$record->nid]->nodeapi_example_rating = $record->rating;
+    $nodes[$record->nid]->node_hooks_example_rating = $record->rating;
   }
 }
 
@@ -156,10 +153,10 @@ function nodeapi_example_node_load($nodes, $types) {
  * As a new node is being inserted into the database, we need to do our own
  * database inserts.
  */
-function nodeapi_example_node_insert($node) {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
-    db_insert('nodeapi_example')
-      ->fields(array('nid' => $node->nid, 'vid' => $node->vid, 'rating' => $node->nodeapi_example_rating))
+function node_hooks_example_node_insert($node) {
+  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
+    db_insert('node_hooks_example')
+      ->fields(array('nid' => $node->nid, 'vid' => $node->vid, 'rating' => $node->node_hooks_example_rating))
       ->execute();
   }
 }
@@ -170,9 +167,9 @@ function nodeapi_example_node_insert($node) {
  * When a node is deleted, we need to remove all related records from our table,
  * including all revisions. For the delete operations we use node->nid.
  */
-function nodeapi_example_node_delete($node) {
+function node_hooks_example_node_delete($node) {
   // Notice that we're deleting even if the content type has no rating enabled.
-  db_delete('nodeapi_example')
+  db_delete('node_hooks_example')
     ->condition('nid', $node->nid)
     ->execute();
 }
@@ -184,28 +181,28 @@ function nodeapi_example_node_delete($node) {
  * database updates.
  *
  * This hook is called when an existing node has been changed. We can't simply
- * update, since the node may not have a rating saved, thus no
- * database field. So we first check the database for a rating. If there is one,
- * we update it. Otherwise, we call nodeapi_example_node_insert() to create one.
+ * update, since the node may not have a rating saved, thus no database field.
+ * We first check the database for a rating. If there is one, we update it;
+ * otherwise, we call node_hooks_example_node_insert() to create one.
  */
-function nodeapi_example_node_update($node) {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
+function node_hooks_example_node_update($node) {
+  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
     // Check first if this node has a saved rating.
-    $rating = db_select('nodeapi_example', 'e')
+    $rating = db_select('node_hooks_example', 'e')
       ->fields('e', array('rating'))
       ->where('e.vid = (:vid)', array(':vid' => $node->vid))
       ->execute()->fetchField();
 
     if ($rating) {
       // Node has been rated before.
-      db_update('nodeapi_example')
-        ->fields(array('rating' => $node->nodeapi_example_rating))
+      db_update('node_hooks_example')
+        ->fields(array('rating' => $node->node_hooks_example_rating))
         ->condition('vid', $node->vid)
         ->execute();
     }
     else {
       // Node was not previously rated, so insert a new rating in database.
-      nodeapi_example_node_insert($node);
+      node_hooks_example_node_insert($node);
     }
   }
 }
@@ -226,13 +223,13 @@ function nodeapi_example_node_update($node) {
  * because filters transform user-supplied content, whereas we are extending it
  * with additional information.
  */
-function nodeapi_example_node_view($node, $build_mode = 'full') {
-  if (config_get('nodeapi_example.settings', 'nodeapi_example_node_type_' . $node->type)) {
+function node_hooks_example_node_view($node, $build_mode = 'full') {
+  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
     // Make sure to set a rating, also for nodes saved previously and not yet
     // rated.
-    $rating = isset($node->nodeapi_example_rating) ? $node->nodeapi_example_rating : 0;
-    $node->content['nodeapi_example'] = array(
-      '#markup' => theme('nodeapi_example_rating', array('rating' => $rating)),
+    $rating = isset($node->node_hooks_example_rating) ? $node->node_hooks_example_rating : 0;
+    $node->content['node_hooks_example'] = array(
+      '#markup' => theme('node_hooks_example_rating', array('rating' => $rating)),
       '#weight' => -1,
     );
   }
@@ -243,8 +240,8 @@ function nodeapi_example_node_view($node, $build_mode = 'full') {
  *
  * This lets us tell Backdrop about our theme functions and their arguments.
  */
-function nodeapi_example_theme() {
-  return array('nodeapi_example_rating' => array('variables' => array('rating' => NULL)));
+function node_hooks_example_theme() {
+  return array('node_hooks_example_rating' => array('variables' => array('rating' => NULL)));
 }
 
 /**
@@ -256,7 +253,7 @@ function nodeapi_example_theme() {
  * is prefixed by the module name. This way, style sheets can modify the output
  * without requiring theme code.
  */
-function theme_nodeapi_example_rating($variables) {
+function theme_node_hooks_example_rating($variables) {
   $options = array(
     0 => t('Unrated'),
     1 => t('Poor'),
@@ -265,7 +262,7 @@ function theme_nodeapi_example_rating($variables) {
     4 => t('Good'),
     5 => t('Excellent'),
   );
-  $output = '<div class="nodeapi_example_rating">';
+  $output = '<div class="node_hooks_example_rating">';
   $output .= t('Rating: %rating', array('%rating' => $options[(int) $variables['rating']]));
   $output .= '</div>';
   return $output;
@@ -274,14 +271,14 @@ function theme_nodeapi_example_rating($variables) {
 /**
  * Implements hook_config_info().
  */
-function nodeapi_example_config_info() {
-  $prefixes['nodeapi_example.settings'] = array(
-    'label' => t('NodeAPI Example settings'),
+function node_hooks_example_config_info() {
+  $prefixes['node_hooks_example.settings'] = array(
+    'label' => t('Node Hooks Example settings'),
     'group' => t('Configuration'),
   );
   return $prefixes;
 }
 
 /**
- * @} End of "defgroup nodeapi_example".
+ * @} End of "defgroup node_hooks_example".
  */

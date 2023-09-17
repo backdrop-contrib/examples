@@ -1,0 +1,7 @@
+name = Node Content Type
+description = Demonstrates how to create a content type and use the field API.
+dependencies[] = image
+package = Example modules
+version = BACKDROP_VERSION
+backdrop = 1.x
+type = module

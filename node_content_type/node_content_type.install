@@ -1,0 +1,28 @@
+<?php
+/**
+ * @file
+ * Install, update and uninstall functions for the node_example module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function node_content_type_install() {
+  $node_content_type = array(
+    'type' => 'node_content_type',
+    'name' => t('Example content type'),
+    'base' => 'node_content',
+    'description' => t('This is an example content type with a few fields.'),
+    'custom' => 1,
+    'modified' => 1,
+    'locked' => 0,
+    'is_new' => TRUE,
+    'settings' => array(
+      'promote_enabled' => FALSE,
+    ),
+  );
+
+  $content_type = node_type_set_defaults($node_content_type);
+  node_type_save($content_type);
+  node_add_body_field($content_type);
+}
