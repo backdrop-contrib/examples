@@ -1,38 +1,40 @@
 <?php
 /**
  * @file
- * Test case for Testing the node API example module.
+ * Test case for testing the Node Hooks Example module.
  *
  * This file contains the test cases to check if module is performing as
  * expected.
  */
 
 /**
- * Functional tests for the NodeAPI Example module.
+ * Functional tests for the Node Hooks Example module.
  *
  * @ingroup nodeapi_example
  */
-class NodeApiExampleTestCase extends BackdropWebTestCase {
+class NodeHooksExampleTestCase extends BackdropWebTestCase {
   /**
-   * User object to perform site browsing
+   * User object to perform site browsing.
+   *
    * @var object
    */
   protected $webUser;
 
   /**
-   * Content type to attach the rating system
+   * Content type to attach the rating system.
+   *
    * @var string
    */
   protected $type;
 
   /**
-   * Enables modules and create user with specific permissions.
+   * Enables modules and creates users with specific permissions.
    */
   public function setUp() {
     parent::setUp('nodeapi_example');
     module_disable(array('path'));
 
-    // Create admin user. This module has no access control, so we can use a
+    // Create the admin user. This module has no access control, so we can use a
     // trusted user. Revision access and revert permissions are required too.
     $this->webUser = $this->backdropCreateUser(array(
       // Required to set revision checkbox.
@@ -43,40 +45,33 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
       'view revisions',
       'revert revisions',
     ));
-    // Login the admin user.
+    // Log in the admin user.
     $this->backdropLogin($this->webUser);
   }
 
   /**
-   * Log user in, creates an example node, and uses the rating system.
+   * Logs the user in, creates an example node, and uses the rating system.
    */
   public function testNodeExampleBasic() {
-
-    // Login the user.
     $this->backdropLogin($this->webUser);
-
-    // Create custom content type.
     $content_type = $this->backdropCreateContentType();
     $type = $content_type->type;
-
-    // Go to edit the settings of this content type.
     $this->backdropGet('admin/structure/types/manage/' . $type);
     $this->assertResponse(200);
 
-    // Check if the new Rating options appear in the settings page.
-    $this->assertText(t('NodeAPI Example Rating'), 'Rating options found in content type.');
-    $this->assertFieldByName('nodeapi_example_node_type', 1, 'Rating is Disabled by default.');
+    // Check if the new rating options appear in the settings page.
+    $this->assertText(t('Node Hooks Example rating'), 'Rating options found in the content type.');
+    $this->assertFieldByName('node_hooks_example_node_type', 1, 'The rating is disabled by default.');
 
-    // Disable the rating for this content type: 0 for Disabled, 1 for Enabled.
+    // Disable the rating for this content type.
     $content_settings = array(
       'nodeapi_example_node_type' => 0,
     );
     $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
-    $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
+    $this->assertRaw(' has been updated.', 'Settings have been successfully modified for the content type.');
 
     // Create an example node.
-    $langcode = LANGUAGE_NONE;
     $edit = array(
       "title" => $this->randomName(),
     );
@@ -86,67 +81,59 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
     // Check that the rating is not shown, as we have not yet enabled it.
     $this->assertNoRaw('Rating: <em>', 'Extended rating information is not shown.');
 
-    // Save current current url (we are viewing the new node).
+    // Save the current URL. We are viewing the new node.
     $node_url = $this->getUrl();
 
-    // Enable the rating for this content type: 0 for Disabled, 1 for Enabled.
+    // Enable the rating for this content type.
     $content_settings = array(
       'nodeapi_example_node_type' => TRUE,
     );
     $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
-    $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
+    $this->assertRaw(' has been updated.', 'Settings hav been successfully modified for the content type.');
 
-    // Check previously create node. It should be not rated.
+    // Check the previously create node; it should be not rated.
     $this->backdropGet($node_url);
     $this->assertResponse(200);
-    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Unrated'))), 'Content is not rated.');
+    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Unrated'))), 'The content is not rated.');
 
-    // Rate the content, 4 is for "Good"
+    // Rate the content; 4 is for "Good."
     $rate = array(
       'nodeapi_example_rating' => 4,
     );
     $this->backdropPost($node_url . '/edit', $rate, t('Save'));
     $this->assertResponse(200);
 
-    // Check that content has been rated.
-    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Good'))), 'Content is successfully rated.');
-
+    // Check the content has been rated.
+    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Good'))), 'The content has been successfully rated.');
   }
 
   /**
-   * Test revisions of ratings.
+   * Tests revisions of ratings.
    *
    * Logs user in, creates an example node, and tests rating functionality with
    * a node using revisions.
    */
   public function testNodeExampleRevision() {
-
-    // Login the user.
     $this->backdropLogin($this->webUser);
-
-    // Create custom content type.
     $content_type = $this->backdropCreateContentType();
     $type = $content_type->type;
-
-    // Go to edit the settings of this content type.
     $this->backdropGet('admin/structure/types/manage/' . $type);
     $this->assertResponse(200);
 
-    // Check if the new Rating options appear in the settings page.
-    $this->assertText(t('NodeAPI Example Rating'), 'Rating options found in content type.');
-    $this->assertFieldByName('nodeapi_example_node_type', 1, 'Rating is Disabled by default.');
+    // Check if the new rating options appear in the settings page.
+    $this->assertText(t('Node Hooks Example rating'), 'Rating options found in the content type.');
+    $this->assertFieldByName('node_hooks_example_node_type', 1, 'The rating is disabled by default.');
 
-    // Disable the rating for this content type: 0 for Disabled, 1 for Enabled.
+    // Disable the rating for this content type.
     $content_settings = array(
       'nodeapi_example_node_type' => 0,
     );
     $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
-    $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
+    $this->assertRaw(' has been updated.', 'Settings have been successfully modified for the content type.');
 
     // Create an example node.
-    $langcode = LANGUAGE_NONE;
     $edit = array(
       "title" => $this->randomName(),
     );
@@ -154,48 +141,48 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
     $this->assertResponse(200);
 
     // Check that the rating is not shown, as we have not yet enabled it.
-    $this->assertNoRaw('Rating: <em>', 'Extended rating information is not shown.');
+    $this->assertNoRaw('Rating: <em>', 'The extended rating information is not shown.');
 
-    // Save current current url (we are viewing the new node).
+    // Save the current URL. We are viewing the new node.
     $node_url = $this->getUrl();
 
-    // Enable the rating for this content type: 0 for Disabled, 1 for Enabled.
+    // Enable the rating for this content type.
     $content_settings = array(
       'nodeapi_example_node_type' => TRUE,
     );
     $this->backdropPost('admin/structure/types/manage/' . $type, $content_settings, t('Save content type'));
     $this->assertResponse(200);
-    $this->assertRaw(' has been updated.', 'Settings modified successfully for content type.');
+    $this->assertRaw(' has been updated.', 'Settings has been successfully modified for the content type.');
 
-    // Check previously create node. It should be not rated.
+    // Check the previously create node. It should be not rated.
     $this->backdropGet($node_url);
     $this->assertResponse(200);
-    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Unrated'))), 'Content is not rated.');
+    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Unrated'))), 'The content is not rated.');
 
-    // Rate the content, 4 is for "Good"
+    // Rate the content; 4 is for "Good."
     $rate = array(
-      'nodeapi_example_rating' => 4,
+      'node_hooks_example_rating' => 4,
     );
     $this->backdropPost($node_url . '/edit', $rate, t('Save'));
     $this->assertResponse(200);
 
-    // Check that content has been rated.
-    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Good'))), 'Content is successfully rated.');
+    // Check the content has been rated.
+    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Good'))), 'The content has been successfully rated.');
 
-    // Rate the content to poor using a new revision, 1 is for "Poor"
+    // Rate the content to poor using a new revision; 1 is for "Poor."
     $rate = array(
       'nodeapi_example_rating' => 1,
-      'revision'               => 1,
+      'revision' => 1,
     );
     $this->backdropPost($node_url . '/edit', $rate, t('Save'));
     $this->assertResponse(200);
 
-    // Check that content has been rated.
-    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Poor'))), 'Content is successfully rated.');
+    // Check the content has been rated.
+    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Poor'))), 'The content has been successfully rated.');
 
-    // Now switch back to previous revision of the node.
+    // Switch back to the previous revision.
     $this->backdropGet($node_url . '/revisions');
-    // There is only a revision, so it must work just clicking the first link..
+    // There is only a revision, so it must work just clicking the first link.
     $this->clickLink('Revert');
     $revert_form = $this->getUrl();
     $this->backdropPost($revert_form, array(), t('Revert'));
@@ -204,9 +191,8 @@ class NodeApiExampleTestCase extends BackdropWebTestCase {
     $this->backdropGet($node_url);
     $this->assertResponse(200);
 
-    // Check that content has been rated.
-    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Good'))), 'Content rating matches reverted revision.');
-
+    // Check the content has been rated.
+    $this->assertRaw(t('Rating: %rating', array('%rating' => t('Good'))), 'The content rating matches the reverted revision.');
   }
 
 }

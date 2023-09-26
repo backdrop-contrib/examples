@@ -9,26 +9,26 @@
  *
  * @ingroup nodeapi_example
  */
-function nodeapi_example_schema() {
-  $schema['nodeapi_example'] = array(
+function node_hooks_example_schema() {
+  $schema['node_hooks_example'] = array(
     'description' => 'Stores information of extended content.',
     'fields' => array(
       'nid'    => array(
-        'description' => 'Node ID that the rating is applied to.',
+        'description' => 'The ID for the node to which the rating is applied.',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
       ),
       'vid'    => array(
-        'description' => 'Revision ID, as we are tracking rating with node revisions',
+        'description' => 'The revision ID, as we are tracking rating with node revisions.',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
         'default' => 0,
       ),
       'rating' => array(
-        'description' => 'The rating of the node.',
+        'description' => 'The node rating.',
         'type' => 'int',
         'unsigned' => TRUE,
         'not null' => TRUE,
@@ -47,19 +47,18 @@ function nodeapi_example_schema() {
 /**
  * Implements hook_install().
  *
- * We need to set a default nodeapi_example_node_type_<contentType> setting of 0
- * for each available node type.
+ * We need to set a default node_hooks_example_node_type_<contentType> setting
+ * to 0 for each available content type.
  *
- * We call node_type_get_types() to get a list of all node types.
+ * We call node_type_get_types() to get a list of all the content types.
  *
  * @ingroup nodeapi_example
  */
-function nodeapi_example_install() {
-  $config = config('nodeapi_example.settings');
+function node_hooks_example_install() {
+  $config = config('node_hooks_example.settings');
   $node_types = array_keys(node_type_get_types());
   foreach($node_types as $type) {
-    $config->set('nodeapi_example_node_type_' . $type, 0);
+    $config->set('node_hooks_example_node_type_' . $type, 0);
   }
   $config->save();
 }
-

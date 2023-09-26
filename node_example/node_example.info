@@ -1,7 +1,0 @@
-name = Node example
-description = Demonstrates a custom content type and uses the field api.
-dependencies[] = image
-package = Example modules
-version = BACKDROP_VERSION
-backdrop = 1.x
-type = module

@@ -1,5 +1,0 @@
-[NodeApiExampleTestCase]
-name = Node API example functionality
-description = Demonstrate Node API hooks that allow altering a node.
-group = Example modules
-file = nodeapi_example.test
