@@ -23,11 +23,7 @@ class DatabaseExampleUnitTestCase extends BackdropWebTestCase {
    */
   public function testInstall() {
     $result = database_example_entry_load();
-    $this->assertEqual(
-      count($result),
-      2,
-      'Found two entries in the table after installing the module.'
-    );
+    $this->assertEqual(count($result), 2, 'Found two entries in the table after installing the module.');
   }
 
 
@@ -58,8 +54,7 @@ class DatabaseExampleUnitTestCase extends BackdropWebTestCase {
     // Find out the pid of our "anonymous" guy.
     $result = database_example_entry_load(array('surname' => 'Anonymous'));
     $this->backdropGet("examples/database_example");
-    $this->assertEqual(count($result),1,'Found one entry in the table with surname = "Anonymous".'
-    );
+    $this->assertEqual(count($result),1,'Found one entry in the table with surname = "Anonymous".');
     $entry = $result[0];
     unset($entry->uid);
     $entry->name = 'NewFirstName';
