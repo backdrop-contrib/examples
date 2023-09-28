@@ -1,20 +1,20 @@
 <?php
 /**
  * @file
- * Module file for the Node Content Type module.
+ * Module file for the Node Type module.
  *
  * Part of the Examples for Developers project.
  */
 
 /**
- * @defgroup node_content_type Example: Content type
+ * @defgroup node_type_example Example: Node type
  * @ingroup examples
  * @{
  * Example that programmatically defines a content type.
  *
  * This is an example outlining how a module can define a new content type. The
- * example content type allows users to specify multiple colors, a quantity,
- * and an image. It could be used as some kind of rudimentary inventory-tracking
+ * example content type allows users to specify multiple colors, a quantity, and
+ * an image. It could be used as some kind of rudimentary inventory-tracking
  * system.
  *
  * The basic pattern for defining a content type is to tell Backdrop about the
@@ -44,13 +44,13 @@
  * Implements hook_menu().
  *
  * We are providing a default page to illustrate the use of our custom node view
- * mode that will live at http://example.com/?q=examples/node_example.
+ * mode that will live at http://example.com/?q=examples/node_type_example.
  */
-function node_content_type_menu() {
-  $items['examples/node_content_type'] = array(
-    'page callback' => 'node_content_type_page',
+function node_type_example_menu() {
+  $items['examples/node_type_example'] = array(
+    'page callback' => 'node_type_example_page',
     'access arguments' => array('access content'),
-    'title' => 'Content type example',
+    'title' => 'Node type example',
   );
   return $items;
 }
@@ -68,16 +68,16 @@ function node_content_type_menu() {
  * It is called for all inserts to the content type database, so we have to make
  * sure we're only modifying the type we're concerned with.
  */
-function node_content_type_node_type_insert($content_type) {
-  if ($content_type->type == 'node_content_type') {
+function node_type_example_node_type_insert($content_type) {
+  if ($content_type->type == 'node_type_example') {
     // First, we add the body field with node_add_body_field(). We set the body
     // label now, although we could also set it along with our other instance
     // properties later.
     $body_instance = node_add_body_field($content_type, t('Example description'));
 
-    // Add our node_content_type_example_list view mode to the body instance display by
+    // Add our node_type_example_list view mode to the body instance display by
     // instructing the body to display as a summary.
-    $body_instance['display']['node_content_type_example_list'] = array(
+    $body_instance['display']['node_type_example_list'] = array(
       'label' => 'hidden',
       'type' => 'text_summary_or_trimmed',
     );
@@ -86,14 +86,14 @@ function node_content_type_node_type_insert($content_type) {
     field_update_instance($body_instance);
 
     // Create all the fields we are adding to our content type.
-    foreach (_node_content_type_installed_fields() as $field) {
+    foreach (_node_type_example_installed_fields() as $field) {
       field_create_field($field);
     }
 
     // Create all the instances for our fields.
-    foreach (_node_content_type_installed_instances() as $instance) {
+    foreach (_node_type_example_installed_instances() as $instance) {
       $instance['entity_type'] = 'node';
-      $instance['bundle'] = 'node_content_type';
+      $instance['bundle'] = 'node_type_example';
       field_create_instance($instance);
     }
   }
@@ -108,40 +108,40 @@ function node_content_type_node_type_insert($content_type) {
  * You can get fancy with this form, or you can just punt and return the default
  * form node_content_form() provides.
  */
-function node_content_type_form($node, $form_state) {
+function node_type_example_form($node, $form_state) {
   return node_content_form($node, $form_state);
 }
 
 /**
- * Callback that builds our content and returns it to the browser.
+ * Callback that builds our content.
  *
  * @return array
  *   A renderable array showing a list of our nodes.
  *
  * @see node_load()
  * @see node_view()
- * @see node_content_type_field_formatter_view()
+ * @see node_type_example_field_formatter_view()
  */
-function node_content_type_page() {
+function node_type_example_page() {
   $renderable_array = array();
   // We query the database and find all the nodes for the type we defined.
   $sql = 'SELECT nid FROM {node} n WHERE n.type = :type AND n.status = :status';
   $result = db_query($sql, array(
-    ':type' => 'node_content_type',
+    ':type' => 'node_type_example',
     ':status' => 1)
   );
   $renderable_array['explanation'] = array(
-    '#markup' => t("The created node_content_types nodes will be displayed here. The color fields will be displayed differently in this list than when you normally view nodes. Click on the node title to see the difference. This is the result of using our 'node_content_type_example_list' node view type."),
+    '#markup' => t("The created node_type_example nodes will be displayed here. The color fields will be displayed differently in this list than when you normally view nodes. Click on the node title to see the difference. This is the result of using our 'node_type_example_list' node view type."),
   );
-  // Loop through each of our node_content_type nodes and instruct node_view()
-  // to use our "node_content_type_example_list" view.
+  // Loop through each of our node_type_example nodes and instruct node_view()
+  // to use our "node_type_example_list" view.
   // See
   // @link https://docs.backdropcms.org/api/backdrop/core%21modules%21node%21node.module/function/node_load/1 node_load()
   // and
   // @link https://docs.backdropcms.org/api/backdrop/core%21modules%21node%21node.module/function/node_view/1 node_view() @endlink.
   foreach ($result as $row) {
     $node = node_load($row->nid);
-    $renderable_array['node_list'][] = node_view($node, 'node_content_type_example_list');
+    $renderable_array['node_list'][] = node_view($node, 'node_type_example_list');
   }
   return $renderable_array;
 }
@@ -152,9 +152,9 @@ function node_content_type_page() {
  * We need to modify the default node entity info by adding a new view mode to
  * be used in functions like node_view() or node_build_content().
  */
-function node_content_type_entity_info_alter(&$entity_info) {
+function node_type_example_entity_info_alter(&$entity_info) {
   // Add our new view mode to the list of view modes.
-  $entity_info['node']['view modes']['node_content_type_example_list'] = array(
+  $entity_info['node']['view modes']['node_type_example_list'] = array(
     'label' => t('Example node list'),
     'custom settings' => TRUE,
   );
@@ -164,9 +164,9 @@ function node_content_type_entity_info_alter(&$entity_info) {
 /**
  * Implements hook_field_formatter_info().
  */
-function node_content_type_field_formatter_info() {
+function node_type_example_field_formatter_info() {
   return array(
-    'node_content_type_colors' => array(
+    'node_type_example_colors' => array(
       'label' => t('Node color handle'),
       'field types' => array('text'),
     ),
@@ -178,14 +178,14 @@ function node_content_type_field_formatter_info() {
  *
  * @todo Provide a formatter for the colors.
  */
-function node_content_type_field_formatter_view($object_type, $object, $field, $instance, $langcode, $items, $display) {
+function node_type_example_field_formatter_view($object_type, $object, $field, $instance, $langcode, $items, $display) {
   $element = array();
 
-  if ($display['type'] == 'node_content_type_colors') {
+  if ($display['type'] == 'node_type_example_colors') {
     foreach ($items as $delta => $item) {
       $element[$delta]['#type'] = 'markup';
       $color = $item['safe_value'];
-      $element[$delta]['#markup'] = theme('node_content_type_color', array('color' => $color));
+      $element[$delta]['#markup'] = theme('node_type_example_color', array('color' => $color));
     }
   }
 
@@ -197,9 +197,9 @@ function node_content_type_field_formatter_view($object_type, $object, $field, $
  *
  * It gives to Backdrop the list of our theme functions and their arguments.
  */
-function node_content_type_theme($existing, $type, $theme, $path) {
+function node_type_example_theme($existing, $type, $theme, $path) {
   return array(
-    'node_content_type_color' => array(
+    'node_type_example_color' => array(
       'variables' => array('color' => NULL),
     ),
   );
@@ -212,7 +212,7 @@ function node_content_type_theme($existing, $type, $theme, $path) {
  * override this presentation if they wish. This is a simplified theme function
  * purely for illustrative purposes.
  */
-function theme_node_content_type_color($variables) {
+function theme_node_type_example_color($variables) {
   $output = '<span style="background-color: #ccc; padding: 1em; margin-bottom: 1em; float: left; color: ' . $variables['color'] . '">' . $variables['color'] . '</span>';
   return $output;
 }
@@ -224,23 +224,23 @@ function theme_node_content_type_color($variables) {
  *   An associative array specifying the fields we wish to add to our new
  *   content type.
  */
-function _node_content_type_installed_fields() {
+function _node_type_example_installed_fields() {
   return array(
-    'node_content_type_color' => array(
-      'field_name' => 'node_content_type_color',
+    'node_type_example_color' => array(
+      'field_name' => 'node_type_example_color',
       'cardinality' => 3,
       'type'        => 'text',
       'settings'    => array(
         'max_length' => 60,
       ),
     ),
-    'node_content_type_quantity' => array(
-      'field_name'  => 'node_content_type_quantity',
+    'node_type_example_quantity' => array(
+      'field_name'  => 'node_type_example_quantity',
       'cardinality' => 1,
       'type'        => 'text',
     ),
-    'node_content_type_image' => array(
-      'field_name' => 'node_content_type_image',
+    'node_type_example_image' => array(
+      'field_name' => 'node_type_example_image',
       'type'       => 'image',
       'cardinality' => 1,
     ),
@@ -252,44 +252,44 @@ function _node_content_type_installed_fields() {
  *
  * It lets Backdrop know which widget to use to allow users to enter data and
  * how to react in different view modes. We are going to display a page that
- * uses a custom "node_content_type_list" view mode. We will set the cardinality
+ * uses a custom "node_type_example_list" view mode. We will set the cardinality
  * to three, allowing our content type to give users three color fields.
  *
  * @return array
  *   An associative array specifying the instances we wish to add to our new
  *   content type.
  */
-function _node_content_type_installed_instances() {
+function _node_type_example_installed_instances() {
   return array(
-    'node_content_type_color' => array(
-      'field_name' => 'node_content_type_color',
+    'node_type_example_color' => array(
+      'field_name' => 'node_type_example_color',
       'label'       => t('The colors available for this object.'),
       'widget'      => array(
         'type'    => 'text_textfield',
       ),
       'display' => array(
-        'node_content_type_example_list' => array(
+        'node_type_example_list' => array(
           'label' => 'hidden',
-          'type' => 'node_content_type_colors',
+          'type' => 'node_type_example_colors',
         ),
       ),
     ),
-    'node_content_type_quantity' => array(
-      'field_name'  => 'node_content_type_quantity',
+    'node_type_example_quantity' => array(
+      'field_name'  => 'node_type_example_quantity',
       'label' => t('Quantity required'),
       'type'        => 'text',
       'widget'      => array(
         'type'    => 'text_textfield',
       ),
       'display' => array(
-        'node_content_type_example_list' => array(
+        'node_type_example_list' => array(
           'label' => 'hidden',
           'type' => 'hidden',
         ),
       ),
     ),
-    'node_content_type_image' => array(
-      'field_name'  => 'node_content_type_image',
+    'node_type_example_image' => array(
+      'field_name'  => 'node_type_example_image',
       'label'       => t('Upload an image:'),
       'required'    => FALSE,
       'widget' => array(
@@ -297,7 +297,7 @@ function _node_content_type_installed_instances() {
         'weight'  => 2.10,
       ),
       'display' => array(
-        'node_content_type_example_list' => array(
+        'node_type_example_list' => array(
           'label' => 'hidden',
           'type' => 'image_link_content__thumbnail',
         ),
@@ -307,5 +307,5 @@ function _node_content_type_installed_instances() {
 }
 
 /**
- * @} End of "defgroup node_content_type".
+ * @} End of "defgroup node_type_example".
  */
