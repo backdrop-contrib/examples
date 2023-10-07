@@ -10,7 +10,7 @@
  * @link cache_example.module Demonstrate Backdrop caching @endlink
  * @link contextual_links_example.module Defining contextual links @endlink
  * @link cron_example.module Using hook_cron() and hook_cron_queue_info() @endlink
- * @link dbtng_example.module Database examples (DBTNG) @endlink
+ * @link database_example.module Database examples @endlink
  * @link email_example.module Sending e-mail @endlink
  * @link entity_example.module Creating and managing a custom entity @endlink
  * @link field_example.module Defining fields in the field API @endlink

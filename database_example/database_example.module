@@ -1,8 +1,7 @@
 <?php
 /**
  * @file
- * This is an example outlining how a module can make use of the DBTNG
- * database API in Backdrop.
+ * This is an example outlining how a module can use the database API.
  *
  * @todo Demonstrate transaction usage.
  */
@@ -137,7 +136,7 @@ function database_example_entry_update($entry) {
  * The usage of db_query() is deprecated except for static queries. Formerly, a
  * deletion might have been accomplished like this:
  * @code
- *  db_query("DELETE FROM {dbtng_example} WHERE pid = %d", $entry['pid]);
+ *  db_query("DELETE FROM {database_example} WHERE pid = %d", $entry['pid]);
  * @endcode
  *
  * @param array $entry
