@@ -7,9 +7,9 @@
 /**
  * Implements hook_install().
  */
-function node_content_type_install() {
+function node_type_example_install() {
   $node_content_type = array(
-    'type' => 'node_content_type',
+    'type' => 'node_type_example',
     'name' => t('Example content type'),
     'base' => 'node_content',
     'description' => t('This is an example content type with a few fields.'),
