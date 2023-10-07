@@ -1,4 +1,4 @@
-name = Node Content Type
+name = Node Type Example
 description = Demonstrates how to create a content type and use the field API.
 dependencies[] = image
 package = Example modules
