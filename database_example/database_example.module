@@ -1,43 +1,39 @@
 <?php
 /**
  * @file
- * This is an example outlining how a module can make use of the DBTNG
- * database API in Backdrop.
+ * This is an example outlining how a module can use the database API.
  *
  * @todo Demonstrate transaction usage.
  */
 
 /**
- * @defgroup dbtng_example Example: Database (DBTNG)
+ * @defgroup database_example Example: Database
  * @ingroup examples
  * @{
- * Database examples, including DBTNG.
- *
- * 'DBTNG' means 'Database: The Next Generation.' Yes, Backdroplers are nerds.
+ * Database examples.
  *
  * General documentation is available at
  * @link database Database abstraction layer @endlink.
  *
  * The several examples here demonstrate basic database usage.
  *
- * In Backdrop the usage of db_query() for INSERT, UPDATE, or DELETE is
- * deprecated, because it is database-dependent.
- * Instead specific functions are provided to perform these
- * operations: db_insert(), db_update(), and db_delete() do the job now.
+ * The usage of db_query() for INSERT, UPDATE, or DELETE is deprecated, because
+ * it is database-dependent. Instead, specific functions are provided to perform
+ * these operations: db_insert(), db_update(), and db_delete() do the job now.
  * (Note that backdrop_write_record() is also deprecated.)
  *
  * db_insert() example:
  * @code
- *   // INSERT INTO {dbtng_example} (name, surname) VALUES('John, 'Doe')
- *   db_insert('dbtng_example')
+ *   // INSERT INTO {database_example} (name, surname) VALUES('John, 'Doe')
+ *   db_insert('database_example')
  *     ->fields(array('name' => 'John', 'surname' => 'Doe'))
  *     ->execute();
  * @endcode
  *
  * db_update() example:
  * @code
- *   // UPDATE {dbtng_example} SET name = 'Jane' WHERE name = 'John'
- *   db_update('dbtng_example')
+ *   // UPDATE {database_example} SET name = 'Jane' WHERE name = 'John'
+ *   db_update('database_example')
  *     ->fields(array('name' => 'Jane'))
  *     ->condition('name', 'John')
  *     ->execute();
@@ -45,8 +41,8 @@
  *
  * db_delete() example:
  * @code
- *   // DELETE FROM {dbtng_example} WHERE name = 'Jane'
- *   db_delete('dbtng_example')
+ *   // DELETE FROM {database_example} WHERE name = 'Jane'
+ *   db_delete(database_example')
  *     ->condition('name', 'Jane')
  *     ->execute();
  * @endcode
@@ -59,14 +55,12 @@
  */
 
 /**
- * Save an entry in the database.
- *
- * The underlying DBTNG function is db_insert().
+ * Saves an entry in the database using db_insert().
  *
  * In Drupal 6, this would have been:
  * @code
  *   db_query(
- *     "INSERT INTO {dbtng_example} (name, surname, age)
+ *     "INSERT INTO {database_example} (name, surname, age)
  *       VALUES ('%s', '%s', '%d')",
  *     $entry['name'],
  *     $entry['surname'],
@@ -74,41 +68,42 @@
  *   );
  * @endcode
  *
- * Exception handling is shown in this example. It could be simplified
- * without the try/catch blocks, but since an insert will throw an exception
- * and terminate your application if the exception is not handled, it is best
- * to employ try/catch.
+ * Exception handling is shown in this example. It could be simplified without
+ * the try/catch blocks, but since an insert will throw an exception and
+ * terminate your application if the exception is not handled, it is best to
+ * employ try/catch.
  *
  * @param array $entry
  *   An array containing all the fields of the database record.
  *
  * @see db_insert()
  */
-function dbtng_example_entry_insert($entry) {
+function database_example_entry_insert($entry) {
   $return_value = NULL;
+
   try {
-    $return_value = db_insert('dbtng_example')
-                    ->fields($entry)
-                    ->execute();
+    $return_value = db_insert('database_example')
+      ->fields($entry)
+      ->execute();
   }
   catch (Exception $e) {
-    backdrop_set_message(t('db_insert failed. Message = %message, query= %query',
-      array('%message' => $e->getMessage(), '%query' => $e->query_string)), 'error');
+    backdrop_set_message(t('db_insert() failed. Message = %message, query = %query', array('%message' => $e->getMessage(), '%query' => $e->query_string)), 'error');
   }
+
   return $return_value;
 }
 
 /**
- * Update an entry in the database.
+ * Updates an entry in the database.
  *
  * The former, deprecated techniques used db_query() or backdrop_write_record():
  * @code
- *  backdrop_write_record('dbtng_example', $entry, $entry['pid']);
+ *  backdrop_write_record('database_example', $entry, $entry['pid']);
  * @endcode
  *
  * @code
  *  db_query(
- *    "UPDATE {dbtng_example}
+ *    "UPDATE {database_example}
  *     SET name = '%s', surname = '%s', age = '%d'
  *     WHERE pid = %d",
  *     $entry['pid']
@@ -120,28 +115,28 @@ function dbtng_example_entry_insert($entry) {
  *
  * @see db_update()
  */
-function dbtng_example_entry_update($entry) {
+function database_example_entry_update($entry) {
   try {
-    // db_update()...->execute() returns the number of rows updated.
-    $count = db_update('dbtng_example')
-              ->fields($entry)
-              ->condition('pid', $entry['pid'])
-              ->execute();
+    // db_update()->execute() returns the number of updated rows.
+    $count = db_update('database_example')
+      ->fields($entry)
+      ->condition('pid', $entry['pid'])
+      ->execute();
   }
   catch (Exception $e) {
-    backdrop_set_message(t('db_update failed. Message = %message, query= %query',
-      array('%message' => $e->getMessage(), '%query' => $e->query_string)), 'error');
+    backdrop_set_message(t('db_update failed. Message = %message, query= %query', array('%message' => $e->getMessage(), '%query' => $e->query_string)), 'error');
   }
+
   return $count;
 }
 
 /**
- * Delete an entry from the database.
+ * Deletes an entry from the database.
  *
- * The usage of db_query is deprecated except for static queries.
- * Formerly, a deletion might have been accomplished like this:
+ * The usage of db_query() is deprecated except for static queries. Formerly, a
+ * deletion might have been accomplished like this:
  * @code
- *  db_query("DELETE FROM {dbtng_example} WHERE pid = %d", $entry['pid]);
+ *  db_query("DELETE FROM {database_example} WHERE pid = %d", $entry['pid]);
  * @endcode
  *
  * @param array $entry
@@ -150,73 +145,60 @@ function dbtng_example_entry_update($entry) {
  *
  * @see db_delete()
  */
-function dbtng_example_entry_delete($entry) {
-  db_delete('dbtng_example')
+function database_example_entry_delete($entry) {
+  db_delete('database_example')
     ->condition('pid', $entry['pid'])
     ->execute();
-
 }
 
-
 /**
- * Read from the database using a filter array.
+ * Reads from the database using a filter array.
  *
- * db_query() used in an SQL query with placeholders and arguments as
- * parameters.
+ * Backdrop provides an abstracted interface that will work with a wide variety
+ * of database engines.
  *
- * @code
- *  // Old way
- *  $query = "SELECT * FROM {dbtng_example} n WHERE n.uid = %d AND name = '%s'";
- *  $result = db_query($query, $uid, $name);
- * @endcode
- *
- * DBTNG provides an abstracted interface that will work with a wide
- * variety of database engines.
- *
- * db_query() is deprecated except when doing a static query. The following is
- * perfectly acceptable in Backdrop.
+ * db_query() is deprecated except when doing a static query. The following code
+ * is perfectly acceptable in Backdrop.
  *
  * @code
- *   // SELECT * FROM {dbtng_example} WHERE uid = 0 AND name = 'John'
- *   db_query(
- *     "SELECT * FROM {dbtng_example} WHERE uid = :uid and name = :name",
+ *   // SELECT * FROM {database_example} WHERE uid = 0 AND name = 'John'
+ *   db_query("SELECT * FROM {database_example} WHERE uid = :uid and name = :name",
  *     array(':uid' => 0, ':name' => 'John')
  *   )->execute();
  * @endcode
  *
- * But for more dynamic queries, Backdrop provides the db_select() API method, so
- * there are several ways to perform the same SQL query. See the
- * @link http://DOCUMENTATION_PENDING handbook page on dynamic queries. @endlink
+ * For more dynamic queries, Backdrop provides db_select(). See the
+ * @link http://DOCUMENTATION_PENDING handbook page on dynamic queries @endlink.
  *
  * @code
- *   // SELECT * FROM {dbtng_example} WHERE uid = 0 AND name = 'John'
- *   db_select('dbtng_example')
- *     ->fields('dbtng_example')
+ *   // SELECT * FROM {database_example} WHERE uid = 0 AND name = 'John'
+ *   db_select('database_example')
+ *     ->fields('database_example')
  *     ->condition('uid', 0)
  *     ->condition('name', 'John')
  *     ->execute();
  * @endcode
  *
- * Here is db_select with named placeholders:
+ * With named placeholders, the code becomes the following
  * @code
- *   // SELECT * FROM {dbtng_example} WHERE uid = 0 AND name = 'John'
+ *   // SELECT * FROM {database_example} WHERE uid = 0 AND name = 'John'
  *   $arguments = array(':name' => 'John', ':uid' => 0);
- *   db_select('dbtng_example')
- *     ->fields('dbtng_example')
+ *   db_select('database_example')
+ *     ->fields('database_example')
  *     ->where('uid = :uid AND name = :name', $arguments)
  *     ->execute();
  * @endcode
  *
- * Conditions are stacked and evaluated as AND and OR depending on the type of
- * query. For more information, read the conditional queries handbook page at:
- * http://DOCUMENTATION_PENDING/node/310086
+ * Conditions are stacked and evaluated as AND or OR depending on the type of
+ * query. For more information, read the conditional queries handbook page at
+ * http://DOCUMENTATION_PENDING/node/310086.
  *
  * The condition argument is an 'equal' evaluation by default, but this can be
  * altered:
  * @code
- *   // SELECT * FROM {dbtng_example} WHERE age > 18
- *   db_select('dbtng_example')
- *     ->fields('dbtng_example')
+ *   // SELECT * FROM {database_example} WHERE age > 18
+ *   db_select('database_example')
+ *     ->fields('database_example')
  *     ->condition('age', 18, '>')
  *     ->execute();
  * @endcode
@@ -232,9 +214,9 @@ function dbtng_example_entry_delete($entry) {
  * @see http://DOCUMENTATION_PENDING/node/310072
  * @see http://DOCUMENTATION_PENDING/node/310075
  */
-function dbtng_example_entry_load($entry = array()) {
-  // Read all fields from the dbtng_example table.
-  $select = db_select('dbtng_example', 'example');
+function database_example_entry_load($entry = array()) {
+  // Read all fields from the database_example table.
+  $select = db_select('database_example', 'example');
   $select->fields('example');
 
   // Add each field and value as a condition to this query.
@@ -246,12 +228,12 @@ function dbtng_example_entry_load($entry = array()) {
 }
 
 /**
- * Render a filtered list of entries in the database.
+ * Renders a filtered list of entries in the database.
  *
- * DBTNG also helps processing queries that return several rows, providing the
+ * Backdrop helps in processing queries that return several rows, providing the
  * found objects in the same query execution call.
  *
- * This function queries the database using a JOIN between users table and the
+ * This function queries the database using a JOIN between the users and the
  * example entries, to provide the username that created the entry, and creates
  * a table with the results, processing each row.
  *
@@ -259,7 +241,7 @@ function dbtng_example_entry_load($entry = array()) {
  *  e.pid as pid, e.name as name, e.surname as surname, e.age as age
  *  u.name as username
  * FROM
- *  {dbtng_example} e
+ *  {database_example} e
  * JOIN
  *  users u ON e.uid = u.uid
  * WHERE
@@ -268,10 +250,10 @@ function dbtng_example_entry_load($entry = array()) {
  * @see db_select()
  * @see http://DOCUMENTATION_PENDING/node/310075
  */
-function dbtng_example_advanced_list() {
+function database_example_advanced_list() {
   $output = '';
 
-  $select = db_select('dbtng_example', 'e');
+  $select = db_select('database_example', 'e');
   // Join the users table, so we can get the entry creator's username.
   $select->join('users', 'u', 'e.uid = u.uid');
   // Select these specific fields for the output.
@@ -312,40 +294,40 @@ function dbtng_example_advanced_list() {
 /**
  * Implements hook_menu().
  *
- * Set up calls to backdrop_get_form() for all our example cases.
+ * Sets up calls to backdrop_get_form() for all our example cases.
  */
-function dbtng_example_menu() {
+function database_example_menu() {
   $items = array();
 
-  $items['examples/dbtng'] = array(
-    'title' => 'DBTNG Example',
-    'page callback' => 'dbtng_example_list',
+  $items['examples/database'] = array(
+    'title' => 'Database Example',
+    'page callback' => 'database_example_list',
     'access callback' => TRUE,
   );
-  $items['examples/dbtng/list'] = array(
+  $items['examples/database/list'] = array(
     'title' => 'List',
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );
-  $items['examples/dbtng/add'] = array(
+  $items['examples/database/add'] = array(
     'title' => 'Add entry',
     'page callback' => 'backdrop_get_form',
-    'page arguments' => array('dbtng_example_form_add'),
+    'page arguments' => array('database_example_form_add'),
     'access callback' => TRUE,
     'type' => MENU_LOCAL_TASK,
     'weight' => -9,
   );
-  $items['examples/dbtng/update'] = array(
+  $items['examples/database/update'] = array(
     'title' => 'Update entry',
     'page callback' => 'backdrop_get_form',
-    'page arguments' => array('dbtng_example_form_update'),
+    'page arguments' => array('database_example_form_update'),
     'type' => MENU_LOCAL_TASK,
     'access callback' => TRUE,
     'weight' => -5,
   );
-  $items['examples/dbtng/advanced'] = array(
+  $items['examples/database/advanced'] = array(
     'title' => 'Advanced list',
-    'page callback' => 'dbtng_example_advanced_list',
+    'page callback' => 'database_example_advanced_list',
     'access callback' => TRUE,
     'type' => MENU_LOCAL_TASK,
   );
@@ -354,13 +336,13 @@ function dbtng_example_menu() {
 }
 
 /**
- * Render a list of entries in the database.
+ * Renders a list of entries in the database.
  */
-function dbtng_example_list() {
+function database_example_list() {
   $output = '';
 
-  // Get all entries in the dbtng_example table.
-  if ($entries = dbtng_example_entry_load()) {
+  // Get all entries in the database_example table.
+  if ($entries = database_example_entry_load()) {
     $rows = array();
     foreach ($entries as $entry) {
       // Sanitize the data before handing it off to the theme layer.
@@ -377,9 +359,9 @@ function dbtng_example_list() {
 }
 
 /**
- * Prepare a simple form to add an entry, with all the interesting fields.
+ * Prepares a simple form to add an entry, with all the interesting fields.
  */
-function dbtng_example_form_add($form, &$form_state) {
+function database_example_form_add($form, &$form_state) {
   $form = array();
 
   $form['add'] = array(
@@ -400,7 +382,7 @@ function dbtng_example_form_add($form, &$form_state) {
     '#type'  => 'textfield',
     '#title' => t('Age'),
     '#size'  => 5,
-    '#description' => t("Values greater than 127 will cause an exception. Try it - it's a great example why exception handling is needed with DTBNG."),
+    '#description' => t("Values greater than 127 will cause an exception. Try it; it's a great example why exception handling is needed with DTBNG."),
   );
   $form['add']['submit'] = array(
     '#type'  => 'submit',
@@ -413,7 +395,7 @@ function dbtng_example_form_add($form, &$form_state) {
 /**
  * Submit handler for 'add entry' form.
  */
-function dbtng_example_form_add_submit($form, &$form_state) {
+function database_example_form_add_submit($form, &$form_state) {
   global $user;
 
   // Save the submitted entry.
@@ -423,7 +405,7 @@ function dbtng_example_form_add_submit($form, &$form_state) {
     'age'     => $form_state['values']['age'],
     'uid'     => $user->uid,
   );
-  $return = dbtng_example_entry_insert($entry);
+  $return = database_example_entry_insert($entry);
   if ($return) {
     backdrop_set_message(t("Created entry @entry", array('@entry' => print_r($entry, TRUE))));
   }
@@ -432,17 +414,19 @@ function dbtng_example_form_add_submit($form, &$form_state) {
 /**
  * Sample UI to update a record.
  */
-function dbtng_example_form_update($form, &$form_state) {
+function database_example_form_update($form, &$form_state) {
   $form = array(
     '#prefix' => '<div id="updateform">',
     '#suffix' => '</div>',
   );
 
-  $entries = dbtng_example_entry_load();
+  $entries = database_example_entry_load();
   $keyed_entries = array();
+  $options = array();
+
   if (empty($entries)) {
     $form['no_values'] = array(
-      '#value' => t("No entries exist in the table dbtng_example table."),
+      '#value' => t("No entries exist in the table database_example table."),
     );
     return $form;
   }
@@ -469,7 +453,7 @@ function dbtng_example_form_update($form, &$form_state) {
     '#default_value' => $default_entry->pid,
     '#ajax' => array(
       'wrapper' => 'updateform',
-      'callback' => 'dbtng_example_form_update_callback',
+      'callback' => 'database_example_form_update_callback',
     ),
   );
 
@@ -506,11 +490,11 @@ function dbtng_example_form_update($form, &$form_state) {
  *
  * When the pid changes, populates the defaults from the database in the form.
  */
-function dbtng_example_form_update_callback($form, $form_state) {
+function database_example_form_update_callback($form, $form_state) {
   $entry = $form_state['entries'][$form_state['values']['pid']];
-  // Setting the #value of items is the only way I was able to figure out
-  // to get replaced defaults on these items. #default_value will not do it
-  // and shouldn't.
+  // Setting the #value of items is the only way I was able to figure out to get
+  // replaced defaults on these items. #default_value will not do it and should
+  // not.
   foreach (array('name', 'surname', 'age') as $item) {
     $form[$item]['#value'] = $entry->$item;
   }
@@ -518,9 +502,9 @@ function dbtng_example_form_update_callback($form, $form_state) {
 }
 
 /**
- * Submit handler for 'update entry' form.
+ * Submit handler for the 'update entry' form.
  */
-function dbtng_example_form_update_submit($form, &$form_state) {
+function database_example_form_update_submit($form, &$form_state) {
   global $user;
 
   // Save the submitted entry.
@@ -531,10 +515,9 @@ function dbtng_example_form_update_submit($form, &$form_state) {
     'age' => $form_state['values']['age'],
     'uid' => $user->uid,
   );
-  $count = dbtng_example_entry_update($entry);
-  backdrop_set_message(t("Updated entry @entry (@count row updated)",
-    array('@count' => $count, '@entry' => print_r($entry, TRUE))));
+  $count = database_example_entry_update($entry);
+  backdrop_set_message(t("Updated entry @entry (@count row updated)", array('@count' => $count, '@entry' => print_r($entry, TRUE))));
 }
 /**
- * @} End of "defgroup dbtng_example".
+ * @} End of "defgroup database_example".
  */

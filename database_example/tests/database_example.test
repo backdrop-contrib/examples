@@ -1,0 +1,138 @@
+<?php
+/**
+ * @file
+ * SimpleTests for the Database Example module.
+ */
+
+/**
+ * Default test case for the Database Example module.
+ *
+ * @ingroup database_example
+ */
+class DatabaseExampleUnitTestCase extends BackdropWebTestCase {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setUp() {
+    parent::setUp('database_example');
+  }
+
+  /**
+   * Tests the default module installation, two entries in the database table.
+   */
+  public function testInstall() {
+    $result = database_example_entry_load();
+    $this->assertEqual(count($result), 2, 'Found two entries in the table after installing the module.');
+  }
+
+
+  /**
+   * Tests the UI.
+   */
+  public function testUI() {
+    // Test the basic list.
+    $this->backdropGet('examples/database_example');
+    $this->assertPattern("/John[td\/<>\w]+Doe/", "Text 'John Doe' found in table");
+
+    // Test the add tab.
+    // Add the new entry.
+    $this->backdropPost('examples/database_example/add',
+      array(
+        'name'  => 'Some',
+        'surname' => 'Anonymous',
+        'age' => 33,
+      ),
+      t('Add')
+    );
+    cache('page')->flush();
+    // Now find the new entry.
+    $this->backdropGet('examples/database_example');
+    $this->assertPattern("/Some[td\/<>\w]+Anonymous/", "Text 'Some Anonymous' found in table");
+
+    // Try the update tab.
+    // Find out the pid of our "anonymous" guy.
+    $result = database_example_entry_load(array('surname' => 'Anonymous'));
+    $this->backdropGet("examples/database_example");
+    $this->assertEqual(count($result),1,'Found one entry in the table with surname = "Anonymous".');
+    $entry = $result[0];
+    unset($entry->uid);
+    $entry->name = 'NewFirstName';
+    $this->backdropPost('examples/database_example/update', (array) $entry, t('Update'));
+    cache('page')->flush();
+    // Now find the new entry.
+    $this->backdropGet('examples/database_example');
+    $this->assertPattern("/NewFirstName[td\/<>\w]+Anonymous/", "Text 'NewFirstName Anonymous' found in table");
+
+    // Try the advanced tab.
+    $this->backdropGet('examples/database_example/advanced');
+    $rows = $this->xpath("//*[contains(@class, 'l-content')]/table[1]/tbody/tr");
+    $this->assertEqual(count($rows), 1, "One row found in advanced view");
+    $this->assertFieldByXPath("//*[contains(@class, 'l-content')]/table[1]/tbody/tr/td[4]", "Roe", "Name 'Roe' Exists in advanced list");
+  }
+
+  /**
+   * Tests several combinations, adding entries, updating and deleting.
+   */
+  public function testAPIExamples() {
+    // Create a new entry.
+    $entry = array(
+      'name' => 'James',
+      'surname' => 'Doe',
+      'age' => 23,
+    );
+    database_example_entry_insert($entry);
+
+    // Save another entry.
+    $entry = array(
+      'name' => 'Jane',
+      'surname' => 'NotDoe',
+      'age' => 19,
+    );
+    database_example_entry_insert($entry);
+
+    // Verify that 4 records are found in the database.
+    $result = database_example_entry_load();
+    $this->assertEqual(count($result), 4, 'Found a total of four entries in the table after creating two additional entries.');
+
+    // Verify 2 of these records have 'Doe' as surname.
+    $result = database_example_entry_load(array('surname' => 'Doe'));
+    $this->assertEqual(count($result), 2, 'Found two entries in the table with surname = "Doe".');
+
+    // Now find our not-Doe entry.
+    $result = database_example_entry_load(array('surname' => 'NotDoe'));
+    $this->assertEqual(count($result), 1, 'Found one entry in the table with surname "NotDoe');
+    // Our NotDoe will be changed to "NowDoe".
+    $entry = $result[0];
+    $entry->surname = "NowDoe";
+    database_example_entry_update((array) $entry);
+
+    $result = database_example_entry_load(array('surname' => 'NowDoe'));
+    $this->assertEqual(count($result), 1, "Found renamed 'NowDoe' surname");
+
+    // Read only John Doe entry.
+    $result = database_example_entry_load(array('name' => 'John', 'surname' => 'Doe'));
+    $this->assertEqual(count($result), 1, 'Found one entry for John Doe.');
+    // Get the entry.
+    $entry = (array) end($result);
+    // Change the age to 45 and update the entry in the database.
+    $entry['age'] = 45;
+    database_example_entry_update((array) $entry);
+
+    // Find entries with age equal to 45 where the surname is NowDoe.
+    $result = database_example_entry_load(array('surname' => 'NowDoe'));
+    $this->assertEqual(count($result), 1, 'Found one entry with surname = Nowdoe.');
+
+    // Verify it is Jane NowDoe.
+    $entry = (array) end($result);
+    $this->assertEqual($entry['name'], 'Jane', 'The name Jane has been found in the database');
+    $this->assertEqual($entry['surname'], 'NowDoe', 'The surname NowDoe has been found in the database');
+
+    // Delete the entry.
+    database_example_entry_delete($entry);
+
+    // Verify that now there are only 3 records.
+    $result = database_example_entry_load();
+    $this->assertEqual(count($result), 3, 'Found only three records.');
+  }
+}

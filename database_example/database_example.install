@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Install, update and uninstall functions for the dbtng_example module.
+ * Install, update, and uninstall functions for the Database Example module.
  */
 
 /**
@@ -9,21 +9,18 @@
  *
  * We will create a default entry in the database.
  *
- * Outside of the .install file we would use backdrop_write_record() to populate
- * the database, but it cannot be used here, so we'll use db_insert().
- *
  * @see hook_install()
  *
- * @ingroup dbtng_example
+ * @ingroup database_example
  */
-function dbtng_example_install() {
+function database_example_install() {
   // Add a default entry.
   $fields = array(
     'name'    => 'John',
     'surname' => 'Doe',
     'age'     => 0,
   );
-  db_insert('dbtng_example')
+  db_insert('database_example')
     ->fields($fields)
     ->execute();
 
@@ -34,7 +31,7 @@ function dbtng_example_install() {
     'age'     => 100,
     'uid'     => 1,
   );
-  db_insert('dbtng_example')
+  db_insert('database_example')
     ->fields($fields)
     ->execute();
 }
@@ -42,16 +39,16 @@ function dbtng_example_install() {
 /**
  * Implements hook_schema().
  *
- * Defines the database tables used by this module.
- * Remember that the easiest way to create the code for hook_schema is with
- * the @link http://backdropcms.org/project/schema schema module @endlink
+ * Defines the database tables used by this module. Remember that the easiest
+ * way to create the code for hook_schema() is with the
+ * @link http://backdropcms.org/project/schema Schema module @endlink.
  *
  * @see hook_schema()
- * @ingroup dbtng_example
+ * @ingroup database_example
  */
-function dbtng_example_schema() {
+function database_example_schema() {
 
-  $schema['dbtng_example'] = array(
+  $schema['database_example'] = array(
     'description' => 'Stores example person entries for demonstration purposes.',
     'fields' => array(
       'pid'  => array(

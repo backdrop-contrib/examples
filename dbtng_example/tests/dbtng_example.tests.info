@@ -1,5 +1,0 @@
-[DBTNGExampleUnitTestCase]
-name = DBTNG example functionality
-description = Various unit tests on the dbtng example module.
-group = Example modules
-file = dbtng_example.test

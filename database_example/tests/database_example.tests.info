@@ -1,0 +1,5 @@
+[DatabaseExampleUnitTestCase]
+name = Database Example functionality
+description = Various unit tests on the Database Example module.
+group = Example modules
+file = database_example.test
