@@ -1,20 +1,19 @@
 <?php
 /**
  * @file
- * Outlines how a module can use the Batch API.
+ * Hook implementations for the Batch example module.
  */
 
 /**
  * @defgroup batch_example Example: Batch API
  * @ingroup examples
  * @{
- * Outlines how a module can use the Batch API.
+ * This example demonstrates how a module can use the Batch API.
  *
- * Batches allow heavy processing to be spread out over several page
- * requests, ensuring that the processing does not get interrupted
- * because of a PHP timeout, while allowing the user to receive feedback
- * on the progress of the ongoing operations. It also can prevent out of memory
- * situations.
+ * Batches allow heavy processing to be spread out over several page requests,
+ * ensuring that the processing does not get interrupted because of a PHP
+ * timeout, while allowing the user to receive feedback on the progress of the
+ * ongoing operations. It also can prevent out of memory situations.
  *
  * The @link batch_example.install .install file @endlink also shows how the
  * Batch API can be used to handle long-running hook_update_N() functions.

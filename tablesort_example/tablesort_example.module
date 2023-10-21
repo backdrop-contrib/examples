@@ -1,19 +1,20 @@
 <?php
 /**
  * @file
- * This is an example describing how a module can display data in a sortable
- * table
- *
- * See:
- * @link http://DOCUMENTATION_PENDING Extenders @endlink
- * @link http://DOCUMENTATION_PENDING/developing/api/database Database API @endlink
+ * Hook implementations for the Table Sort example module.
  */
 
 /**
  * @defgroup tablesort_example Example: Tablesort
  * @ingroup examples
  * @{
- * Example of a sortable table display.
+ * This example demonstrates how to create a sortable table display.
+ *
+ * This is an example describing how a module can display data in a sortable
+ * table.
+ *
+ * See:
+ * - @link https://docs.backdropcms.org/api/backdrop/core%21includes%21tablesort.class.inc/class/TableSort/1 TableSort @endlink
  */
 
 /**

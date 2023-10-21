@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Module file for page_example_module.
+ * Hook implementations for the Page example module.
  */
 
 /**

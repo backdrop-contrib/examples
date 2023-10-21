@@ -1,29 +1,27 @@
 <?php
 /**
  * @file
- * Module file for image_example
+ * Hooks implementations for the Image Example module.
  */
 
 /**
  * @defgroup image_example Example: Image
  * @ingroup examples
  * @{
- * Demonstrates the basic use of image API.
+ * This example demonstrates the basic usage of the image API.
  *
- * This module demonstrates the use of Backdrop's image styles and effects
- * including the following topics.
- *  - Define new image effects. Demonstrates how a module can add additional
- *    effects to the options available when creating image styles.
- *    hook_image_effect_info().
- *  - Alter existing image styles. Demonstrates the use of
- *    hook_image_styles_alter() to modify existing image effects without
- *    having to override the styles.
- *  - Demonstrates the use of hook_image_style_save() and
+ * This module demonstrates the use of image styles and effects, including the
+ * following topics.
+ *  - Demonstrate how a module can add additional effects to the options
+ *    available when creating image styles.
+ *  - Demonstrate the usage of hook_image_styles_alter() to modify existing
+ *    image effects without having to override the styles.
+ *  - Demonstrate the usage of hook_image_style_save() and
  *    hook_image_style_delete() to update module specific variables when an
  *    image style is either re-named or deleted.
- *  - Generate a form with a field of type #managed_file that allows the user
- *    to upload an image and choose a style to use when displaying that image.
- *  - Demonstrates the use of theme_image_style() to display images using an
+ *  - Generate a form with a #managed_file field which allows users to upload an
+ *    image and choose a style to display that image.
+ *  - Demonstrate the usage of theme_image_style() to display images using an
  *    image style.
  *
  * @see hook_image_effect_info().

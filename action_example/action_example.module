@@ -1,25 +1,25 @@
 <?php
 /**
  * @file
- * Action definition example module.
+ * Hook implementation for the Action example module.
  */
 
 /**
  * @defgroup action_example Example: Action
  * @ingroup examples
  * @{
- * Creating actions in Backdrop
+ * This example demonstrates how to create actions.
  *
- * Actions are Backdrop features allowing some Backdrop programming without
- * using PHP. Using the appropriate action in a specific event, a site
- * administrator can add new functionality.
+ * Actions are a feature that allows some programming without using PHP. Using
+ * the appropriate action in a specific event, a site administrator can add new
+ * functionality.
  *
  * Examples are:
- *  - Display a message after a user has logged in.
- *  - Display a message after a node has been deleted.
- *  - Unblock a user if selected in a Views list.
+ *  - Displaying a message after a user has logged in
+ *  - Displaying a message after a node has been deleted
+ *  - Unblocking a user if selected in a Views list
  *
- * In Backdrop core Actions are mainly run by adding them to Bulk Operations
+ * In Backdrop core, actions are mainly run by adding them to Bulk Operations
  * executed on Views lists, although modules may also trigger actions by calling
  * actions_execute().
  *
@@ -33,25 +33,21 @@
  * trigger.
  *
  * What are good candidates to be triggers? Any function can be a trigger, as
- * long as it has the code to call the action, but to make Backdrop
- * more extensible, you will find hooks (from Backdrop and contributed modules)
- * very good candidates. A trigger should build the arguments, ask for enqueued
+ * long as it has the code to call the action, but to make Backdrop more
+ * extensible, you will find hooks (from Backdrop and contributed modules) very
+ * good candidates. A trigger should build the arguments, ask for enqueued
  * actions and run them. You may define a function being a trigger, and run it
  * through a button in the front page, or you may prepare a trigger for a hook,
  * and everytime that hook is fired, your trigger will be.
  *
- * What are good candidates to be actions? any function is a possible action,
+ * What are good candidates to be actions? Any function is a possible action;
  * the only problem is finding a trigger able to run it.
  *
- * This module describes how to create actions for Backdrop. In this
- * example we are providing three actions:
- *
+ * This module shows how to create actions. We are providing three actions:
  * - A generic action that can be used in any trigger, which is the most
- *   basic example of an action.
- *
- * - A User action.
- *
- * - A Node action.
+ *   basic example of an action
+ * - A user action
+ * - A node action
  *
  * For this module, the generic action will be triggered by executing a submit
  * function in a simple form. The Node and User actions will be triggered from

@@ -1,18 +1,17 @@
 <?php /** @noinspection SpellCheckingInspection */
 /**
  * @file
- * Implements the basic functionality required to create and display an entity.
+ * Hook implementations for the Entity Example module.
  *
- * @todo: Define EntityExampleBasic types in code
- * @todo: Add a single field
+ * @todo Define EntityExampleBasic types in code
+ * @todo Add a single field
  */
 
 /**
  * @defgroup entity_example Example: Entity
  * @ingroup examples
  * @{
- * Example creating a core Entity API entity.
- *
+ * This example demonstrates how to create an entity.
  */
 
 /**

@@ -1,76 +1,74 @@
 <?php
 /**
  * @file
- * Module file illustrating API-based node access.
+ * Hook implementations for the Node access example module.
  */
 
 /**
  * @defgroup node_access_example Example: Node Access
  * @ingroup examples
  * @{
- * Demonstrates node access.
+ * This example demonstrates how to use the node access.
  *
- * This is an example demonstrating how to grant or deny access to nodes
- * using the Backdrop core API node access system.
+ * This is an example demonstrating how to grant or deny access to nodes using
+ * the node access system.
  *
- * This module will add a 'private' flag for each node, which the node's
- * author can manage. Nodes marked private can only be viewed, edited,
- * or deleted by the author. However, not everything is as private as it
- * seems on the internet, and so we need to implement some ways to allow
- * other users to manage this 'private' content.
+ * This module will add a 'private' flag for each node, which the node's author
+ * can manage. Nodes marked private can only be viewed, edited, or deleted by
+ * the author. However, not everything is as private as it seems on the
+ * Internet, and so we need to implement some ways to allow other users to
+ * manage this 'private' content.
  *
- * We will use the node grant system to specify which users
- * are allowed to view, edit, or delete 'private' content. We will also
- * allow a user named 'foobar' to have edit privileges on private content
- * as well.
+ * We will use the node grant system to specify which users are allowed to view,
+ * edit, or delete 'private' content. We will also allow a user named 'foobar'
+ * to have edit privileges on private content as well.
  *
- * In addition, we will provide a page which will show some minimal
- * instructions, and statistics on private nodes on the site.
+ * In addition, we will provide a page which will show some minimal instructions
+ * and statistics on private nodes on the site.
  *
- * We use NodeAPI hooks to put a single marker on a node, called
- * 'private'. The marker is implemented by a database table which has one
- * row per node simply indicating that the node is private. If the "private"
- * marker is set, users other than the owner and privileged users are denied
- * access.
+ * We use node hooks to put a single marker on a node, called 'private'. The
+ * marker is implemented by a database table which has one row per node simply
+ * indicating the node is private. If the "private" marker is set, users other
+ * than the owner and privileged users are denied access.
  *
  * Standard permissions are defined which allow users with
- * 'access any private content' or 'edit any private content' to override
- * the 'private' node access restrictions.
+ * 'access any private content' or 'edit any private content' to override the
+ * 'private' node access restrictions.
  *
- * A separate access realm grants privileges to each node's author, so that
- * they can always view, edit, and delete their own private nodes.
+ * A separate access realm grants privileges to each node's author. They can
+ * always view, edit, and delete their own private nodes.
  *
- * The only page provided by this module gives a rundown of how many nodes
- * are marked private, and how many of those are accessible to the current
- * user. This demonstrates the use of the 'node_access' tag in node queries,
- * preventing disclosure of information which should not be shown to users
- * who don't have the proper permissions.
+ * The only page provided by this module gives a rundown of how many nodes are
+ * marked private, and how many of those are accessible to the current user.
+ * This demonstrates the use of the 'node_access' tag in node queries,
+ * preventing disclosure of information which should not be shown to users who
+ * don't have the proper permissions.
  *
- * Most relevant functions:
+ * The most relevant functions are:
  * - node_access_example_permission()
  * - node_access_example_node_access()
  * - node_access_example_node_access_records()
  * - node_access_example_node_grants()
  *
  * Backdrop's node access system has three layers.
- * - Overall override permissions. User 1 and any user with 'bypass node
- *   access' permission are automatically granted access.
+ * - User 1 and any user with 'bypass node access' permission are automatically
+ *   granted access.
  * - hook_node_access() gives each module the opportunity to approve or deny
  *   access. Any module that returns NODE_ACCESS_DENY from hook_node_access()
  *   will result in denial of access. If no module denies access and one or
  *   more modules allow access, then access is granted.
- * - If no resolution has yet been reached, then the node_access table is used
- *   along with hook_node_grants(). (Backdrop updates the node_access table when
+ * - If no resolution has yet been reached, the node_access table is used along
+ *   with hook_node_grants(). (Backdrop updates the node_access table when
  *   nodes are saved, by calling hook_node_access_records().)
  *
  * Note that the hook_node_grants()/hook_node_access_records() layer is a
  * first-grant-wins system, which means a module using it can't deny access to
  * a node. Contributed modules have been developed to overcome this
  * shortcoming, with their own APIs, such as
- * @link http://backdropcms.org/project/acl ACL. @endlink ACL, in fact, has emerged
- * as the more-or-less standard solution for fine-grained access control, and
- * you really should be reading up on it. Many modules use it, and if your
- * module implements another node access system, there could be chaos.
+ * @link http://backdropcms.org/project/acl ACL. @endlink ACL, in fact, has
+ * emerged as the more-or-less standard solution for fine-grained access
+ * control, and you really should be reading up on it. Many modules use it; if
+ * your module implements another node access system, there could be chaos.
  *
  * @see node_access()
  * @see hook_node_access()

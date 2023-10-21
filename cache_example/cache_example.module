@@ -1,7 +1,7 @@
-<?php /** @noinspection ALL */
+<?php
 /**
  * @file
- * Outlines how a module can use the Cache API.
+ * Hooks implementation for the Cache Example module.
  *
  * @todo: Demonstrate cache expiration.
  */
@@ -10,16 +10,16 @@
  * @defgroup cache_example Example: Cache API
  * @ingroup examples
  * @{
- * Outlines how a module can use the Cache API.
+ * This example demonstrates how a module can use the Cache API.
  *
  * Cache API allows us to cache data that is heavy to calculate. As this can
  * significantly speed up the Backdrop site, it is recommended to use cache
  * mechanism when it is appropriate.
  *
- * Cache in Backdrop is very easy to use. This example will search entire Backdrop
- * folder and display all files. Since this operation includes filesystem it can
- * take a while. This list will not change much on production
- * websites, so we decide to cache it.
+ * Cache in Backdrop is very easy to use. This example will search the entire
+ * Backdrop folder and display all files. Since this operation involves the
+ * filesystem, it can take a while. This list will not change much on production
+ * websites, so we decided to cache it.
  *
  * @see cache()
  * @see cache_get()

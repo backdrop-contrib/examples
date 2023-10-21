@@ -1,43 +1,36 @@
-<?php /** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
+<?php
 /**
  * @file
- * An example field using the Field Types API.
+ * Hook implementations for the Field Permission Example module.
  */
 
 /**
  * @defgroup field_permission_example Example: Field Permissions
  * @ingroup examples
  * @{
- * Example using permissions on a Field API field.
+ * This example demonstrates how to use permissions on a Field API field.
  *
- * This example is a relatively simple text field you can attach to
- * any fieldable entity.
+ * This example is a relatively simple text field you can attach to any
+ * fieldable entity.
  *
- * In this module we demonstrate how to limit access to a field.
- * Backdrop's Field API gives you two operations to permit or restrict:
- * view and edit. So you can then decide who gets to see fields,
- * who can edit them, and who can manage them.
+ * In this module we demonstrate how to limit access to a field. The field API
+ * gives you two operations to permit or restrict: view and edit. You can then
+ * decide who gets to see fields, who can edit them, and who can manage them.
  *
- * Our field is called field_permission_example_fieldnote. It has a
- * simple default widget of a text area, and a default formatter
- * that applies a CSS style to make it look like a sticky note.
+ * Our field is called field_permission_example_fieldnote. It has a simple
+ * default widget of a text area, and a default formatter that applies a CSS
+ * style to make it look like a sticky note.
  *
- * In addition to demonstrating how to set up permissions-based
- * access to a field, this module also demonstrates the absolute
- * minimum required to implement a field, since it doesn't have
- * any field settings. The tests also have a generalized
- * field testing class, called FieldTestGeneric, which can be easily
- * subclassed and reused for other fields.
+ * In addition to demonstrating how to set up permissions-based access to a
+ * field, this module also demonstrates the absolute minimum required to
+ * implement a field, since it doesn't have any field settings. The tests also
+ * have a generalized field-testing class, called FieldTestGeneric, which can be
+ * easily subclassed and reused for other fields.
  *
- * If you wish to use this code as skeleton code for a field without
- * permissions, you can simply remove field_permission_example_permission()
- * and field_permission_field_access(). Also field_permission_example_menu()
- * and _field_permission_example_page() are vestigial to the Examples
- * project.
+ * To use this code as skeleton code for a field without permissions, you can
+ * simply remove field_permission_example_permission() and
+ * field_permission_field_access(). field_permission_example_menu() and
+ * _field_permission_example_page() are also vestigial to the Examples project.
  *
  * How does it work?
  *
@@ -47,36 +40,32 @@
  *
  * OK, how does the code work?
  *
- * As with any permission system, we implement hook_permission() in
- * order to define a few permissions. In our case, users will want
- * to either view or edit fieldnote fields. And, similar to the way
- * node permissions work, we'll also include a context of either
- * their own content or any content. So that gives us 4 permissions
- * which administrators can assign to various roles. See
+ * As with any permission system, we implement hook_permission() in order to
+ * define a few permissions. In our case, users will want to either view or edit
+ * fieldnote fields. Similarly to the way node permissions work, we'll also
+ * include a context of either their own content or any content. That gives us
+ * four permissions administrators can assign to various roles. See
  * field_permission_example_permission() for the list.
  *
- * With our permissions defined in hook_permission(), we can now
- * handle requests for access. Those come in through
- * hook_field_access(), which we've implemented as
- * field_permission_example_field_access(). This function determines
- * whether the user has the ability to view or edit the field
- * in question by calling user_access(). We also give special edit
- * access to users with the 'bypass node access' and
- * 'administer content types' permissions, defined by the node module.
+ * With our permissions defined in hook_permission(), we can now handle requests
+ * for access. Those come in through hook_field_access(), which we've
+ * implemented as field_permission_example_field_access(). This function
+ * determines whether the user has the ability to view or edit the field in
+ * question by calling user_access(). We also give special edit access to users
+ * with the 'bypass node access' and 'administer content types' permissions
+ * defined by the Node module.
  *
- * One tricky part is that our field won't always be attached to
- * nodes. It could be attached to any type of entity. This means
- * that there's no general way to figure out if the user 'owns'
- * the entity or not. Since this is a simple example, we'll just
- * check for 'any' access to unknown entity types. We'll also
- * limit our known entity types to node and user, since those
- * are easy to demonstrate.
+ * One tricky part is that our field won't always be attached to nodes. It could
+ * be attached to any type of entity. This means that there's no general way to
+ * figure out if the user "owns" the entity or not. Since this is a simple
+ * example, we'll just check for 'any' access to unknown entity types. We'll
+ * also limit our known entity types to node and user, since those are easy to
+ * demonstrate.
  *
- * In a real application, we'd have use-case specific permissions
- * which might be more complex than these. Or perhaps simpler.
+ * In a real application, we'd have use-case specific permissions which might be
+ * more complex than these, or perhaps simpler.
  *
- * You can see a more complex field implementation in
- * field_example.module.
+ * You can see a more complex field implementation in field_example.module.
  *
  * @see field_example
  * @see field_example.module

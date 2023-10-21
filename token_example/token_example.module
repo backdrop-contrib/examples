@@ -1,29 +1,19 @@
 <?php
 /**
  * @file
- * An example module showing how to define and use tokens.
- *
- * Tokens are small bits of text that can be placed into larger documents
- * via simple placeholders, like %site-name or [user].
+ * Hook implementations for the Token example module.
  */
 
 /**
  * @defgroup token_example Example: Token API
  * @ingroup examples
  * @{
- * Examples using the Token API.
+ * This example demonstrates how to use the token API.
  *
  * Tokens are small bits of text that can be placed into larger documents
  * via simple placeholders, like %site-name or [user].
  *
- * Backdrop documentation on Token can be found here:
- * http://DOCUMENTATION_PENDING/documentation/modules/token
- *
- * A list of existing tokens can be found here:
- * http://DOCUMENTATION_PENDING/node/390482#backdrop7tokenslist
- *
- * This example is part of the Examples for Developers project which you can
- * download and experiment with here: http://backdropcms.org/project/examples
+ * This example is part of the Examples for Developers project.
  */
 
 /**

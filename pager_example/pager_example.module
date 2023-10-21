@@ -1,20 +1,21 @@
 <?php
 /**
  * @file
- * This is an example describing how a module can implement a pager in order
- * to reduce the number of output rows to the screen and allow a user
- * to scroll through multiple screens of output.
- *
- * See:
- * @link http://DOCUMENTATION_PENDING/developing/api/database Database API @endlink
- * @link http://DOCUMENTATION_PENDING Extenders @endlink
+ * Hook implementations for the Pager example module.
  */
 
 /**
  * @defgroup pager_example Example: Pager
  * @ingroup examples
  * @{
- * Example of a results pager.
+ * This example demonstrates a page with content in a pager.
+ *
+ * This is an example showing how a module can implement a pager in order to
+ * reduce the number of output rows to the screen, and allow a user to scroll
+ * through multiple screens of output.
+ *
+ * See:
+ * - @link https://docs.backdropcms.org/api/backdrop/core%21includes%21pager.class.inc/class/PagerDefault/1 PagerDefault @endlink
  */
 
 /**

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Module file for the Node Type module.
+ * Hook implementations for the Node Type Example module.
  *
  * Part of the Examples for Developers project.
  */
@@ -10,7 +10,7 @@
  * @defgroup node_type_example Example: Node type
  * @ingroup examples
  * @{
- * Example that programmatically defines a content type.
+ * This example demonstrates how to programmatically define a content type.
  *
  * This is an example outlining how a module can define a new content type. The
  * example content type allows users to specify multiple colors, a quantity, and
