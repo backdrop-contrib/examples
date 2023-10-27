@@ -1,4 +1,4 @@
-<?php /** @noinspection SpellCheckingInspection */
+<?php
 /**
  * @file
  * Hook implementations for the Entity Example module.
