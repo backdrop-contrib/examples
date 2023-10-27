@@ -1,6 +1,4 @@
-<?php /** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
+<?php
 /**
  * @file
  * Tests for Field Permission Example.

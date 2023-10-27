@@ -1,21 +1,20 @@
 <?php
 /**
  * @file
- * Example of how to use Backdrop's mail API.
+ * Hook implementations for the Email Example module.
  */
 
 /**
  * @defgroup email_example Example: Email
  * @ingroup examples
  * @{
- * Example of how to use Backdrop's mail API.
+ * This example demonstrates how to use the mail API.
  *
- * This example module provides two different examples of the Backdrop email API:
- *  - Defines a simple contact form and shows how to use backdrop_mail()
- *    to send an e-mail (defined in hook_mail()) when the form is submitted.
- *  - Shows how modules can alter emails defined by other Backdrop modules or
- *    Core using hook_mail_alter by attaching a custom signature before
- *    they are sent.
+ * This module provides two different examples of the Backdrop email API:
+ *  - Defines a simple contact form and shows how to use backdrop_mail() to
+ *    send an e-mail (defined in hook_mail()) when the form is submitted.
+ *  - Shows how modules can alter emails defined by other modules, using
+ *    hook_mail_alter(), to attach a custom signature before they are sent.
  */
 
 /**

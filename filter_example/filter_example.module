@@ -1,40 +1,40 @@
 <?php
 /**
  * @file
- * Module file for filter_example.
+ * Hook implementations for the Filter example module.
  */
 
 /**
  * @defgroup filter_example Example: Filter
  * @ingroup examples
  * @{
- * Demonstrates the creation of filters.
+ * This example demonstrates how filters are created.
  *
- * This is an example outlining how a module can be used to define a filter
- * to be run on user-submitted content before it is output to the browser.
+ * This is an example outlining how a module can define a filter that runs on
+ * user-submitted content before it is output on the browser.
  *
  * To show all the capabilities of the filter system, we will define two filters
  * in this module. One will substitute the string "foo" with an
- * administratively-defined replacement string. The other will find a custom
- * XML tag, <time />, and replace it by the current time.
+ * administratively-defined replacement string; the other one will replace a XML
+ * tag, <time />, with the current time.
  *
  * Foo filter
  *
- * Backdrop has several content formats (they are not filters), and in our example
- * the foo replacement can be configured for each one of them, allowing an html
- * or php replacement, so the module includes a settings callback, with options
- * to configure that replacements. Also, a Tips callback will help showing the
- * current replacement for the content type being edited.
+ * Backdrop has several content formats (they are not filters). In our example
+ * the foo replacement can be configured for each one of them, allowing a HTML
+ * or PHP replacement. The module includes a settings callback, with options
+ * to configure that replacements. A tips callback will show the current
+ * replacement for the node that is edited.
  *
  * Time filter.
  *
- * This filter is a little trickier to implement than the previous one.
- * Since the input involves special HTML characters (< and >) we have to
- * run the filter before HTML is escaped/stripped by other filters. But
- * we want to use HTML in our result as well, and so if we run this filter
- * first our replacement string could be escaped or stripped. The solution
- * is to use the "prepare" operation to escape the special characters, and
- * to later replace our escaped version in the "process" step.
+ * This filter is a little trickier to implement than the previous one. Since
+ * the input involves special HTML characters (< and >), we have to run the
+ * filter before the HTML markup is escaped/stripped by other filters. We want
+ * to use HTML in our result as well; if we run this filter first, our
+ * replacement string could be escaped or stripped. The solution is to use the
+ * "prepare" operation to escape the special characters, and to later replace
+ * our escaped version in the "process" step.
  */
 
 /**

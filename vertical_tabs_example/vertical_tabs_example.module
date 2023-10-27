@@ -1,14 +1,14 @@
 <?php
 /**
  * @file
- * Module file for vertical_tabs_example module.
+ * Hook implementations for the Vertical tabs example module.
  */
 
 /**
  * @defgroup vertical_tabs_example Example: Vertical Tabs
  * @ingroup examples
  * @{
- * Demonstrates the vertical tabs functionality provided by Backdrop.
+ * This example demonstrates the vertical tabs functionality.
  *
  * This example does not cover how to save or load a custom setting, and only
  * deals with the elements visibility and summary in the tab.

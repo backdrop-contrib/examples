@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * This is an example outlining how a module can use the database API.
+ * Hook implementations for the Database Example module.
  *
  * @todo Demonstrate transaction usage.
  */
@@ -10,7 +10,7 @@
  * @defgroup database_example Example: Database
  * @ingroup examples
  * @{
- * Database examples.
+ * This example demonstrates how to use the database API.
  *
  * General documentation is available at
  * @link database Database abstraction layer @endlink.

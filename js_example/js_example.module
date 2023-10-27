@@ -1,14 +1,14 @@
 <?php
 /**
  * @file
- * Examples showing how to use some of the JavaScript features in Backdrop.
+ * Hook implementations for the JavaScript Example module.
  */
 
 /**
  * @defgroup js_example Example: JavaScript
  * @ingroup examples
  * @{
- * Examples using Backdrop's built-in JavaScript.
+ * This example demonstrates how to use the Backdrop's built-in JavaScript.
  */
 
 /**

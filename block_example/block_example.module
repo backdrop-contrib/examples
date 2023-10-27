@@ -1,18 +1,18 @@
 <?php
 /**
  * @file
- * Module file for block_example.
+ * Hook implementations for the Block Example module.
  */
 
 /**
  * @defgroup block_example Example: Block
  * @ingroup examples
  * @{
- * Demonstrates code creation of blocks.
+ * This example demonstrates how blocks are created.
  *
  * This is an example outlining how a module can define blocks that can be
- * displayed on various pages of a site, or how to alter blocks provided by
- * other modules.
+ * displayed on various pages and how modules can alter blocks provided by a
+ * module.
  */
 
 /**

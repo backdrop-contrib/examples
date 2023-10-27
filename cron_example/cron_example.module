@@ -1,18 +1,17 @@
 <?php
 /**
  * @file
- * Demonstrates use of the Cron API in Backdrop - hook_cron()
+ * Hook implementations for the Cron example module.
  */
 
 /**
  * @defgroup cron_example Example: Cron
  * @ingroup examples
  * @{
- * Example using Cron API, including hook_cron() and hook_cron_queue_info().
+ * This example demonstrates how to use the Cron API, including hook_cron() and
+ * hook_cron_queue_info().
  *
- * This example is part of the Examples for Developers project
- * which you can download and experiment with at
- * http://backdropcms.org/project/examples
+ * This example is part of the Examples for Developers project.
  */
 
  /**

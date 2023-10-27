@@ -1,18 +1,17 @@
 <?php
 /**
  * @file
- * Module implementation for the Node Hooks Example module.
+ * Hook implementations for the Node Hooks Example module.
  */
 
 /**
  * @defgroup node_hooks_example Example: Node Hooks
  * @ingroup examples
  * @{
- * Example using node hook.
+ * This example demonstrates how to use node hooks.
  *
  * This is an example demonstrating how a module can be used to extend existing
  * content types.
- *
  * We will add the ability for each node to have a rating, a number from one to
  * five. The rating will also be tracked using the revision system, so every
  * revision may have different rating values.

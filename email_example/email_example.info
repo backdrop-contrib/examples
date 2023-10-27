@@ -1,5 +1,5 @@
-name = E-mail Example
-description = Demonstrate Backdrop's e-mail APIs.
+name = Email Example
+description = Demonstrate how to use the Backdrop's email APIs.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

@@ -1,14 +1,14 @@
 <?php
 /**
  * @file
- * An example of how to build a sortable form using tabledrag.
+ * Hook implementations for the Tabledrag Example module.
  */
 
 /**
  * @defgroup tabledrag_example Example: Tabledrag
  * @ingroup examples
  * @{
- * Example of draggable table rows.
+ * This example demonstrates the usage of draggable table rows.
  */
 
 /**

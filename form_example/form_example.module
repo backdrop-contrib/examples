@@ -1,19 +1,20 @@
 <?php
 /**
  * @file
- * Examples demonstrating the Backdrop Form API.
+ * Hook implementations for the Form Example module.
  */
 
 /**
  * @defgroup form_example Example: Form API
  * @ingroup examples
  * @{
- * Examples demonstrating the Backdrop Form API.
+ * This example demonstrates how to use the form API.
  *
- * The Form Example module is a part of the Backdrop Module Examples for Developers project
- * and provides various Backdrop Form API Examples. You can download and
- * experiment with this code at the
- * Backdrop Module Examples for Developers project page.
+ * The Form Example module is a part of the Examples for Developers project
+ * and provides various form API Examples. You can download and experiment with
+ * this code at the
+ * @link http://backdropcms.org/project/examples Examples for Developers @endlink
+ * project page.
  */
 
 /**

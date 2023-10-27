@@ -1,20 +1,17 @@
-<?php /** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
+<?php
 /**
  * @file
- * An example field using the Field Types API.
+ * Hook implementations for the Field Example module.
  */
 
 /**
  * @defgroup field_example Example: Field Types API
  * @ingroup examples
  * @{
- * Examples using Field Types API.
+ * This example demonstrates how to use the field types API.
  *
- * This has been updated from Barry Jaspan's presentation at DrupalCon Paris 2009.
+ * This has been updated from Barry Jaspan's presentation at DrupalCon Paris
+ * 2009.
  *
  * Providing a field requires:
  * - Defining a field:
@@ -40,10 +37,9 @@
  * field_example_field_formatter_view(). These are the API hooks that present
  * formatted and themed output to the user.
  *
- * And finally, our module defines the widget in
- * field_example_field_widget_info() and field_example_field_widget_form().
- * The widget is the form element used to receive input from the user
- * when the field is being populated.
+ * Finally, our module defines the widget in field_example_field_widget_info()
+ * and field_example_field_widget_form(). The widget is the form element used to
+ * receive input from users when the field is populated.
  *
  * @see field_types
  * @see field

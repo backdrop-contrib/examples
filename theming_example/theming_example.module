@@ -1,51 +1,43 @@
 <?php
 /**
  * @file
- * Explains how a module declares theme functions, preprocess functions, and
- * templates.
- *
- * The underlying approach is that a module should allow themes to do all
- * rendering, but provide default implementations where appropriate.
- *
- * Modules are also expected to leave data as render arrays as long as possible,
- * leaving rendering to theme functions and templates.
+ * Hook implementations for the Theming example module.
  */
 
 /**
  * @defgroup theming_example Example: Theming
  * @ingroup examples
  * @{
- * Example of Backdrop theming.
+ * This example demonstrates the usage of Backdrop theming.
  *
- * The theming_example module attempts to show how module developers can add
- * theme functions to their projects so that themes can modify output.
+ * This module attempts to show how module developers can add theme functions to
+ * their projects so that themes can modify output.
  *
- * Module developers should to strive to avoid hard-wiring any HTML into the
- * output of their code, this should all be done in theme functions.
+ * Module developers should strive to avoid hard-wiring any HTML into the
+ * output of their code; this should all be done in theme functions.
  *
- * Starting with the first example, function 'theming_example_page()':
- * the output is put into an array $content which is then fed to a theming
- * function 'theme_theming_example_page()' which loops over the content,
- * wrapping it in html in the process.
+ * Starting with the first example, theming_example_page(): The output is put
+ * into a $content array which is then fed to a theming function,
+ * theme_theming_example_page(), which loops over the content, wrapping it in
+ * HTML markup.
  *
- * In order to get function 'theme_theming_example_page()' recognized it needs
- * to be registered with the module theme register function of the
- * type 'hook_theme'.
+ * In order to get theme_theming_example_page() recognized, it needs to be
+ * registered with hook_theme().
  * theming_example_theme() does this for this module. For details of what can be
  * done in this hook see
  * @link https://docs.backdropcms.org/api/backdrop/core%21modules%21system%21system.api.php/function/hook_theme/1 hook_theme() @endlink
  *
- * The functions 'theming_example_list_page()' and theming_example_order_form()
- * work in the same way.
+ * theming_example_list_page() and theming_example_order_form() work in the same
+ * way.
  *
- * In 'theme_theming_example_list_page()' the content is themed as an
- * ordered list and given a class attribute 'theming_example_mylist' which
- * is defined in theming_example.css
+ * In theme_theming_example_list_page(), the content is themed as an ordered
+ * list and given a class attribute, theming_example_mylist, which
+ * is defined in theming_example.css.
  *
- * In function 'theme_theming_example_order_form()' the title is loaded into a
- * temporary variable '$title', deleted from the $form array and output
- * wrapped in html. The rest of the form is wrapped in a div using '#prefix'
- * and '#suffix'
+ * In theme_theming_example_order_form(), the title is loaded into a temporary
+ * variable, $title, deleted from the $form array, and output wrapped in HTML
+ * markup. The rest of the form is wrapped in a div using '#prefix' and
+ * '#suffix'.
  *
  * The theming functions can be copied to a theme's template.php, renaming them
  * appropriately. For example, if your theme is called 'mytheme', you would copy
@@ -55,10 +47,10 @@
  *
  * The fourth example shows the use of a template file
  * 'theming_example_text_form.tpl.php'
- * This file can be copied to a theme's folder and it will be used instead.
+ * This file can be copied to a theme's folder, and it will be used instead.
  *
  * This example also shows what can be done using Backdrop's
- * template_preprocess_HOOK method. In this case it modifies the output so
+ * template_preprocess_HOOK() method. In this case, it modifies the output so
  * that a themer can output the whole form or gain control over some of its
  * parts in the template file.
  */

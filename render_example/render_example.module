@@ -1,21 +1,24 @@
 <?php
 /**
  * @file
- * Demonstrates render arrays.
+ * Hook implementations for the Render example module.
  */
 
 /**
  * @defgroup render_example Example: Render
  * @ingroup examples
  * @{
- * Demonstrate how render arrays are arranged and how they can be altered.
- * This alters blocks and the page to show the actual render array
- * that is being used to create each item.
+ * This example demonstrates how render arrays are arranged and how they can be
+ * altered.
+ * This alters blocks and the page to show the actual render array used to
+ * create each item.
  *
  * @see backdrop_render()
  */
 
-// This allows backdrop_var_export() to work.
+/**
+ * This allows backdrop_var_export() to work.
+ */
 require_once BACKDROP_ROOT . '/core/includes/utility.inc';
 
 /**

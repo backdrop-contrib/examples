@@ -1,16 +1,14 @@
 <?php
 /**
  * @file
- * Shows how to use Backdrop's contextual links functionality.
- *
- * @see http://DOCUMENTATION_PENDING/node/1089922
+ * Hooks implementations for the Contextual links example module.
  */
 
 /**
  * @defgroup contextual_links_example Example: Contextual Links
  * @ingroup examples
  * @{
- * Example of implementing contextual links.
+ * This example demonstrates how to implement contextual links.
  */
 
 /**

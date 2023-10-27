@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Module file for menu_example.
+ * Hook implementations for the Menu example module.
  */
 
 /**
  * @defgroup menu_example Example: Menu
  * @ingroup examples
  * @{
- * Demonstrates uses of the Menu APIs in Backdrop.
+ * This example demonstrates how to use the menu API.
  *
- * The Page Example module also talks about the menu system, as well
- * as how to use menu arguments to generate pages.
+ * The Page Example module is another module that show how to use the menu
+ * system, as well as how to use menu arguments to generate pages.
  *
  * @see hook_menu()
  * @see hook_menu_alter()

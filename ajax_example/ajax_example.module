@@ -1,20 +1,18 @@
 <?php
 /**
  * @file
- * AJAX Examples module file with basic examples.
+ * Hook implementations for the AJAX Example module.
  */
 
 /**
  * @defgroup ajax_example Example: AJAX
  * @ingroup examples
  * @{
- * These examples show basic AJAX concepts.
+ * This example demonstrates some basic AJAX concepts.
  *
  * General documentation is available at
  * @link ajax AJAX Framework documentation @endlink and at the
  * @link http://DOCUMENTATION_PENDING AJAX Forms handbook page @endlink.
- *
- * The several examples here demonstrate basic AJAX usage.
  */
 
 // The Node Form Alter example needs to be in another file.

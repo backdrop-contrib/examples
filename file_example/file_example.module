@@ -1,27 +1,23 @@
-<?php /** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
-/** @noinspection SpellCheckingInspection */
+<?php
 /**
  * @file
- * Examples demonstrating the backdrop File API (and Stream Wrappers).
+ * Hook implementations for the File example module.
  */
 
 /**
  * @defgroup file_example Example: Files
  * @ingroup examples
  * @{
- * Examples demonstrating the backdrop File API (and Stream Wrappers).
+ * This example demonstrates how to use the file API and the stream wrappers.
  *
- * The File Example module is a part of the Examples for Developers project
- * and provides various backdrop File API Examples. You can download and
- * experiment with this code at the
- * @link http://backdropcms.org/project/examples Examples for Developers project page. @endlink
+ * The File example module is part of the Examples for Developers project. You
+ * can download and experiment with this code at the
+ * @link http://backdropcms.org/project/examples Examples for Developers @endlink
+ * project page.
  *
- * See @link http://DOCUMENTATION_PENDING Backdrop File API @endlink for handbook
- * documentation on the File API and
- * @link file File summary on api.DOCUMENTATION_PENDING @endlink for the function summary.
+ * See @link https://docs.backdropcms.org/api/backdrop/core%21modules%21file%21file.module/group/file-module-api/1 File module public API functions @endlink
+ * and
+ * @link https://docs.backdropcms.org/api/backdrop/core%21includes%21file.inc/group/file/1 File Interface @endlink
  */
 
 /**
