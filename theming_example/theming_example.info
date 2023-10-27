@@ -1,4 +1,4 @@
-name = Theming example
+name = Theming Example
 description = An example module showing how to use theming.
 package = Example modules
 version = BACKDROP_VERSION

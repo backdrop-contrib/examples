@@ -1,5 +1,5 @@
-name = Vertical tabs example
-description = Show how to use vertical tabs for enhancing user experience.
+name = Vertical Tabs Example
+description = Shows how to use vertical tabs to enhance the user experience.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

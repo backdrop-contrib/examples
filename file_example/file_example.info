@@ -1,5 +1,5 @@
-name = File example
-description = Examples of using the Backdrop File API and Stream Wrappers.
+name = File Example
+description = Examples of using the Backdrop file API and stream wrappers.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

@@ -1,5 +1,5 @@
-name = Queue example
-description = Examples of using the Backdrop Queue API.
+name = Queue Example
+description = Examples of using the queue API.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

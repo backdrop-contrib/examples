@@ -1,5 +1,5 @@
-name = Batch example
-description = An example outlining how a module can define batch operations.
+name = Batch Example
+description = An example outlining how to define batch operations.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

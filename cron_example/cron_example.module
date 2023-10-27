@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Hook implementations for the Cron example module.
+ * Hook implementations for the Cron Example module.
  */
 
 /**

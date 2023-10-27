@@ -1,9 +1,9 @@
 <?php
 /**
  * @file
- * This file serves as a stub file for the many Examples modules in the
- * @link http://backdropcms.org/project/examples Examples for Developers project @endlink
- * which you can download and experiment with.
+ * This file serves as a stub file for the many example modules in the
+ * @link http://backdropcms.org/project/examples Examples for Developers@endlink
+ *  project.
  *
  * One might say that examples.module is an example of documentation. However,
  * note that the example submodules define many doxygen groups, which may or

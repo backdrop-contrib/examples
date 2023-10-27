@@ -1,4 +1,4 @@
-name = Action example
+name = Action Example
 description = Demonstrates providing actions that can be associated to triggers.
 package = Example modules
 version = BACKDROP_VERSION

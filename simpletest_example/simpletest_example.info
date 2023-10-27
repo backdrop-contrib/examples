@@ -1,5 +1,5 @@
 name = SimpleTest Example
-description = Provides simpletest_example page node type.
+description = Provides the simpletest_example node type.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
