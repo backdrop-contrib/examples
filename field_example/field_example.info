@@ -1,5 +1,5 @@
 name = Field Example
-description = An implementation of a field to show the Field API
+description = An implementation of a field to show how to use the field API.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Hook implementations for the Pager example module.
+ * Hook implementations for the Pager Example module.
  */
 
 /**
@@ -23,7 +23,7 @@
  */
 function pager_example_menu() {
   $items['examples/pager_example'] = array(
-    'title' => 'Pager example',
+    'title' => 'Pager Example',
     'description' => 'Show a page with a long list across multiple pages',
     'page callback' => 'pager_example_page',
     'access callback' => TRUE,

@@ -1,5 +1,5 @@
-name = Render example
-description = Demonstrates backdrop_render's capabilities and altering render arrays
+name = Render Example
+description = Demonstrates backdrop_render() capabilities and how to alter render arrays.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

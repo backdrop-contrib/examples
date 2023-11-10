@@ -1,5 +1,5 @@
-name = Node access example
-description = Demonstrates how a module can use Backdrop's node access system
+name = Node Access Example
+description = Demonstrates how a module can use the node access system.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

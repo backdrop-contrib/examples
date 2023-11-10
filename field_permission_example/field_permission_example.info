@@ -1,5 +1,5 @@
 name = Field Permission Example
-description = A Field API Example: Fieldnote with Permissions
+description = An example for a fieldnote field with permissions.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

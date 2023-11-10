@@ -1,4 +1,4 @@
-name = Filter example
+name = Filter Example
 description = An example module showing how to define a custom filter.
 package = Example modules
 version = BACKDROP_VERSION

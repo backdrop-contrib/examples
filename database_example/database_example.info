@@ -1,5 +1,5 @@
 name = Database Example
-description = An example module showing how use the database API.
+description = An example module showing how to use the database API.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
