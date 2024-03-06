@@ -17,10 +17,9 @@
  * More complex schema would probably have at least one indexed
  * column.
  *
- * @see http://DOCUMENTATION_PENDING/node/146939
+ * @ingroup field_permission_example
  * @see schemaapi
  * @see hook_field_schema()
- * @ingroup field_permission_example
  */
 function field_permission_example_field_schema($field) {
   $columns = array(
