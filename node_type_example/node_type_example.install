@@ -8,7 +8,7 @@
  * Implements hook_install().
  */
 function node_type_example_install() {
-  $node_content_type = array(
+  $node_content_type = (object) array(
     'type' => 'node_type_example',
     'name' => t('Example content type'),
     'base' => 'node_content',
@@ -22,7 +22,6 @@ function node_type_example_install() {
     ),
   );
 
-  $content_type = node_type_set_defaults($node_content_type);
   node_type_save($content_type);
   node_add_body_field($content_type);
 }
