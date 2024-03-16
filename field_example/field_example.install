@@ -16,10 +16,9 @@
  * All implementations of hook_field_schema() must be in the module's
  * .install file.
  *
- * @see http://DOCUMENTATION_PENDING/node/146939
+ * @ingroup field_example
  * @see schemaapi
  * @see hook_field_schema()
- * @ingroup field_example
  */
 function field_example_field_schema($field) {
   $columns = array(
