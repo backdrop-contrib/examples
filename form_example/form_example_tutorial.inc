@@ -115,7 +115,7 @@ function form_example_tutorial_3($form, &$form_state) {
 }
 
 /**
- * This is example 4: a basic form with required fields.
+ * This is Example 4: a basic form with required fields.
  *
  * @ingroup form_example
  */
