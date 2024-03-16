@@ -76,7 +76,7 @@ function form_example_tutorial_2($form, &$form_state) {
 }
 
 /**
- * This is Example 3, A basic form with fieldsets.
+ * This is Example 3: a basic form with fieldsets.
  *
  * We establish a fieldset element and then place two text fields within
  * it, one for a first name and one for a last name. This helps us group
