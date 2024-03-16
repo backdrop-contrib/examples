@@ -184,10 +184,8 @@ function render_example_arrays() {
 function render_example_cache_pre_render($element) {
   $element['#markup'] = render_example_cache_expensive();
 
-  // The following line is due to the bug described in
-  // http://DOCUMENTATION_PENDING/node/914792. A #markup element's #pre_render must set
-  // #children because it replaces the default #markup pre_render, which is
-  // backdrop_pre_render_markup().
+  // @todo Correct the following code, since the workaround is not necessary.
+  // See https://www.drupal.org/node/914792
   $element['#children'] = $element['#markup'];
   return $element;
 }
@@ -219,10 +217,8 @@ function render_example_cache_expensive() {
 function render_example_add_suffix($element) {
   $element['#suffix'] = '<div style="color:red">' . t('This #suffix was added by a #pre_render') . '</div>';
 
-  // The following line is due to the bug described in
-  // http://DOCUMENTATION_PENDING/node/914792. A #markup element's #pre_render must set
-  // #children because it replaces the default #markup pre_render, which is
-  // backdrop_pre_render_markup().
+  // @todo Correct the following code, since the workaround is not necessary.
+  // See https://www.drupal.org/node/914792
   $element['#children'] = $element['#markup'];
   return $element;
 }
