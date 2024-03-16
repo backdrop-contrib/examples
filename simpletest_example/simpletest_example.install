@@ -11,7 +11,7 @@
  * @ingroup simpletest_example
  */
 function simpletest_example_install() {
-  $simpletest_example_node_type = array(
+  $simpletest_example_node_type = (object) array(
     'type' => 'simpletest_example',
     'name' => t('Simpletest Example Node Type'),
     'base' => 'node_content',
@@ -25,7 +25,6 @@ function simpletest_example_install() {
     ),
   );
 
-  $simpletest_example_node_type = node_type_set_defaults($simpletest_example_node_type);
   node_type_save($simpletest_example_node_type);
   node_add_body_field($simpletest_example_node_type);
 }
