@@ -1,14 +1,10 @@
 <?php
 /**
  * @file
- * This is the Form API Tutorial, originally from the Backdrop handbook.
+ * This is the form API tutorial.
  *
- * It goes through 10 form examples of increasing complexity to demonstrate
- * Backdrop Form API.
- *
- * Links are provided inline for the related handbook pages.
- *
- * @see http://DOCUMENTATION_PENDING/node/262422
+ * It goes through ten form examples of increasing complexity to demonstrate
+ * the Backdrop form API.
  */
 
 /**
@@ -28,16 +24,11 @@
  * @ingroup form_example
  */
 function form_example_tutorial() {
-  return t('This is a set of 10 form tutorials tied to the <a href="http://DOCUMENTATION_PENDING/node/262422">Backdrop handbook</a>. The same Backdrop code works essentially unmodified in Backdrop.');
+  return t('This is a set of ten form examples.');
 }
 
 /**
- * Tutorial Example 1.
- *
- * This first form function is from the
- * @link http://DOCUMENTATION_PENDING Form Tutorial handbook page @endlink
- *
- * It just creates a very basic form with a textfield.
+ * This is Example 1, a very basic form with a textfield.
  *
  * This function is called the "form constructor function". It builds the form.
  * It takes a two arguments, $form and $form_state, but if backdrop_get_form()
@@ -62,7 +53,6 @@ function form_example_tutorial_1($form, &$form_state) {
 /**
  * This is Example 2, a basic form with a submit button.
  *
- * @see http://DOCUMENTATION_PENDING/node/717726
  * @ingroup form_example
  */
 function form_example_tutorial_2($form, &$form_state) {
@@ -86,7 +76,7 @@ function form_example_tutorial_2($form, &$form_state) {
 }
 
 /**
- * Example 3: A basic form with fieldsets.
+ * This is Example 3: a basic form with fieldsets.
  *
  * We establish a fieldset element and then place two text fields within
  * it, one for a first name and one for a last name. This helps us group
@@ -125,7 +115,7 @@ function form_example_tutorial_3($form, &$form_state) {
 }
 
 /**
- * Example 4: Basic form with required fields.
+ * This is Example 4: a basic form with required fields.
  *
  * @ingroup form_example
  */
@@ -163,12 +153,9 @@ function form_example_tutorial_4($form, &$form_state) {
 }
 
 /**
- * Example 5: Basic form with additional element attributes.
+ * This is Example 5: a basic form with additional element attributes.
  *
  * This demonstrates additional attributes of text form fields.
- *
- * See the
- * @link http://api.DOCUMENTATION_PENDING/api/file/developer/topics/forms_api.html complete form reference @endlink
  *
  * @ingroup form_example
  */
@@ -207,9 +194,8 @@ function form_example_tutorial_5($form, &$form_state) {
 }
 
 /**
- * Example 6: A basic form with a validate handler.
+ * This is Example 6: a basic form with a validate handler.
  *
- * From http://DOCUMENTATION_PENDING/node/717736
  * @see form_example_tutorial_6_validate()
  */
 function form_example_tutorial_6($form, &$form_state) {
@@ -261,7 +247,7 @@ function form_example_tutorial_6($form, &$form_state) {
  * Now we add a handler/function to validate the data entered into the
  * "year of birth" field to make sure it's between the values of 1900
  * and 2000. If not, it displays an error. The value report is
- * $form_state['values'] (see http://DOCUMENTATION_PENDING/node/144132#form-state).
+ * $form_state['values'].
  *
  * Notice the name of the function. It is simply the name of the form
  * followed by '_validate'. This is always the name of the default validation
@@ -278,19 +264,16 @@ function form_example_tutorial_6_validate($form, &$form_state) {
 }
 
 /**
- * Example 7: With a submit handler.
+ * This is Example 7: a form with a submission handler.
  *
- * From the handbook page:
- * http://DOCUMENTATION_PENDING/node/717740
- *
+ * @ingroup form_example
  * @see form_example_tutorial_7_validate()
  * @see form_example_tutorial_7_submit()
- * @ingroup form_example
  */
 function form_example_tutorial_7($form, &$form_state) {
   $form['description'] = array(
     '#type' => 'item',
-    '#title' => t('A form with a submit handler'),
+    '#title' => t('A form with a submission handler'),
   );
   $form['name'] = array(
     '#type' => 'fieldset',
@@ -352,24 +335,21 @@ function form_example_tutorial_7_submit($form, &$form_state) {
 }
 
 /**
- * Example 8: A simple multistep form with a Next and a Back button.
- *
- * Handbook page: http://DOCUMENTATION_PENDING/node/717750.
+ * This is Example 8: a simple multistep form with a Next and a Back buttons.
  *
  * For more extensive multistep forms, see
  * @link form_example_wizard.inc form_example_wizard.inc @endlink
- *
  *
  * Adds logic to our form builder to give it two pages.
  * The @link ajax_example_wizard AJAX Example's Wizard Example @endlink
  * gives an AJAX version of this same idea.
  *
+ * @ingroup form_example
  * @see form_example_tutorial_8_page_two()
  * @see form_example_tutorial_8_page_two_back()
  * @see form_example_tutorial_8_page_two_submit()
  * @see form_example_tutorial_8_next_submit()
  * @see form_example_tutorial.inc
- * @ingroup form_example
  */
 function form_example_tutorial_8($form, &$form_state) {
 
@@ -522,10 +502,12 @@ function form_example_tutorial_8_page_two_submit($form, &$form_state) {
     backdrop_set_message(t('And the favorite color is @color', array('@color' => $form_state['values']['color'])));
 
   // If we wanted to redirect on submission, set $form_state['redirect']. For
-  // simple redirects, the value can be a string of the path to redirect to. For
-  // example, to redirect to /node, one would specify the following:
+  // simple redirects, the value can be a string of the path to redirect to.
+  // For example, to redirect to /node, one would use the following code:
   //
+  // @code
   // $form_state['redirect'] = 'node';
+  // @endcode
   //
   // For more complex redirects, this value can be set to an array of options to
   // pass to backdrop_goto(). For example, to redirect to /foo?bar=1#baz, one
@@ -547,18 +529,16 @@ function form_example_tutorial_8_page_two_submit($form, &$form_state) {
 }
 
 /**
- * Example 9: A form with a dynamically added new fields.
+ * This is Example 9: a form with new fields dynamically added.
  *
  * This example adds default values so that when the form is rebuilt,
  * the form will by default have the previously-entered values.
  *
- * From handbook page http://DOCUMENTATION_PENDING/node/717746.
- *
+ * @ingroup form_example
  * @see form_example_tutorial_9_add_name()
  * @see form_example_tutorial_9_remove_name()
  * @see form_example_tutorial_9_submit()
  * @see form_example_tutorial_9_validate()
- * @ingroup form_example
  */
 function form_example_tutorial_9($form, &$form_state) {
 
@@ -697,14 +677,14 @@ function form_example_tutorial_9_submit($form, &$form_state) {
 }
 
 /**
- * Example 10: A form with a file upload field.
+ * This is Example 10: a form with a file upload field.
  *
  * This example allows the user to upload a file to backdrop which is stored
  * physically and with a reference in the database.
  *
+ * @ingroup form_example
  * @see form_example_tutorial_10_submit()
  * @see form_example_tutorial_10_validate()
- * @ingroup form_example
  */
 function form_example_tutorial_10($form_state) {
   // If you are familiar with how browsers handle files, you know that
