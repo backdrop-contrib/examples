@@ -190,11 +190,9 @@ function database_example_entry_delete($entry) {
  * @endcode
  *
  * Conditions are stacked and evaluated as AND or OR depending on the type of
- * query. For more information, read the conditional queries handbook page at
- * http://DOCUMENTATION_PENDING/node/310086.
- *
- * The condition argument is an 'equal' evaluation by default, but this can be
- * altered:
+ * query. The condition argument is an 'equal' evaluation by default, but this 
+ * can be altered, like in the following snippet.
+ * 
  * @code
  *   // SELECT * FROM {database_example} WHERE age > 18
  *   db_select('database_example')
