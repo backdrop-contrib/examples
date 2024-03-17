@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Hook implementation for the Action Example module.
+ * Hook implementations for the Action Example module.
  */
 
 /**
@@ -19,42 +19,39 @@
  *  - Displaying a message after a node has been deleted
  *  - Unblocking a user if selected in a Views list
  *
- * In Backdrop core, actions are mainly run by adding them to Bulk Operations
+ * In Backdrop core, actions are mainly run by adding them to bulk operations
  * executed on Views lists, although modules may also trigger actions by calling
  * actions_execute().
  *
- * Actions are very often grouped by functionality: examples are 'user', 'node',
- * 'taxonomy'. When actions are grouped it is because they expect the same
- * arguments.
+ * Actions are very often grouped by functionality: user, node, taxonomy. When
+ * actions are grouped, it is because they expect the same arguments.
  *
  * Not all actions can be used in all triggers because they require different
- * contexts. But some actions are generic enough that they do not require
- * special objects in their contexts, and so can be used on every available
- * trigger.
+ * contexts, but some actions are generic enough to not require special objects
+ * in their contexts; they can be used on every available trigger.
  *
- * What are good candidates to be triggers? Any function can be a trigger, as
- * long as it has the code to call the action, but to make Backdrop more
- * extensible, you will find hooks (from Backdrop and contributed modules) very
- * good candidates. A trigger should build the arguments, ask for enqueued
- * actions and run them. You may define a function being a trigger, and run it
- * through a button in the front page, or you may prepare a trigger for a hook,
- * and everytime that hook is fired, your trigger will be.
+ * What are good candidates to be triggers?
+ * Any function can be a trigger, as long as it has the code to call the action,
+ * but to make Backdrop more extensible, you will find hooks very good
+ * candidates. A trigger should build the arguments, ask for enqueued actions
+ * and run them. You may define a function being a trigger, and run it through a
+ * button in the front page, or you may prepare a trigger for a hook, and
+ * everytime that hook is fired, your trigger will be.
  *
- * What are good candidates to be actions? Any function is a possible action;
- * the only problem is finding a trigger able to run it.
+ * What are good candidates to be actions?
+ * Any function is a possible action; the only problem is finding a trigger able
+ * to run it.
  *
  * This module shows how to create actions. We are providing three actions:
- * - A generic action that can be used in any trigger, which is the most
- *   basic example of an action
+ *
+ * - A generic action that can be used in any trigger, which is the most basic
+ *   example of an action
  * - A user action
  * - A node action
  *
- * For this module, the generic action will be triggered by executing a submit
- * function in a simple form. The Node and User actions will be triggered from
- * a Views bulk operations form.
- *
- * @see hook_action_info()
- *
+ * For this module, the generic action will be triggered by executing a
+ * submission handler in a form. The Node and User actions will be triggered
+ * from a Views bulk operations form.
  */
 
 /**
@@ -63,38 +60,38 @@
  * We call hook_action_info when we are defining the actions we provide.
  * Actions are the actions fired by the associated triggers. In this example,
  * we are registering our three new actions, providing the unique name (using
- * Backdrop's convention modulename_description_action), an easy-to-understand
+ * the modulename_description_action convention), an easy-to-understand
  * description of what the action does, the 'object' expected by this action
  * (default options from core are node, user, comment and system, however other
  * trigger modules may declare new object types), which are the triggers allowed
  * to use these action, and if some customization is available. Please, note
- * that the function name is not required to end in "_action" to be declared as
- * a Backdrop action.
+ * that the function name is not required to end in "_action" to be an action.
  *
- * These are the actions being provided in hook_action_info()
+ * These are the actions being provided in hook_action_info().
  *
- * - action_example_basic_action: this action is a dummy function which can be
+ * - action_example_basic_action: This action is a dummy function which can be
  *   used by any trigger. The label describes that the action will do nothing,
- *   but is enough for a basic example. Type is set to system, so users will not
- *   be confused about the scope of this action (expecting a node, user, or any
- *   other object).
+ *   but it is enough for a basic example. Type is set to system, so users won't
+ *   be confused about the action scope (expecting a node, user, or any other
+ *   object).
  * - action_example_unblock_user_action: Unblocks a user.
  * - action_example_node_unpublish_action: In this example action, the action
  *   will unpublish only nodes created by the logged-in user.
  *
  * We return an associative array of action descriptions. The keys of the array
- * are the names of the action functions, and each corresponding value
- * is an associative array with the following key-value pairs:
+ * are the names of the action functions; each corresponding value is an
+ * associative array with the following key-value pairs:
  *
  * - 'type': The type of object this action acts upon. Core actions have types
- *   'node', 'user', 'comment', and 'system', but additional types can be
+ *   like 'node', 'user', 'comment', and 'system', but additional types can be
  *   used, as long as the trigger and action agree on them.
  * - 'label': The human-readable name of the action, which should be passed
- *   through the t() function for translation.
- * - 'callback': Optional. A function name that will execute the action if the
+ *   through t().
+ * - 'callback': (Optional) A function name that will execute the action if the
  *   name of the action differs from the function name.
- * - 'file': Optional. Relative path to a file from the module's directory
- *   that contains the callback function. *
+ * - 'file': (Optional) The relative path from the module's directory for a file
+ *   that contains the callback function.
+ *
  * @see hook_action_info()
  */
 function action_example_action_info() {
@@ -144,7 +141,7 @@ function action_example_menu() {
  */
 function _action_example_page() {
 
-  $markup = t('"The Action Example provides three example actions. The Basic Action is executed by a simple form. The User and Node actions are demonstrated using a sample Bulk Operations View.<br/>Create at least one user and one node to use the Node and User actions.');
+  $markup = t('The Action Example provides three example actions. The Basic Action is executed by a simple form. The User and Node actions are demonstrated using a sample Bulk Operations View.<br/>Create at least one user and one node to use the Node and User actions.');
 
   $list[] = l(t('Basic Action'), 'examples/action_example/basic');
   $list[] = l(t('Node Action'), 'examples/ajax_example/actions-example-node-list');
@@ -165,7 +162,7 @@ function _action_example_page() {
  * @param object $entity
  *   An optional entity object.
  * @param array $context
- *   Array with parameters for this action: depends on the trigger.
+ *   Array with parameters for this action.
  *
  * @see action_example_action_info()
  */
@@ -195,19 +192,18 @@ function action_example_basic_action(&$entity, $context = array()) {
  *   An optional user object (could be a user, or an author if context is
  *   node or comment)
  * @param array $context
- *   Array with parameters for this action: depends on the trigger. The context
+ *   Array with parameters for this action. The context
  *   is not used in this example.
  */
 function action_example_unblock_user_action(&$entity, $context = array()) {
-  // First we check that entity is a user object. If this is the case, then this
-  // is a user-type trigger.
+  // If the entity is a user object, this is a user-type trigger.
   if (isset($entity->uid)) {
     $uid = $entity->uid;
   }
   elseif (isset($context['uid'])) {
     $uid = $context['uid'];
   }
-  // If neither of those are valid, then block the current user.
+  // If neither of those are valid, block the logged-in user.
   else {
     $uid = $GLOBALS['user']->uid;
   }
@@ -238,7 +234,7 @@ function action_example_node_unpublish_callback($node, $context) {
   global $user;
   // Get the logged-in user.
   $account = user_load($user->uid);
-  // Is the node created by this user? then unpublish it.
+  // Is the node created by this user? Unpublish it.
   if ($account->uid == $node->uid) {
     $node->status = 0;
     $node->save();
