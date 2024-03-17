@@ -1,8 +1,7 @@
 <?php
 /**
  * @file
- * An example of simpletest tests to accompany the tutorial at
- * http://DOCUMENTATION_PENDING/node/890654.
+ * An example of simpletest tests.
  */
 
 /**
