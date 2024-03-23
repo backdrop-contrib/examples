@@ -190,11 +190,9 @@ function database_example_entry_delete($entry) {
  * @endcode
  *
  * Conditions are stacked and evaluated as AND or OR depending on the type of
- * query. For more information, read the conditional queries handbook page at
- * http://DOCUMENTATION_PENDING/node/310086.
+ * query. The condition argument is an 'equal' evaluation by default, but this
+ * can be altered, like in the following snippet.
  *
- * The condition argument is an 'equal' evaluation by default, but this can be
- * altered:
  * @code
  *   // SELECT * FROM {database_example} WHERE age > 18
  *   db_select('database_example')
@@ -211,8 +209,6 @@ function database_example_entry_delete($entry) {
  *
  * @see db_select()
  * @see db_query()
- * @see http://DOCUMENTATION_PENDING/node/310072
- * @see http://DOCUMENTATION_PENDING/node/310075
  */
 function database_example_entry_load($entry = array()) {
   // Read all fields from the database_example table.
@@ -234,8 +230,8 @@ function database_example_entry_load($entry = array()) {
  * found objects in the same query execution call.
  *
  * This function queries the database using a JOIN between the users and the
- * example entries, to provide the username that created the entry, and creates
- * a table with the results, processing each row.
+ * example entries, to provide the username that created the entry; then, it
+ * creates a table with the results, processing each row.
  *
  * SELECT
  *  e.pid as pid, e.name as name, e.surname as surname, e.age as age
@@ -248,7 +244,6 @@ function database_example_entry_load($entry = array()) {
  *  e.name = 'John' AND e.age > 18
  *
  * @see db_select()
- * @see http://DOCUMENTATION_PENDING/node/310075
  */
 function database_example_advanced_list() {
   $output = '';
@@ -262,18 +257,16 @@ function database_example_advanced_list() {
   $select->addField('e', 'name');
   $select->addField('e', 'surname');
   $select->addField('e', 'age');
-  // Filter only persons named "John".
+  // Filter only users named "John".
   $select->condition('e.name', 'John');
-  // Filter only persons older than 18 years.
+  // Filter only users older than 18 years.
   $select->condition('e.age', 18, '>');
   // Make sure we only get items 0-49, for scalability reasons.
   $select->range(0, 50);
 
-  // Now, loop all these entries and show them in a table. Note that there is no
-  // db_fetch_* object or array function being called here. Also note that the
-  // following line could have been written as
-  // $entries = $select->execute()->fetchAll() which would return each selected
-  // record as an object instead of an array.
+  // Now, loop all these entries and show them in a table. The following line
+  // could have been written as $entries = $select->execute()->fetchAll() which
+  // would return each record as an object instead of an array.
   $entries = $select->execute()->fetchAll(PDO::FETCH_ASSOC);
   if (!empty($entries)) {
     $rows = array();
@@ -382,7 +375,7 @@ function database_example_form_add($form, &$form_state) {
     '#type'  => 'textfield',
     '#title' => t('Age'),
     '#size'  => 5,
-    '#description' => t("Values greater than 127 will cause an exception. Try it; it's a great example why exception handling is needed with DTBNG."),
+    '#description' => t("Values greater than 127 will cause an exception. Try it; it's a great example why exception handling is needed."),
   );
   $form['add']['submit'] = array(
     '#type'  => 'submit',
@@ -518,6 +511,7 @@ function database_example_form_update_submit($form, &$form_state) {
   $count = database_example_entry_update($entry);
   backdrop_set_message(t("Updated entry @entry (@count row updated)", array('@count' => $count, '@entry' => print_r($entry, TRUE))));
 }
+
 /**
  * @} End of "defgroup database_example".
  */
