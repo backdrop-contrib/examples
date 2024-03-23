@@ -64,10 +64,10 @@ function _filter_example_information() {
 /**
  * Implements hook_filter_info().
  *
- * Here we define the different filters provided by the module. For this
- * example, time_filter is a very static and simple replacement, but it requires
- * some preparation of the string because of the special html tags < and >. The
- * foo_filter is more complex, including its own settings and inline tips.
+ * We define the different filters provided by the module. For this example,
+ * time_filter is a very static and simple replacement, but it requires
+ * preparing the string because of the special html tags < and >. foo_filter is
+ * more complex.
  */
 function filter_example_filter_info() {
   $filters['filter_foo'] = array(
@@ -94,10 +94,10 @@ function filter_example_filter_info() {
  * Foo filter
  *
  * Backdrop has several text formats (they are not filters), and in our example
- * the foo replacement can be configured for each one of them, so the module
+ * the foo replacement can be configured for each of them, so the module
  * includes a settings callback, with options to configure those replacements.
- * Also, a Tips callback will help showing the current replacement
- * for the content type being edited.
+ * A tips callback will help showing the current replacement for the content
+ * type being edited.
  */
 
 /**
@@ -108,8 +108,8 @@ function filter_example_filter_info() {
  * when "foo" is encountered, we need to provide an interface for this kind of
  * customization. The object format is also an argument of the callback.
  *
- * The settings defined in this form are stored in database by the filter
- * module, and they will be available in the $filter argument.
+ * The settings defined in this form are stored in database by the Filter module
+ * and they will be available in the $filter parameter.
  */
 function _filter_example_filter_foo_settings($form, $form_state, $filter, $format) {
   $settings['filter_example_foo'] = array(
@@ -138,9 +138,9 @@ function _filter_example_filter_foo_process($text, $filter, $format) {
  * Filter tips callback for foo filter.
  *
  * The tips callback allows filters to provide help text to users during the
- * content editing process. Short tips are provided on the content editing
- * screen, while long tips are provided on a separate linked page. Short tips
- * are optional, but long tips are highly recommended.
+ * content editing process. Short tips (optional) are provided on the content
+ * editing screen, while long tips (highly recommended) are provided on a
+ * separate linked page.
  */
 function _filter_example_filter_foo_tips($filter, $format, $long = FALSE) {
   $replacement = isset($filter->settings['filter_example_foo']) ? $filter->settings['filter_example_foo'] : 'bar';
@@ -156,10 +156,8 @@ function _filter_example_filter_foo_tips($filter, $format, $long = FALSE) {
 /**
  * Time filter prepare callback.
  *
- * We'll use [filter-example-time] as a replacement for the time tag.
- * Note that in a more complicated filter a closing tag may also be
- * required. For more information, see "Temporary placeholders and
- * delimiters" at http://DOCUMENTATION_PENDING/node/209715.
+ * We'll use [filter-example-time] as a replacement for the time tag. Note that,
+ * in a more complicated filter, a closing tag may also be required.
  */
 function _filter_example_filter_time_prepare($text, $filter) {
   return preg_replace('!<time ?/>!', '[filter-example-time]', $text);
@@ -168,21 +166,20 @@ function _filter_example_filter_time_prepare($text, $filter) {
 /**
  * Time filter process callback.
  *
- * Now, in the "process" step, we'll search for our escaped time tags and
- * do the real filtering: replace the xml tag with the date.
+ * In the process step, we'll search for our escaped time tags and do the real
+ * filtering by replacing <time /> with the current time.
  */
 function _filter_example_filter_time_process($text, $filter) {
   return str_replace('[filter-example-time]', '<em>' . format_date(time(), 'medium', '', 'Europe/London') . '</em>', $text);
 }
 
-
 /**
  * Filter tips callback for time filter.
  *
  * The tips callback allows filters to provide help text to users during the
- * content editing process. Short tips are provided on the content editing
- * screen, while long tips are provided on a separate linked page. Short tips
- * are optional, but long tips are highly recommended.
+ * content editing process. Short tips (optional) are provided on the content
+ * editing screen, while long tips (highly recommended) are provided on a
+ * separate linked page.
  */
 function _filter_example_filter_time_tips($filter, $format, $long = FALSE) {
   return t('<em>&lt;time /&gt;</em> is replaced with the current time.');
