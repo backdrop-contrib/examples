@@ -66,8 +66,8 @@ function _filter_example_information() {
  *
  * We define the different filters provided by the module. For this example,
  * time_filter is a very static and simple replacement, but it requires
- * preparing the string because of the special html tags < and >. foo_filter is
- * more complex.
+ * preparing the string because of the < and > characters. foo_filter ismore
+ * complex.
  */
 function filter_example_filter_info() {
   $filters['filter_foo'] = array(
