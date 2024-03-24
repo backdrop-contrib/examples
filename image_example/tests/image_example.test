@@ -52,7 +52,7 @@ class ImageExampleTestCase extends BackdropWebTestCase {
     $this->backdropPost('admin/config/media/image-styles/edit/' . $new_style['name'], $edit, t('Add'));
 
     // Verify the 'color' field provided by image_example_colorize_form()
-    // appears on the effect configuration page. And that we can fill it out.
+    // appears on the effect configuration page and that we can fill it out.
     $this->assertField('data[color]', 'Color field provided by image_example_effect_colorize_form is present on effect configuration page.');
     $edit = array(
       'data[color]' => '#000000',
@@ -60,17 +60,14 @@ class ImageExampleTestCase extends BackdropWebTestCase {
     $this->backdropPost(NULL, $edit, t('Add effect'));
     $this->assertText(t('The image effect was successfully applied.'), format_string('Colorize effect added to @style_name.', array('@style_name' => $new_style['name'])));
 
-    // Set the variable 'image_example_style_name' to the name of our new style
-    // then rename the style and ensure the variable name is changed.
-    // @todo Enable this block once http://DOCUMENTATION_PENDING is fixed.
-    if (defined('bug_713872_fixed')) {
-      $style = image_style_load($new_style['name']);
-      config_set('image_example.settings', 'image_example_style_name', $style['name']);
-      $style['name'] = backdrop_strtolower($this->randomName());
-      $style = image_style_save($style);
-      $variable = config_get('image_example.settings', 'image_example_style_name');
-      $this->assertTrue(($variable == $style['name']), 'Variable image_example_style_name successfully updated when renaming image style.');
-    }
+    // Set image_example_style_name to the name of our new style, then rename
+    // the style and ensure image_example_style_name is changed.
+    $style = image_style_load($new_style['name']);
+    config_set('image_example.settings', 'image_example_style_name', $style['name']);
+    $style['name'] = backdrop_strtolower($this->randomName());
+    $style = image_style_save($style);
+    $variable = config_get('image_example.settings', 'image_example_style_name');
+    $this->assertTrue(($variable == $style['name']), 'Variable image_example_style_name successfully updated when renaming image style.');
   }
 
   /**

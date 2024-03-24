@@ -525,7 +525,7 @@ function form_example_tutorial_8_page_two_submit($form, &$form_state) {
   //
   // The first element in the array is the path to redirect to, and the second
   // element in the array is the array of options. For more information on the
-  // available options, see http://api.DOCUMENTATION_PENDING/url.
+  // available options, see url().
 }
 
 /**

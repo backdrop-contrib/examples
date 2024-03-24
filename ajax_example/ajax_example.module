@@ -11,8 +11,8 @@
  * This example demonstrates some basic AJAX concepts.
  *
  * General documentation is available at
- * @link ajax AJAX Framework documentation @endlink and at the
- * @link http://DOCUMENTATION_PENDING AJAX Forms handbook page @endlink.
+ * @link form_api Form API Reference @endlink and
+ * @link ajax AJAX Framework documentation @endlink.
  */
 
 // The Node Form Alter example needs to be in another file.
@@ -290,7 +290,7 @@ function ajax_example_intro() {
  * Simple form whose ajax-enabled 'changethis' member causes a text change
  * in the description of the 'replace_textfield' member.
  *
- * See @link http://DOCUMENTATION_PENDING Form API Tutorial @endlink
+ * See @link form_api Form API Reference @endlink
  */
 function ajax_example_simplest($form, &$form_state) {
   $form = array();
