@@ -143,18 +143,17 @@ function page_example_simple() {
  *
  * This callback is mapped to the path 'examples/page_example/arguments/%/%'.
  *
- * The % arguments are passed in from the page URL. In our hook_menu
- * implementation we instructed the menu system to extract the last two
- * parameters of the path and pass them to this function as arguments.
+ * The % arguments are passed in from the page URL. In our hook_menu()
+ * implementation, we instructed the menu system to extract the last two
+ * parameters from the path and pass them to this function as arguments.
  *
  * This function also demonstrates a more complex render array in the returned
- * values. Instead of just rendering the HTML with a theme('item_list'), the
- * list is not rendered, and a #theme attached to it so that it can be
- * rendered as late as possible, giving more parts of the system a chance to
- * change it if necessary.
+ * values. Instead of just rendering the HTML with a theme('item_list'), a
+ * #theme is attached to the list so that it can be rendered as late as
+ * possible, giving to other parts of the system a chance to change it if
+ * necessary.
  *
- * Consult @link http://DOCUMENTATION_PENDING Render Arrays documentation
- * @endlink for details.
+ * See backdrop_render() for further details.
  */
 function page_example_arguments($first, $second) {
   // Make sure you don't trust the URL to be safe! Always check for exploits.
