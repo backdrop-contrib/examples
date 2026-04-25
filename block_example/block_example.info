@@ -1,5 +1,5 @@
 name = Block Example
-description = An example outlining how a module can define blocks.
+description = Demonstrates how blocks are defined by modules.
 dependencies[] = block
 package = Example modules
 version = BACKDROP_VERSION

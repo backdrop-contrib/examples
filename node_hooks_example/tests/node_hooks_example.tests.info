@@ -1,5 +1,5 @@
 [NodeHooksExampleTestCase]
-name = Node Hooks Example functionality
+name = Node Hooks Example Functionality
 description = Demonstrates how to implement hooks that allows to alter a node.
 group = Example modules
 file = node_hooks_example.test

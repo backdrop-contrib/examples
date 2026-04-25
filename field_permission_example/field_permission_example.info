@@ -1,5 +1,5 @@
 name = Field Permission Example
-description = An example for a fieldnote field with permissions.
+description = Implements a fieldnote field and related permissions.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

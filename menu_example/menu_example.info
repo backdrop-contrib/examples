@@ -1,5 +1,5 @@
 name = Menu Example
-description = An example of advanced uses of the menu API.
+description = Demonstrates advanced uses of the menu API.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

@@ -1,5 +1,5 @@
 name = Cron Example
-description = Demonstrates hook_cron() and related features.
+description = Demonstrates hook_cron() and related code.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

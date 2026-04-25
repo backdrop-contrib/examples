@@ -1,5 +1,5 @@
 name = Theming Example
-description = An example module showing how to use theming.
+description = Shows how to use theming.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
