@@ -24,10 +24,10 @@
  *  - Demonstrate the usage of theme_image_style() to display images using an
  *    image style.
  *
- * @see hook_image_effect_info().
- * @see hook_image_style_save().
- * @see hook_image_style_delete().
- * @see theme_image_style().
+ * @see hook_image_effect_info()
+ * @see hook_image_style_save()
+ * @see hook_image_style_delete()
+ * @see theme_image_style()
  */
 
  /**
@@ -38,6 +38,7 @@ function image_example_config_info() {
     'label' => t('Image Example settings'),
     'group' => t('Configuration'),
   );
+
   $prefixes['image.style.image_example_style'] = array(
     'label' => t('Image Example custom image style'),
     'group' => t('Configuration'),
@@ -67,8 +68,7 @@ function image_example_menu() {
 /**
  * Implements hook_image_style_save().
  *
- * Allows modules to respond to updates to an image style's
- * settings.
+ * Allows modules to respond to updates to an image style's settings.
  */
 function image_example_image_style_save($style) {
   // The $style parameter is an image style array with one notable exception.

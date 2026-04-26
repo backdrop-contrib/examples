@@ -18,6 +18,18 @@
  */
 
 /**
+ * Implements hook_config_info().
+ */
+function node_hooks_example_config_info() {
+  return array(
+    'node_hooks_example.settings' => array(
+      'label' => t('Node Hooks Example settings'),
+      'group' => t('Configuration'),
+    ),
+  );
+}
+
+/**
  * Implements hook_form_alter().
  *
  * By implementing this hook, we're able to modify any form. We'll only make
@@ -45,16 +57,18 @@ function node_hooks_example_form_alter(&$form, $form_state, $form_id) {
       '#group' => 'additional_settings',
       '#weight' => -1,
     );
+
     $form['rating']['node_hooks_example_node_type'] = array(
       '#type' => 'radios',
       '#title' => t('Node Hooks Example rating'),
-      '#default_value' => $config->get('node_hooks_example_node_type_' . $form['#node_type']->type),
+      '#default_value' => $config->get('node_type_' . $form['#node_type']->type),
       '#options' => array(
         FALSE => t('Disabled'),
         TRUE => t('Enabled'),
       ),
       '#description' => t('Should this node have a rating attached to it?'),
     );
+
     // We add our custom submission handler to save the settings.
     $form['#submit'][] = 'node_hooks_example_node_type_form_submit';
   }
@@ -62,7 +76,8 @@ function node_hooks_example_form_alter(&$form, $form_state, $form_id) {
     // If rating is enabled for this content type, we insert our control into
     // the node edit form.
     $node = $form['#node'];
-    if ($config->get('node_hooks_example_node_type_' . $form['type']['#value'])) {
+
+    if ($config->get('node_type_' . $form['type']['#value'])) {
       $form['node_hooks_example_rating'] = array(
         '#type' => 'select',
         '#title' => t('Rating'),
@@ -76,13 +91,13 @@ function node_hooks_example_form_alter(&$form, $form_state, $form_id) {
 }
 
 /**
- *  A custom submit handler.
+ *  A custom submission handler.
  *
  *  This function runs when the 'node_type_form' is saved because we added it as
- *  a submit handler.
+ *  submission handler.
  */
 function node_hooks_example_node_type_form_submit(&$form, $form_state) {
-  config_set('node_hooks_example.settings', 'node_hooks_example_node_type_' . $form['#node_type']->type, $form_state['values']['node_hooks_example_node_type']);
+  config_set('node_hooks_example.settings', 'node_type_' . $form['#node_type']->type, $form_state['values']['node_hooks_example_node_type']);
 }
 
 /**
@@ -92,7 +107,7 @@ function node_hooks_example_node_type_form_submit(&$form, $form_state) {
  * field is required. If not, send error message.
  */
 function node_hooks_example_node_validate($node, $form) {
-  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
+  if (config_get('node_hooks_example.settings', 'node_type_' . $node->type)) {
     if (isset($node->node_hooks_example_rating) && !$node->node_hooks_example_rating) {
       form_set_error('node_hooks_example_rating', t('You must rate this content.'));
     }
@@ -107,11 +122,11 @@ function node_hooks_example_node_validate($node, $form) {
  */
 function node_hooks_example_node_load($nodes, $types) {
   $config = config('node_hooks_example.settings');
-
   // We can use $types to figure out if we need to process any of these nodes.
   $our_types = array();
+
   foreach ($types as $type) {
-    if ($config->get('node_hooks_example_node_type_' . $type)) {
+    if ($config->get('node_type_' . $type)) {
       $our_types[] = $type;
     }
   }
@@ -125,11 +140,12 @@ function node_hooks_example_node_load($nodes, $types) {
   // Make a list of revisions based on $our_types.
   foreach ($nodes as $node) {
     // We use the revision ID instead of the node ID.
-    if ($config->get('node_hooks_example_node_type_' . $node->type)) {
+    if ($config->get('node_type_' . $node->type)) {
       $vids[] = $node->vid;
     }
   }
-  // Verify we should load the rating for any node.
+
+  // If there are no nodes to load, we can return.
   if (!isset($vids) || !count($vids)) {
     return;
   }
@@ -153,7 +169,7 @@ function node_hooks_example_node_load($nodes, $types) {
  * database inserts.
  */
 function node_hooks_example_node_insert($node) {
-  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
+  if (config_get('node_hooks_example.settings', 'node_type_' . $node->type)) {
     db_insert('node_hooks_example')
       ->fields(array('nid' => $node->nid, 'vid' => $node->vid, 'rating' => $node->node_hooks_example_rating))
       ->execute();
@@ -185,7 +201,7 @@ function node_hooks_example_node_delete($node) {
  * otherwise, we call node_hooks_example_node_insert() to create one.
  */
 function node_hooks_example_node_update($node) {
-  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
+  if (config_get('node_hooks_example.settings', 'node_type_' . $node->type)) {
     // Check first if this node has a saved rating.
     $rating = db_select('node_hooks_example', 'e')
       ->fields('e', array('rating'))
@@ -223,7 +239,7 @@ function node_hooks_example_node_update($node) {
  * with additional information.
  */
 function node_hooks_example_node_view($node, $build_mode = 'full') {
-  if (config_get('node_hooks_example.settings', 'node_hooks_example_node_type_' . $node->type)) {
+  if (config_get('node_hooks_example.settings', 'node_type_' . $node->type)) {
     // Make sure to set a rating, also for nodes saved previously and not yet
     // rated.
     $rating = isset($node->node_hooks_example_rating) ? $node->node_hooks_example_rating : 0;
@@ -265,17 +281,6 @@ function theme_node_hooks_example_rating($variables) {
   $output .= t('Rating: %rating', array('%rating' => $options[(int) $variables['rating']]));
   $output .= '</div>';
   return $output;
-}
-
-/**
- * Implements hook_config_info().
- */
-function node_hooks_example_config_info() {
-  $prefixes['node_hooks_example.settings'] = array(
-    'label' => t('Node Hooks Example settings'),
-    'group' => t('Configuration'),
-  );
-  return $prefixes;
 }
 
 /**
