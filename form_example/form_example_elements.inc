@@ -44,10 +44,9 @@
  *   out what the actual value of the element, using #default_value or whatever.
  * - #process is then called to allow changes to the whole element (like adding
  *   child form elements.)
- * - #return_value: chx: you need three different values for form API. You need
+ * - #return_value: You need three different values for form API. You need
  *   the default value (#default_value), the value for the element if it gets
- *   checked )#return_value) and then #value which is either 0 or the
- *   #return_value
+ *   checked (#return_value) and then #value which is either 0 or #return_value.
  */
 
 /**
@@ -86,13 +85,10 @@ function _form_example_element_info() {
     // #input = TRUE means that the incoming value will be used to figure out
     // what #value will be.
     '#input' => TRUE,
-
     // Use theme('textfield') to format this element on output.
     '#theme' => array('textfield'),
-
     // Do not provide autocomplete.
     '#autocomplete_path' => FALSE,
-
     // Allow theme('form_element') to control the markup surrounding this
     // value on output.
     '#theme_wrappers' => array('form_element'),
@@ -103,24 +99,18 @@ function _form_example_element_info() {
   $types['form_example_checkbox'] = array(
     // This is an HTML <input>.
     '#input' => TRUE,
-
     // @todo: Explain #return_value.
     '#return_value' => TRUE,
-
     // Our #process array will use the standard process functions used for a
     // regular checkbox.
     '#process' => array('form_process_checkbox', 'ajax_process_form'),
-
     // Use theme('form_example_checkbox') to render this element on output.
     '#theme' => 'form_example_checkbox',
-
     // Use theme('form_element') to provide HTML wrappers for this element.
     '#theme_wrappers' => array('form_element'),
-
     // Place the title after the element (to the right of the checkbox).
     // This attribute affects the behavior of theme_form_element().
     '#title_display' => 'after',
-
     // We use the default function name for the value callback, so it does not
     // have to be listed explicitly. The pattern for the default function name
     // is form_type_TYPENAME_value().
@@ -133,12 +123,10 @@ function _form_example_element_info() {
     // #input == TRUE means that the form value here will be used to determine
     // what #value will be.
     '#input' => TRUE,
-
     // #process is an array of callback functions executed when this element is
     // processed. Here it provides the child form elements which define
     // areacode, prefix, and extension.
     '#process' => array('form_example_phonenumber_discrete_process'),
-
     // Validation handlers for this element. These are in addition to any
     // validation handlers that might.
     '#element_validate' => array('form_example_phonenumber_discrete_validate'),
@@ -161,6 +149,7 @@ function _form_example_element_info() {
     ),
     '#theme_wrappers' => array('form_example_inline_form_element'),
   );
+
   return $types;
 }
 
@@ -389,8 +378,7 @@ function _form_example_element_theme() {
  * be done here.
  */
 function theme_form_example_checkbox($variables) {
-  $element = $variables['element'];
-  return theme('checkbox', $element);
+  return theme('checkbox', $variables['element']);
 }
 
 /**
@@ -403,11 +391,14 @@ function theme_form_example_inline_form_element($variables) {
   if (isset($element['#markup']) && !empty($element['#id'])) {
     $attributes['id'] = $element['#id'];
   }
+
   // Add #type and #name as class to aid with JavaScript/CSS selectors.
   $attributes['class'] = array('form-item');
+
   if (!empty($element['#type'])) {
     $attributes['class'][] = 'form-type-' . strtr($element['#type'], '_', '-');
   }
+
   if (!empty($element['#name'])) {
     $attributes['class'][] = 'form-item-' . strtr($element['#name'],
       array(
@@ -418,16 +409,19 @@ function theme_form_example_inline_form_element($variables) {
       )
     );
   }
+
   // Add a class for disabled elements to facilitate cross-browser styling.
   if (!empty($element['#attributes']['disabled'])) {
     $attributes['class'][] = 'form-disabled';
   }
+
   $output = '<div' . backdrop_attributes($attributes) . '>' . "\n";
 
   // If #title is not set, we don't display any label or required marker.
   if (!isset($element['#title'])) {
     $element['#title_display'] = 'none';
   }
+
   $prefix = isset($element['#field_prefix']) ? '<span class="field-prefix">' . $element['#field_prefix'] . '</span> ' : '';
   $suffix = isset($element['#field_suffix']) ? ' <span class="field-suffix">' . $element['#field_suffix'] . '</span>' : '';
 
@@ -471,28 +465,28 @@ function form_example_element_demo_form($form, &$form_state) {
   $form['a_form_example_textfield'] = array(
     '#type' => 'form_example_textfield',
     '#title' => t('Form Example textfield'),
-    '#default_value' =>   $config->get('form_example_textfield'),
+    '#default_value' => $config->get('textfield'),
     '#description' => t('form_example_textfield is a new type, but it is actually uses the system-provided functions of textfield'),
   );
 
   $form['a_form_example_checkbox'] = array(
     '#type' => 'form_example_checkbox',
     '#title' => t('Form Example checkbox'),
-    '#default_value' =>   $config->get('form_example_checkbox'),
+    '#default_value' =>   $config->get('checkbox'),
     '#description' => t('Nothing more than a regular checkbox but with a theme provided by this module.'),
   );
 
   $form['a_form_example_element_discrete'] = array(
     '#type' => 'form_example_phonenumber_discrete',
     '#title' => t('Discrete phone number'),
-    '#default_value' =>   $config->get('form_example_element_discrete'),
+    '#default_value' =>   $config->get('element_discrete'),
     '#description' => t('A phone number : areacode (XXX), prefix (XXX) and extension (XXXX). This one uses a "discrete" element type, one which stores the three parts of the telephone number separately.'),
   );
 
   $form['a_form_example_element_combined'] = array(
     '#type' => 'form_example_phonenumber_combined',
     '#title' => t('Combined phone number'),
-    '#default_value' =>   $config->get('form_example_element_combined'),
+    '#default_value' =>   $config->get('element_combined'),
     '#description' => t('form_example_element_combined one uses a "combined" element type, one with a single 10-digit value which is broken apart when needed.'),
   );
 
