@@ -183,7 +183,8 @@ function node_hooks_example_node_insert($node) {
  * including all revisions. For the delete operations we use node->nid.
  */
 function node_hooks_example_node_delete($node) {
-  // Notice that we're deleting even if the content type has no rating enabled.
+  // We are deleting even if the content type has no rating enabled because it
+  // could have been enable earlier and a rating was saved.
   db_delete('node_hooks_example')
     ->condition('nid', $node->nid)
     ->execute();
