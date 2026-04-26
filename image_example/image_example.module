@@ -39,9 +39,10 @@ function image_example_config_info() {
     'group' => t('Configuration'),
   );
   $prefixes['image.style.image_example_style'] = array(
-    'label' => t('Image example custom image style'),
+    'label' => t('Image Example custom image style'),
     'group' => t('Configuration'),
   );
+
   return $prefixes;
 }
 
@@ -52,7 +53,6 @@ function image_example_config_info() {
  * module.
  */
 function image_example_menu() {
-  $items = array();
   $items['image_example/styles'] = array(
     'title' => 'Image Example',
     'page callback' => 'backdrop_get_form',
@@ -60,6 +60,7 @@ function image_example_menu() {
     'access arguments' => array('access content'),
     'file' => 'image_example.pages.inc',
   );
+
   return $items;
 }
 
@@ -78,8 +79,8 @@ function image_example_image_style_save($style) {
   // Here we update a variable that contains the name of the image style that
   // the block provided by this module uses when formatting images to use the
   // new user chosen style name.
-  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
-    config_set('image_example.settings', 'image_example_style_name', $style['name']);
+  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'style_name')) {
+    config_set('image_example.settings', 'style_name', $style['name']);
   }
 }
 
@@ -96,8 +97,8 @@ function image_example_image_style_delete($style) {
   //
   // Update the modules variable that contains the name of the image style
   // being deleted to the name of the replacement style.
-  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'image_example_style_name')) {
-    config_set('image_example.settings', 'image_example_style_name', $style['name']);
+  if (isset($style['old_name']) && $style['old_name'] == config_get('image_example.settings', 'style_name')) {
+    config_set('image_example.settings', 'style_name', $style['name']);
   }
 }
 
