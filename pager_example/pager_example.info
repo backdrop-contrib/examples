@@ -1,5 +1,5 @@
 name = Pager Example
-description = Demonstrates a page with content in a pager.
+description = Demonstrates a page with content and a pager.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

@@ -1,5 +1,5 @@
 name = Page Example
-description = An example module showing how to define a page to be displayed to the user at a given URL.
+description = Shows how a module defines its own pages.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

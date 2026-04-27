@@ -1,5 +1,5 @@
 name = Token Example
-description = An example module showing how to define and use tokens.
+description = Shows how to define and use tokens.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x

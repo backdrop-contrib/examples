@@ -1,5 +1,5 @@
 name = Form Example
-description = Examples of using the form API.
+description = Shows how to use the form API.
 package = Example modules
 version = BACKDROP_VERSION
 backdrop = 1.x
