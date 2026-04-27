@@ -1,0 +1,11 @@
+{
+    "_config_name": "form_example.settings",
+    "checkbox": false,
+    "element_combined": "0000000000",
+    "element_discrete": {
+        "areacode": "999",
+        "prefix": "999",
+        "extension": "9999"
+    },
+    "textfield": ""
+}
