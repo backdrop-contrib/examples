@@ -1,6 +1,0 @@
-name = File Example
-description = Demonstrates how to use the file API and stream wrappers.
-package = Example modules
-version = BACKDROP_VERSION
-backdrop = 1.x
-type = module

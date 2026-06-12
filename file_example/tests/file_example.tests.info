@@ -1,5 +1,0 @@
-[FileExampleTest]
-name = File example functionality
-description = Test File Example features and sample streamwrapper.
-group = Example modules
-file = file_example.test
