@@ -14,7 +14,6 @@
  * @link email_example.module Sending e-mail @endlink
  * @link entity_example.module Creating and managing a custom entity @endlink
  * @link field_example.module Defining fields in the field API @endlink
- * @link file_example.module Demonstrates file handling @endlink
  * @link filter_example.module Defining an input filter @endlink
  * @link form_example.module Form API examples, including multistep forms @endlink
  * @link image_example.module Demonstrates image handling with styles and effects @endlink
