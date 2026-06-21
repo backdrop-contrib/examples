@@ -21,6 +21,36 @@
  */
 
 /**
+ * Implements hook_permission().
+ *
+ * Provides a demonstration access string.
+ * Using this for later examples.
+ */
+function menu_example_permission() {
+  return array(
+    'access protected menu example' => array(
+      'title' => t('Access the protected menu example'),
+    ),
+  );
+
+}
+
+/**
+ * Determine whether the current user has the role specified.
+ * Here for use in later examples.
+ *
+ * @param string $role_name
+ *   The role required for access
+ *
+ * @return bool
+ *   True if the acting user has the role specified.
+ */
+function menu_example_custom_access($role_name) {
+  $access_granted = in_array($role_name, $GLOBALS['user']->roles);
+  return $access_granted;
+}
+
+/**
  * Implements hook_menu().
  *
  * A simple example which defines a page callback and a menu entry.
@@ -28,7 +58,7 @@
 function menu_example_menu() {
   // Menu items are defined by placing them in an $items array. The array key
   // (in this case 'menu_example') is the path that defines the menu router
-  // entry, so the page will be accessible from the URL
+  // entry, so the page will be accessible from the following URL
   // example.com/examples/menu_example.
   $items['examples/menu_example'] = array(
     // We are using the default menu type, so this can be omitted.
@@ -39,9 +69,14 @@ function menu_example_menu() {
     // in the 'menu_example/title_callbacks' example below.
     'title' => 'Menu Example',
 
+    // Unless a 'menu_name' is assigned. Menu items will be assigned to an 
+    // invisible internal menu. This menu item will be assigned to the primary
+    // navigation menu (main-menu).
+    'menu_name' => 'main-menu',
+
     // Description (hover flyover for menu link). Does NOT use t(), which is
     // called automatically.
-    'description' => 'Simplest possible menu type, and the parent menu entry for others',
+    'description' => 'Simplest possible menu type, and the parent menu entry for others.',
 
     // Function to be called when this path is accessed.
     'page callback' => '_menu_example_basic_instructions',
@@ -67,23 +102,24 @@ function menu_example_menu() {
     'expanded' => TRUE,
   );
 
-  // Show a menu link in a menu other than the default "Navigation" menu.
-  // The menu must already exist.
-  $items['examples/menu_example_alternate_menu'] = array(
-    'title' => 'Menu Example: Menu in alternate menu',
-
-    // Machine name of the menu in which the link should appear.
-    'menu_name' => 'user-menu',
-
+  // Unless otherwise specified, menu items are assigned to the invisible
+  // internal menu. This link is accessible, but not visible due to lack of
+  // any 'menu_name' or visible parent menu. Later in this code, this and 
+  // all other $items will be added to the menu_example_menu created by 
+  // this module.
+  $items['examples/menu_example_internal'] = array(
+    'title' => 'Menu Example Internal',
     'page callback' => '_menu_example_menu_page',
-    'page arguments' => array(t('This will be in the Primary Links menu instead of the default Navigation menu')),
+    'page arguments' => array(t('A simple menu item assigned to the invisible intenal menu.')),
     'access callback' => TRUE,
+    'expanded' => TRUE,
   );
 
   // A menu entry with simple permissions using user_access().
   //
   // First, provide a courtesy menu item that mentions the existence of the
-  // permissioned item.
+  // permissioned item. This link is accessible to everyone, but the following
+  // "controlled" link is limited to admins.
   $items['examples/menu_example/permissioned'] = array(
     'title' => 'Permissioned Example',
     'page callback' => '_menu_example_menu_page',
@@ -197,6 +233,7 @@ function menu_example_menu() {
   // Now add the rest of the tab entries.
   foreach (array(t('second') => 2, t('third') => 3, t('fourth') => 4) as $tabname => $weight) {
     $items["examples/menu_example/tabs/$tabname"] = array(
+      // Without this 'type' these links would show up as normal menu links.
       'type' => MENU_LOCAL_TASK,
       'title' => $tabname,
       'page callback' => '_menu_example_menu_page',
@@ -215,10 +252,10 @@ function menu_example_menu() {
   $items['examples/menu_example/tabs/default/first'] = array(
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'title' => 'Default secondary tab',
-    // The additional page callback and related items are handled by the
+    // The additionalred page callback and related items are handled by the
     // parent menu item.
   );
-  foreach (array(t('second'), t('third')) as $tabname) {
+  foreach (array(t('red'), t('green')) as $tabname) {
     $items["examples/menu_example/tabs/default/$tabname"] = array(
       'type' => MENU_LOCAL_TASK,
       'title' => $tabname,
@@ -311,6 +348,10 @@ function menu_example_menu() {
     'access callback' => TRUE,
     'weight' => 80,
   );
+
+  // This statement adds each of the $items to the new menu-example-menu
+  // that was created by this module. This menu is intially not visible, but
+  // may be placed in any layout and will then display all of these links.
   foreach ($items as $path => $item) {
     if (!isset($item['menu_name'])) {
       $items[$path]['menu_name'] = 'menu-example-menu';
@@ -356,33 +397,6 @@ function _menu_example_menu_page($content = NULL, $arg1 = NULL, $arg2 = NULL) {
   return $output;
 }
 
-/**
- * Implements hook_permission().
- *
- * Provides a demonstration access string.
- */
-function menu_example_permission() {
-  return array(
-    'access protected menu example' => array(
-      'title' => t('Access the protected menu example'),
-    ),
-  );
-
-}
-
-/**
- * Determine whether the current user has the role specified.
- *
- * @param string $role_name
- *   The role required for access
- *
- * @return bool
- *   True if the acting user has the role specified.
- */
-function menu_example_custom_access($role_name) {
-  $access_granted = in_array($role_name, $GLOBALS['user']->roles);
-  return $access_granted;
-}
 
 /**
  * Utility function to provide mappings from integers to some strings.
